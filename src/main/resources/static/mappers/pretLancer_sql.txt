@@ -1,0 +1,299 @@
+CREATE TABLE `pret_member` (
+	`memberID`	varchar2(20)	NOT NULL,
+	`memberPW`	varchar2(100)	NOT NULL,
+	`memberName`	varachar2(20)	NULL,
+	`memberMail`	varchar2(50)	NULL,
+	`memberNick`	varchar(50)	NULL	DEFAULT no-name,
+	`ex`	number	NOT NULL	DEFAULT 0,
+	`level`	varchar2(10)	NOT NULL	DEFAULT D,
+	`role_name`	varchar2(20)	NOT NULL	DEFAULT role_user	COMMENT '관리자 role_admin  role_name 합치기(시큐리티 관련)',
+	`role_scale`	varchar2(2)	NOT NULL	DEFAULT role_minor	COMMENT '전문번역가 role_major',
+	`use_id`	char(1)	NOT NULL	DEFAULT Y	COMMENT 'Y면 사용가능, N은 사용불가능',
+	`point`	number	NOT NULL	DEFAULT 0,
+	`cash`	number	NOT NULL	DEFAULT 0,
+	`tutorial`	varchar2(2)	NOT NULL	DEFAULT N	COMMENT '50개 하면 Y로 바꿈',
+	`tutorial_num`	number	NULL	DEFAULT 0	COMMENT '50개를 하면 prit_member 테이블에서 tutorial을 Y로 바꿈',
+	`memberLang`	varchar2(30)	NOT NULL	COMMENT '일본어, 중국어, 영어 중 자신이 번역할 언어를 선택'
+);
+
+CREATE TABLE `pret_examValue` (
+	`examNum`	number	NOT NULL	DEFAULT 1	COMMENT '시퀀스이용!',
+	`exam_content`	varchar2(1000)	NOT NULL	COMMENT '한번 푼 문제를 다시 풀지 않기 위해  중복 부분을 처리하는 새로운 테이블 필요',
+	`exam_answer`	varchar2(1000)	NOT NULL
+);
+
+CREATE TABLE `pret_board` (
+	`boardNum`	number	NOT NULL	DEFAULT 1,
+	`memberID`	varchar2(20)	NOT NULL	COMMENT 'prit_member의 memberid 참조',
+	`boardContent`	varchar2(2000)	NOT NULL,
+	`boardTitle`	varchar2(100)	NOT NULL,
+	`inputdate`	date	NULL	DEFAULT sysdate,
+	`hits`	number	NULL	DEFAULT 0,
+	`recommend`	number	NULL	DEFAULT 0,
+	`decommend`	number	NULL	DEFAULT 0,
+	`police`	number	NULL	DEFAULT 0	COMMENT '10개가 넘으면 신고게시판으로 이동'
+);
+
+CREATE TABLE `pret_reply` (
+	`replyNum`	number	NOT NULL	COMMENT '시퀀스 사용',
+	`boardNum`	number	NOT NULL	DEFAULT 1,
+	`memberID`	varchar2(20)	NOT NULL	COMMENT '댓글 작성자 아이디. 회원테이블 참조',
+	`replyContent`	varchar2(500)	NOT NULL,
+	`replyDate`	date	NOT NULL	DEFAULT sysdate,
+	`reply_recommend`	number	NOT NULL	DEFAULT 0	COMMENT '따봉 ^.^'
+);
+
+CREATE TABLE `pret_requestS` (
+	`requestSNum`	number	NOT NULL	DEFAULT 1,
+	`memberID`	varchar2(20)	NOT NULL,
+	`memberID2`	varchar2(20)	NULL,
+	`requestSContent`	varchar2(500)	NULL,
+	`translatedSContent`	varchar2(500)	NULL,
+	`requestSCondition`	char(1)	NOT NULL	DEFAULT N	COMMENT '번역X - N , 번역중-T, 평가대기중-E, 완료-Y',
+	`inputDate`	date	NOT NULL	DEFAULT sysdate,
+	`endDate`	date	NULL	DEFAULT sysdate+3,
+	`cash`	number	NOT NULL	DEFAULT 100,
+	`commentSr`	varchar2(250)	NULL,
+	`startLang`	varchar2(30)	NOT NULL,
+	`endLang`	varchar2(30)	NOT NULL
+);
+
+CREATE TABLE `pret_requestM` (
+	`requestMNum`	number	NOT NULL	DEFAULT 1,
+	`memberID`	varchar2(20)	NOT NULL,
+	`memberID2`	varchar2(20)	NULL,
+	`requestMContent`	varchar2(4000)	NULL,
+	`translatedMContent`	varchar2(4000)	NULL,
+	`requestMCondition`	char(1)	NOT NULL	DEFAULT N	COMMENT '번역X - N , 번역중-T, 평가대기중-E, 완료-Y',
+	`inputDate`	date	NOT NULL	DEFAULT sysdate,
+	`endDate`	date	NULL	DEFAULT sysdate+5,
+	`cash`	number	NOT NULL	DEFAULT 1000,
+	`commentMr`	varchar2(1000)	NULL,
+	`startLang`	varchar2(30)	NOT NULL,
+	`endLang`	varchar2(30)	NOT NULL
+);
+
+CREATE TABLE `pret_requestL` (
+	`requestLNum`	number	NOT NULL	DEFAULT 1,
+	`memberID`	varchar2(20)	NOT NULL,
+	`memberID2`	varchar2(20)	NULL,
+	`category`	varchar2(50)	NULL,
+	`requestLCondition`	char(1)	NOT NULL	DEFAULT N	COMMENT '제약 조건 N or. Y',
+	`inputDate`	date	NOT NULL	DEFAULT sysdate,
+	`endDate`	date	NULL	DEFAULT sysdate+10,
+	`workDate`	date	NULL,
+	`cash`	number	NULL	DEFAULT 5000,
+	`originRFile`	varchar2(100)	NULL,
+	`savedRFile`	varchar2(100)	NULL,
+	`originTFile`	varchar2(100)	NULL,
+	`savedTFile`	varchar2(100)	NULL,
+	`commentLr`	varchar2(2000)	NULL,
+	`commentPage`	varhcar2(100)	NULL,
+	`startLang`	varchar2(30)	NOT NULL,
+	`endLang`	varchar2(30)	NOT NULL
+);
+
+CREATE TABLE `pret_ability` (
+	`memberID`	varchar2(20)	NOT NULL,
+	`pSucceed`	number	NULL	DEFAULT 0,
+	`pFailed`	number	NULL	DEFAULT 0,
+	`sSucceed`	number	NULL	DEFAULT 0,
+	`sFailed`	number	NULL	DEFAULT 0,
+	`mSucceed`	number	NULL	DEFAULT 0,
+	`mFailed`	number	NULL	DEFAULT 0,
+	`lSucceed`	number	NULL	DEFAULT 0,
+	`lFailed`	number	NULL	DEFAULT 0,
+	`eSucceed`	number	NULL	DEFAULT 0,
+	`eFailed`	number	NULL	DEFAULT 0
+);
+
+CREATE TABLE `pret_evaluationS` (
+	`evaluationSNum`	number	NOT NULL	DEFAULT 1,
+	`translatedSNum`	number	NOT NULL	DEFAULT 1,
+	`requestSNum`	number	NOT NULL,
+	`memberID`	varchar2(20)	NOT NULL,
+	`evaluationSuccess`	number	NULL	COMMENT '제약조건 Y/N',
+	`whyFailed`	number	NULL	COMMENT '사유 테이블과  join'
+);
+
+CREATE TABLE `pret_evaluationReason` (
+	`failedID`	number	NOT NULL	DEFAULT 1	COMMENT '1-4',
+	`whyFailed`	varchar2(50)	NULL	COMMENT '사유를 적어서 저장해 놓음'
+);
+
+CREATE TABLE `pret_translatedS` (
+	`translatedSNum`	number	NOT NULL	DEFAULT 1,
+	`requestSNum`	number	NOT NULL,
+	`memberID`	varchar2(20)	NOT NULL	COMMENT '의뢰번호랑 복합키',
+	`requestSContent`	varchar2(500)	NULL,
+	`translatedSContent`	varchar2(500)	NULL,
+	`commentSt`	varchar(300)	NULL
+);
+
+CREATE TABLE `pret_exam` (
+	`memberID`	varchar2(20)	NOT NULL	COMMENT '문제 풀면 추가됨!',
+	`examNum`	number	NOT NULL	DEFAULT 1	COMMENT '아이디 번호다 복합키 ! 문제를 중복해서 풀 수 없게 함.'
+);
+
+CREATE TABLE `pret_auctionTranslater` (
+	`memberID`	varchar2(20)	NOT NULL	COMMENT '둘 다 복합키',
+	`auctionNum`	number	NOT NULL,
+	`translaterValue`	number	NOT NULL,
+	`CommentT`	varchar2(1000)	NULL
+);
+
+CREATE TABLE `pret_auction` (
+	`auctionNum`	VARCHAR(255)	NOT NULL	DEFAULT 1,
+	`requestLNum`	number	NOT NULL	DEFAULT 1,
+	`memberID`	VARCHAR(255)	NULL	COMMENT '지원자 중에 낙찰성공한 사람',
+	`auctionValue`	VARCHAR(255)	NULL	COMMENT '낙찰 성공자의 입찰가격'
+);
+
+CREATE TABLE `pret_translatedM` (
+	`translatedMNum`	number	NOT NULL	DEFAULT 1,
+	`requestMNum2`	number	NOT NULL	DEFAULT 1,
+	`requestMNum`	number	NOT NULL,
+	`memberID`	varchar2(20)	NOT NULL	COMMENT '의뢰번호랑 복합키',
+	`requestMContent`	varchar2(500)	NULL,
+	`translatedMContent`	varchar2(500)	NULL,
+	`commentMt`	varchar(300)	NULL
+);
+
+CREATE TABLE `pret_evaluationM` (
+	`evaluationMNum`	number	NOT NULL	DEFAULT 1,
+	`failedID`	number	NOT NULL	DEFAULT 1	COMMENT '1-4',
+	`translatedMNum`	number	NOT NULL	DEFAULT 1,
+	`requestMNum`	number	NOT NULL,
+	`memberID`	varchar2(20)	NOT NULL,
+	`evaluationSuccess`	number	NULL	COMMENT '제약조건 Y/N'
+);
+
+CREATE TABLE `pret_chat` (
+	`chatNum`	number	NOT NULL	DEFAULT 1,
+	`memberID`	varchar2(20)	NULL,
+	`memberID2`	varchar2(20)	NULL,
+	`chatComment`	varchar2(5000)	NULL
+);
+
+CREATE TABLE `pret_vanboard` (
+	`boardNum`	number	NOT NULL,
+	`memberID`	varchar2(20)	NOT NULL,
+	`boardContent`	varchar2(2000)	NOT NULL,
+	`boardTitle`	varchar2(100)	NOT NULL,
+	`inputdate`	VARCHAR(255)	NULL
+);
+
+CREATE TABLE `pret_memberProfile` (
+	`memberID`	varchar2(20)	NOT NULL,
+	`memberName`	varchar2(20)	NOT NULL,
+	`memberNick`	varchar2(50)	NULL	DEFAULT no-name,
+	`ex`	number	NOT NULL	DEFAULT 0,
+	`level`	varchar2(10)	NOT NULL	DEFAULT D,
+	`memberLang`	varchar2(30)	NOT NULL,
+	`profilecomment`	varchar2(2000)	NULL	COMMENT '번역가가 본인을 자랑하는 문구',
+	`originPhoto`	varchar2(2000)	NULL	COMMENT '원본사진파일',
+	`savedPhoto`	varchar2(2000)	NULL	COMMENT '저장된사진파일'
+);
+
+CREATE TABLE `pret_review` (
+	`reviewNum`	number	NOT NULL	COMMENT '시퀀스 이용',
+	`memberID`	varchar2(20)	NOT NULL,
+	`memberID2`	varchar2(20)	NOT NULL,
+	`star`	number	NULL	DEFAULT 0,
+	`reviewContent`	varchar2(2000)	NULL
+);
+
+ALTER TABLE `pret_member` ADD CONSTRAINT `PK_PRET_MEMBER` PRIMARY KEY (
+	`memberID`
+);
+
+ALTER TABLE `pret_examValue` ADD CONSTRAINT `PK_PRET_EXAMVALUE` PRIMARY KEY (
+	`examNum`
+);
+
+ALTER TABLE `pret_board` ADD CONSTRAINT `PK_PRET_BOARD` PRIMARY KEY (
+	`boardNum`
+);
+
+ALTER TABLE `pret_reply` ADD CONSTRAINT `PK_PRET_REPLY` PRIMARY KEY (
+	`replyNum`
+);
+
+ALTER TABLE `pret_requestS` ADD CONSTRAINT `PK_PRET_REQUESTS` PRIMARY KEY (
+	`requestSNum`
+);
+
+ALTER TABLE `pret_requestM` ADD CONSTRAINT `PK_PRET_REQUESTM` PRIMARY KEY (
+	`requestMNum`
+);
+
+ALTER TABLE `pret_requestL` ADD CONSTRAINT `PK_PRET_REQUESTL` PRIMARY KEY (
+	`requestLNum`
+);
+
+ALTER TABLE `pret_evaluationS` ADD CONSTRAINT `PK_PRET_EVALUATIONS` PRIMARY KEY (
+	`evaluationSNum`
+);
+
+ALTER TABLE `pret_evaluationReason` ADD CONSTRAINT `PK_PRET_EVALUATIONREASON` PRIMARY KEY (
+	`failedID`
+);
+
+ALTER TABLE `pret_translatedS` ADD CONSTRAINT `PK_PRET_TRANSLATEDS` PRIMARY KEY (
+	`translatedSNum`
+);
+
+ALTER TABLE `pret_auctionTranslater` ADD CONSTRAINT `PK_PRET_AUCTIONTRANSLATER` PRIMARY KEY (
+	`memberID`
+);
+
+ALTER TABLE `pret_auction` ADD CONSTRAINT `PK_PRET_AUCTION` PRIMARY KEY (
+	`auctionNum`
+);
+
+ALTER TABLE `pret_translatedM` ADD CONSTRAINT `PK_PRET_TRANSLATEDM` PRIMARY KEY (
+	`translatedMNum`
+);
+
+ALTER TABLE `pret_evaluationM` ADD CONSTRAINT `PK_PRET_EVALUATIONM` PRIMARY KEY (
+	`evaluationMNum`,
+	`failedID`
+);
+
+ALTER TABLE `pret_chat` ADD CONSTRAINT `PK_PRET_CHAT` PRIMARY KEY (
+	`chatNum`
+);
+
+ALTER TABLE `pret_vanboard` ADD CONSTRAINT `PK_PRET_VANBOARD` PRIMARY KEY (
+	`boardNum`
+);
+
+ALTER TABLE `pret_memberProfile` ADD CONSTRAINT `PK_PRET_MEMBERPROFILE` PRIMARY KEY (
+	`memberID`
+);
+
+ALTER TABLE `pret_review` ADD CONSTRAINT `PK_PRET_REVIEW` PRIMARY KEY (
+	`reviewNum`,
+	`memberID`
+);
+
+ALTER TABLE `pret_evaluationM` ADD CONSTRAINT `FK_pret_evaluationReason_TO_pret_evaluationM_1` FOREIGN KEY (
+	`failedID`
+)
+REFERENCES `pret_evaluationReason` (
+	`failedID`
+);
+
+ALTER TABLE `pret_memberProfile` ADD CONSTRAINT `FK_pret_member_TO_pret_memberProfile_1` FOREIGN KEY (
+	`memberID`
+)
+REFERENCES `pret_member` (
+	`memberID`
+);
+
+ALTER TABLE `pret_review` ADD CONSTRAINT `FK_pret_memberProfile_TO_pret_review_1` FOREIGN KEY (
+	`memberID`
+)
+REFERENCES `pret_memberProfile` (
+	`memberID`
+);
