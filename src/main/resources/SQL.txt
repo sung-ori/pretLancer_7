@@ -1,4 +1,69 @@
--- 커뮤니티 게시판
+-- 1. 멤버 테이블
+
+CREATE TABLE PRET_MEMBER (
+	MEMBERID	    VARCHAR2(20)	NOT NULL PRIMARY KEY, -- 사용자 아이디
+	MEMBERPW	    VARCHAR2(100)	NOT NULL,             -- 비밀번호
+	MEMBERNAME	    VARCHAR2(20)    NOT NULL,             -- 이름
+	MEMBERMAIL      VARCHAR2(50),                         -- 이메일
+	MEMBERNICK	    VARCHAR(50)	    DEFAULT 'NO-NAME',    -- 닉네임
+	MEM_EX	        NUMBER  	    DEFAULT 0,            -- 경험치 (신뢰도)
+	MEM_LEVEL	    VARCHAR2(10)	DEFAULT 'D' CHECK (MEM_LEVEL IN ('D','C','B','A')), -- 등급
+	ENABLED		    NUMBER(1)       DEFAULT 1 CHECK (ENABLED IN (0, 1)), -- 1이면 사용가능,  2는 사용불가능
+	ROLE_NAME	    VARCHAR2(20)    DEFAULT 'ROLE_USER' CHECK (ROLE_NAME IN ('ROLE_USER', 'ROLE_ADMIN')), -- 관리자, 유저 구분
+	ROLE_SCALE	    VARCHAR2(20)	DEFAULT 'ROLE_MINOR' CHECK (ROLE_SCALE IN ('ROLE_MINOR', 'ROLE_MAJOR')), -- 일반회원 전문회원 구분
+	POINT	        NUMBER	        DEFAULT 0,              -- 무료pt
+	CASH	        NUMBER	        DEFAULT 0,              -- 유료pt
+	TUTORIAL	    VARCHAR2(2) 	DEFAULT 'N', -- TUTORIAL_NUM이 50개면 Y로 바꿈  튜토리얼 성공 여부
+	TUTORIAL_NUM	NUMBER  	    DEFAULT 0,   -- 50개를 하면 PRIT_MEMBER 테이블에서 TUTORIAL을 Y로 바꿈 튜토리얼 성공갯수
+	MEMBERLANG	    VARCHAR2(30)                 -- 사용 가능 언어 정보
+);
+
+
+-- 2. 마이프로필 테이블
+
+CREATE TABLE pret_member_profile (
+    MEMBERID        VARCHAR2(20)    NOT NULL,                   -- 사용자 아이디        PK, FK
+    MEMBERNAME      VARCHAR2(20)    NOT NULL,                   -- 사용자 이름          FK
+    MEMBERNICK      VARCHAR2(50)    NOT NULL DEFAULT 'NO-NAME', -- 사용자 닉네임
+    MEM_EX          NUMBER          NOT NULL DEFAULT 0,         -- 사용자 경험치(신뢰도)  FK
+    MEM_LEVEL       VARCHAR2(1)         NOT NULL DEFAULT 'D',       -- 사용자 레벨          FK
+    MEMBERLANG      VARCHAR2(30),                               -- 사용자 언어 정보
+    PROFILECOMMENT  VARCHAR2(2000),                             -- 프로필 문구
+    ORIGINPHOTO     VARCHAR2(2000),                             -- 사진 원본 파일
+    SAVEDPHOTH      VARCHAR2(2000),                             -- 저장된 사진 파일
+
+    FOREIGN KEY (MEMBERID)      REFERENCES PRET_MEMBER   (MEMBERID),  -- MEMBERID 외래키 지정
+    FOREIGN KEY (MEMBERNAME)    REFERENCES PRET_MEMBER   (MEMBERNAME),  -- MEMBERNAME 외래키 지정
+    FOREIGN KEY (MEM_EX)        REFERENCES PRET_MEMBER   (MEM_EX),  -- MEM_EX 외래키 지정
+    FOREIGN KEY (MEM_LEVEL)     REFERENCES PRET_MEMBER   (MEM_LEVEL)  -- MEM_LEVEL 외래키 지정
+);
+
+-- 3. 연습문제 테이블
+
+CREATE TABLE PRET_EXAMVALUE (
+	EXAMNUM	        NUMBER          PRIMARY KEY, -- 문제 번호 시퀀스 이용 PRET_EXAM_SEQ.NEXTVAL
+	EXAM_CONTENT	VARCHAR2(1000)	NOT NULL,
+	EXAM_ANSWER	    VARCHAR2(1000)	NOT NULL
+);
+
+        -- 연습문제 시퀀스
+
+        CREATE SEQUENCE PRET_EXAM_SEQ
+            START WITH 1
+            INCREMENT BY 1
+            MINVALUE 1
+            NOCYCLE;
+
+-- 4. 연습문제 확인 테이블
+
+CREATE TABLE PRET_EXAM (
+	MEMBERID	VARCHAR2(20) ,  -- 문제를 풀면 문제 번호와 아이디 추가
+	EXAMNUM	    NUMBER,         -- 두 속성을 복합키로 구성해 중복된 문제를 풀 수 없게 함.
+
+    FOREIGN KEY MEMBERID REFERENCES PRET_MEMBER (MEMBERID)
+);
+
+-- 5. 커뮤니티 게시판
 
 CREATE TABLE PRET_BOARD (
     BOARDNUM        NUMBER          NOT NULL DEFAULT 1 PRIMARY KEY, -- 게시판 고유번호 시퀀스(PRET_BOARD_SEQ.NEXTVAL) 사용
@@ -14,16 +79,16 @@ CREATE TABLE PRET_BOARD (
     FOREIGN KEY (MEMBERID) REFERENCES PRET_MEMBER (MEMBERID)        -- MEMBERID 외래키 지정
 );
 
--- 게시판 시퀀스
+        -- 게시판 시퀀스
 
-CREATE SEQUENCE PRET_BOARD_SEQ
-    START WITH 1
-    INCREMENT BY 1
-    MINVALUE 1
-    NOCYCLE;
+        CREATE SEQUENCE PRET_BOARD_SEQ
+            START WITH 1
+            INCREMENT BY 1
+            MINVALUE 1
+            NOCYCLE;
 
 
--- 커뮤니티 댓글 테이블
+-- 6. 커뮤니티 댓글 테이블
 
 CREATE TABLE PRET_REPLY (
     REPLYNUM        NUMBER          NOT NULL    PRIMARY KEY,    -- 댓글 번호  PK 시퀀스(PRET_REPLY_SEQ.NEXTVAL)이용
@@ -37,39 +102,26 @@ CREATE TABLE PRET_REPLY (
     FOREIGN KEY (MEMBERID) REFERENCES PRET_MEMBER   (MEMBERID)  -- 외래키 지정
 );
 
--- 댓글 시퀀스
+        -- 댓글 시퀀스
 
-CREATE SEQUENCE PRET_REPLY_SEQ
-    START WITH 1
-    INCREMENT BY 1
-    MINVALUE 1
-    NOCYCLE;
+        CREATE SEQUENCE PRET_REPLY_SEQ
+            START WITH 1
+            INCREMENT BY 1
+            MINVALUE 1
+            NOCYCLE;
 
--- 마이프로필 테이블
 
-CREATE TABLE pret_member_profile (
-    MEMBERID        VARCHAR2(20)    NOT NULL,                   -- 사용자 아이디        PK, FK
-    MEMBERNAME      VARCHAR2(20)    NOT NULL,                   -- 사용자 이름          FK
-    MEMBERNICK      VARCHAR2(50)    NOT NULL DEFAULT 'NO-NAME', -- 사용자 닉네임
-    MEM_EX          NUMBER          NOT NULL DEFAULT 0,         -- 사용자 경험치(신뢰도)  FK
-    MEM_LEVEL       CHAR(1)         NOT NULL DEFAULT 'D',       -- 사용자 레벨          FK
-    MEMBERLANG      VARCHAR2(30),                               -- 사용자 언어 정보
-    PROFILECOMMENT  VARCHAR2(2000),                             -- 프로필 문구
-    ORIGINPHOTO     VARCHAR2(2000),                             -- 사진 원본 파일
-    SAVEDPHOTH      VARCHAR2(2000),                             -- 저장된 사진 파일
+-- 7. 평가 실패 사유 테이블
 
-    FOREIGN KEY (MEMBERID)      REFERENCES PRET_MEMBER   (MEMBERID),  -- MEMBERID 외래키 지정
-    FOREIGN KEY (MEMBERNAME)    REFERENCES PRET_MEMBER   (MEMBERNAME),  -- MEMBERNAME 외래키 지정
-    FOREIGN KEY (MEM_EX)        REFERENCES PRET_MEMBER   (MEM_EX),  -- MEM_EX 외래키 지정
-    FOREIGN KEY (MEM_LEVEL)     REFERENCES PRET_MEMBER   (MEM_LEVEL)  -- MEM_LEVEL 외래키 지정
+CREATE TABLE PRET_EVALUATIONREASON (
+    FAILEDID    NUMBER NOT NULL PRIMARY KEY ,
+    WHYFAILED   VARCHAR2(50)
 );
 
-    --CONSTRAINT chk_level CHECK (level IN ('D', 'C', 'B', 'A'))  -- 등급 제약조건
-
--- 번역 능력 테이블
+-- 8. 번역 능력 테이블
 
 CREATE TABLE PRET_ABLIITY (
-    MEMBERID VARCHAR2(20) NOT NULL PRIMARY KEY, -- 사용자 아이디 PK, FK
+    MEMBERID    VARCHAR2(20) NOT NULL PRIMARY KEY, -- 사용자 아이디 PK, FK
 
     PSUCCEED    NUMBER DEFAULT 0 ,  -- 연습 성공
     PFAILED     NUMBER DEFAULT 0 ,  -- 연습 실패
@@ -90,234 +142,216 @@ CREATE TABLE PRET_ABLIITY (
     
 );
 
--- 번역 테이블 (단문)
 
-CREATE TABLE PRET_TRANSLATEDS (
-    TRANSLATEDSNUM      NUMBER NOT NULL PRIMARY KEY,    -- 번역 고유 번호 (단문) PK
-    REQUESTSNUM         NUMBER  NOT NULL,               -- 단문 의뢰 번호       FK
-    MEMBERID            VARCHAR2(20) NOT NULL,          -- 번역자 아이디        FK
-    REQUESTSCONTENT     VARCHAR2 (500),                 -- 번역 요청 내용       FK
-    TRANSLATEDSCONTENT  VARCHAR2 (500),                 -- 번역 결과 내용
-    COMMENTST           VARCHAR2(300),                  -- 비고란
+-- 9. 단문의뢰 테이블
 
-    FOREIGN KEY MEMBERID            REFERENCES PRET_MEMBER(MEMBERID),
-    FOREIGN KEY REQUESTSCONTENT     REFERENCES PRET_REQUESTS(REQUESTSCONTENT),
-    FOREIGN KEY REQUESTSNUM         REFERENCES PRET_REQUESTS(REQUESTSNUM)
+CREATE TABLE PRET_REQUEST_S (
+	REQUESTNUM_S	        NUMBER	        DEFAULT 1 PRIMARY KEY,                      -- 단문 의뢰 번호 PRET_REQ_S_SEQ.NEXTVAL
+	MEMBERID	            VARCHAR2(20)	NOT NULL REFERENCES PRET_MEMBER(MEMBERID),  -- 의뢰자 아이디
+	MEMBERID2   	        VARCHAR2(20)    REFERENCES PRET_MEMBER(MEMBERID),           -- 번역가 아이디 번역가가 정해지면 삽입
+	REQUESTCONTENT_S	    VARCHAR2(500),                                              -- 번역 요청 문장
+	TRANSLATEDCONTENT_s	    VARCHAR2(500),                                              -- 번역 된 문장
+	REQUESTCONDITION_S	    VARCHAR2(2)	    DEFAULT 'N' CHECK(REQUESTSCONDITION_S IN ('N','T','E','Y')),	-- 번역안됨-N , 번역중-T, 평가대기중-E, 완료-Y'
+	INPUTDATE	            DATE        	DEFAULT SYSDATE,                            -- 번역 요청 날짜
+	ENDDATE 	            DATE	        DEFAULT SYSDATE+3,                          -- 번역 마감 시간 +3일
+	CASH	                NUMBER	        DEFAULT 100,                                -- 걸린 포인트
+	COMMENT_SR       	    VARCHAR2(250),                                              -- 의뢰자 비고란
+	STARTLANG       	    VARCHAR2(30)	NOT NULL,                                   -- 시작 언어
+	ENDLANG	                VARCHAR2(30)	NOT NULL                                    -- 도착 언어
 );
 
--- 평가 테이블 (단문)
+        -- 단문 의뢰 시퀀스
+
+        CREATE SEQUENCE  PRET_REQ_S_SEQ
+            START WITH 1
+            INCREMENT BY 1
+            MINVALUE 1
+            NOCYCLE;
+
+-- 10. 중문의뢰 테이블
+
+CREATE TABLE PRET_REQUEST_M (
+	REQUESTNUM_M	        NUMBER	        DEFAULT 1 PRIMARY KEY,                      -- 중문 의뢰 번호 PRET_REQ_M_SEQ.NEXTVAL
+	MEMBERID	            VARCHAR2(20)	NOT NULL REFERENCES PRET_MEMBER(MEMBERID),  -- 의뢰자 아이디
+	MEMBERID2   	        VARCHAR2(20)    REFERENCES PRET_MEMBER(MEMBERID),           -- 번역가 아이디 번역가가 정해지면 삽입
+	REQUESTCONTENT_M	    VARCHAR2(500),                                              -- 번역 요청 문장
+	TRANSLATEDCONTENT_M	    VARCHAR2(500),                                              -- 번역 된 문장
+	REQUESTCONDITION_M	    VARCHAR2(2)	    DEFAULT 'N' CHECK(REQUESTSCONDITION_M IN ('N','T','E','Y')),	-- 번역안됨-N , 번역중-T, 평가대기중-E, 완료-Y'
+	INPUTDATE	            DATE        	DEFAULT SYSDATE,                            -- 번역 요청 날짜
+	ENDDATE 	            DATE	        DEFAULT SYSDATE+3,                          -- 번역 마감 시간 +3일
+	CASH	                NUMBER	        DEFAULT 100,                                -- 의뢰 포인트
+	COMMENT_SR       	    VARCHAR2(250),                                              -- 의뢰자 비고란
+	STARTLANG       	    VARCHAR2(30)	NOT NULL,                                   -- 시작 언어
+	ENDLANG	                VARCHAR2(30)	NOT NULL                                    -- 도착 언어
+);
+
+        -- 중문 의뢰 시퀀스
+
+        CREATE SEQUENCE  PRET_REQ_M_SEQ
+            START WITH 1
+            INCREMENT BY 1
+            MINVALUE 1
+            NOCYCLE;
+
+-- 11. 단문 번역 테이블
+
+CREATE TABLE PRET_TRANSLATED_S (
+    TRANSLATEDNUM_S         NUMBER NOT NULL PRIMARY KEY,    -- 번역 고유 번호 (단문)  PK,  PRET_TRANS_S_SEQ.NEXTVAL
+    REQUESTNUM_S            NUMBER  NOT NULL,               -- 단문 의뢰 번호       FK
+    MEMBERID                VARCHAR2(20) NOT NULL,          -- 번역자 아이디        FK
+    REQUESTCONTENT_S        VARCHAR2 (500),                 -- 번역 요청 내용       FK
+    TRANSLATEDCONTENT_s     VARCHAR2 (500),                 -- 번역 결과 내용
+    COMMENT_ST              VARCHAR2(300),                 -- 비고란
+
+    FOREIGN KEY MEMBERID            REFERENCES PRET_MEMBER(MEMBERID),
+    FOREIGN KEY REQUESTCONTENT_S     REFERENCES PRET_REQUEST_S(REQUESTCONTENT_S),
+    FOREIGN KEY REQUESTNUM_S         REFERENCES PRET_REQUEST_S(REQUESTNUM_S)
+);
+
+        -- 단문 번역 시퀀스
+
+        CREATE SEQUENCE  PRET_TRANS_S_SEQ
+            START WITH 1
+            INCREMENT BY 1
+            MINVALUE 1
+            NOCYCLE;
+
+
+
+-- 12. 중문 번역 테이블
+
+CREATE TABLE PRET_TRANSLATED_M (
+    TRANSLATEDNUM_M         NUMBER NOT NULL PRIMARY KEY,    -- 번역 고유 번호 (단문) PK,  PRET_TRANS_M_SEQ.NEXTVAL
+    REQUESTNUM_M            NUMBER  NOT NULL,               -- 단문 의뢰 번호       FK
+    MEMBERID                VARCHAR2(20) NOT NULL,          -- 번역자 아이디        FK
+    REQUESTCONTENT_M        VARCHAR2 (500),                 -- 번역 요청 내용       FK
+    TRANSLATEDCONTENT_M     VARCHAR2 (500),                 -- 번역 결과 내용
+    COMMENT_ST              VARCHAR2(300),                  -- 비고란
+
+    FOREIGN KEY MEMBERID            REFERENCES PRET_MEMBER(MEMBERID),
+    FOREIGN KEY REQUESTCONTENT_M     REFERENCES PRET_REQUEST_M(REQUESTCONTENT_M),
+    FOREIGN KEY REQUESTNUM_M         REFERENCES PRET_REQUEST_M(REQUESTNUM_M)
+);
+        -- 중문 번역 시퀀스
+
+        CREATE SEQUENCE  PRET_TRANS_M_SEQ
+            START WITH 1
+            INCREMENT BY 1
+            MINVALUE 1
+            NOCYCLE;
+
+-- 13. 평가 테이블 (단문)
 
 CREATE TABLE PRET_EVALUATION_S (
     EVALUATIONSNUM      NUMBER          NOT NULL PRIMARY KEY, -- 평가 고유번호 PK, PRET_EVALS_SEQ.NEXTVAL
     TRANSLATEDSNUM      NUMBER          NOT NULL,             -- 번역 고유 번호 (단문) FK
     REQUESTSNUM         NUMBER          NOT NULL,             -- 단문 의뢰 번호 FK
     MEMBERID            VARCHAR2(20)    NOT NULL,             -- 평가자 아이디 PK
-    EVALUATIONSUCCESS   CHAR(1) ,                             -- 성공 여부 제약(Y/N)
+    EVALUATIONSUCCESS   VARCHAR2(1) ,                             -- 성공 여부 제약(Y/N)
     WHYFAILED           NUMBER,                               -- 실패 이유 폼으로부터 value 번호로 받음.
 
-    FOREIGN KEY TRANSLATEDSNUM  REFERENCES PRET_TRANSLATEDS(TRANSLATEDSNUM), -- 외래키 지정
-    FOREIGN KEY REQUESTSNUM     REFERENCES PRET_REQUESTS(REQUESTSNUM),      -- 외래키 지정
+    FOREIGN KEY TRANSLATEDNUM_S  REFERENCES PRET_TRANSLATED_S(TRANSLATEDNUM_S), -- 외래키 지정
+    FOREIGN KEY REQUESTNUM_S     REFERENCES PRET_REQUEST_S(REQUESTNUM_S),      -- 외래키 지정
     FOREIGN KEY MEMBERID            REFERENCES PRET_MEMBER(MEMBERID),       -- 외레키 지정
 
     CONSTRAINT chk_eval CHECK (EVALUATIONSUCCESS IN ('Y','N' ))  -- 성공, 실패 제약조건
 );
 
--- 단문 평가 테이블 시퀀스
+        -- 단문 평가 테이블 시퀀스
 
-CREATE SEQUENCE PRET_EVALS_SEQ
-    START WITH 1
-    INCREMENT BY 1
-    MINVALUE 1
-    NOCYCLE;
+        CREATE SEQUENCE PRET_EVALS_SEQ
+            START WITH 1
+            INCREMENT BY 1
+            MINVALUE 1
+            NOCYCLE;
 
--- 평가 테이블 (중문)
+-- 14. 평가 테이블 (중문)
 
 CREATE TABLE PRET_EVALUATION_M(
     EVALUATIONMNUM      NUMBER          NOT NULL PRIMARY KEY, -- 평가 고유번호 PK, PRET_EVALM_SEQ.NEXTVAL
     TRANSLATEDMNUM      NUMBER          NOT NULL,             -- 번역 고유 번호 (단문) FK
     REQUESTMNUM         NUMBER          NOT NULL,             -- 단문 의뢰 번호 FK
     MEMBERID            VARCHAR2(20)    NOT NULL,             -- 평가자 아이디 PK
-    EVALUATIONSUCCESS   CHAR(1) ,                             -- 성공 여부 제약(Y/N)
+    EVALUATIONSUCCESS   VARCHAR2(1) ,                             -- 성공 여부 제약(Y/N)
     WHYFAILED           NUMBER,                               -- 실패 이유 폼으로부터 value 번호로 받음.
 
-    FOREIGN KEY TRANSLATEDMNUM  REFERENCES PRET_TRANSLATEDM(TRANSLATEDMNUM), -- 외래키 지정
-    FOREIGN KEY REQUESTMNUM     REFERENCES PRET_REQUESTM(REQUESTMNUM),      -- 외래키 지정
+    FOREIGN KEY TRANSLATEDNUM_M  REFERENCES PRET_TRANSLATEDM(TRANSLATEDNUM_M), -- 외래키 지정
+    FOREIGN KEY REQUESTNUM_M     REFERENCES PRET_REQUESTM(REQUESTNUM_M),      -- 외래키 지정
     FOREIGN KEY MEMBERID            REFERENCES PRET_MEMBER(MEMBERID),       -- 외레키 지정
 
     CONSTRAINT chk_eval CHECK (EVALUATIONSUCCESS IN ('Y','N' ))  -- 성공, 실패 제약조건
 );
 
--- 중문 평가 테이블 시퀀스
+        -- 중문 평가 테이블 시퀀스
 
-CREATE SEQUENCE PRET_EVALM_SEQ
-    START WITH 1
-    INCREMENT BY 1
-    MINVALUE 1
-    NOCYCLE;
+        CREATE SEQUENCE PRET_EVALM_SEQ
+            START WITH 1
+            INCREMENT BY 1
+            MINVALUE 1
+            NOCYCLE;
 
--- 평가 실패 사유 테이블
+-- 15. 장문의뢰 테이블
 
-CREATE TABLE PRET_EVALUATIONREASON (
-    FAILEDID    NUMBER NOT NULL PRIMARY KEY ,
-    WHYFAILED   VARCHAR2(50)
+CREATE TABLE PRET_REQUEST_L (
+	REQUESTNUM_L	    NUMBER	        PRIMARY KEY,                                    -- 장문 의뢰번호 시퀀스 PRET_REQ_L_SEQ.NEXTVAL
+	MEMBERID	        VARCHAR2(20)	NOT NULL REFERENCES PRET_MEMBER(MEMBERID),      -- 의뢰자 아이디
+	MEMBERID2	        VARCHAR2(20)	REFERENCES PRET_MEMBER(MEMBERID),               -- 번역자 아이디
+	CATEGORY	        VARCHAR2(50),                                                   -- 카테고리 (도메인 지정)
+	REQUESTCONDITION_L	VARCHAR2(2)	    DEFAULT 'N' CHECK (REQUESTLCONDITION_L IN ('N', 'Y')), -- 의뢰상황
+	INPUTDATE	        DATE	        DEFAULT SYSDATE,                                -- 의뢰 날짜
+	ENDDATE	            DATE	        DEFAULT SYSDATE+10,                             -- 만료 날짜
+	WORKDATE	        DATE,                                                           -- 작업 기간
+	CASH            	NUMBER,                                                         -- 의뢰 포인트
+	ORIGINRFILE	        VARCHAR2(100),                                                  -- 원본 의뢰 파일
+	SAVEDRFILE      	VARCHAR2(100),                                                  -- 저장 의뢰 파일
+	ORIGINTFILE	        VARCHAR2(100),                                                  -- 원본 번역 파일
+	SAVEDTFILE	        VARCHAR2(100),                                                  -- 저장 번역 파일
+	COMMENT_LR       	VARCHAR2(2000),                                                 -- 비고란
+	COMMENTPAGE	        VARCHAR2(100),                                                  -- 글자수 및 페이지 수
+	STARTLANG	        VARCHAR2(30)	NOT NULL,                                       -- 시작 언어
+	ENDLANG	            VARCHAR2(30)	NOT NULL                                        -- 도착 언어
 );
 
--- 멤버 테이블
+        -- 장문 의뢰 시퀀스
 
-CREATE TABLE pret_member (
-	memberid	varchar2(20)	NOT NULL PRIMARY KEY,
-	memberpw	varchar2(100)	NOT NULL,
-	membername	varchar2(20),
-	membermail  varchar2(50),
-	membernick	varchar(50)	    DEFAULT 'no-name',
-	mem_ex	    number  	    DEFAULT 0,
-	mem_level	varchar2(10)	DEFAULT 'D' check (mem_level in ('D','C','B','A')),
-	enabled		number(1)       default 1 check (enabled in (0, 1)), -- 1이면 사용가능,  2는 사용불가능
-	role_name	varchar2(20)    default 'ROLE_USER' check (role_name in ('ROLE_USER', 'ROLE_ADMIN')),
-	role_scale	varchar2(20)	DEFAULT 'ROLE_MINOR' check (role_scale in ('ROLE_MINOR', 'ROLE_MAJOR')), 
-	point	    number	        DEFAULT 0,
-	cash	    number	        DEFAULT 0,
-	tutorial	varchar2(2) 	DEFAULT 'N', -- tutorial_num이 50개면 Y로 바꿈
-	tutorial_num	number  	DEFAULT 0,   -- 50개를 하면 prit_member 테이블에서 tutorial을 Y로 바꿈
-	memberlang	    varchar2(30)
+        CREATE SEQUENCE  PRET_REQ_L_SEQ
+            START WITH 1
+            INCREMENT BY 1
+            MINVALUE 1
+            NOCYCLE;
+
+-- 16. 경매 테이블
+
+CREATE TABLE PRET_AUCTION (
+	AUCTIONNUM	    NUMBER	        DEFAULT 1  PRIMARY KEY,                             -- 경매 고유 번호 
+	REQUESTLNUM	    NUMBER	        NOT NULL REFERENCES PRET_REQUEST_L(REQUESTNUM_L),   -- 장문 의뢰 번호
+	MEMBERID	    VARCHAR2(20)    REFERENCES PRET_AUCTIONTRANSLATER(MEMBERID),        -- 낙찰자 아이디
+	AUCTIONVALUE    NUMBER                                                              -- 낙찰가
 );
 
+        -- 경매 시퀀스
 
--- 연습문제 테이블
+        CREATE SEQUENCE  PRET_AUCTION_SEQ
+            START WITH 1
+            INCREMENT BY 1
+            MINVALUE 1
+            NOCYCLE;
 
-CREATE TABLE pret_examvalue (
-	examnum	        number	        DEFAULT 1,
-	exam_content	varchar2(1000)	NOT NULL,
-	exam_answer	    varchar2(1000)	NOT NULL
+-- 17. 경매 지원자 테이블
+
+CREATE TABLE PRET_AUCTIONTRANSLATER (
+	MEMBERID	    VARCHAR2(20)    NOT NULL REFERENCES PRET_MEMBER(MEMBERID),      -- 지원자 아이디
+	AUCTIONNUM  	NUMBER	        NOT NULL REFERENCES PRET_AUCTION(AUCTIONNUM),   -- 지원한 경매의 고유 번호
+	TRANSLATERVALUE	NUMBER	        NOT NULL,                                       -- 입찰한 가격
+	COMMENTT	    VARCHAR2(1000)                                                  -- 코멘트
 );
 
-CREATE TABLE pret_exam (
-	memberid	varchar2(20)	references pret_member(memberid), -- 문제를 풀면 문제 번호와 아이디 추가
-	examnum	    number                                            -- 문제를 중복해서 풀 수 없게 함
-);
+-- 18. 커뮤니티 신고 게시판
 
-
--- 신고 게시판
-
-CREATE TABLE pret_vanboard (
-	boardnum	    number	NOT NULL,
-	memberid	    varchar2(20)	NOT NULL,
-	boardcontent	varchar2(3000)	NOT NULL,
-	boardtitle  	varchar2(500)	NOT NULL,
-	inputdate	    date
-);
-
-
--- 단문의뢰 테이블
-
-CREATE TABLE pret_requests (
-	requestsnum	        number	        DEFAULT 1 PRIMARY KEY,
-	memberid	        varchar2(20)	NOT NULL REFERENCES pret_member(memberid),
-	memberid2   	    varchar2(20)    REFERENCES pret_member(memberid),
-	requestscontent	    varchar2(500),
-	translatedscontent	varchar2(500),
-	requestscondition	varchar2(2)	    DEFAULT 'N' check(requestscondition in ('N','T','E','Y')),	
-    -- 번역안됨-N , 번역중-T, 평가대기중-E, 완료-Y'
-	inputdate	        date        	DEFAULT sysdate,
-	enddate 	        date	        DEFAULT sysdate+3,
-	cash	            number	        DEFAULT 100,
-	commentsr       	varchar2(250), -- 의뢰자 비고란
-	startlang       	varchar2(30)	NOT NULL,
-	endlang	            varchar2(30)	NOT NULL
-);
-
-create sequence pret_requests_seq; -- pret_requests requestsnum의 시퀀스
-
-
--- 단문번역 테이블
-
-CREATE TABLE pret_translateds (
-	translatedsnum	    number	DEFAULT 1 PRIMARY KEY,
-	requestsnum	        number	NOT NULL REFERENCES pret_requests(requestsnum),
-	memberid	        varchar2(20)  NOT NULL REFERENCES pret_member(memberid),
-	requestscontent	    varchar2(500),
-	translatedscontent	varchar2(500),
-	commentst	        varchar(300)
-);
-
-create sequence pret_translated_seq; -- pret_translateds translatedsnum의 시퀀스
-
-
--- 중문의뢰 테이블
-
-CREATE TABLE pret_requestm (
-	requestmnum	        number	            DEFAULT 1 PRIMARY KEY,
-	memberid	        varchar2(20)	    NOT NULL REFERENCES pret_member(memberid),
-	memberid2   	    varchar2(20)    	REFERENCES pret_member(memberid),
-	requestmcontent	    varchar2(500),
-	translatedmcontent	varchar2(500),
-	requestmcondition	varchar2(2)	    DEFAULT 'N' check(requestmcondition in ('N','T','E','Y')),	
-    -- 번역X-N , 번역중-T, 평가대기중-E, 완료-Y'
-	inputdate	        date        	DEFAULT sysdate,
-	enddate 	        date	        DEFAULT sysdate+3,
-	cash	            number	        DEFAULT 100,
-	commentmr       	varchar2(250), -- 의뢰자 비고란
-	startlang       	varchar2(30)	NOT NULL,
-	endlang	            varchar2(30)	NOT NULL
-);
-
-create sequence pret_requestm_seq; -- pret_requestm requestmnum의 시퀀스
-
-
--- 중문번역 테이블
-
-CREATE TABLE pret_translatedm (
-	translatedmnum	    number	DEFAULT 1 PRIMARY KEY,
-	requestmnum	        number	NOT NULL REFERENCES pret_requestm(requestmnum),
-	memberid	        varchar2(20)  NOT NULL	REFERENCES pret_member(memberid),
-	requestmcontent 	varchar2(500),
-	translatedmcontent	varchar2(500),
-	commentmt			varchar2(300)
-);
-
-
--- 장문의뢰 테이블
-
-CREATE TABLE pret_requestl (
-	requestLNum	        number	        DEFAULT 1 PRIMARY KEY,
-	memberid	        varchar2(20)	NOT NULL REFERENCES pret_member(memberid),
-	memberid2	        varchar2(20)	REFERENCES pret_member(memberid),
-	category	        varchar2(50),
-	requestlcondition	varchar2(2)	DEFAULT 'N' CHECK (requestlcondition in ('N', 'Y')),
-	inputdate	        date	DEFAULT sysdate,
-	enddate	            date	DEFAULT sysdate+10,
-	workdate	        date,
-	cash            	number,
-	originRFile	        varchar2(100),
-	savedRFile      	varchar2(100),
-	origintfile	        varchar2(100),
-	savedtfile	        varchar2(100),
-	commentlr       	varchar2(2000),
-	commentpage	        varchar2(100),
-	startlang	        varchar2(30)	NOT NULL,
-	endlang	            varchar2(30)	NOT NULL
-);
-
-create sequence pret_requestl_seq; -- pret_requestl requestmnum의 시퀀스
-
-
--- 경매 테이블
-
-CREATE TABLE pret_auction (
-	auctionnum	    number	DEFAULT 1 PRIMARY KEY,
-	requestlnum	    number	NOT NULL REFERENCES pret_requestl(requestlnum),
-	memberid	    VARCHAR2(20) REFERENCES pret_member(memberid),
-	auctionvalue    number
-);
-
-create sequence pret_auction_seq; -- pret_auction auctionnum의 시퀀스
-
-
--- 경매 지원자 테이블
-
-CREATE TABLE pret_auctionTranslater (
-	memberid	    varchar2(20) NOT NULL REFERENCES pret_member(memberid),
-	auctionnum  	number	NOT NULL REFERENCES pret_auction(auctionnum),
-	translatervalue	number	NOT NULL,
-	commentt	    varchar2(1000)
+CREATE TABLE PRET_VANBOARD (
+	BOARDNUM	    NUMBER	NOT NULL,         -- 신고당한 게시글 번호 복붙 뒤 원 게시판에서 삭제
+	MEMBERID	    VARCHAR2(20)	NOT NULL, -- 게시글 작성자
+	BOARDCONTENT	VARCHAR2(3000)	NOT NULL, -- 게시글 내용
+	BOARDTITLE  	VARCHAR2(500)	NOT NULL, -- 게시글 제목
+	INPUTDATE	    DATE                      -- 게시글 생성 날짜
 );
