@@ -90,119 +90,77 @@ CREATE TABLE PRET_ABLIITY (
     
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-- 번역 테이블 (단문)
+
+CREATE TABLE PRET_TRANSLATEDS (
+    TRANSLATEDSNUM      NUMBER NOT NULL PRIMARY KEY,    -- 번역 고유 번호 (단문) PK
+    REQUESTSNUM         NUMBER  NOT NULL,               -- 단문 의뢰 번호       FK
+    MEMBERID            VARCHAR2(20) NOT NULL,          -- 번역자 아이디        FK
+    REQUESTSCONTENT     VARCHAR2 (500),                 -- 번역 요청 내용       FK
+    TRANSLATEDSCONTENT  VARCHAR2 (500),                 -- 번역 결과 내용
+    COMMENTST           VARCHAR2(300),                  -- 비고란
+
+    FOREIGN KEY MEMBERID            REFERENCES PRET_MEMBER(MEMBERID),
+    FOREIGN KEY REQUESTSCONTENT     REFERENCES PRET_REQUESTS(REQUESTSCONTENT),
+    FOREIGN KEY REQUESTSNUM         REFERENCES PRET_REQUESTS(REQUESTSNUM)
+);
+
+-- 평가 테이블 (단문)
+
+CREATE TABLE PRET_EVALUATION_S (
+    EVALUATIONSNUM      NUMBER          NOT NULL PRIMARY KEY, -- 평가 고유번호 PK, PRET_EVALS_SEQ.NEXTVAL
+    TRANSLATEDSNUM      NUMBER          NOT NULL,             -- 번역 고유 번호 (단문) FK
+    REQUESTSNUM         NUMBER          NOT NULL,             -- 단문 의뢰 번호 FK
+    MEMBERID            VARCHAR2(20)    NOT NULL,             -- 평가자 아이디 PK
+    EVALUATIONSUCCESS   CHAR(1) ,                             -- 성공 여부 제약(Y/N)
+    WHYFAILED           NUMBER,                               -- 실패 이유 폼으로부터 value 번호로 받음.
+
+    FOREIGN KEY TRANSLATEDSNUM  REFERENCES PRET_TRANSLATEDS(TRANSLATEDSNUM), -- 외래키 지정
+    FOREIGN KEY REQUESTSNUM     REFERENCES PRET_REQUESTS(REQUESTSNUM),      -- 외래키 지정
+    FOREIGN KEY MEMBERID            REFERENCES PRET_MEMBER(MEMBERID),       -- 외레키 지정
+
+    CONSTRAINT chk_eval CHECK (EVALUATIONSUCCESS IN ('Y','N' ))  -- 성공, 실패 제약조건
+);
+
+-- 단문 평가 테이블 시퀀스
+
+CREATE SEQUENCE PRET_EVALS_SEQ
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1
+    NOCYCLE;
+
+-- 평가 테이블 (중문)
+
+CREATE TABLE PRET_EVALUATION_M(
+    EVALUATIONMNUM      NUMBER          NOT NULL PRIMARY KEY, -- 평가 고유번호 PK, PRET_EVALM_SEQ.NEXTVAL
+    TRANSLATEDMNUM      NUMBER          NOT NULL,             -- 번역 고유 번호 (단문) FK
+    REQUESTMNUM         NUMBER          NOT NULL,             -- 단문 의뢰 번호 FK
+    MEMBERID            VARCHAR2(20)    NOT NULL,             -- 평가자 아이디 PK
+    EVALUATIONSUCCESS   CHAR(1) ,                             -- 성공 여부 제약(Y/N)
+    WHYFAILED           NUMBER,                               -- 실패 이유 폼으로부터 value 번호로 받음.
+
+    FOREIGN KEY TRANSLATEDMNUM  REFERENCES PRET_TRANSLATEDM(TRANSLATEDMNUM), -- 외래키 지정
+    FOREIGN KEY REQUESTMNUM     REFERENCES PRET_REQUESTM(REQUESTMNUM),      -- 외래키 지정
+    FOREIGN KEY MEMBERID            REFERENCES PRET_MEMBER(MEMBERID),       -- 외레키 지정
+
+    CONSTRAINT chk_eval CHECK (EVALUATIONSUCCESS IN ('Y','N' ))  -- 성공, 실패 제약조건
+);
+
+-- 중문 평가 테이블 시퀀스
+
+CREATE SEQUENCE PRET_EVALM_SEQ
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1
+    NOCYCLE;
+
+-- 평가 실패 사유 테이블
+
+CREATE TABLE PRET_EVALUATIONREASON (
+    FAILEDID    NUMBER NOT NULL PRIMARY KEY ,
+    WHYFAILED   VARCHAR2(50)
+);
 
 -- 멤버 테이블
 
@@ -271,8 +229,7 @@ CREATE TABLE pret_requests (
 create sequence pret_requests_seq; -- pret_requests requestsnum의 시퀀스
 
 
-<<<<<<< HEAD
-// 단문번역 테이블
+-- 단문번역 테이블
 
 CREATE TABLE pret_translateds (
 	translatedsnum	    number	DEFAULT 1 PRIMARY KEY,
@@ -286,10 +243,7 @@ CREATE TABLE pret_translateds (
 create sequence pret_translated_seq; -- pret_translateds translatedsnum의 시퀀스
 
 
-// 중문의뢰 테이블
-=======
 -- 중문의뢰 테이블
->>>>>>> origin/main
 
 CREATE TABLE pret_requestm (
 	requestmnum	        number	            DEFAULT 1 PRIMARY KEY,
@@ -310,7 +264,7 @@ CREATE TABLE pret_requestm (
 create sequence pret_requestm_seq; -- pret_requestm requestmnum의 시퀀스
 
 
-// 중문번역 테이블
+-- 중문번역 테이블
 
 CREATE TABLE pret_translatedm (
 	translatedmnum	    number	DEFAULT 1 PRIMARY KEY,
@@ -347,7 +301,7 @@ CREATE TABLE pret_requestl (
 create sequence pret_requestl_seq; -- pret_requestl requestmnum의 시퀀스
 
 
-// 경매 테이블
+-- 경매 테이블
 
 CREATE TABLE pret_auction (
 	auctionnum	    number	DEFAULT 1 PRIMARY KEY,
@@ -359,7 +313,7 @@ CREATE TABLE pret_auction (
 create sequence pret_auction_seq; -- pret_auction auctionnum의 시퀀스
 
 
-// 경매 지원자 테이블
+-- 경매 지원자 테이블
 
 CREATE TABLE pret_auctionTranslater (
 	memberid	    varchar2(20) NOT NULL REFERENCES pret_member(memberid),
