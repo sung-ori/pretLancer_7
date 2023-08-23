@@ -1,20 +1,20 @@
-// 커뮤니티 게시판
+-- 커뮤니티 게시판
 
 CREATE TABLE PRET_BOARD (
-    BOARDNUM        NUMBER          NOT NULL DEFAULT 1 PRIMARY KEY, // 게시판 고유번호 시퀀스(PRET_BOARD_SEQ.NEXTVAL) 사용
-    MEMBERID        VARCHAR2(20)    NOT NULL ,                      // 게시자 아이디 PRET_MEMBER의 MEMBERID참조
-    BOARDCONTENT    VARCHAR2(2000)  NOT NULL,                       // 게시판 제목
-    INPUTDATE       DATE    DEFAULT SYSDATE,                        // 작성 날짜 SYSDATE
-    HITS            NUMBER  DEFAULT 0,                              // 조회수
-    RECOMMEND       NUMBER  DEFAULT 0,                              // 추천수
-    DECOMMEND       NUMBER  DEFAULT 0,                              // 비추천수
-    POLICE          NUMBER  DEFAULT 0,                              // 신고 갯수
+    BOARDNUM        NUMBER          NOT NULL DEFAULT 1 PRIMARY KEY, -- 게시판 고유번호 시퀀스(PRET_BOARD_SEQ.NEXTVAL) 사용
+    MEMBERID        VARCHAR2(20)    NOT NULL ,                      -- 게시자 아이디 PRET_MEMBER의 MEMBERID참조
+    BOARDCONTENT    VARCHAR2(2000)  NOT NULL,                       -- 게시판 제목
+    INPUTDATE       DATE    DEFAULT SYSDATE,                        -- 작성 날짜 SYSDATE
+    HITS            NUMBER  DEFAULT 0,                              -- 조회수
+    RECOMMEND       NUMBER  DEFAULT 0,                              -- 추천수
+    DECOMMEND       NUMBER  DEFAULT 0,                              -- 비추천수
+    POLICE          NUMBER  DEFAULT 0,                              -- 신고 갯수
 
 
-    FOREIGN KEY (MEMBERID) REFERENCES PRET_MEMBER (MEMBERID)        // MEMBERID 외래키 지정
+    FOREIGN KEY (MEMBERID) REFERENCES PRET_MEMBER (MEMBERID)        -- MEMBERID 외래키 지정
 );
 
-// 게시판 시퀀스
+-- 게시판 시퀀스
 
 CREATE SEQUENCE PRET_BOARD_SEQ
     START WITH 1
@@ -23,21 +23,21 @@ CREATE SEQUENCE PRET_BOARD_SEQ
     NOCYCLE;
 
 
-// 커뮤니티 댓글 테이블
+-- 커뮤니티 댓글 테이블
 
 CREATE TABLE PRET_REPLY (
-    REPLYNUM        NUMBER          NOT NULL    PRIMARY KEY,    // 댓글 번호  PK 시퀀스(PRET_REPLY_SEQ.NEXTVAL)이용
-    BOARDNUM        NUMBER          NOT NULL,                   // 게시판 번호 FK
-    MEMBERID        VARCHAR2(20)    NOT NULL,                   // 댓글 작성자 아이디
-    REPLYCONTENT    VARCHAR2(500)   NOT NULL,                   // 댓글 내용
-    REPLYDATE       DATE            NOT NULL    DEFAULT SYSDATE,// 댓글 작성 시간
-    REPLYRECOMMEND  NUMBER          NOT NULL    DEFAULT 0,      // 댓글 추천 수
+    REPLYNUM        NUMBER          NOT NULL    PRIMARY KEY,    -- 댓글 번호  PK 시퀀스(PRET_REPLY_SEQ.NEXTVAL)이용
+    BOARDNUM        NUMBER          NOT NULL,                   -- 게시판 번호 FK
+    MEMBERID        VARCHAR2(20)    NOT NULL,                   -- 댓글 작성자 아이디
+    REPLYCONTENT    VARCHAR2(500)   NOT NULL,                   -- 댓글 내용
+    REPLYDATE       DATE            NOT NULL    DEFAULT SYSDATE,-- 댓글 작성 시간
+    REPLYRECOMMEND  NUMBER          NOT NULL    DEFAULT 0,      -- 댓글 추천 수
 
-    FOREIGN KEY (BOARDNUM) REFERENCES PRET_BOARD    (BOARDNUM), // 외래키 지정
-    FOREIGN KEY (MEMBERID) REFERENCES PRET_MEMBER   (MEMBERID)  // 외래키 지정
+    FOREIGN KEY (BOARDNUM) REFERENCES PRET_BOARD    (BOARDNUM), -- 외래키 지정
+    FOREIGN KEY (MEMBERID) REFERENCES PRET_MEMBER   (MEMBERID)  -- 외래키 지정
 );
 
-// 댓글 시퀀스
+-- 댓글 시퀀스
 
 CREATE SEQUENCE PRET_REPLY_SEQ
     START WITH 1
@@ -45,34 +45,50 @@ CREATE SEQUENCE PRET_REPLY_SEQ
     MINVALUE 1
     NOCYCLE;
 
-// 마이프로필 테이블
+-- 마이프로필 테이블
 
 CREATE TABLE pret_member_profile (
-    MEMBERID        VARCHAR2(20)    NOT NULL,                   // 사용자 아이디        PK, FK
-    MEMBERNAME      VARCHAR2(20)    NOT NULL,                   // 사용자 이름          FK
-    MEMBERNICK      VARCHAR2(50)    NOT NULL DEFAULT 'NO-NAME', // 사용자 닉네임
-    MEM_EX          NUMBER          NOT NULL DEFAULT 0,         // 사용자 경험치(신뢰도)  FK
-    MEM_LEVEL       CHAR(1)         NOT NULL DEFAULT 'D',       // 사용자 레벨          FK
-    MEMBERLANG      VARCHAR2(30),                               // 사용자 언어 정보
-    PROFILECOMMENT  VARCHAR2(2000),                             // 프로필 문구
-    ORIGINPHOTO     VARCHAR2(2000),                             // 사진 원본 파일
-    SAVEDPHOTH      VARCHAR2(2000),                             // 저장된 사진 파일
+    MEMBERID        VARCHAR2(20)    NOT NULL,                   -- 사용자 아이디        PK, FK
+    MEMBERNAME      VARCHAR2(20)    NOT NULL,                   -- 사용자 이름          FK
+    MEMBERNICK      VARCHAR2(50)    NOT NULL DEFAULT 'NO-NAME', -- 사용자 닉네임
+    MEM_EX          NUMBER          NOT NULL DEFAULT 0,         -- 사용자 경험치(신뢰도)  FK
+    MEM_LEVEL       CHAR(1)         NOT NULL DEFAULT 'D',       -- 사용자 레벨          FK
+    MEMBERLANG      VARCHAR2(30),                               -- 사용자 언어 정보
+    PROFILECOMMENT  VARCHAR2(2000),                             -- 프로필 문구
+    ORIGINPHOTO     VARCHAR2(2000),                             -- 사진 원본 파일
+    SAVEDPHOTH      VARCHAR2(2000),                             -- 저장된 사진 파일
 
-    FOREIGN KEY (MEMBERID)      REFERENCES PRET_MEMBER   (MEMBERID),  // MEMBERID 외래키 지정
-    FOREIGN KEY (MEMBERNAME)    REFERENCES PRET_MEMBER   (MEMBERNAME),  // MEMBERNAME 외래키 지정
-    FOREIGN KEY (MEM_EX)        REFERENCES PRET_MEMBER   (MEM_EX),  // MEM_EX 외래키 지정
-    FOREIGN KEY (MEM_LEVEL)     REFERENCES PRET_MEMBER   (MEM_LEVEL)  // MEM_LEVEL 외래키 지정
+    FOREIGN KEY (MEMBERID)      REFERENCES PRET_MEMBER   (MEMBERID),  -- MEMBERID 외래키 지정
+    FOREIGN KEY (MEMBERNAME)    REFERENCES PRET_MEMBER   (MEMBERNAME),  -- MEMBERNAME 외래키 지정
+    FOREIGN KEY (MEM_EX)        REFERENCES PRET_MEMBER   (MEM_EX),  -- MEM_EX 외래키 지정
+    FOREIGN KEY (MEM_LEVEL)     REFERENCES PRET_MEMBER   (MEM_LEVEL)  -- MEM_LEVEL 외래키 지정
 );
 
-    //CONSTRAINT chk_level CHECK (level IN ('D', 'C', 'B', 'A'))  // 등급 제약조건
+    --CONSTRAINT chk_level CHECK (level IN ('D', 'C', 'B', 'A'))  -- 등급 제약조건
 
+-- 번역 능력 테이블
 
+CREATE TABLE PRET_ABLIITY (
+    MEMBERID VARCHAR2(20) NOT NULL PRIMARY KEY, -- 사용자 아이디 PK, FK
 
+    PSUCCEED    NUMBER DEFAULT 0 ,  -- 연습 성공
+    PFAILED     NUMBER DEFAULT 0 ,  -- 연습 실패
 
+    SSUCCEED    NUMBER DEFAULT 0 ,  -- 단문 성공
+    SFAILED     NUMBER DEFAULT 0 ,  -- 단문 실패
 
+    MSUCCEED    NUMBER DEFAULT 0 ,  -- 중문 성공
+    MFAILED     NUMBER DEFAULT 0 ,  -- 중문 실패
 
+    LSUCCEED    NUMBER DEFAULT 0 ,  -- 장문 성공
+    LFAILED     NUMBER DEFAULT 0 ,  -- 장문 실패
 
+    ESUCCEED    NUMBER DEFAULT 0 ,  -- 평가 성공
+    EFAILED     NUMBER DEFAULT 0 ,  -- 평가 실패
 
+    FOREIGN KEY (MEMBERID) REFERENCES PRET_MEMBER(MEMBERID) -- 외래키 지정
+    
+);
 
 
 
@@ -188,16 +204,7 @@ CREATE TABLE pret_member_profile (
 
 
 
-
-
-
-
-
-
-
-
-
-// 멤버 테이블
+-- 멤버 테이블
 
 CREATE TABLE pret_member (
 	memberid	varchar2(20)	NOT NULL PRIMARY KEY,
@@ -218,7 +225,7 @@ CREATE TABLE pret_member (
 );
 
 
-// 연습문제 테이블
+-- 연습문제 테이블
 
 CREATE TABLE pret_examvalue (
 	examnum	        number	        DEFAULT 1,
@@ -232,7 +239,7 @@ CREATE TABLE pret_exam (
 );
 
 
-// 신고 게시판
+-- 신고 게시판
 
 CREATE TABLE pret_vanboard (
 	boardnum	    number	NOT NULL,
@@ -243,7 +250,7 @@ CREATE TABLE pret_vanboard (
 );
 
 
-// 단문의뢰 테이블
+-- 단문의뢰 테이블
 
 CREATE TABLE pret_requests (
 	requestsnum	        number	        DEFAULT 1 PRIMARY KEY,
@@ -264,6 +271,7 @@ CREATE TABLE pret_requests (
 create sequence pret_requests_seq; -- pret_requests requestsnum의 시퀀스
 
 
+<<<<<<< HEAD
 // 단문번역 테이블
 
 CREATE TABLE pret_translateds (
@@ -279,6 +287,9 @@ create sequence pret_translated_seq; -- pret_translateds translatedsnum의 시�
 
 
 // 중문의뢰 테이블
+=======
+-- 중문의뢰 테이블
+>>>>>>> origin/main
 
 CREATE TABLE pret_requestm (
 	requestmnum	        number	            DEFAULT 1 PRIMARY KEY,
@@ -311,7 +322,7 @@ CREATE TABLE pret_translatedm (
 );
 
 
-// 장문의뢰 테이블
+-- 장문의뢰 테이블
 
 CREATE TABLE pret_requestl (
 	requestLNum	        number	        DEFAULT 1 PRIMARY KEY,
