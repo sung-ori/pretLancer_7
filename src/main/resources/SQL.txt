@@ -66,3 +66,21 @@ CREATE TABLE pret_member_profile (
 
     //CONSTRAINT chk_level CHECK (level IN ('D', 'C', 'B', 'A'))  // 등급 제약조건
 
+// 번역 능력 테이블
+
+CREATE TABLE PRET_ABLIITY (
+    MEMBERID VARCHAR2(20) not null,
+    PSUCCEED number DEFAULT 0 ,
+    Pfailed number DEFAULT 0 ,
+    sSUCCEED number DEFAULT 0 ,
+    sfailed number DEFAULT 0 ,
+    mSUCCEED number DEFAULT 0 ,
+    mfailed number DEFAULT 0 ,
+    lSUCCEED number DEFAULT 0 ,
+    lfailed number DEFAULT 0 ,
+    eSUCCEED number DEFAULT 0 ,
+    efailed number DEFAULT 0 
+    
+)
+
+
