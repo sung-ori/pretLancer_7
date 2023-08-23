@@ -1,2 +1,68 @@
 // 커뮤니티 게시판
 
+CREATE TABLE PRET_BOARD (
+    BOARDNUM        NUMBER          NOT NULL DEFAULT 1 PRIMARY KEY, // 게시판 고유번호 시퀀스(PRET_BOARD_SEQ.NEXTVAL) 사용
+    MEMBERID        VARCHAR2(20)    NOT NULL ,                      // 게시자 아이디 PRET_MEMBER의 MEMBERID참조
+    BOARDCONTENT    VARCHAR2(2000)  NOT NULL,                       // 게시판 제목
+    INPUTDATE       DATE    DEFAULT SYSDATE,                        // 작성 날짜 SYSDATE
+    HITS            NUMBER  DEFAULT 0,                              // 조회수
+    RECOMMEND       NUMBER  DEFAULT 0,                              // 추천수
+    DECOMMEND       NUMBER  DEFAULT 0,                              // 비추천수
+    POLICE          NUMBER  DEFAULT 0,                              // 신고 갯수
+
+
+    FOREIGN KEY (MEMBERID) REFERENCES PRET_MEMBER (MEMBERID)        // MEMBERID 외래키 지정
+);
+
+// 게시판 시퀀스
+
+CREATE SEQUENCE PRET_BOARD_SEQ
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1
+    NOCYCLE;
+
+
+// 커뮤니티 댓글 테이블
+
+CREATE TABLE PRET_REPLY (
+    REPLYNUM        NUMBER          NOT NULL    PRIMARY KEY,    // 댓글 번호  PK 시퀀스(PRET_REPLY_SEQ.NEXTVAL)이용
+    BOARDNUM        NUMBER          NOT NULL,                   // 게시판 번호 FK
+    MEMBERID        VARCHAR2(20)    NOT NULL,                   // 댓글 작성자 아이디
+    REPLYCONTENT    VARCHAR2(500)   NOT NULL,                   // 댓글 내용
+    REPLYDATE       DATE            NOT NULL    DEFAULT SYSDATE,// 댓글 작성 시간
+    REPLYRECOMMEND  NUMBER          NOT NULL    DEFAULT 0,      // 댓글 추천 수
+
+    FOREIGN KEY (BOARDNUM) REFERENCES PRET_BOARD    (BOARDNUM), // 외래키 지정
+    FOREIGN KEY (MEMBERID) REFERENCES PRET_MEMBER   (MEMBERID)  // 외래키 지정
+);
+
+// 댓글 시퀀스
+
+CREATE SEQUENCE PRET_REPLY_SEQ
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 1
+    NOCYCLE;
+
+// 마이프로필 테이블
+
+CREATE TABLE pret_member_profile (
+    MEMBERID        VARCHAR2(20)    NOT NULL,                   // 사용자 아이디        PK, FK
+    MEMBERNAME      VARCHAR2(20)    NOT NULL,                   // 사용자 이름          FK
+    MEMBERNICK      VARCHAR2(50)    NOT NULL DEFAULT 'NO-NAME', // 사용자 닉네임
+    MEM_EX          NUMBER          NOT NULL DEFAULT 0,         // 사용자 경험치(신뢰도)  FK
+    MEM_LEVEL       CHAR(1)         NOT NULL DEFAULT 'D',       // 사용자 레벨          FK
+    MEMBERLANG      VARCHAR2(30),                               // 사용자 언어 정보
+    PROFILECOMMENT  VARCHAR2(2000),                             // 프로필 문구
+    ORIGINPHOTO     VARCHAR2(2000),                             // 사진 원본 파일
+    SAVEDPHOTH      VARCHAR2(2000),                             // 저장된 사진 파일
+
+    FOREIGN KEY (MEMBERID)      REFERENCES PRET_MEMBER   (MEMBERID),  // MEMBERID 외래키 지정
+    FOREIGN KEY (MEMBERNAME)    REFERENCES PRET_MEMBER   (MEMBERNAME),  // MEMBERNAME 외래키 지정
+    FOREIGN KEY (MEM_EX)        REFERENCES PRET_MEMBER   (MEM_EX),  // MEM_EX 외래키 지정
+    FOREIGN KEY (MEM_LEVEL)     REFERENCES PRET_MEMBER   (MEM_LEVEL)  // MEM_LEVEL 외래키 지정
+);
+
+    //CONSTRAINT chk_level CHECK (level IN ('D', 'C', 'B', 'A'))  // 등급 제약조건
+
