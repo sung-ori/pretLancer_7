@@ -246,13 +246,13 @@ CREATE TABLE pret_vanboard (
 // 단문의뢰 테이블
 
 CREATE TABLE pret_requests (
-	requestsnum	        number	            DEFAULT 1 ,
-	memberid	        varchar2(20)	    NOT NULL REFERENCES pret_member(memberid),
-	memberid2   	    varchar2(20)    	REFERENCES pret_member(memberid),
+	requestsnum	        number	        DEFAULT 1 PRIMARY KEY,
+	memberid	        varchar2(20)	NOT NULL REFERENCES pret_member(memberid),
+	memberid2   	    varchar2(20)    REFERENCES pret_member(memberid),
 	requestscontent	    varchar2(500),
 	translatedscontent	varchar2(500),
 	requestscondition	varchar2(2)	    DEFAULT 'N' check(requestscondition in ('N','T','E','Y')),	
-    -- 번역X-N , 번역중-T, 평가대기중-E, 완료-Y'
+    -- 번역안됨-N , 번역중-T, 평가대기중-E, 완료-Y'
 	inputdate	        date        	DEFAULT sysdate,
 	enddate 	        date	        DEFAULT sysdate+3,
 	cash	            number	        DEFAULT 100,
@@ -264,10 +264,24 @@ CREATE TABLE pret_requests (
 create sequence pret_requests_seq; -- pret_requests requestsnum의 시퀀스
 
 
+// 단문번역 테이블
+
+CREATE TABLE pret_translateds (
+	translatedsnum	    number	DEFAULT 1 PRIMARY KEY,
+	requestsnum	        number	NOT NULL REFERENCES pret_requests(requestsnum),
+	memberid	        varchar2(20)  NOT NULL REFERENCES pret_member(memberid),
+	requestscontent	    varchar2(500),
+	translatedscontent	varchar2(500),
+	commentst	        varchar(300)
+);
+
+create sequence pret_translated_seq; -- pret_translateds translatedsnum의 시퀀스
+
+
 // 중문의뢰 테이블
 
 CREATE TABLE pret_requestm (
-	requestmnum	        number	            DEFAULT 1 ,
+	requestmnum	        number	            DEFAULT 1 PRIMARY KEY,
 	memberid	        varchar2(20)	    NOT NULL REFERENCES pret_member(memberid),
 	memberid2   	    varchar2(20)    	REFERENCES pret_member(memberid),
 	requestmcontent	    varchar2(500),
@@ -285,11 +299,22 @@ CREATE TABLE pret_requestm (
 create sequence pret_requestm_seq; -- pret_requestm requestmnum의 시퀀스
 
 
+// 중문번역 테이블
+
+CREATE TABLE pret_translatedm (
+	translatedmnum	    number	DEFAULT 1 PRIMARY KEY,
+	requestmnum	        number	NOT NULL REFERENCES pret_requestm(requestmnum),
+	memberid	        varchar2(20)  NOT NULL	REFERENCES pret_member(memberid),
+	requestmcontent 	varchar2(500),
+	translatedmcontent	varchar2(500),
+	commentmt			varchar2(300)
+);
+
 
 // 장문의뢰 테이블
 
 CREATE TABLE pret_requestl (
-	requestLNum	        number	        DEFAULT 1,
+	requestLNum	        number	        DEFAULT 1 PRIMARY KEY,
 	memberid	        varchar2(20)	NOT NULL REFERENCES pret_member(memberid),
 	memberid2	        varchar2(20)	REFERENCES pret_member(memberid),
 	category	        varchar2(50),
@@ -309,3 +334,25 @@ CREATE TABLE pret_requestl (
 );
 
 create sequence pret_requestl_seq; -- pret_requestl requestmnum의 시퀀스
+
+
+// 경매 테이블
+
+CREATE TABLE pret_auction (
+	auctionnum	    number	DEFAULT 1 PRIMARY KEY,
+	requestlnum	    number	NOT NULL REFERENCES pret_requestl(requestlnum),
+	memberid	    VARCHAR2(20) REFERENCES pret_member(memberid),
+	auctionvalue    number
+);
+
+create sequence pret_auction_seq; -- pret_auction auctionnum의 시퀀스
+
+
+// 경매 지원자 테이블
+
+CREATE TABLE pret_auctionTranslater (
+	memberid	    varchar2(20) NOT NULL REFERENCES pret_member(memberid),
+	auctionnum  	number	NOT NULL REFERENCES pret_auction(auctionnum),
+	translatervalue	number	NOT NULL,
+	commentt	    varchar2(1000)
+);
