@@ -69,18 +69,137 @@ CREATE TABLE pret_member_profile (
 // 번역 능력 테이블
 
 CREATE TABLE PRET_ABLIITY (
-    MEMBERID VARCHAR2(20) not null,
-    PSUCCEED number DEFAULT 0 ,
-    Pfailed number DEFAULT 0 ,
-    sSUCCEED number DEFAULT 0 ,
-    sfailed number DEFAULT 0 ,
-    mSUCCEED number DEFAULT 0 ,
-    mfailed number DEFAULT 0 ,
-    lSUCCEED number DEFAULT 0 ,
-    lfailed number DEFAULT 0 ,
-    eSUCCEED number DEFAULT 0 ,
-    efailed number DEFAULT 0 
+    MEMBERID VARCHAR2(20) NOT NULL PRIMARY KEY, // 사용자 아이디 PK, FK
+
+    PSUCCEED    NUMBER DEFAULT 0 ,  // 연습 성공
+    PFAILED     NUMBER DEFAULT 0 ,  // 연습 실패
+
+    SSUCCEED    NUMBER DEFAULT 0 ,  // 단문 성공
+    SFAILED     NUMBER DEFAULT 0 ,  // 단문 실패
+
+    MSUCCEED    NUMBER DEFAULT 0 ,  // 중문 성공
+    MFAILED     NUMBER DEFAULT 0 ,  // 중문 실패
+
+    LSUCCEED    NUMBER DEFAULT 0 ,  // 장문 성공
+    LFAILED     NUMBER DEFAULT 0 ,  // 장문 실패
+
+    ESUCCEED    NUMBER DEFAULT 0 ,  // 평가 성공
+    EFAILED     NUMBER DEFAULT 0 ,  // 평가 실패
+
+    FOREIGN KEY (MEMBERID) REFERENCES PRET_MEMBER(MEMBERID) // 외래키 지정
     
-)
+);
 
 
+// 멤버 테이블
+
+CREATE TABLE pret_member (
+	memberid	varchar2(20)	NOT NULL PRIMARY KEY,
+	memberpw	varchar2(100)	NOT NULL,
+	membername	varchar2(20),
+	membermail  varchar2(50),
+	membernick	varchar(50)	    DEFAULT 'no-name',
+	mem_ex	    number  	    DEFAULT 0,
+	mem_level	varchar2(10)	DEFAULT 'D' check (mem_level in ('D','C','B','A')),
+	enabled		number(1)       default 1 check (enabled in (0, 1)), -- 1이면 사용가능,  2는 사용불가능
+	role_name	varchar2(20)    default 'ROLE_USER' check (role_name in ('ROLE_USER', 'ROLE_ADMIN')),
+	role_scale	varchar2(20)	DEFAULT 'ROLE_MINOR' check (role_scale in ('ROLE_MINOR', 'ROLE_MAJOR')), 
+	point	    number	        DEFAULT 0,
+	cash	    number	        DEFAULT 0,
+	tutorial	varchar2(2) 	DEFAULT 'N', -- tutorial_num이 50개면 Y로 바꿈
+	tutorial_num	number  	DEFAULT 0,   -- 50개를 하면 prit_member 테이블에서 tutorial을 Y로 바꿈
+	memberlang	    varchar2(30)
+);
+
+
+// 연습문제 테이블
+
+CREATE TABLE pret_examvalue (
+	examnum	        number	        DEFAULT 1,
+	exam_content	varchar2(1000)	NOT NULL,
+	exam_answer	    varchar2(1000)	NOT NULL
+);
+
+CREATE TABLE pret_exam (
+	memberid	varchar2(20)	references pret_member(memberid), -- 문제를 풀면 문제 번호와 아이디 추가
+	examnum	    number                                            -- 문제를 중복해서 풀 수 없게 함
+);
+
+
+// 신고 게시판
+
+CREATE TABLE pret_vanboard (
+	boardnum	    number	NOT NULL,
+	memberid	    varchar2(20)	NOT NULL,
+	boardcontent	varchar2(3000)	NOT NULL,
+	boardtitle  	varchar2(500)	NOT NULL,
+	inputdate	    date
+);
+
+
+// 단문의뢰 테이블
+
+CREATE TABLE pret_requests (
+	requestsnum	        number	            DEFAULT 1 ,
+	memberid	        varchar2(20)	    NOT NULL REFERENCES pret_member(memberid),
+	memberid2   	    varchar2(20)    	REFERENCES pret_member(memberid),
+	requestscontent	    varchar2(500),
+	translatedscontent	varchar2(500),
+	requestscondition	varchar2(2)	    DEFAULT 'N' check(requestscondition in ('N','T','E','Y')),	
+    -- 번역X-N , 번역중-T, 평가대기중-E, 완료-Y'
+	inputdate	        date        	DEFAULT sysdate,
+	enddate 	        date	        DEFAULT sysdate+3,
+	cash	            number	        DEFAULT 100,
+	commentsr       	varchar2(250), -- 의뢰자 비고란
+	startlang       	varchar2(30)	NOT NULL,
+	endlang	            varchar2(30)	NOT NULL
+);
+
+create sequence pret_requests_seq; -- pret_requests requestsnum의 시퀀스
+
+
+// 중문의뢰 테이블
+
+CREATE TABLE pret_requestm (
+	requestmnum	        number	            DEFAULT 1 ,
+	memberid	        varchar2(20)	    NOT NULL REFERENCES pret_member(memberid),
+	memberid2   	    varchar2(20)    	REFERENCES pret_member(memberid),
+	requestmcontent	    varchar2(500),
+	translatedmcontent	varchar2(500),
+	requestmcondition	varchar2(2)	    DEFAULT 'N' check(requestmcondition in ('N','T','E','Y')),	
+    -- 번역X-N , 번역중-T, 평가대기중-E, 완료-Y'
+	inputdate	        date        	DEFAULT sysdate,
+	enddate 	        date	        DEFAULT sysdate+3,
+	cash	            number	        DEFAULT 100,
+	commentmr       	varchar2(250), -- 의뢰자 비고란
+	startlang       	varchar2(30)	NOT NULL,
+	endlang	            varchar2(30)	NOT NULL
+);
+
+create sequence pret_requestm_seq; -- pret_requestm requestmnum의 시퀀스
+
+
+
+// 장문의뢰 테이블
+
+CREATE TABLE pret_requestl (
+	requestLNum	        number	        DEFAULT 1,
+	memberid	        varchar2(20)	NOT NULL REFERENCES pret_member(memberid),
+	memberid2	        varchar2(20)	REFERENCES pret_member(memberid),
+	category	        varchar2(50),
+	requestlcondition	varchar2(2)	DEFAULT 'N' CHECK (requestlcondition in ('N', 'Y')),
+	inputdate	        date	DEFAULT sysdate,
+	enddate	            date	DEFAULT sysdate+10,
+	workdate	        date,
+	cash            	number,
+	originRFile	        varchar2(100),
+	savedRFile      	varchar2(100),
+	origintfile	        varchar2(100),
+	savedtfile	        varchar2(100),
+	commentlr       	varchar2(2000),
+	commentpage	        varchar2(100),
+	startlang	        varchar2(30)	NOT NULL,
+	endlang	            varchar2(30)	NOT NULL
+);
+
+create sequence pret_requestl_seq; -- pret_requestl requestmnum의 시퀀스
