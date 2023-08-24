@@ -8,7 +8,7 @@ public class mainController {
     // practice.git
     @GetMapping({"", "/"})
     public String mainForm() {
-        return "main";
+        return "/main";
     }
     
     
