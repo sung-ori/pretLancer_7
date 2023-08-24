@@ -13,6 +13,7 @@ public class RewardController {
     
     @GetMapping("mainpage")
     public String reawarPage() {
+        
         return "/rewardView/rewardForm";
     } 
 }

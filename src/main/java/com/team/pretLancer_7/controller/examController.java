@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.team.pretLancer_7.domain.Exam;
@@ -51,12 +52,5 @@ public class examController {
 		m.addAttribute("question", question);
 		return "examForm/exam";
 	}
-	
-	@GetMapping("exam")
-	public String examAnswer () {
-		
-		return "examForm/exam";
-	}
-	
 	
 }
