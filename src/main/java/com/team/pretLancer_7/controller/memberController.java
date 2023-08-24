@@ -12,7 +12,7 @@ import com.team.pretLancer_7.service.MemberService;
 
 @Controller
 @RequestMapping("member")
-public class MemberController {
+public class memberController {
 	
 	@Autowired
 	MemberService service;
