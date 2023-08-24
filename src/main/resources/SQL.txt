@@ -24,18 +24,16 @@ CREATE TABLE PRET_MEMBER (
 CREATE TABLE pret_member_profile (
     MEMBERID        VARCHAR2(20)    NOT NULL,                   -- 사용자 아이디        PK, FK
     MEMBERNAME      VARCHAR2(20)    NOT NULL,                   -- 사용자 이름          FK
-    MEMBERNICK      VARCHAR2(50)    NOT NULL DEFAULT 'NO-NAME', -- 사용자 닉네임
-    MEM_EX          NUMBER          NOT NULL DEFAULT 0,         -- 사용자 경험치(신뢰도)  FK
-    MEM_LEVEL       VARCHAR2(1)         NOT NULL DEFAULT 'D',       -- 사용자 레벨          FK
+    MEMBERNICK      VARCHAR2(50)    DEFAULT 'NO-NAME', -- 사용자 닉네임
+    MEM_EX          NUMBER          DEFAULT 0,         -- 사용자 경험치(신뢰도)  FK
+    MEM_LEVEL       VARCHAR2(1)     DEFAULT 'D',       -- 사용자 레벨          FK
     MEMBERLANG      VARCHAR2(30),                               -- 사용자 언어 정보
     PROFILECOMMENT  VARCHAR2(2000),                             -- 프로필 문구
     ORIGINPHOTO     VARCHAR2(2000),                             -- 사진 원본 파일
     SAVEDPHOTH      VARCHAR2(2000),                             -- 저장된 사진 파일
 
     FOREIGN KEY (MEMBERID)      REFERENCES PRET_MEMBER   (MEMBERID),  -- MEMBERID 외래키 지정
-    FOREIGN KEY (MEMBERNAME)    REFERENCES PRET_MEMBER   (MEMBERNAME),  -- MEMBERNAME 외래키 지정
-    FOREIGN KEY (MEM_EX)        REFERENCES PRET_MEMBER   (MEM_EX),  -- MEM_EX 외래키 지정
-    FOREIGN KEY (MEM_LEVEL)     REFERENCES PRET_MEMBER   (MEM_LEVEL)  -- MEM_LEVEL 외래키 지정
+   
 );
 
 -- 3. 연습문제 테이블
@@ -66,7 +64,7 @@ CREATE TABLE PRET_EXAM (
 -- 5. 커뮤니티 게시판
 
 CREATE TABLE PRET_BOARD (
-    BOARDNUM        NUMBER          NOT NULL DEFAULT 1 PRIMARY KEY, -- 게시판 고유번호 시퀀스(PRET_BOARD_SEQ.NEXTVAL) 사용
+    BOARDNUM        NUMBER          NOT NULL  PRIMARY KEY, -- 게시판 고유번호 시퀀스(PRET_BOARD_SEQ.NEXTVAL) 사용
     MEMBERID        VARCHAR2(20)    NOT NULL ,                      -- 게시자 아이디 PRET_MEMBER의 MEMBERID참조
     BOARDCONTENT    VARCHAR2(2000)  NOT NULL,                       -- 게시판 제목
     INPUTDATE       DATE    DEFAULT SYSDATE,                        -- 작성 날짜 SYSDATE
@@ -95,8 +93,8 @@ CREATE TABLE PRET_REPLY (
     BOARDNUM        NUMBER          NOT NULL,                   -- 게시판 번호 FK
     MEMBERID        VARCHAR2(20)    NOT NULL,                   -- 댓글 작성자 아이디
     REPLYCONTENT    VARCHAR2(500)   NOT NULL,                   -- 댓글 내용
-    REPLYDATE       DATE            NOT NULL    DEFAULT SYSDATE,-- 댓글 작성 시간
-    REPLYRECOMMEND  NUMBER          NOT NULL    DEFAULT 0,      -- 댓글 추천 수
+    REPLYDATE       DATE            DEFAULT SYSDATE,-- 댓글 작성 시간
+    REPLYRECOMMEND  NUMBER          DEFAULT 0,      -- 댓글 추천 수
 
     FOREIGN KEY (BOARDNUM) REFERENCES PRET_BOARD    (BOARDNUM), -- 외래키 지정
     FOREIGN KEY (MEMBERID) REFERENCES PRET_MEMBER   (MEMBERID)  -- 외래키 지정
@@ -204,7 +202,6 @@ CREATE TABLE PRET_TRANSLATED_S (
     COMMENT_ST              VARCHAR2(300),                 -- 비고란
 
     FOREIGN KEY MEMBERID            REFERENCES PRET_MEMBER(MEMBERID),
-    FOREIGN KEY REQUESTCONTENT_S     REFERENCES PRET_REQUEST_S(REQUESTCONTENT_S),
     FOREIGN KEY REQUESTNUM_S         REFERENCES PRET_REQUEST_S(REQUESTNUM_S)
 );
 
@@ -229,7 +226,6 @@ CREATE TABLE PRET_TRANSLATED_M (
     COMMENT_ST              VARCHAR2(300),                  -- 비고란
 
     FOREIGN KEY MEMBERID            REFERENCES PRET_MEMBER(MEMBERID),
-    FOREIGN KEY REQUESTCONTENT_M     REFERENCES PRET_REQUEST_M(REQUESTCONTENT_M),
     FOREIGN KEY REQUESTNUM_M         REFERENCES PRET_REQUEST_M(REQUESTNUM_M)
 );
         -- 중문 번역 시퀀스
