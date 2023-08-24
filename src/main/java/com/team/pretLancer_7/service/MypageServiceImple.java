@@ -30,6 +30,6 @@ public class MypageServiceImple implements MypageService {
         
         
         
-        return null;
+        return mP;
     }
 }
