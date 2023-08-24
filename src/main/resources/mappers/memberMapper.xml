@@ -2,7 +2,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.team.pretLancer_7.dao.MemberDAO">
+<mapper namespace="com.team.pretLancer_7.dao.MemberDAO.java">
 
 	<insert id="insertOne" parameterType="Member">
 	insert into pret_member (memberid, memberpw, membermail, membername, membernick, memberlang) 
