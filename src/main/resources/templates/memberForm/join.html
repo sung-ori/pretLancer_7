@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>ȸ������ | �Ű��� ���� �÷��� ��������</title>
+<meta charset="UTF-8">
+<title>회원가입 | 신개념 번역 플랫폼 프릿랜서</title>
 <style>
 
 
@@ -77,8 +77,8 @@
 
 </style>
 <script>
-	//������ �ϴ� ��� : ���̵� �ߺ�Ȯ�� ������ �� �ߺ�Ȯ�� ���, ���������� �г��� �ߺ�Ȯ�� ���, ���������� ��й�ȣ Ȯ�� ���
-	//���̵�, ��й�ȣ ���� Ȯ�� : ���������� �����غ���
+	//만들어야 하는 기능 : 아이디 중복확인 페이지 및 중복확인 기능, 에이젝스로 닉네임 중복확인 기능, 에이젝스로 비밀번호 확인 기능
+	//아이디, 비밀번호 길이 확인 : 에이젝스로 구현해보기
 
 	function check() {
 		let id = document.getElementById('id').value;
@@ -89,39 +89,39 @@
 		let nick = document.getElementById('nick').value;
 
 		
-		//���̵� �Է�
+		//아이디 입력
 		if (id == '' || id.length == 0) {
-			alert('���̵� �Է��ϼ���.');
+			alert('아이디를 입력하세요.');
 			return false;
 		}
 
-		//��й�ȣ �Է�
+		//비밀번호 입력
 		if (pw == '' || pw.length == 0) {
-			alert('��й�ȣ�� �Է��ϼ���.');
+			alert('비밀번호를 입력하세요.');
 			return false;
 		}
 
-		//��й�ȣȮ�� �Է�
+		//비밀번호확인 입력
 		if (pw2 == '' || pw2.length == 0) {
-			alert('��й�ȣ Ȯ���� �Է��ϼ���.');
+			alert('비밀번호 확인을 입력하세요.');
 			return false;
 		}
 
-		//�̸��� �Է�
+		//이메일 입력
 		if (email == '' || email.length == 0) {
-			alert('�̸����� �Է��ϼ���.');
+			alert('이메일을 입력하세요.');
 			return false;
 		}
 		
-		//�̸� �Է�
+		//이름 입력
 		if (name == '' || name.length == 0) {
-			alert('�̸��� �Է��ϼ���.');
+			alert('이름을 입력하세요.');
 			return false;
 		}
 
-		//�г��� �Է�
+		//닉네임 입력
 		if (nick == '' || nick.length == 0) {
-			alert('�г����� �Է��ϼ���.');
+			alert('닉네임을 입력하세요.');
 			return false;
 		}
 
@@ -130,7 +130,7 @@
 	}
 	
 	function openwin() {
-		window.open('idcheck.html','���̵� �ߺ�üũ', 'w, width=500, height=300, top=200, left=600');
+		window.open('idcheck.html','아이디 중복체크', 'w, width=500, height=300, top=200, left=600');
 	}
 	
 	function goback() {
@@ -141,25 +141,25 @@
 </head>
 <body>
 	<div>
-	<h1>ȸ������</h1>
+	<h1>회원가입</h1>
 	
 	<form action = "" method = "" onsubmit = "return check()">
 	<table>
-	<tr><td>���̵�</td> <td><input type = "text" placeholder = "����� ���̵� �Է����ּ���." name = "memberID" id = "id" class = "login"></td> <td><a href = "javascript:openwin()">�ߺ�Ȯ��</a></td></tr>
-	<tr><td>��й�ȣ</td> <td><input type = "password" placeholder = "��й�ȣ�� �Է����ּ���." name = "memberPW" id = "pw" class = "login"></td><td></td></tr>
-	<tr><td>��й�ȣ Ȯ��</td> <td><input type = "password" placeholder = "��й�ȣ�� �� �� �� �Է����ּ���." id = "pwcheck" class = "login"></td><td></td></tr>
-	<tr><td>�̸���</td> <td><input type = "text"  placeholder = "�̸����� �Է����ּ���." name = "memberMail" id = "email" class = "login"></td><td></td></tr>
-	<tr><td>�̸�</td> <td><input type = "text"  placeholder = "�̸��� �Է����ּ���." name = "memberName" id = "name" class = "login"></td><td></td></tr>
-	<tr><td>�г���</td> <td><input type = "text" placeholder = "�г����� �Է����ּ���." name = "memberNick" id = "nick" class = "login"></td><td></td></tr>
-	<tr><td>���� ����ϴ� ���</td><td><select name = "memberLang"><option selected>���� ����ϴ� �� �������ּ���.</option>
-										<option value = "japanese">�Ϻ���</option>
-										<option value = "english">����</option>
+	<tr><td>아이디</td> <td><input type = "text" placeholder = "사용할 아이디를 입력해주세요." name = "memberID" id = "id" class = "login"></td> <td><a href = "javascript:openwin()">중복확인</a></td></tr>
+	<tr><td>비밀번호</td> <td><input type = "password" placeholder = "비밀번호를 입력해주세요." name = "memberPW" id = "pw" class = "login"></td><td></td></tr>
+	<tr><td>비밀번호 확인</td> <td><input type = "password" placeholder = "비밀번호를 한 번 더 입력해주세요." id = "pwcheck" class = "login"></td><td></td></tr>
+	<tr><td>이메일</td> <td><input type = "text"  placeholder = "이메일을 입력해주세요." name = "memberMail" id = "email" class = "login"></td><td></td></tr>
+	<tr><td>이름</td> <td><input type = "text"  placeholder = "이름을 입력해주세요." name = "memberName" id = "name" class = "login"></td><td></td></tr>
+	<tr><td>닉네임</td> <td><input type = "text" placeholder = "닉네임을 입력해주세요." name = "memberNick" id = "nick" class = "login"></td><td></td></tr>
+	<tr><td>자주 사용하는 언어</td><td><select name = "memberLang"><option selected>자주 사용하는 언어를 선택해주세요.</option>
+										<option value = "japanese">일본어</option>
+										<option value = "english">영어</option>
 										</select></td><td></td></tr>
 	</table>
 	<br>
 	<div class = "button">
-	<input type = "button" value = "�ڷ�" class = "join_button" href = "javascript : goback()">
-	<input type = "submit" value = "ȸ������" class = "join_button">
+	<input type = "button" value = "뒤로" class = "join_button" href = "javascript : goback()">
+	<input type = "submit" value = "회원가입" class = "join_button">
 	</div>
 	</form>
 	

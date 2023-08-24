@@ -6,5 +6,5 @@ public interface MypageService {
     
     public MyPage getMyPage(String userId) ;
 
- 
+
 }
