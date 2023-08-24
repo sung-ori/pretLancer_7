@@ -4,4 +4,13 @@
 
 <mapper namespace="com.team.pretLancer_7.dao.MemberDAO">
 
+	<insert id="insertOne" parameterType="Member">
+	insert into pret_member (memberid, memberpw, membermail, membername, membernick, memberlang) 
+	values (#{memberid}, #{memberpw}, #{membermail}, #{membername}, #{membernick}, #{memberlang})
+	</insert>
+	
+	<select id="selectOne" parameterType="string" resultType="Member">
+	select * from pret_member where memberid = #{memberid}
+	</select>
+	
 </mapper>
