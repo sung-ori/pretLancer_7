@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ID check</title>
+
+<style>
+	@font-face {
+	    font-family: 'LINESeedKR-Bd';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+	
+	* {
+	    font-family: 'LINESeedKR-Bd';	
+		color : #2C2E33;
+		text-align : center;
+
+	}
+	
+	a {
+		color : #2334DE;
+	}
+	
+	div {
+		text-align : center;
+	}
+	
+	table {
+		margin-left : auto;	
+		margin-right : auto;	
+		margin-top : auto;	
+		margin-bottom : auto;	
+
+	}
+	
+	.login{
+	
+		width : 250px;
+		height : 30px;
+		
+		border : solid 2px #EFF0F0;
+		border-radius : 5px;
+		
+	}
+
+	.button{
+		width : 100px;
+		height : 35px;
+		background-color:#2334DE;
+		color : #FFFFFF;
+		
+		border : 0px;
+		border-radius : 5px;
+
+	}
+
+</style>
+
+<script>
+	function check() {
+		let id = document.getElementById('checkid').value;
+		
+		if(id == '') {
+			alert("검색할 ID를 입력하세요.");
+			return false;
+		}
+		
+		return true;
+	}
+
+	//가입폼에 검색한 아이디 입력
+	function inputId() {
+		opener.document.getElementById('id').value = '[[${checkid}]]';
+		this.close();
+	}
+</script>
+</head>
+<body>
+
+<h1> ID 중복확인 </h1>
+
+<form th:action = "" method = "post" onsubmit = "return check()">
+	<table>
+	<tr><td>검색할 ID</td> <td><input type = "text" name = "checkid" id = "checkid"></td> <td><input type = "submit" value="검색" class = "button"></td></tr>
+	</table>
+</form>
+
+[[${checkid}]]
+[[${result}]]
+
+	<!-- 검색 후에만 출력 -->
+		<!-- 사용 가능한 경우 -->
+		<div th:if="${result == true}">
+			<p>사용 가능한 아이디입니다.</p>
+			<p><input type = "button" value = "ID 사용하기" onclick = "inputId(id)"></p>
+		</div>
+		<!-- 사용 불가능한 경우 -->
+		<div th:if="${result == false}">
+			<p>이미 사용중인 아이디입니다.</p>
+		</div>
+</body>
+</html>
