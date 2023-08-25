@@ -17,7 +17,6 @@ public class Member {
 	String mem_level;
 	int enabled;
 	String role_name;
-	String role_scale;
 	int point;
 	int cash;
 	String tutorial;

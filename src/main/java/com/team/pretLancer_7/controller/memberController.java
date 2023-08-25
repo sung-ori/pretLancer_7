@@ -1,7 +1,6 @@
 package com.team.pretLancer_7.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.service.MemberService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("member")
 public class memberController {
@@ -27,8 +29,8 @@ public class memberController {
 	
 	// 회원가입 기능
 	@PostMapping("join")
-	public String joinMember(Member m,PasswordEncoder encoder) {
-		m.setMemberpw(encoder.encode(m.getMemberpw()));
+	public String joinMember(Member m) {
+		log.debug("회원가입 {}",m);
 		service.insertMember(m);
 		return "redirect:/";
 	}

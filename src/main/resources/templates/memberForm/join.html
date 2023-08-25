@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>회원가입 | 신개념 번역 플랫폼 프릿랜서</title>
@@ -143,15 +143,15 @@
 	<div>
 	<h1>회원가입</h1>
 	
-	<form action = "" method = "" onsubmit = "return check()">
+	<form th:action = "@{/member/join}" method = "post" onsubmit = "return check()">
 	<table>
-	<tr><td>아이디</td> <td><input type = "text" placeholder = "사용할 아이디를 입력해주세요." name = "memberID" id = "id" class = "login"></td> <td><a href = "javascript:openwin()">중복확인</a></td></tr>
-	<tr><td>비밀번호</td> <td><input type = "password" placeholder = "비밀번호를 입력해주세요." name = "memberPW" id = "pw" class = "login"></td><td></td></tr>
+	<tr><td>아이디</td> <td><input type = "text" placeholder = "사용할 아이디를 입력해주세요." name = "memberid" id = "id" class = "login"></td> <td><a href = "javascript:openwin()">중복확인</a></td></tr>
+	<tr><td>비밀번호</td> <td><input type = "password" placeholder = "비밀번호를 입력해주세요." name = "memberpw" id = "pw" class = "login"></td><td></td></tr>
 	<tr><td>비밀번호 확인</td> <td><input type = "password" placeholder = "비밀번호를 한 번 더 입력해주세요." id = "pwcheck" class = "login"></td><td></td></tr>
-	<tr><td>이메일</td> <td><input type = "text"  placeholder = "이메일을 입력해주세요." name = "memberMail" id = "email" class = "login"></td><td></td></tr>
-	<tr><td>이름</td> <td><input type = "text"  placeholder = "이름을 입력해주세요." name = "memberName" id = "name" class = "login"></td><td></td></tr>
-	<tr><td>닉네임</td> <td><input type = "text" placeholder = "닉네임을 입력해주세요." name = "memberNick" id = "nick" class = "login"></td><td></td></tr>
-	<tr><td>자주 사용하는 언어</td><td><select name = "memberLang"><option selected>자주 사용하는 언어를 선택해주세요.</option>
+	<tr><td>이메일</td> <td><input type = "text"  placeholder = "이메일을 입력해주세요." name = "membermail" id = "email" class = "login"></td><td></td></tr>
+	<tr><td>이름</td> <td><input type = "text"  placeholder = "이름을 입력해주세요." name = "membername" id = "name" class = "login"></td><td></td></tr>
+	<tr><td>닉네임</td> <td><input type = "text" placeholder = "닉네임을 입력해주세요." name = "membernick" id = "nick" class = "login"></td><td></td></tr>
+	<tr><td>자주 사용하는 언어</td><td><select name = "memberlang"><option selected>자주 사용하는 언어를 선택해주세요.</option>
 										<option value = "japanese">일본어</option>
 										<option value = "english">영어</option>
 										</select></td><td></td></tr>
