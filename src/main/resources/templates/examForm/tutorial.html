@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+
+<style>
+
+	@font-face {
+	    font-family: 'LINESeedKR-Bd';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+	
+	* {
+	    font-family: 'LINESeedKR-Bd';	
+	}
+
+	div {
+		background-color: #EFF0F0;
+	}
+	
+	.answer_input {
+	
+		width : 1000px;
+		height : 500px;
+		
+		border : solid 2px #EFF0F0;
+		border-radius : 5px;
+	
+	}
+	
+	.answer_button{
+	
+		width : 257px;
+		height : 35px;
+		background-color:#2334DE;
+		color : #FFFFFF;
+		
+		border : 0px;
+		border-radius : 5px;
+		
+	}
+	
+	
+</style>
+
+</head>
+<body>
+
+	<h1>연습문제</h1>
+	<div>
+		<!-- 맞은 문제 수는 나중에 바뀔 수 있게 처리할 것 -->
+		<div><div>오늘의 문제</div> <div>맞은 문제 : <span>0</span> / 50</div><hr></div>
+		<!-- 문제 나오는 부분 -->
+		<div>
+			<!-- 문제 번호 -->
+			<span th:text = "${question.examnum}">문제 번호 기본값</span>.
+			<br>
+			<!-- 문제 내용 -->
+			<span th:text = "${question.exam}">문제 내용 기본값</span>
+		</div>
+		<!-- 답 입력하는 부분 -->
+		<div>
+		<form action = "" method = "" onsubmit = "">
+			<input type = "text" name = "my_answer" class = "answer_input"> <br>
+			<input type = "submit" value = "제출" class = "answer_button">
+		</form>
+		</div>
+	</div>
+</body>
+</html>
