@@ -1,6 +1,6 @@
-package com.team.pretLancer_7.test;
+package com.team.pretLancer_7.utill;
 
-public class AnswerTest {
+public class AnswerUtill {
 
 	public static int getLevenshteinDistance(String X, String Y)
    
