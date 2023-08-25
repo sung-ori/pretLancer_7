@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.team.pretLancer_7.domain.Exam;
+import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.service.ExamService;
 
 @Controller
@@ -23,10 +24,12 @@ public class examController {
 	
 	@GetMapping("tutorial")
 	public String tutorial (@AuthenticationPrincipal UserDetails user, Exam ex, Model m) {
-		// Exam ex에 language 값을 HTML에서 받음
 		ex.setMemberid(user.getUsername());
+		Member member = service.getMemberOne(ex.getMemberid());
+		ex.setLanguage(member.getMemberlang());
 		Exam question = service.getQuestion(ex);
 		m.addAttribute("question", question);
+		m.addAttribute("member", member);
 		return "examForm/tutorial";
 	}
 	
@@ -40,16 +43,21 @@ public class examController {
 			answer = "correct";
 		}
 		else answer = "failed";
-		 // 정답이 맞았으면 tutorial이 1개 오르고, exam에 memberid와 examnum이 추가되는 식 추가
 		m.addAttribute("answer", answer);
+		// tutorial 오른 횟수를 확인
+		Member member = service.getMemberOne(ex.getMemberid());
+		m.addAttribute("member", member);
 		return "examForm/tutorial";
 	}
 	
 	@GetMapping("exam")
 	public String exam (@AuthenticationPrincipal UserDetails user, Exam ex, Model m) {
 		ex.setMemberid(user.getUsername());
+		Member member = service.getMemberOne(ex.getMemberid());
+		ex.setLanguage(member.getMemberlang());
 		Exam question = service.getQuestion(ex);
 		m.addAttribute("question", question);
+		m.addAttribute("member", member);
 		return "examForm/exam";
 	}
 	

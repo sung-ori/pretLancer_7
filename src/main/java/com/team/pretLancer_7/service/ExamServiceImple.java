@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.team.pretLancer_7.dao.ExamDAO;
 import com.team.pretLancer_7.domain.Exam;
-import com.team.pretLancer_7.test.AnswerTest;
+import com.team.pretLancer_7.domain.Member;
+import com.team.pretLancer_7.utill.AnswerUtill;
 
 @Service
 public class ExamServiceImple implements ExamService {
@@ -16,11 +17,7 @@ public class ExamServiceImple implements ExamService {
 	@Autowired
 	ExamDAO dao;
 	
-	// @Autowired
-	// AnswerTest test;
 	
-	AnswerTest test = new AnswerTest();
-
 	@Override
 	public Exam getQuestion(Exam ex) {
 		ArrayList<Exam> list = dao.selectExam(ex);
@@ -49,16 +46,24 @@ public class ExamServiceImple implements ExamService {
 	@Override
 	public int getAnswer(Exam ex) {
 		Exam answer = dao.findAnswer(ex);
-		double similarity = test.findSimilarity(answer.getExam_answer(),ex.getMy_answer());
+		double similarity = AnswerUtill.findSimilarity(answer.getExam_answer(),ex.getMy_answer());
         System.out.println(similarity);
 		int cnt;
         if (similarity > 0.7) {
         	cnt = 1;
+        	dao.tutorialUp(ex);
+        	dao.insertExamMember(ex);
         }
         else {
         	cnt = 0;
         }
 		return cnt;
+	}
+
+	// member 1명의 정보를 가져옴
+	@Override
+	public Member getMemberOne(String memberid) {
+		return dao.selectOne(memberid);
 	}
 	
 	
