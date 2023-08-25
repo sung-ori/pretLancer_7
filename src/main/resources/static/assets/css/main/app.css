@@ -333,7 +333,8 @@
     --bs-border-radius-xl:1rem;
     --bs-border-radius-2xl:2rem;
     --bs-border-radius-pill:50rem;
-    --bs-link-color:#435ebe;
+    /* --bs-link-color:#435ebe; */
+    --bs-link-color:#2334de;
     --bs-link-hover-color:#364b98;
     --bs-code-color:#d63384;
     --bs-highlight-bg:#fcf8e3
@@ -16510,7 +16511,8 @@ textarea.form-control-lg {
     content:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><path style="fill:none;stroke:%23fff;stroke-width:1" d="m6 9 6 6 6-6"/></svg>')
 }
 .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link {
-    background-color:#435ebe
+    /* background-color:#435ebe */
+    background-color:#2334de;
 }
 .sidebar-wrapper .menu .sidebar-item.active>.sidebar-link span {
     color:#fff

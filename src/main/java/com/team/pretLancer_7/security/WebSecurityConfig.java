@@ -21,16 +21,17 @@ public class WebSecurityConfig {
     private DataSource dataSource;
 
     //설정
-    @Bean
+    @Bean 
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
         .authorizeRequests()
         //로그인 없이 접속 가능한 경로들
         // **은 그 아래 모든 경로 허용.
         .antMatchers("/",
+                "/assets/**",
         		"/member/join",
         		"/member/joinForm",
-        		"/member/idCheck",
+                "/member/idCheck",
                 "/image/**",
                 "/css/**",
                 "/js/**",

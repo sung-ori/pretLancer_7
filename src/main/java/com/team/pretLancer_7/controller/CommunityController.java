@@ -6,14 +6,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
-@RequestMapping("reward")
-public class RewardController {
+@Slf4j
+@RequestMapping("community")
+public class CommunityController {
     
-    @GetMapping("mainpage")
-    public String reawarPage() {
-        
-        return "/rewardView/rewardForm";
+    @GetMapping("main")
+    public String commyMain() {
+        return ("/communityView/mainPage");
     }
 }
