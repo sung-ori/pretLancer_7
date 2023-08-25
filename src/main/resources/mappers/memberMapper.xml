@@ -10,7 +10,7 @@
 	</insert>
 	
 	<select id="selectOne" parameterType="string" resultType="Member">
-	select * from pret_member where memberid = #{shearchid}
+	select * from pret_member where memberid = #{searchid}
 	</select>
 
 	<select id="selectOneMyPage" parameterType="String" resultType="MyPage">
