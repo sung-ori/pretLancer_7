@@ -53,6 +53,7 @@ public class memberController {
 	@PostMapping("idCheck")
 	public String idcheck(String searchid, Model m) {
 		// ID 검색결과가 null이면 true, 아니면 false를 리턴
+		log.debug("searchid : {}", searchid);
 		boolean result = service.idcheck(searchid);
 			
 		m.addAttribute("searchid", searchid);
