@@ -72,7 +72,7 @@
 
 	//가입폼에 검색한 아이디 입력
 	function inputId() {
-		opener.document.getElementById('id').value = '[[${checkid}]]';
+		opener.document.getElementById('id').value = '[[${searchid}]]';
 		this.close();
 	}
 </script>
@@ -81,11 +81,7 @@
 
 <h1> ID 중복확인 </h1>
 
-<<<<<<< HEAD
 <form th:action = "@{/member/idcheck}" method = "post" onsubmit = "return check()">
-=======
-<form th:action = "idCheck" method = "post" onsubmit = "return check()">
->>>>>>> 7745d2891192503d0a30cbb9bbd2335d3679c1cb
 	<table>
 	<tr><td>검색할 ID</td> <td><input type = "text" name = "searchid" id = "checkid"></td> <td><input type = "submit" value="검색" class = "button"></td></tr>
 	</table>
@@ -98,7 +94,7 @@
 		<!-- 사용 가능한 경우 -->
 		<div th:if="${result == true}">
 			<p>사용 가능한 아이디입니다.</p>
-			<p><input type = "button" value = "ID 사용하기" onclick = "inputId(id)"></p>
+			<p><input type = "button" value = "ID 사용하기" onclick = "inputId(id)" class = "button"></p>
 		</div>
 		<!-- 사용 불가능한 경우 -->
 		<div th:if="${result == false}">
