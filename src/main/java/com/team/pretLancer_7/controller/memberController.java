@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.service.MemberService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("member")
 public class memberController {
@@ -51,6 +54,7 @@ public class memberController {
 	@PostMapping("idCheck")
 	public String idcheck(String searchid, Model m) {
 		// ID 검색결과가 null이면 true, 아니면 false를 리턴
+		log.debug("searchid : {}", searchid);
 		boolean result = service.idcheck(searchid);
 			
 		m.addAttribute("searchid", searchid);
