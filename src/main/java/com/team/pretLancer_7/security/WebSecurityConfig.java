@@ -72,7 +72,7 @@ public class WebSecurityConfig {
 
         // 권한
         .authoritiesByUsernameQuery(
-        		"select memberid username, rolename role_name " +
+        		"select memberid username, role_name role_name " +
                 "from pret_member " +
                 "where memberid = ?");
     }
