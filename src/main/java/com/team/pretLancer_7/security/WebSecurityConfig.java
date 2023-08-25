@@ -27,7 +27,10 @@ public class WebSecurityConfig {
         .authorizeRequests()
         .antMatchers("/",
         		"/member/join",
-        		"/member/idCheck",
+        		"/member/joinForm",
+        		"/member/idcheck",
+        		"/translated/tutorial",
+                "/image/**",
         		"/assets/**",
         		"/image/**",
                 "/css/**",
