@@ -28,15 +28,11 @@ public class WebSecurityConfig {
         .antMatchers("/",
         		"/member/join",
         		"/member/joinForm",
-<<<<<<< HEAD
         		"/member/idcheck",
         		"/translated/tutorial",
                 "/image/**",
-=======
-        		"/member/idCheck",
         		"/assets/**",
         		"/image/**",
->>>>>>> 7745d2891192503d0a30cbb9bbd2335d3679c1cb
                 "/css/**",
                 "/js/**",
                 "/build/**",
@@ -47,7 +43,7 @@ public class WebSecurityConfig {
         .anyRequest().authenticated()
         .and()
         .formLogin()						//일반적인 폼을 이용한 로그인 처리/실패 방법을 사용
-        .loginPage("/member/loginForm")		//시큐리티에서 제공하는 기본 폼이 아닌 사용자가 만든 폼 사용
+        .loginPage("/member/login")		//시큐리티에서 제공하는 기본 폼이 아닌 사용자가 만든 폼 사용
         .loginProcessingUrl("/member/login").permitAll()	//인증 처리를 하는 URL을 설정. 로그인 폼의 action으로 지정
         .usernameParameter("memberid")		//로그인폼의 아이디 입력란의 name
         .passwordParameter("memberpw")		//로그인폼의 비밀번호 입력란의 name
