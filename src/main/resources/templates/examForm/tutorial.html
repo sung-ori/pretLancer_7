@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://thymeleaf.org">
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 
 <style>
@@ -19,12 +19,22 @@
 
 	div {
 		background-color: #EFF0F0;
+		border-radius : 5px;
+
+	}
+	
+	.outer {
+		width : 1000px;
+		height : 600px;
+		border-radius : 5px;
+		
+	
 	}
 	
 	.answer_input {
 	
-		width : 1000px;
-		height : 500px;
+		width : 900px;
+		height : 300px;
 		
 		border : solid 2px #EFF0F0;
 		border-radius : 5px;
@@ -33,7 +43,7 @@
 	
 	.answer_button{
 	
-		width : 257px;
+		width : 100px;
 		height : 35px;
 		background-color:#2334DE;
 		color : #FFFFFF;
@@ -45,27 +55,44 @@
 	
 	
 </style>
+<script>
+	function check() {
+		let my_answer = document.getElementById('my_answer').value;
+		
+		if (my_answer == '' || my_answer.length == 0) {
+			alert('ë²ˆì—­ì„ ì…ë ¥í•˜ì„¸ìš”.');
+			return false;
+		}
+		
+		return true;
+	}
+</script>
 
 </head>
 <body>
 
-	<h1>¿¬½À¹®Á¦</h1>
-	<div>
-		<!-- ¸ÂÀº ¹®Á¦ ¼ö´Â ³ªÁß¿¡ ¹Ù²ğ ¼ö ÀÖ°Ô Ã³¸®ÇÒ °Í -->
-		<div><div>¿À´ÃÀÇ ¹®Á¦</div> <div>¸ÂÀº ¹®Á¦ : <span>0</span> / 50</div><hr></div>
-		<!-- ¹®Á¦ ³ª¿À´Â ºÎºĞ -->
+	<h1>íŠœí† ë¦¬ì–¼</h1>
+	<div class = "outer">
+		<!-- ë§ì€ ë¬¸ì œ ìˆ˜ëŠ” ë‚˜ì¤‘ì— ë°”ë€” ìˆ˜ ìˆê²Œ ì²˜ë¦¬í•  ê²ƒ -->
+		<div> <!-- <div><h2>ì˜¤ëŠ˜ì˜ ë¬¸ì œ</h2></div>--> <br><div>ë§ì€ ë¬¸ì œ : <span th:text = "${member.tutorial_num}">0</span> / 50</div></div><hr>
+		<!-- ë¬¸ì œ ë‚˜ì˜¤ëŠ” ë¶€ë¶„ -->
 		<div>
-			<!-- ¹®Á¦ ¹øÈ£ -->
-			<span th:text = "${question.examnum}">¹®Á¦ ¹øÈ£ ±âº»°ª</span>.
+			<!-- ë¬¸ì œ ë‚´ìš© -->
 			<br>
-			<!-- ¹®Á¦ ³»¿ë -->
-			<span th:text = "${question.exam}">¹®Á¦ ³»¿ë ±âº»°ª</span>
+			<br>
+			<span th:text = "${question.exam}">ë¬¸ì œ ë‚´ìš© ê¸°ë³¸ê°’</span>
+			<br>
+			<br>
+			<br>
 		</div>
-		<!-- ´ä ÀÔ·ÂÇÏ´Â ºÎºĞ -->
+		<hr>
+		<!-- ë‹µ ì…ë ¥í•˜ëŠ” ë¶€ë¶„ -->
 		<div>
-		<form action = "" method = "" onsubmit = "">
-			<input type = "text" name = "my_answer" class = "answer_input"> <br>
-			<input type = "submit" value = "Á¦Ãâ" class = "answer_button">
+		<form th:action = "@{/translated/tutorial}" method = "post" onsubmit = "return check()">
+			<p>ë²ˆì—­ì„ ì •í™•í•˜ê²Œ ì…ë ¥í•´ì£¼ì„¸ìš”.</p>
+			<input type = "hiddne" name = "memberLang" th:value = "${member.memberLang}">
+			<input type = "text" name = "my_answer" class = "answer_input" id = "my_answer"> <br>
+			<input type = "submit" value = "ì œì¶œ" class = "answer_button">
 		</form>
 		</div>
 	</div>
