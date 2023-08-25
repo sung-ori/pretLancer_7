@@ -41,14 +41,14 @@ public class memberController {
 	}
 	
 	// ID중복확인 폼
-	@GetMapping("idcheck")
+	@GetMapping("idCheck")
 	public String idcheck() {
 		
 		return "memberForm/idcheck";
 	}
 		
 	// ID중복 확인 처리
-	@PostMapping("idcheck")
+	@PostMapping("idCheck")
 	public String idcheck(String searchid, Model m) {
 		// ID 검색결과가 null이면 true, 아니면 false를 리턴
 		boolean result = service.idcheck(searchid);

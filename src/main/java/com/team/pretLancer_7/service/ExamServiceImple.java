@@ -16,9 +16,11 @@ public class ExamServiceImple implements ExamService {
 	@Autowired
 	ExamDAO dao;
 	
-	@Autowired
-	AnswerTest test;
+	// @Autowired
+	// AnswerTest test;
 	
+	AnswerTest test = new AnswerTest();
+
 	@Override
 	public Exam getQuestion(Exam ex) {
 		ArrayList<Exam> list = dao.selectExam(ex);
