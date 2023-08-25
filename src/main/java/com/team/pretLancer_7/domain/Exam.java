@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Exam {
 	
+	String memberid;
 	int examnum;
 	String exam;
 	String exam_answer;
+	String language;
+	String my_answer;
 
 }

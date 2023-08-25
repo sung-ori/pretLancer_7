@@ -28,8 +28,6 @@ public class MypageServiceImple implements MypageService {
         mP.setOriginphoto(m.getMem_level());
         mP.setMemberlang(m.getMemberlang());
         
-        
-        
         return mP;
     }
 }

@@ -4,7 +4,25 @@
 
 <mapper namespace="com.team.pretLancer_7.dao.ExamDAO">
 	
-	<select id="selectOneExam" resultType="Exam">
-	select * from pret_examvalue
+	<select id="selectExam" parameterType="Exam" resultType="Exam">
+	select * from pret_examvalue where language = #{language}
+	and examnum not in (select examnum from pret_exam where memberid = #{memberid})
 	</select>
+	
+	<select id="findAnswer" parameterType="Exam" resultType="Exam">
+	select * from pret_examvalue where examnum = #{examnum}
+	</select>
+	
+	<select id="selectOne" parameterType="string" resultType="Member">
+	select * from pret_member where memberid = #{memberid}
+	</select>
+	
+	<update id="tutorialUp">
+	update pret_member set tutorial = tutorail + 1 where memberid = #{memberid}
+	</update>
+	
+	<insert id="insertExamMember">
+	insert into pret_exam (memberid, examnum)) values (#{memberid}, #{examnum})
+	</insert>
+	
 </mapper>

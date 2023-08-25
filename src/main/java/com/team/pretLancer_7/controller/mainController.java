@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class mainController {
     // practice.git
-    @GetMapping({"", "/"})
+    @GetMapping({" ", "/"})
     public String mainForm() {
-        return "/main";
+        return "main";
     }
     
     

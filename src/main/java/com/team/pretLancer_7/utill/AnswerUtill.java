@@ -1,9 +1,10 @@
-package com.team.pretLancer_7.controller;
+package com.team.pretLancer_7.utill;
 
-public class test {
+public class AnswerUtill {
 
 	public static int getLevenshteinDistance(String X, String Y)
-    {
+   
+	{
 
         int m = X.length();
         int n = Y.length();
@@ -41,10 +42,5 @@ public class test {
         }
         return 1.0;
     }
- 
-    public static void main(String[] args) {
-        double similarity = findSimilarity("오늘은 비가 안 올 것 같아서 집에 먼저 갈게요.", "오늘은 비가 오지 않을 것 같으니 집에 먼저 갈래요.");
-        System.out.println(similarity);
-    }
-	
+
 }
