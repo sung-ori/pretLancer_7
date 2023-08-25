@@ -23,11 +23,6 @@ CREATE TABLE PRET_MEMBER (
 
 CREATE TABLE pret_member_profile (
     MEMBERID        VARCHAR2(20)    NOT NULL,                   -- 사용자 아이디        PK, FK
-    MEMBERNAME      VARCHAR2(20)    NOT NULL,                   -- 사용자 이름          FK
-    MEMBERNICK      VARCHAR2(50)    DEFAULT 'NO-NAME', -- 사용자 닉네임
-    MEM_EX          NUMBER          DEFAULT 0,         -- 사용자 경험치(신뢰도)  FK
-    MEM_LEVEL       VARCHAR2(1)     DEFAULT 'D',       -- 사용자 레벨          FK
-    MEMBERLANG      VARCHAR2(30),                               -- 사용자 언어 정보
     PROFILECOMMENT  VARCHAR2(2000),                             -- 프로필 문구
     ORIGINPHOTO     VARCHAR2(2000),                             -- 사진 원본 파일
     SAVEDPHOTH      VARCHAR2(2000),                             -- 저장된 사진 파일

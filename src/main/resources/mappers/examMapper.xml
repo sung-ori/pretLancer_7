@@ -4,7 +4,13 @@
 
 <mapper namespace="com.team.pretLancer_7.dao.ExamDAO">
 	
-	<select id="selectOneExam" resultType="Exam">
-	select * from pret_examvalue
+	<select id="selectExam" parameterType="Exam" resultType="Exam">
+	select * from pret_examvalue where language = #{language}
+	and examnum not in (select examnum from pret_exam where memberid = #{memberid})
 	</select>
+	
+	<select id="findAnswer" parameterType="Exam" resultType="Exam">
+	select * from pret_examvalue where examnum = #{examnum}
+	</select>
+	
 </mapper>
