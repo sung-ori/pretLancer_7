@@ -1,10 +1,10 @@
 package com.team.pretLancer_7.service;
 
-import com.team.pretLancer_7.domain.MyPage;
+import com.team.pretLancer_7.domain.Member;
 
 public interface MypageService {
     
-    public MyPage getMyPage(String userId) ;
+    public Member getMyPage(String userId) ;
 
 
 }

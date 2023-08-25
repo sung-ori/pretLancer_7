@@ -25,20 +25,25 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
         .authorizeRequests()
-        //로그인 없이 접속 가능한 경로들
-        // **은 그 아래 모든 경로 허용.
         .antMatchers("/",
         		"/member/join",
         		"/member/joinForm",
+<<<<<<< HEAD
         		"/member/idcheck",
         		"/translated/tutorial",
                 "/image/**",
+=======
+        		"/member/idCheck",
+        		"/assets/**",
+        		"/image/**",
+>>>>>>> 7745d2891192503d0a30cbb9bbd2335d3679c1cb
                 "/css/**",
                 "/js/**",
-                "/build/**",// 여기부터 세 줄은 우리 전 템플릿 관련 파일
+                "/build/**",
                 "/dist/**",
-                "/plugins/**").permitAll()//설정한 리소스의 접근을 인증절차 없이 허용//위의 경로 외에는 모두 로그인을 해야 함
-        .antMatchers("/admin").hasRole("ADMIN")  // 해당 권한 유저만 접근이 가능함. / 403 error 
+                "/plugins/**").permitAll()
+        .antMatchers("/admin").hasRole("ADMIN")
+        .antMatchers("/translate/**").hasAnyRole("TRANSLATOR","ADMIN")
         .anyRequest().authenticated()
         .and()
         .formLogin()						//일반적인 폼을 이용한 로그인 처리/실패 방법을 사용
@@ -68,6 +73,7 @@ public class WebSecurityConfig {
         		"select memberid username, memberpw password, enabled " +
                 "from pret_member " +
                 "where memberid = ?")
+
         // 권한
         .authoritiesByUsernameQuery(
         		"select memberid username, rolename role_name " +

@@ -2,7 +2,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.team.pretLancer_7.dao.MemberDAO.java">
+<mapper namespace="com.team.pretLancer_7.dao.MemberDAO">
 
 	<insert id="insertOne" parameterType="Member">
 	insert into pret_member (memberid, memberpw, membermail, membername, membernick, memberlang) 
@@ -10,7 +10,7 @@
 	</insert>
 	
 	<select id="selectOne" parameterType="string" resultType="Member">
-	select * from pret_member where memberid = #{memberid}
+	select * from pret_member where memberid = #{shearchid}
 	</select>
 
 	<select id="selectOneMyPage" parameterType="String" resultType="MyPage">
