@@ -11,6 +11,9 @@ import com.team.pretLancer_7.domain.Exam;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.utill.AnswerUtill;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class ExamServiceImple implements ExamService {
 
@@ -21,6 +24,7 @@ public class ExamServiceImple implements ExamService {
 	@Override
 	public Exam getQuestion(Exam ex) {
 		ArrayList<Exam> list = dao.selectExam(ex);
+		log.error("List 객체 {}", list);
 		
 		Exam randomExam = getRandomExam(list);
         if (randomExam != null) {
@@ -28,7 +32,6 @@ public class ExamServiceImple implements ExamService {
         } else {
             System.out.println("문제가 없습니다.");
         }
-		
 		return randomExam;
 	}
 	
@@ -36,10 +39,8 @@ public class ExamServiceImple implements ExamService {
         if (examList == null || examList.isEmpty()) {
             return null;
         }
-        
         Random rand = new Random();
         int randomIndex = rand.nextInt(examList.size());
-        
         return examList.get(randomIndex);
     }
 

@@ -29,7 +29,6 @@ public class WebSecurityConfig {
         		"/member/join",
         		"/member/joinForm",
         		"/member/idcheck",
-        		"/translated/tutorial",
                 "/image/**",
         		"/assets/**",
         		"/image/**",

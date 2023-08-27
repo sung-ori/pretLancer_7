@@ -15,6 +15,9 @@ import com.team.pretLancer_7.domain.Exam;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.service.ExamService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("translated")
 public class examController {
@@ -28,6 +31,8 @@ public class examController {
 		Member member = service.getMemberOne(ex.getMemberid());
 		ex.setLanguage(member.getMemberlang());
 		Exam question = service.getQuestion(ex);
+		log.error("question 객체 {}", question);
+		log.error("member 객체 {}", member);
 		m.addAttribute("question", question);
 		m.addAttribute("member", member);
 		return "examForm/tutorial";
