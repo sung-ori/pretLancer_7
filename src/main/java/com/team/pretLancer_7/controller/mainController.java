@@ -10,6 +10,10 @@ public class mainController {
     public String mainForm() {
         return "main";
     }
+    @GetMapping({"public"})
+    public String pubilcForm() {
+        return "public";
+    }
     
     
 }
