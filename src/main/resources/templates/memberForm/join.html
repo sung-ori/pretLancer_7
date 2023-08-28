@@ -89,13 +89,15 @@
 				crossDomain: true,
             	headers: {  'Access-Control-Allow-Origin': 'http://The web site allowed to access' },
 				data: {"email" : email},
-				dataType: 'json',
+				dataType: 'text',
 				success: function(password) {
 					alert("전송 성공!");
+					alert(password);
 				},
-				error: function(e) {
+				error: function(e,request, status, error) {
 					alert("전송 실패");
 					alert(JSON.stringify(e));
+					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
 			});
 

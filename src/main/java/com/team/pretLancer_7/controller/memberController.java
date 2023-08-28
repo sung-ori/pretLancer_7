@@ -23,7 +23,7 @@ public class memberController {
 	// 회원가입 폼으로 이동
 	@GetMapping("join")
 	public String join() {
-		
+		log.debug("조인 컨트롤러 들어오니?");
 		return "memberForm/join";
 	}
 	

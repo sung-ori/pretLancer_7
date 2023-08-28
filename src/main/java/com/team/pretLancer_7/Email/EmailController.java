@@ -15,10 +15,11 @@ public class EmailController {
 
     private final EmailServiceImpl emailService;
 
+    
     @GetMapping("email")
     @ResponseBody
     public String emailConfirm(@RequestParam String email) throws Exception {
-
+        log.debug("컨트롤러 들어오나요? {}", email);
         int pwdNumber = emailService.sendMail(email);
         String password = "" + pwdNumber;
         
