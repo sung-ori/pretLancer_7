@@ -58,6 +58,7 @@ public class ExamServiceImple implements ExamService {
         else {
         	cnt = 0;
         }
+        log.debug("similarity : {}", similarity);
 		return cnt;
 	}
 

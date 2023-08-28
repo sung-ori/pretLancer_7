@@ -55,7 +55,7 @@
 	
 	
 </style>
-<script>
+<script type="text/javascript">
 	function check() {
 		let my_answer = document.getElementById('my_answer').value;
 		
@@ -64,21 +64,26 @@
 			return false;
 		}
 		
-		let answer = '[[${answer}]]';
+		/*<![CDATA[*/
+			let answer = "[[${answer}]]";
+	    /*]]>*/
+		alert(answer);
 		
-		if (answer == 'correct') {
-			alert('맞았습니다.');
-		} else {
-			alert('틀렸습니다.');
-		}
-		
-		let tutorial = '[[${member.tutorial}]]'
+		//if (answer == 'correct') {
+		//	alert(answer);
+		//} else if (answer == 'failed') {
+		//	alert(answer);
+		//} else {
+		//	alert('뜨지 않습니다');
+		//	return false;
+		//}
+					
+		let tutorial = '[[${member.tutorial}]]';
 		
 		if (tutorial == 'Y') {
 			alert('축하합니다! 튜토리얼을 통과하셨습니다. \n 확인 버튼을 누르시면 홈페이지로 이동합니다.');
 			location.href = "http://localhost:8888/pretLancer";
 		}
-		return true;
 	}
 </script>
 
@@ -86,6 +91,7 @@
 <body>
 
 	<h1>튜토리얼</h1>
+	<p th:text="${answer}"></p>
 	<div class = "outer">
 		<!-- 맞은 문제 수는 나중에 바뀔 수 있게 처리할 것 -->
 		<div> <!-- <div><h2>오늘의 문제</h2></div>--> <br><div>맞은 문제 : <span th:text = "${member.tutorial_num}">0</span> / 50</div></div><hr>
@@ -102,7 +108,7 @@
 		<hr>
 		<!-- 답 입력하는 부분 -->
 		<div>
-		<form th:action = "@{/translated/tutorial(tutorial_num=${member.tutorial_num})}" method = "post" onsubmit = "return check()">
+		<form th:action = "@{/translated/tutorial}" method = "post" onsubmit = "return check()">
 			<p>번역을 정확하게 입력해주세요.</p>
 			<input type = "hidden" name = "memberid"  th:value="${#authentication.name}">
 			<input type = "hidden" name = "examnum" th:value = "${question?.examnum}">
