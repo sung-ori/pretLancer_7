@@ -64,6 +64,20 @@
 			return false;
 		}
 		
+		let answer = '[[${answer}]]';
+		
+		if (answer == 'correct') {
+			alert('맞았습니다.');
+		} else {
+			alert('틀렸습니다.');
+		}
+		
+		let tutorial = '[[${member.tutorial}]]'
+		
+		if (tutorial == 'Y') {
+			alert('축하합니다! 튜토리얼을 통과하셨습니다. \n 확인 버튼을 누르시면 홈페이지로 이동합니다.');
+			location.href = "http://localhost:8888/pretLancer";
+		}
 		return true;
 	}
 </script>
@@ -80,7 +94,7 @@
 			<!-- 문제 내용 -->
 			<br>
 			<br>
-			<span th:text = "${question.exam_content}">문제 내용 기본값</span>
+			<span th:text = "${question?.exam_content}">문제 내용 기본값</span>
 			<br>
 			<br>
 			<br>
@@ -88,10 +102,10 @@
 		<hr>
 		<!-- 답 입력하는 부분 -->
 		<div>
-		<form th:action = "@{/translated/tutorial}" method = "post" onsubmit = "return check()">
+		<form th:action = "@{/translated/tutorial(tutorial_num=${member.tutorial_num})}" method = "post" onsubmit = "return check()">
 			<p>번역을 정확하게 입력해주세요.</p>
 			<input type = "hidden" name = "memberid"  th:value="${#authentication.name}">
-			<input type = "hidden" name = "examnum" th:value = "${question.examnum}">
+			<input type = "hidden" name = "examnum" th:value = "${question?.examnum}">
 			<input type = "text" name = "my_answer" class = "answer_input" id = "my_answer"> <br>
 			<input type = "submit" value = "제출" class = "answer_button">
 		</form>
