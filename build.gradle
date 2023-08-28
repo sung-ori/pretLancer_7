@@ -22,6 +22,30 @@ repositories {
 }
 
 dependencies {
+	plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.15'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.team.pretLancer_7'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '1.8'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.3.1'
 	testImplementation 'org.springframework.security:spring-security-test'
@@ -39,6 +63,16 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+<<<<<<< HEAD
+=======
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+	
+>>>>>>> d913f726644890786d74cc5b72cd0a81f52f37c2
 }
 
 tasks.named('test') {
