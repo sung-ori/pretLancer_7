@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import com.team.pretLancer_7.domain.Board;
 
 @Mapper
-public interface CommunityDAO {
-    
+public interface BoardDAO {
     public List<Board> selectAll();
 }
