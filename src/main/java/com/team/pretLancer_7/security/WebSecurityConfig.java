@@ -25,7 +25,9 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
         .authorizeRequests()
+        .mvcMatchers("/","/email/**").permitAll()
         .antMatchers("/",
+                "/email/**",
         		"/member/join",
         		"/member/joinForm",
         		"/member/idcheck",
@@ -54,7 +56,6 @@ public class WebSecurityConfig {
         .cors()
         .and()
         .httpBasic();
-
         return http.build();
     }
 

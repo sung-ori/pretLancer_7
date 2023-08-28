@@ -76,6 +76,33 @@
 
 
 </style>
+<script th:src="@{/assets/js/jquery-3.6.0.js}"></script>
+<script>
+	$(document).ready(function() {
+		$("#sendEmail").click(sendEmail);
+
+		function sendEmail() {
+			let email = $("#email").val();
+			$.ajax({
+				type: "GET",
+				url: "email",
+				crossDomain: true,
+            	headers: {  'Access-Control-Allow-Origin': 'http://The web site allowed to access' },
+				data: {"email" : email},
+				dataType: 'json',
+				success: function(password) {
+					alert("전송 성공!");
+				},
+				error: function(e) {
+					alert("전송 실패");
+					alert(JSON.stringify(e));
+				}
+			});
+
+		}
+	}); // End Of jQuery
+
+</script>
 <script>
 	//만들어야 하는 기능 : 아이디 중복확인 페이지 및 중복확인 기능, 에이젝스로 닉네임 중복확인 기능, 에이젝스로 비밀번호 확인 기능
 	//아이디, 비밀번호 길이 확인 : 에이젝스로 구현해보기
@@ -148,7 +175,9 @@
 	<tr><td>아이디</td> <td><input type = "text" placeholder = "사용할 아이디를 입력해주세요." name = "memberid" id = "id" class = "login"></td> <td><a href = "javascript:openwin()">중복확인</a></td></tr>
 	<tr><td>비밀번호</td> <td><input type = "password" placeholder = "비밀번호를 입력해주세요." name = "memberpw" id = "pw" class = "login"></td><td></td></tr>
 	<tr><td>비밀번호 확인</td> <td><input type = "password" placeholder = "비밀번호를 한 번 더 입력해주세요." id = "pwcheck" class = "login"></td><td></td></tr>
-	<tr><td>이메일</td> <td><input type = "text"  placeholder = "이메일을 입력해주세요." name = "membermail" id = "email" class = "login"></td><td></td></tr>
+	<tr><td>이메일</td> <td><input type = "text"  placeholder = "이메일을 입력해주세요." name = "membermail" id = "email" class = "login"></td>
+		<td><input type="button" id="sendEmail" value="이메일 인증"></td>
+	</tr>
 	<tr><td>이름</td> <td><input type = "text"  placeholder = "이름을 입력해주세요." name = "membername" id = "name" class = "login"></td><td></td></tr>
 	<tr><td>닉네임</td> <td><input type = "text" placeholder = "닉네임을 입력해주세요." name = "membernick" id = "nick" class = "login"></td><td></td></tr>
 	<tr><td>자주 사용하는 언어<br>(번역 언어)</td><td><select name = "memberlang"><option selected>자주 사용하는 언어를 선택해주세요.</option>
