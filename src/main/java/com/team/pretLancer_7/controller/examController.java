@@ -42,6 +42,7 @@ public class examController {
 	public String tutorialAnswer (@AuthenticationPrincipal UserDetails user, Exam ex, Model m) {
 		// Exam ex에 my_answer와 examnum의 값을 HTML에서 받음
 		ex.setMemberid(user.getUsername());
+		log.error("Exam 객체 {}", ex);
 		String answer;
 		int cnt = service.getAnswer(ex);
 		if (cnt == 1) {
@@ -52,7 +53,7 @@ public class examController {
 		// tutorial 오른 횟수를 확인
 		Member member = service.getMemberOne(ex.getMemberid());
 		m.addAttribute("member", member);
-		return "examForm/tutorial";
+		return "redirect:/translated/tutorial";
 	}
 	
 	@GetMapping("exam")
