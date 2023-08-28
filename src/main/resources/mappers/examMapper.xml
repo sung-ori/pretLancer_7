@@ -18,7 +18,7 @@
 	</select>
 	
 	<update id="tutorialUp">
-	update pret_member set tutorial = tutorail + 1 where memberid = #{memberid}
+	update pret_member set tutorial_num = tutorial_num + 1 where memberid = #{memberid}
 	</update>
 	
 	<insert id="insertExamMember">
