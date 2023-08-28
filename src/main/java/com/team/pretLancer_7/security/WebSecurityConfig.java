@@ -36,6 +36,7 @@ public class WebSecurityConfig {
                 "/js/**",
                 "/build/**",
                 "/dist/**",
+                "/mail/**",
                 "/plugins/**").permitAll()
         .antMatchers("/admin").hasRole("ADMIN")
         .antMatchers("/translate/**").hasAnyRole("TRANSLATOR","ADMIN")
