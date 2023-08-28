@@ -55,9 +55,15 @@ public class WebSecurityConfig {
         .and()
         .cors()
         .and()
+        .csrf().ignoringAntMatchers("/email/**")
+        .and()
         .httpBasic();
         return http.build();
     }
+
+    
+    
+
 
     //인증을 위한 쿼리
     @Autowired
