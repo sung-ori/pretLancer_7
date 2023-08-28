@@ -22,7 +22,7 @@
 	</update>
 	
 	<insert id="insertExamMember">
-	insert into pret_exam (memberid, examnum)) values (#{memberid}, #{examnum})
+	insert into pret_exam (memberid, examnum) values (#{memberid}, #{examnum})
 	</insert>
 	
 </mapper>
