@@ -27,12 +27,19 @@ public class WebSecurityConfig {
         .authorizeRequests()
         .mvcMatchers("/","/email").permitAll()
         .antMatchers("/",
+
+                "/assets/**",
+        		"/member/join",
+        		"/member/joinForm",
+                "/member/idCheck",
+
                 "/email",
                 "/confirm",
         		"/member/join",
         		"/member/joinForm",
         		"/member/idcheck").permitAll()
                 .antMatchers(
+
                 "/image/**",
         		"/assets/**",
         		"/image/**").permitAll()

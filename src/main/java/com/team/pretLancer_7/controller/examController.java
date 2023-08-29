@@ -50,6 +50,7 @@ public class examController {
 		}
 		else answer = "failed";
 		m.addAttribute("answer", answer);
+		log.error("오답체크 {}", answer);
 		// tutorial 오른 횟수를 확인
 		Member member = service.getMemberOne(ex.getMemberid());
 		m.addAttribute("member", member);
