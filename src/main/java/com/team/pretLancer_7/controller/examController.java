@@ -55,7 +55,7 @@ public class examController {
 		log.error("cnt : {}", cnt);
 		log.error("answer : {}", answer);
 		m.addAttribute("answer", answer);
-
+		log.error("오답체크 {}", answer);
 		// tutorial 오른 횟수를 확인
 		Member member = service.getMemberOne(ex.getMemberid());
 		m.addAttribute("member", member);

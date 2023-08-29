@@ -25,18 +25,24 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
         .authorizeRequests()
+        .mvcMatchers("/","/email").permitAll()
         .antMatchers("/",
+
+                "/assets/**",
         		"/member/join",
         		"/member/joinForm",
-        		"/member/idcheck",
+                "/member/idCheck",
+
+                "/email",
+                "/confirm",
+        		"/member/join",
+        		"/member/joinForm",
+        		"/member/idcheck").permitAll()
+                .antMatchers(
+
                 "/image/**",
         		"/assets/**",
-        		"/image/**",
-                "/css/**",
-                "/js/**",
-                "/build/**",
-                "/dist/**",
-                "/plugins/**").permitAll()
+        		"/image/**").permitAll()
         .antMatchers("/admin").hasRole("ADMIN")
         .antMatchers("/translate/**").hasAnyRole("TRANSLATOR","ADMIN")
         .anyRequest().authenticated()
@@ -49,14 +55,19 @@ public class WebSecurityConfig {
         .and()
         .logout()
         .logoutUrl("/member/logout")		//로그아웃 처리 URL
-        .logoutSuccessUrl("/").permitAll()	//로그아웃시에 이동할 경로
+        .logoutSuccessUrl("/public").permitAll()	//로그아웃시에 이동할 경로
         .and()
         .cors()
         .and()
+        .csrf().ignoringAntMatchers("/email")
+        .and()
         .httpBasic();
-
         return http.build();
     }
+
+    
+    
+
 
     //인증을 위한 쿼리
     @Autowired

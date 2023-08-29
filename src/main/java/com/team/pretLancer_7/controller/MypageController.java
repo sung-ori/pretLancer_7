@@ -19,7 +19,7 @@ public class MypageController {
     @Autowired
     MypageService service;
 
-    @GetMapping({" ","/"})
+    @GetMapping("main")
     public String myPageForm(Model m, UserDetails user) {
         
         // MyPage mp =  service.getMyPage(user.getUsername());

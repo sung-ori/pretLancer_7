@@ -15,5 +15,5 @@ public class RewardController {
     public String reawarPage() {
         
         return "/rewardView/rewardForm";
-    } 
+    }
 }
