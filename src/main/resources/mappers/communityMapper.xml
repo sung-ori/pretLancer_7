@@ -1,0 +1,29 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.pretLancer_7.dao.CommunityDAO">
+	
+	<select id="selectALL" resultType="Board">
+		select * from pret_board
+	</select>
+	
+	<select id="selectOne" parameterType="int" resultType="Board">
+		select * from pret_board where boardnum = #{boardnum}
+	</select>
+	
+	<select id="replyALL" parameterType="int" resultType="Reply">
+		select * from pret_reply where boardnum = #{boardnum}	
+	</select>
+	
+	<insert id="insertOne" parameterType="Board">
+		insert into pret_board (boardnum, memberid, boardcontent, boardtitle) 
+		values (pret_board_seq.nextval, #{memberid}, #{boardcontent}, #{boardtitle})
+	</insert>
+	
+	<select id="insertReply" parameterType="Reply">
+		insert into pret_reply (replynum, boardnum, memberid, replycontent)
+		values (pret_reply_seq.nextval, #{boardnum}, #{memberid}, #{replycontent})
+	</select>
+	
+</mapper>

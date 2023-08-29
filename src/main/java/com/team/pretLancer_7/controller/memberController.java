@@ -30,7 +30,7 @@ public class memberController {
 	// 회원가입 기능
 	@PostMapping("join")
 	public String joinMember(Member m) {
-		log.debug("회원가입 {}",m);
+		log.error("회원가입 {}",m);
 		service.insertMember(m);
 		return "redirect:/";
 	}
