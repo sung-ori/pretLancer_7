@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script th:src = "@{/js/jquery.js}"></script>
 <style>
 
 	@font-face {
@@ -88,10 +88,16 @@
 </head>
 <body>
 
+	<!-- 추가 생성해야 할 부분 : 에이젝스를 이용하여 맞았다 / 틀렸다 알림창 뜨게 한 다음에 넘어가게 하기. 
+		1.	my_answer에 입력된 value 값을 받아서 컨트롤러에 보낸다 (html) 
+		2.	컨트롤러에서 유사도 비교하는 메서드를 통해 similarity를 도출함 (컨트롤러)
+		3.	유사도에 따라서 answer는 "정답입니다! 다음 문제로 이동합니다", "오답입니다. 다음 문제로 이동합니다."로 나뉨 (컨트롤러)
+		4.	answer를 html로 보내서 알림에 뜨게 한다. (html)
+		-->
+		
 	<h1>튜토리얼</h1>
 	<p th:text="${answer}"></p>
 	<div class = "outer">
-		<!-- 맞은 문제 수는 나중에 바뀔 수 있게 처리할 것 -->
 		<div> <!-- <div><h2>오늘의 문제</h2></div>--> <br><div>맞은 문제 : <span th:text = "${member.tutorial_num}">0</span> / 50</div></div><hr>
 		<!-- 문제 나오는 부분 -->
 		<div>
