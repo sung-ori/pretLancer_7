@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 public class EmailServiceImpl {
 
     private final JavaMailSender javaMailSender;
-    private static final String senderEmail= "sung_ori@naver.com";
+    private static final String senderEmail= "projectSeven0305@gmail.com";
     private static int number;
     
     public static void createNumber(){
