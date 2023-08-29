@@ -8,7 +8,7 @@ import com.team.pretLancer_7.domain.MyPage;
 @Mapper
 public interface MemberDAO {
 
-	// 회원가입 기능	
+	// 회원가입 기능
 	public int insertOne(Member m);
 
 	// 1명의 회원정보 조회
