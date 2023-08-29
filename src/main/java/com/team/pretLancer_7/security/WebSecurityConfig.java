@@ -28,6 +28,7 @@ public class WebSecurityConfig {
         .mvcMatchers("/","/email").permitAll()
         .antMatchers("/",
                 "/email",
+                "/confirm",
         		"/member/join",
         		"/member/joinForm",
         		"/member/idcheck").permitAll()
