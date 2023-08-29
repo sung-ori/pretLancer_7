@@ -10,11 +10,7 @@
 	</insert>
 	
 	<select id="selectOne" parameterType="string" resultType="Member">
-<<<<<<< .merge_file_UsXkhF
-	select * from pret_member where memberid = #{shearchid}
-=======
 	select * from pret_member where memberid = #{searchid}
->>>>>>> .merge_file_PSVhXj
 	</select>
 
 	<select id="selectOneMyPage" parameterType="String" resultType="MyPage">

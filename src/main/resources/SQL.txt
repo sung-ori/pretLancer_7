@@ -9,8 +9,7 @@ CREATE TABLE PRET_MEMBER (
 	MEM_EX	        NUMBER  	    DEFAULT 0,            -- 경험치 (신뢰도)
 	MEM_LEVEL	    VARCHAR2(10)	DEFAULT 'D' CHECK (MEM_LEVEL IN ('D','C','B','A')), -- 등급
 	ENABLED		    NUMBER(1)       DEFAULT 1 CHECK (ENABLED IN (0, 1)), -- 1이면 사용가능,  2는 사용불가능
-	ROLE_NAME	    VARCHAR2(20)    DEFAULT 'ROLE_USER' CHECK (ROLE_NAME IN ('ROLE_USER', 'ROLE_ADMIN')), -- 관리자, 유저 구분
-	ROLE_SCALE	    VARCHAR2(20)	DEFAULT 'ROLE_MINOR' CHECK (ROLE_SCALE IN ('ROLE_MINOR', 'ROLE_MAJOR')), -- 일반회원 전문회원 구분
+	ROLE_NAME	    VARCHAR2(20)    DEFAULT 'ROLE_USER' CHECK (ROLE_NAME IN ('ROLE_USER', 'ROLE_ADMIN', 'ROLE_TRANSLATOR')), -- 관리자, 유저 구분
 	POINT	        NUMBER	        DEFAULT 0,              -- 무료pt
 	CASH	        NUMBER	        DEFAULT 0,              -- 유료pt
 	TUTORIAL	    VARCHAR2(2) 	DEFAULT 'N', -- TUTORIAL_NUM이 50개면 Y로 바꿈  튜토리얼 성공 여부
