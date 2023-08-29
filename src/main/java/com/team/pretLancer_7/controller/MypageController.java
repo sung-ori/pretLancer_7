@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.service.MypageService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,8 +21,9 @@ public class MypageController {
 
     @GetMapping({" ","/"})
     public String myPageForm(Model m, UserDetails user) {
-        MyPage mp =  service.getMyPage(user.getUsername());
-        m.addAttribute("MyPage", mp);
+        
+        // MyPage mp =  service.getMyPage(user.getUsername());
+        // m.addAttribute("MyPage", mp);
         
         return"/myPageView/MyPage";
     }
