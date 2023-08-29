@@ -56,49 +56,75 @@
 	
 </style>
 <script type="text/javascript">
+
+
 	function check() {
+		//my_answer : 번역 입력 창에 입력된 값
 		let my_answer = document.getElementById('my_answer').value;
 		
+		//my_answer에 값이 입력되지 않은 경우 번역을 입력하라는 알림이 뜨며, 다음 창으로 넘어가지 않는다.
 		if (my_answer == '' || my_answer.length == 0) {
 			alert('번역을 입력하세요.');
 			return false;
 		}
 		
-		let answer = "[[${answer}]]";
-		alert(answer);
+		/* 에이젝스를 이용하여 맞았다 / 틀렸다 알림창 뜨게 한 다음에 넘어가게 하기. 
+		1.	my_answer에 입력된 value 값을 받아서 컨트롤러에 보낸다 (html) 
+		2.	컨트롤러에서 유사도 비교하는 메서드를 통해 similarity를 도출함 (컨트롤러)
+		3.	유사도에 따라서 answer는 "정답입니다! 다음 문제로 이동합니다", "오답입니다. 다음 문제로 이동합니다."로 나뉨 (컨트롤러)
+		4.	answer를 html로 보내서 알림에 뜨게 한다. (html) 
 		
-		//if (answer == 'correct') {
-		//	alert(answer);
-		//} else if (answer == 'failed') {
-		//	alert(answer);
-		//} else {
-		//	alert('뜨지 않습니다');
-		//	return false;
-		//}
-					
+		let examnum = document.getElementById('examnum').value;
+		
+		$.ajax({
+			url : 'answer_check',
+			type : 'post',
+			data : {my_answer : my_answer, examnum : examnum},
+			success : function(s) {
+					alert(s);
+			},
+			error : function() {
+					alert('에이젝스가 잘못되었습니다')
+			}
+		})
+		*/
+
+		let examnum = document.getElementById('examnum').value;
+		let memberid = document.getElementById('memberid').value;
+		
+		$.ajax({
+			url : 'answer_check',
+			type : 'post',
+			data : {examnum : examnum, memberid : memberid},
+			success : function(s) {
+					$('#c_or_f').html(s);
+			},
+			error : function() {
+					alert('에이젝스가 잘못되었습니다');
+					return false;
+			}
+		})
+		*/
+		
+		
 		let tutorial = '[[${member.tutorial}]]';
 		
 		if (tutorial == 'Y') {
 			alert('축하합니다! 튜토리얼을 통과하셨습니다. \n 확인 버튼을 누르시면 홈페이지로 이동합니다.');
 			location.href = "http://localhost:8888/pretLancer";
 		}
+		
+		return true;
 	}
 </script>
 
 </head>
 <body>
-
-	<!-- 추가 생성해야 할 부분 : 에이젝스를 이용하여 맞았다 / 틀렸다 알림창 뜨게 한 다음에 넘어가게 하기. 
-		1.	my_answer에 입력된 value 값을 받아서 컨트롤러에 보낸다 (html) 
-		2.	컨트롤러에서 유사도 비교하는 메서드를 통해 similarity를 도출함 (컨트롤러)
-		3.	유사도에 따라서 answer는 "정답입니다! 다음 문제로 이동합니다", "오답입니다. 다음 문제로 이동합니다."로 나뉨 (컨트롤러)
-		4.	answer를 html로 보내서 알림에 뜨게 한다. (html)
-		-->
 		
 	<h1>튜토리얼</h1>
 	<p th:text="${answer}"></p>
 	<div class = "outer">
-		<div> <!-- <div><h2>오늘의 문제</h2></div>--> <br><div>맞은 문제 : <span th:text = "${member.tutorial_num}">0</span> / 50</div></div><hr>
+		<div> <!-- <div><h2>오늘의 문제</h2></div>--> <br><div><span id = "c_or_f"></span>맞은 문제 : <span th:text = "${member.tutorial_num}">0</span> / 50</div></div><hr>
 		<!-- 문제 나오는 부분 -->
 		<div>
 			<!-- 문제 내용 -->
@@ -112,7 +138,7 @@
 		<hr>
 		<!-- 답 입력하는 부분 -->
 		<div>
-		<form th:action = "@{/translated/tutorial}" method = "post" onsubmit = "return check()">
+		<form th:action = "@{/translated/tutorial}" method = "post" onsubmit = "return check())">
 			<p>번역을 정확하게 입력해주세요.</p>
 			<input type = "hidden" name = "memberid"  th:value="${#authentication.name}">
 			<input type = "hidden" name = "examnum" th:value = "${question?.examnum}">

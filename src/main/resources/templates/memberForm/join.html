@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입 | 신개념 번역 플랫폼 프릿랜서</title>
+<script th:src = "@{/js/jquery.js}"></script>
+
 <style>
 
 
@@ -80,6 +82,8 @@
 	//만들어야 하는 기능 : 아이디 중복확인 페이지 및 중복확인 기능, 에이젝스로 닉네임 중복확인 기능, 에이젝스로 비밀번호 확인 기능
 	//아이디, 비밀번호 길이 확인 : 에이젝스로 구현해보기
 
+	document.getElementById('id').readOnly = true; 
+	
 	function check() {
 		let id = document.getElementById('id').value;
 		let pw = document.getElementById('pw').value;
@@ -129,6 +133,10 @@
 		return true;
 	}
 	
+	$(document).ready(function () {
+		$('#id').click(openwin);
+	})
+	
 	function openwin() {
 		window.open('http://localhost:8888/pretLancer/member/idcheck','아이디 중복체크', 'w, width=500, height=300, top=200, left=600');
 	}
@@ -145,7 +153,7 @@
 	
 	<form th:action = "@{/member/join}" method = "post" onsubmit = "return check()">
 	<table>
-	<tr><td>아이디</td> <td><input type = "text" placeholder = "사용할 아이디를 입력해주세요." name = "memberid" id = "id" class = "login"></td> <td><a href = "javascript:openwin()">중복확인</a></td></tr>
+	<tr><td>아이디</td> <td><input type = "text" placeholder = "사용할 아이디를 입력해주세요." name = "memberid" id = "id" class = "login"  readonly></td> </tr>
 	<tr><td>비밀번호</td> <td><input type = "password" placeholder = "비밀번호를 입력해주세요." name = "memberpw" id = "pw" class = "login"></td><td></td></tr>
 	<tr><td>비밀번호 확인</td> <td><input type = "password" placeholder = "비밀번호를 한 번 더 입력해주세요." id = "pwcheck" class = "login"></td><td></td></tr>
 	<tr><td>이메일</td> <td><input type = "text"  placeholder = "이메일을 입력해주세요." name = "membermail" id = "email" class = "login"></td><td></td></tr>

@@ -67,7 +67,17 @@ public class ExamServiceImple implements ExamService {
 	public Member getMemberOne(String memberid) {
 		return dao.selectOne(memberid);
 	}
-	
+
+	//ajax용 
+	@Override
+	public int getExamInfo(Exam ex) {
+		int cnt;
+		if (dao.getExamInfo(ex) == null) {
+			cnt = 0;
+		} else
+			cnt = 1;
+		return cnt;
+	}
 	
 	
 	

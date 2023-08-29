@@ -22,4 +22,6 @@ public interface ExamDAO {
 
 	public void insertExamMember(Exam ex);
 
+	public Exam getExamInfo(Exam ex);
+
 }

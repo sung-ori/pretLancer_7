@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.pretLancer_7.domain.Exam;
 import com.team.pretLancer_7.domain.Member;
@@ -39,6 +40,7 @@ public class examController {
 		return "examForm/tutorial";
 	}
 	
+	
 	@PostMapping("tutorial")
 	public String tutorialAnswer (@AuthenticationPrincipal UserDetails user, Exam ex, Model m) {
 		// Exam ex에 my_answer와 examnum의 값을 HTML에서 받음
@@ -60,6 +62,7 @@ public class examController {
 		return "redirect:/translated/tutorial";
 	}
 	
+	
 	@GetMapping("exam")
 	public String exam (@AuthenticationPrincipal UserDetails user, Exam ex, Model m) {
 		ex.setMemberid(user.getUsername());
@@ -71,4 +74,17 @@ public class examController {
 		return "examForm/exam";
 	}
 	
+	@ResponseBody
+	@PostMapping("answer_check")
+	public String answer_check(int examnum, String memberid) {
+		Exam ex = new Exam();
+		ex.setMemberid(memberid);
+		ex.setExamnum(examnum - 1);
+		
+		int cnt = service.getExamInfo(ex);
+		if (cnt == 1) {
+			return "맞았습니다!";
+		} else
+			return "틀렸습니다.";
+	}
 }
