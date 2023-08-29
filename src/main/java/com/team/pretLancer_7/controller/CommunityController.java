@@ -13,6 +13,7 @@ public class CommunityController {
     
     @GetMapping("main")
     public String commyMain() {
-        return ("/communityForm/mainPage");
+
+		return ("/communityForm/mainPage");
     }
 }
