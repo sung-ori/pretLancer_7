@@ -30,16 +30,11 @@ public class WebSecurityConfig {
                 "/email",
         		"/member/join",
         		"/member/joinForm",
-        		"/member/idcheck",
+        		"/member/idcheck").permitAll()
+                .antMatchers(
                 "/image/**",
         		"/assets/**",
-        		"/image/**",
-                "/css/**",
-                "/js/**",
-                "/build/**",
-                "/dist/**",
-                "/mail/**",
-                "/plugins/**").permitAll()
+        		"/image/**").permitAll()
         .antMatchers("/admin").hasRole("ADMIN")
         .antMatchers("/translate/**").hasAnyRole("TRANSLATOR","ADMIN")
         .anyRequest().authenticated()
@@ -52,7 +47,7 @@ public class WebSecurityConfig {
         .and()
         .logout()
         .logoutUrl("/member/logout")		//로그아웃 처리 URL
-        .logoutSuccessUrl("/").permitAll()	//로그아웃시에 이동할 경로
+        .logoutSuccessUrl("/public").permitAll()	//로그아웃시에 이동할 경로
         .and()
         .cors()
         .and()
