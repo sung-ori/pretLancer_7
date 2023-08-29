@@ -1,0 +1,72 @@
+html {
+    font-size: 12px;
+}
+
+/* a{
+    text-decoration:none;
+    color: #fff;
+    font-size: 2rem;
+} */
+
+.menu-bar {
+    height: 4em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    background-color: #2334de;
+    overflow: auto;
+
+    display: block;
+    border-bottom-left-radius: 10px; /* 왼쪽 하단 모서리 둥글게 */
+    border-bottom-right-radius: 10px; /* 오른쪽 하단 모서리 둥글게 */
+}
+
+
+
+/* .menu-bar a{
+    padding: 12px;
+    display: inline-block;
+    font-size: 18px;
+    float: left;
+} */
+
+
+
+.menu-bar a {
+    padding-left: 1.8em;
+    padding-right: 1.8em;
+}
+
+.menu-bar a:hover{
+    color: white;
+}
+
+/* .menu-bar a.active{
+    background-color:teal;
+} */
+
+
+.menu-bar table {
+    
+    border-collapse: collapse; /* 이 속성은 테이블의 경계선이 겹치지 않도록 합니다. */
+    margin-left: 28rem;
+    
+    /* padding: 100; */
+}
+
+.menu-bar td {
+    border: 1px solid black;
+
+    text-align: center; /* 텍스트를 셀의 중앙으로 정렬 */
+    vertical-align: middle; /* 텍스트를 셀의 수직 중앙으로 정렬 */
+}
+
+
+.manu-bar table td:first-child {
+    width: 400px;
+}
