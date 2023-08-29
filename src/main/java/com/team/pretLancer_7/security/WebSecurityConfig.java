@@ -34,6 +34,7 @@ public class WebSecurityConfig {
                 "/member/idCheck",
 
                 "/email",
+                "/confirm",
         		"/member/join",
         		"/member/joinForm",
         		"/member/idcheck").permitAll()
