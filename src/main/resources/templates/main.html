@@ -6,25 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Mazer Admin Dashboard</title>
     
-    <link rel="stylesheet" th:href="@{/assets/css/pages/upperBar.css}"">
+    <link rel="stylesheet" th:href="@{/assets/css/pages/upperBar.css}">
     <!-- <link rel="stylesheet" th:href="@{/assets/css/main/app.css}"> -->
     <link rel="stylesheet" th:href="@{/assets/css/main/app.css}">
     <link rel="stylesheet" th:href="@{/assets/css/main/app-dark.css}">
     <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.svg}" type="image/x-icon">
     <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.png}" type="image/png">
+    <script src="https://kit.fontawesome.com/95624e7814.js" crossorigin="anonymous"></script>
     
 <link rel="stylesheet" th:href="@{/assets/css/shared/iconly.css}">
+
+<style>
+    
+</style>
+    
 
 
 </head>
 
 <body>
     <div class="menu-bar">
-        <a href="#">Home</a>
-        <a href="#"></a>
-        <a href="#"></a>
-        <a href="#"></a>
-
+        <table>
+            <col style="width:150px;"> <!-- 첫 번째 열 너비 설정 -->
+            <col style="width:80px;">  <!-- 두 번째 열 너비 설정 -->
+            <col style="width:600px;"> <!-- 세 번째 열 너비 설정 -->
+            <col style="width:120px;"> <!-- 네 번째 열 너비 설정 -->
+            <col style="width:90px;">  <!-- 다섯 번째 열 너비 설정 -->
+            <col style="width:90px;">  <!-- 여섯 번째 열 너비 설정 -->
+            <col style="width:90px;">  <!-- 일곱 번째 열 너비 설정 -->
+            <tr>
+                <td>프로젝트 마감기한</td>
+                <td>A등급</td>
+                <td>이영준님 안녕하세요!</td>
+                <td>무료포인트</td>
+                <td>1000p</td>
+                <td rowspan="2">종</td>
+                <td rowspan="2">채팅</td>
+            </tr>
+            <tr>
+                <td>23/08/25 00:00:00</td>
+                <td>내 경험치</td>
+                <td>경험치 바</td>
+                <td>유료 포인트</td>
+                <td>25000p</td>
+            </tr>
+        </table>
     </div>
     <div id="app">
         <div id="sidebar" class="active">

@@ -5541,7 +5541,7 @@ textarea.form-control-lg {
 .carousel-fade .active.carousel-item-end,.carousel-fade .active.carousel-item-start {
     opacity:0;
     transition:opacity 0s .6s;
-    z-index:0
+    z-index:0;
 }
 @media (prefers-reduced-motion:reduce) {
     .carousel-fade .active.carousel-item-end,.carousel-fade .active.carousel-item-start {
@@ -17060,7 +17060,8 @@ textarea.form-control-lg {
 }
 #main.layout-navbar {
     padding:0;
-    transition:margin-left .5s ease-out
+    transition:margin-left .5s ease-out;
+    z-index: 1500;
 }
 #main.layout-horizontal {
     margin:0;
