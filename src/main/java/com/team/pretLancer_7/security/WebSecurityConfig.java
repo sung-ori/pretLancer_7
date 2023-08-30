@@ -55,7 +55,7 @@ public class WebSecurityConfig {
         .and()
         .logout()
         .logoutUrl("/member/logout")		//로그아웃 처리 URL
-        .logoutSuccessUrl("/public").permitAll()	//로그아웃시에 이동할 경로
+        .logoutSuccessUrl("/member/login").permitAll()	//로그아웃시에 이동할 경로
         .and()
         .cors()
         .and()

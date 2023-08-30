@@ -11,7 +11,7 @@ public class Reply {
 
 	int replynum;
 	int boardnum;
-	String memeberid;
+	String memberid;
 	String replycontent;
 	String replydate;
 	int reply_recommend;

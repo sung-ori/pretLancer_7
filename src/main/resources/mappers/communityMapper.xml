@@ -13,7 +13,7 @@
 	</select>
 	
 	<select id="replyAll" parameterType="int" resultType="Reply">
-		select * from pret_reply where boardnum = #{boardnum} orderby replynum desc
+		select * from pret_reply where boardnum = #{boardnum} order by replynum desc
 	</select>
 	
 	<insert id="insertOne" parameterType="Board">
@@ -21,9 +21,9 @@
 		values (pret_board_seq.nextval, #{memberid}, #{boardcontent}, #{boardtitle})
 	</insert>
 	
-	<select id="insertReply" parameterType="Reply">
+	<insert id="insertReply" parameterType="Reply">
 		insert into pret_reply (replynum, boardnum, memberid, replycontent)
 		values (pret_reply_seq.nextval, #{boardnum}, #{memberid}, #{replycontent})
-	</select>
+	</insert>
 	
 </mapper>

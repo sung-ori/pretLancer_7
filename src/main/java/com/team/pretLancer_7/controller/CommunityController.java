@@ -43,8 +43,7 @@ public class CommunityController {
     	Board board = service.boardListOne(boardnum);
     	List<Reply> reply = service.replyList(boardnum);
     	m.addAttribute("board", board);
-    	m.addAttribute("reply", reply);
-		
+
     	return "/communityForm/readPage";
     }
     
@@ -69,14 +68,16 @@ public class CommunityController {
  	@ResponseBody
  	@PostMapping("insertReply")
  	public void insertReply(@AuthenticationPrincipal UserDetails user, Reply r) {
- 		r.setMemeberid(user.getUsername());
+		log.debug("리플삽입 {}",r);
+		r.setMemberid(user.getUsername());
+		log.debug("멤버이름 넣고 {}",r);
  		service.writeReply(r);
  	}
  	
  	// 리플 읽어오기 기능
  	@ResponseBody
  	@GetMapping("readReply")
- 	public List<Reply> readReply(int boardnum) {
+ 	public List<Reply> readReply(@RequestParam(name="boardnum", defaultValue="0") int boardnum) {
  		List<Reply> replyList = service.getReplylist(boardnum);
  		return replyList;
  	}
