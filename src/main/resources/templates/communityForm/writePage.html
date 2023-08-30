@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko"     xmlns:th="http://www.thymeleaf.org"
+                    xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>글쓰기 폼</h1>
+    <form th:action="@{/community/write}" method="post" >
+        <input type="text" name="boardtitle" id="boardtitle"><br>
+        <textarea name="boardcontent" id="boardcontent" cols="30" rows="10"></textarea><br>
+        <input type="submit" value="글쓰기">
+    </form>
+</body>
+</html>
