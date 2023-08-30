@@ -65,7 +65,8 @@ CREATE TABLE PRET_EXAM (
 CREATE TABLE PRET_BOARD (
     BOARDNUM        NUMBER          NOT NULL  PRIMARY KEY, -- 게시판 고유번호 시퀀스(PRET_BOARD_SEQ.NEXTVAL) 사용
     MEMBERID        VARCHAR2(20)    NOT NULL ,                      -- 게시자 아이디 PRET_MEMBER의 MEMBERID참조
-    BOARDCONTENT    VARCHAR2(2000)  NOT NULL,                       -- 게시판 제목
+    BOARDTITLE      VARCHAR2(200)   NOT NULL                        -- 게시판 제목
+    BOARDCONTENT    VARCHAR2(2000)  NOT NULL,                       -- 게시판 내용
     INPUTDATE       DATE    DEFAULT SYSDATE,                        -- 작성 날짜 SYSDATE
     HITS            NUMBER  DEFAULT 0,                              -- 조회수
     RECOMMEND       NUMBER  DEFAULT 0,                              -- 추천수

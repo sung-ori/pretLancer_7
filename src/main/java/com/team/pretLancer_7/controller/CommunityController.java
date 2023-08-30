@@ -1,6 +1,5 @@
 package com.team.pretLancer_7.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +40,12 @@ public class CommunityController {
     // 커뮤니티 게시판 글읽기 + 댓글읽기
     @GetMapping("read")
     public String commyRead(Model m, @RequestParam(name="boardnum", defaultValue="0") int boardnum) {
-    	Board list = service.boardListOne(boardnum);
+    	Board board = service.boardListOne(boardnum);
     	List<Reply> reply = service.replyList(boardnum);
-    	m.addAttribute("list", list);
+    	m.addAttribute("board", board);
     	m.addAttribute("reply", reply);
-    	return ("/communityForm/readPage");
+		
+    	return "/communityForm/readPage";
     }
     
     // 커뮤니티 게시판 글쓰기 폼
@@ -58,7 +58,8 @@ public class CommunityController {
     // 커뮤니티 게시판 글쓰기 입력
     @PostMapping("write")
     public String commyInsert(@AuthenticationPrincipal UserDetails user, Board b) {
-    	b.setMemeberid(user.getUsername());
+		log.debug("글쓰기 컨트롤러 들어오나? {}", b);
+    	b.setMemberid(user.getUsername());
     	
     	int cnt = service.commyInsert(b);
     	return ("redirect:/community/main");

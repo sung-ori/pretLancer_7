@@ -4,7 +4,7 @@
 
 <mapper namespace="com.team.pretLancer_7.dao.CommunityDAO">
 	
-	<select id="selectALL" resultType="Board">
+	<select id="selectAll" resultType="Board">
 		select * from pret_board
 	</select>
 	
@@ -12,8 +12,8 @@
 		select * from pret_board where boardnum = #{boardnum}
 	</select>
 	
-	<select id="replyALL" parameterType="int" resultType="Reply">
-		select * from pret_reply where boardnum = #{boardnum}	
+	<select id="replyAll" parameterType="int" resultType="Reply">
+		select * from pret_reply where boardnum = #{boardnum} orderby replynum desc
 	</select>
 	
 	<insert id="insertOne" parameterType="Board">

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>글 읽기</h1>
+    <div>
+        <div th:text="${board.boardtitle}">
+
+        </div>
+        
+        <div>
+            <span th:text="${board.memberid}"></span>
+            <span th:text="${board.inputdate}"></span>
+            <span th:text="${board.hits}"></span>
+            <span th:text="${board.recommend}"></span>
+            <span th:text="${board.decommend}"></span>
+            <span th:text="${board.police}"></span>
+        </div>
+        
+        <div th:text="${board.boardcontent}">
+
+        </div>
+
+        <div>
+            
+        </div>
+    </div>
+</body>
+</html>
