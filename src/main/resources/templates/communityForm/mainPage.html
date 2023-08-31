@@ -15,6 +15,7 @@
         <form th:action="@{/member/logout}" method="post">
             <input type="submit" value="로그아웃">
         </form>
+        <a th:href="@{/member/logout}">로그아웃</a>
     </div>
 
     <div th:each="b : ${list}" style="border: solid 2px black;">

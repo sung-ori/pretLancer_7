@@ -59,8 +59,8 @@ public class WebSecurityConfig {
         .and()
         .cors()
         .and()
-        .csrf().ignoringAntMatchers("/email")
-        .and()
+        // .csrf().ignoringAntMatchers("/email")
+        // .and()
         .httpBasic();
         return http.build();
     }
