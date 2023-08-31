@@ -3,22 +3,18 @@
                 xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <!-- <!-- <meta name="_csrf" th:content="${_csrf.token}">  --> -->
-    <!-- <!-- <meta name="_csrf_header" th:content="${_csrf.headerName}"> --> -->
+    <!-- <meta name="_csrf" th:content="${_csrf.token}">  --> 
+    <!-- <meta name="_csrf_header" th:content="${_csrf.headerName}"> --> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 <script th:src="@{/assets/js/jquery-3.6.0.js}"></script>
-<style>
-    .hidden{
-        display: none;
-        
-    }
-</style>
+
 <script>
     $(document).ready(function() {
         readReply();
-        buttonDisplay();
         $("#rBt").click(writeReply);
+        $(document).on("click", ".dBt", deleteReply);
+
 
         function writeReply() {
             let reply = $("#inputReply").val();
@@ -71,8 +67,9 @@
                         
                         
                         str += `<td>
-                                <span style="display : none;" class="${n.memberid}">
-                                <input type="button" value="삭제" onclick="deleteReply(${n.replynum})">
+                
+                                <span style="display: none;" class="${n.memberid}">
+                                <input type="button" id="${n.replynum}" class="dBt" value="삭제">
                                 </span>
                                 </td></tr>`;
                     });
@@ -88,8 +85,8 @@
             });
         }// End Of read reply
 
-        function deleteReply(replynum) {
-            let r = replynum;
+        function deleteReply() {
+            let r = $(this).attr("id");
             let n = $("#bdn").val();
             console.log(r);
             console.log(n);
@@ -98,10 +95,6 @@
                 type:"get",
                 data: {replynum: r},
                 success: function(rst){
-                    if(!rst) {
-                        alert("자신의 댓글만 삭제할 수 있습니다.");
-                        return false;
-                    };
                     alert("삭제되었습니다.");
                     readReply();
                 },
@@ -116,7 +109,7 @@
             console.log(lid)
             $('.'+lid).show();
         }
-
+        
     });// End Of jQuery
 </script>
 
@@ -130,7 +123,14 @@
         <input type="hidden" th:value="${#authentication.name}" id="loginId">
         <div th:text="${board.boardtitle}">
         </div>
-        
+        <div>
+            <p th:if="${#authentication.name} == ${board.memberid}">
+                <a th:href="@{/community/delete(boardnum=${board.boardnum})}">글 지우기</a>
+            </p>
+            <p th:if="${#authentication.name} == ${board.memberid}">
+                <a th:href="@{/community/updateForm(boardnum=${board.boardnum})}">글 수정</a>
+            </p>
+        </div>
         <div>
             <span th:text="${board.memberid}"></span>
             <span th:text="${board.inputdate}"></span>

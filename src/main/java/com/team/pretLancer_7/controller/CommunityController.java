@@ -70,8 +70,24 @@ public class CommunityController {
     	b.setMemberid(user.getUsername());
     	
     	int cnt = service.commyDelete(b);
-    	return ("redircet:/communtiy/main");
+    	return ("redirect:/community/main");
     }
+
+	// 글 수정 폼
+	@GetMapping("updateForm")
+	public String updateForm(Model m, @RequestParam(name="boardnum", defaultValue="0") int boardnum) {
+	Board board = service.boardListOne(boardnum);
+    	List<Reply> reply = service.replyList(boardnum);
+    	m.addAttribute("board", board);
+		return "/communityForm/updatePage";
+	}
+
+	//  글 수정
+	@PostMapping("update")
+	public String update(@AuthenticationPrincipal UserDetails user, Board b) {
+		service.update(b);
+		return "redirect:/community/main";
+	}
     
     // 리플 저장 기능
  	@ResponseBody
