@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="_csrf" th:content="${_csrf.token}">  -->
+    <!-- <meta name="_csrf_header" th:content="${_csrf.headerName}"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script th:src="@{/assets/js/jquery-3.6.0.js}"></script>
+<style>
+    .hidden{
+        display: none;
+        
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        readReply();
+        buttonDisplay();
+        $("#rBt").click(writeReply);
+
+        function writeReply() {
+            let reply = $("#inputReply").val();
+            let bdn = $("#boardNum").val();
+            let header = $("meta[name='_csrf_header']").attr('content');
+            let token = $("meta[name='_csrf']").attr('content');
+            
+            $.ajax({
+                type:"POST",
+                url: "insertReply",
+                //beforeSend: function(xhr){
+                //  xhr.setRequestHeader(header, token);
+                //},
+                data: {"replycontent" : reply ,
+                        "boardnum" : bdn },
+                success: function() {
+                    alert("댓글 작성 성공");
+                    readReply();
+                },
+                error: function(e) {
+                    console.log(JSON.stringify(e));
+                }
+            });
+        } // End OF write
+
+        function readReply() {
+            let bdn = $("#boardNum").val();
+            $.ajax({
+                type:"GET",
+                url: "readReply",
+                data: {"boardnum" : bdn },
+                dataType: "json",
+                success: function(list) {
+                    alert("댓글 읽어오기 성공!");
+                    let str = `<table>
+                                <tr>
+                                <td>작성자</td>
+                                <td>댓글 내용</td>
+                                <td>작성 시간</td>
+                                <td>추천 수</td>
+                                <td></td>
+                                </tr>`;
+                    
+                    $.each(list,function(i,n){
+                        str += `<tr>
+                            <td>${n.memberid}</td>
+                            <td>${n.replycontent}</td>
+                            <td>${n.replydate}</td>
+                            <td>${n.reply_recommend}</td>`;
+                        
+                        
+                        str += `<td>
+                                <span style="display : none;" class="${n.memberid}">
+                                <input type="button" value="삭제" onclick="deleteReply(${n.replynum})">
+                                </span>
+                                </td></tr>`;
+                    });
+                    str += "</table>";
+                    $("#replyBox").html(str);
+                    buttonDisplay();
+
+                },
+                error: function(e) {
+                    alert("댓글 못 불러옴")
+                    console.log(JSON.stringify(e));
+                }
+            });
+        }// End Of read reply
+
+        function deleteReply(replynum) {
+            let r = replynum;
+            let n = $("#bdn").val();
+            console.log(r);
+            console.log(n);
+            $.ajax({
+                url:"deleteReply",
+                type:"get",
+                data: {replynum: r},
+                success: function(rst){
+                    if(!rst) {
+                        alert("자신의 댓글만 삭제할 수 있습니다.");
+                        return false;
+                    };
+                    alert("삭제되었습니다.");
+                    callReply();
+                },
+                error: function(e) {
+                    alert(JSON.stringify(e));
+                }
+            });
+        }
+        
+		function buttonDisplay() {
+            let lid = $("#loginId").val();
+            console.log(lid)
+            $('.'+lid).show();
+        }
+
+    });// End Of jQuery
+</script>
+
+</head>
+
+<body>
+    
+    <h1>글 읽기</h1>
+    <div>
+        <input type="hidden" th:value="${board.boardnum}" id="boardNum">
+        <input type="hidden" th:value="${#authentication.name}" id="loginId">
+        <div th:text="${board.boardtitle}">
+        </div>
+        
+        <div>
+            <span th:text="${board.memberid}"></span>
+            <span th:text="${board.inputdate}"></span>
+            <span th:text="${board.hits}"></span>
+            <span th:text="${board.recommend}"></span>
+            <span th:text="${board.decommend}"></span>
+            <span th:text="${board.police}"></span>
+        </div>
+        
+        <div th:text="${board.boardcontent}">
+
+        </div>
+
+        <div>
+            <input type="text" id="inputReply" name="replycontent">
+            <input type="button" id="rBt" value="댓글 작성">
+        </div>
+        <div id="replyBox">
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -45,5 +45,17 @@ public class CommunityServiceImpl implements CommunityService {
 	public List<Reply> getReplylist(int boardnum) {
 		return dao.replyAll(boardnum);
 	}
+
+	@Override
+	public void deleteReply(Reply r) {
+		dao.deleteReply(r);
+	}
+
+	@Override
+	public int commyDelete(Board b) {
+		return dao.deleteOne(b);
+	}
     
+	
+	
 }

@@ -20,5 +20,9 @@ public interface CommunityService {
 
 	public List<Reply> getReplylist(int boardnum);
 
+	public void deleteReply(Reply r);
+
+	public int commyDelete(Board b);
+
 
 }
