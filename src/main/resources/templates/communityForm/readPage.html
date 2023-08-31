@@ -3,8 +3,8 @@
                 xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <meta name="_csrf" th:content="${_csrf.token}">
-    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <!-- <meta name="_csrf" th:content="${_csrf.token}"> -->
+    <!-- <meta name="_csrf_header" th:content="${_csrf.headerName}"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 <script th:src="@{/assets/js/jquery-3.6.0.js}"></script>
@@ -29,9 +29,9 @@
             $.ajax({
                 type:"POST",
                 url: "insertReply",
-                beforeSend: function(xhr){
-                    xhr.setRequestHeader(header, token);
-                },
+                // beforeSend: function(xhr){
+                //     xhr.setRequestHeader(header, token);
+                // },
                 data: {"replycontent" : reply ,
                         "boardnum" : bdn },
                 success: function() {
@@ -103,7 +103,7 @@
                         return false;
                     };
                     alert("삭제되었습니다.");
-                    callReply();
+                    readReply();
                 },
                 error: function(e) {
                     alert(JSON.stringify(e));
