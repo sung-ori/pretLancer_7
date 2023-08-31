@@ -1,5 +1,7 @@
 package com.team.pretLancer_7.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.authentication.UserServiceBeanDefinitionParser;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,7 +29,7 @@ public class examController {
 	ExamService service;
 	
 	@GetMapping("tutorial")
-	public String tutorial (@AuthenticationPrincipal UserDetails user, Exam ex, Model m) {
+	public String tutorial (HttpSession session, @AuthenticationPrincipal UserDetails user, Exam ex, Model m) {
 		ex.setMemberid(user.getUsername());
 		Member member = service.getMemberOne(ex.getMemberid());
 		ex.setLanguage(member.getMemberlang());
@@ -37,25 +39,24 @@ public class examController {
 		log.error("member 객체 {}", member);
 		m.addAttribute("question", question);
 		m.addAttribute("member", member);
+		String answer = (String) session.getAttribute("answer");
+		m.addAttribute("answer", answer);
 		return "examForm/tutorial";
 	}
 	
 	
 	@PostMapping("tutorial")
-	public String tutorialAnswer (@AuthenticationPrincipal UserDetails user, Exam ex, Model m) {
+	public String tutorialAnswer (HttpSession session, @AuthenticationPrincipal UserDetails user, Exam ex, Model m) {
 		// Exam ex에 my_answer와 examnum의 값을 HTML에서 받음
 		ex.setMemberid(user.getUsername());
 		log.error("post로 가져오는 Exam 객체 {}", ex);
-		String answer;
 		int cnt = service.getAnswer(ex);
 		if (cnt == 1) {
-			answer = "correct";
+			session.setAttribute("answer", "correct");
 		}
-		else answer = "failed";
+		else session.setAttribute("answer", "");
+
 		log.error("cnt : {}", cnt);
-		log.error("answer : {}", answer);
-		m.addAttribute("answer", answer);
-		log.error("오답체크 {}", answer);
 		// tutorial 오른 횟수를 확인
 		Member member = service.getMemberOne(ex.getMemberid());
 		m.addAttribute("member", member);
@@ -74,6 +75,7 @@ public class examController {
 		return "examForm/exam";
 	}
 	
+	/*
 	@ResponseBody
 	@PostMapping("answer_check")
 	public String answer_check(int examnum, String memberid) {
@@ -87,4 +89,5 @@ public class examController {
 		} else
 			return "틀렸습니다.";
 	}
+	*/
 }

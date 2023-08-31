@@ -68,7 +68,7 @@ public class ExamServiceImple implements ExamService {
 		return dao.selectOne(memberid);
 	}
 
-	//ajax용 
+	/*ajax용 
 	@Override
 	public int getExamInfo(Exam ex) {
 		int cnt;
@@ -78,7 +78,7 @@ public class ExamServiceImple implements ExamService {
 			cnt = 1;
 		return cnt;
 	}
-	
+	*/
 	
 	
 }

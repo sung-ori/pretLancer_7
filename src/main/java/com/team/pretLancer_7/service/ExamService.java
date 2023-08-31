@@ -12,5 +12,5 @@ public interface ExamService {
 	Member getMemberOne(String memberid);
 
 	//에이젝스 부분
-	int getExamInfo(Exam ex);
+	//int getExamInfo(Exam ex);
 }

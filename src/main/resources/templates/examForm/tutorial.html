@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>튜토리얼 | 신개념 번역 플랫폼 프릿랜서</title>
-<script th:src = "@{/js/jquery.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <style>
 
 	@font-face {
@@ -56,31 +56,36 @@
 	
 </style>
 <script type="text/javascript">
-
-	$(document).ready(function() {
-		$(".answer_button").click(function() {
-
-			let examnum = document.getElementById('examnum').value;
-			let memberid = document.getElementById('memberid').value;
-			
-			$.ajax({
-				url : 'answer_check',
-				type : 'post',
-				data : {examnum : examnum, memberid : memberid},
-				success : function(s) {
-						$('#c_or_f').html(s);
-				},
-				error : function() {
-						alert('에이젝스가 잘못되었습니다');
-						return false;
-				}
-			})
-
-			
-			
-		});
-
+	$(document).ready( function() {
+		$('#correct').ready(changeColor);
+		$('#answer_check').ready(answer_check);
 	});
+
+	function changeColor() {
+		let back_page = document.referrer;
+		let tutorial_page = 'http://localhost:8888/pretLancer/translated/tutorial';
+		let answer = '[[${answer}]]';
+		
+		//만약 전 페이지가 tutorial page와 같은 url이고, answer가 correct일 경우 맞은 문제 수를 표시하는 div의 색이 파란색으로 바뀜
+		if (back_page == tutorial_page && answer == 'correct'){
+			$('#correct').css('color', 'blue');
+			}
+				
+	};
+	
+	function answer_check() {
+		let back_page = document.referrer;
+		let tutorial_page = 'http://localhost:8888/pretLancer/translated/tutorial';
+		let answer = '[[${answer}]]';
+
+		//만일 전 페이지가 tutorial page와 같은 url이고, answer가 correct일 경우 정답입니다! 라는 글자가 나옴
+		if (back_page == tutorial_page && answer == 'correct'){
+			$('#answer_check').html('정답입니다!');
+			} else {
+			$('#answer_check').html('');
+			}
+
+	}
 
 	function check() {
 		//my_answer : 번역 입력 창에 입력된 값
@@ -91,45 +96,26 @@
 			alert('번역을 입력하세요.');
 			return false;
 		}
+
+		let tutorial_num = '[[${member.tutorial_num}]]';
 		
-		/* 에이젝스를 이용하여 맞았다 / 틀렸다 알림창 뜨게 한 다음에 넘어가게 하기. 
-		1.	my_answer에 입력된 value 값을 받아서 컨트롤러에 보낸다 (html) 
-		2.	컨트롤러에서 유사도 비교하는 메서드를 통해 similarity를 도출함 (컨트롤러)
-		3.	유사도에 따라서 answer는 "정답입니다! 다음 문제로 이동합니다", "오답입니다. 다음 문제로 이동합니다."로 나뉨 (컨트롤러)
-		4.	answer를 html로 보내서 알림에 뜨게 한다. (html) 
-		
-		let examnum = document.getElementById('examnum').value;
-		
-		$.ajax({
-			url : 'answer_check',
-			type : 'post',
-			data : {my_answer : my_answer, examnum : examnum},
-			success : function(s) {
-					alert(s);
-			},
-			error : function() {
-					alert('에이젝스가 잘못되었습니다')
-			}
-		})
-		*/
-		let tutorial = '[[${member.tutorial}]]';
-		
-		if (tutorial == 'Y') {
+		if (tutorial_num == 50) {
 			alert('축하합니다! 튜토리얼을 통과하셨습니다. \n 확인 버튼을 누르시면 홈페이지로 이동합니다.');
 			location.href = "http://localhost:8888/pretLancer";
 		}
 		
 		return true;
 	}
+	
+	
 </script>
 
 </head>
 <body>
 		
 	<h1>튜토리얼</h1>
-	<p th:text="${answer}"></p>
 	<div class = "outer">
-		<div> <!-- <div><h2>오늘의 문제</h2></div>--> <br><div><span id = "c_or_f"></span>맞은 문제 : <span th:text = "${member.tutorial_num}">0</span> / 50</div></div><hr>
+		<div> <!-- <div><h2>오늘의 문제</h2></div>--> <br><div id = "correct"><span id = "answer_check">answer 기본값</span>  맞은 문제 수 : <span th:text ="${member.tutorial_num}">0</span> / 50</div></div><hr>
 		<!-- 문제 나오는 부분 -->
 		<div>
 			<!-- 문제 내용 -->
@@ -143,12 +129,12 @@
 		<hr>
 		<!-- 답 입력하는 부분 -->
 		<div>
-		<form th:action = "@{/translated/tutorial}" method = "post" onsubmit = "return check()">
+		<form th:action = "@{/translated/tutorial}" method = "post" onsubmit = "return check()"> 
 			<p>번역을 정확하게 입력해주세요.</p>
 			<input type = "hidden" name = "memberid"  th:value="${#authentication.name}">
 			<input type = "hidden" name = "examnum" th:value = "${question?.examnum}">
 			<input type = "text" name = "my_answer" class = "answer_input" id = "my_answer"> <br>
-			<input type = "submit" value = "제출" class = "answer_button">
+			<input type = "submit" value = "제출" class = "answer_button" id = "answer_button">
 		</form>
 		</div>
 	</div>
