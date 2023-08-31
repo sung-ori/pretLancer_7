@@ -64,7 +64,7 @@
                         str += "<td th:if='${#authentication.name} == ";
                         str += ` ${n.memberid}'>`
                         str += ` <input type="hidden" value="${n.replynum}" >
-                        <a href=""> X </a></td></tr>`;
+                        <a href="../community/delteReply?boardnum"> X </a></td></tr>`;
                     });
                     str += "</table>";
                     $("#replyBox").html(str);
@@ -100,7 +100,10 @@
 			}
             });
         }
-					
+		
+        $("#delete").click(function (){
+        	
+        });
 		
 
     });// End Of jQuery

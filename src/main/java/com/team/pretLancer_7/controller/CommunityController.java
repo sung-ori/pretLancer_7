@@ -64,6 +64,15 @@ public class CommunityController {
     	return ("redirect:/community/main");
     }
     
+    // 글 삭제
+    @GetMapping("delete")
+    public String commyDelete(@AuthenticationPrincipal UserDetails user, Board b) {
+    	b.setMemberid(user.getUsername());
+    	
+    	int cnt = service.commyDelete(b);
+    	return ("redircet:/communtiy/main");
+    }
+    
     // 리플 저장 기능
  	@ResponseBody
  	@PostMapping("insertReply")
@@ -80,6 +89,14 @@ public class CommunityController {
  	public List<Reply> readReply(@RequestParam(name="boardnum", defaultValue="0") int boardnum) {
  		List<Reply> replyList = service.getReplylist(boardnum);
  		return replyList;
+ 	}
+ 	
+ 	// 리플 삭제
+ 	@ResponseBody
+ 	@GetMapping("deleteReply")
+ 	public void deleteReply(@AuthenticationPrincipal UserDetails user ,Reply r) {
+ 		r.setMemberid(user.getUsername());
+ 		service.deleteReply(r);
  	}
  	
 }

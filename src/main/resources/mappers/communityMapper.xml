@@ -5,7 +5,7 @@
 <mapper namespace="com.team.pretLancer_7.dao.CommunityDAO">
 	
 	<select id="selectAll" resultType="Board">
-		select * from pret_board
+		select * from pret_board order by boardnum desc
 	</select>
 	
 	<select id="selectOne" parameterType="int" resultType="Board">
@@ -26,4 +26,12 @@
 		values (pret_reply_seq.nextval, #{boardnum}, #{memberid}, #{replycontent})
 	</insert>
 	
+	<delete id="deleteReply" parameterType="Reply">
+		delete from pret_reply where replynum = #{replynum} and memberid = #{memberid}
+	</delete>
+	
+	<delete id="deleteOne" parameterType="Board">
+		delete from pret_board where boardnum = #{boardnum} and memberid = #{memberid}
+	</delete>
+		
 </mapper>
