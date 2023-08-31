@@ -24,5 +24,10 @@
 	<insert id="insertExamMember">
 	insert into pret_exam (memberid, examnum) values (#{memberid}, #{examnum})
 	</insert>
+
+	<!-- ajax -->
+	<select id="getExamInfo" parameterType="Exam" resultType="Exam">
+	select * from pret_exam where examnum = #{examnum} and memberid = #{memberid}
+	</select>
 	
 </mapper>
