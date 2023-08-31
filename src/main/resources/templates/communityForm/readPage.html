@@ -3,8 +3,8 @@
                 xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <meta name="_csrf" th:content="${_csrf.token}">
-    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <!-- <meta name="_csrf" th:content="${_csrf.token}">  -->
+    <!-- <meta name="_csrf_header" th:content="${_csrf.headerName}"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 <script th:src="@{/assets/js/jquery-3.6.0.js}"></script>
@@ -29,9 +29,9 @@
             $.ajax({
                 type:"POST",
                 url: "insertReply",
-                beforeSend: function(xhr){
-                    xhr.setRequestHeader(header, token);
-                },
+                //beforeSend: function(xhr){
+                //  xhr.setRequestHeader(header, token);
+                //},
                 data: {"replycontent" : reply ,
                         "boardnum" : bdn },
                 success: function() {
@@ -68,20 +68,13 @@
                             <td>${n.replycontent}</td>
                             <td>${n.replydate}</td>
                             <td>${n.reply_recommend}</td>`;
-<<<<<<< HEAD
-                        str += "<td th:if='${#authentication.name} == ";
-                        str += ` ${n.memberid}'>`
-                        str += ` <input type="hidden" value="${n.replynum}" >
-                        <a href="../community/delteReply?boardnum"> X </a></td></tr>`;
-=======
                         
                         
                         str += `<td>
                                 <span style="display : none;" class="${n.memberid}">
-                                <input type="button" value="삭제" onclick="javascript:deleteReply(${n.replynum})">
+                                <input type="button" value="삭제" onclick="deleteReply(${n.replynum})">
                                 </span>
                                 </td></tr>`;
->>>>>>> origin/main
                     });
                     str += "</table>";
                     $("#replyBox").html(str);
@@ -117,20 +110,12 @@
                 }
             });
         }
-<<<<<<< HEAD
-		
-        $("#delete").click(function (){
-        	
-        });
-		
-=======
         
 		function buttonDisplay() {
             let lid = $("#loginId").val();
             console.log(lid)
             $('.'+lid).show();
         }
->>>>>>> origin/main
 
     });// End Of jQuery
 </script>
