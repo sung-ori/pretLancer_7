@@ -8,9 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 <script th:src="@{/assets/js/jquery-3.6.0.js}"></script>
+<style>
+    .hidden{
+        display: none;
+        
+    }
+</style>
 <script>
     $(document).ready(function() {
         readReply();
+        buttonDisplay();
         $("#rBt").click(writeReply);
 
         function writeReply() {
@@ -61,13 +68,24 @@
                             <td>${n.replycontent}</td>
                             <td>${n.replydate}</td>
                             <td>${n.reply_recommend}</td>`;
+<<<<<<< HEAD
                         str += "<td th:if='${#authentication.name} == ";
                         str += ` ${n.memberid}'>`
                         str += ` <input type="hidden" value="${n.replynum}" >
                         <a href="../community/delteReply?boardnum"> X </a></td></tr>`;
+=======
+                        
+                        
+                        str += `<td>
+                                <span style="display : none;" class="${n.memberid}">
+                                <input type="button" value="삭제" onclick="javascript:deleteReply(${n.replynum})">
+                                </span>
+                                </td></tr>`;
+>>>>>>> origin/main
                     });
                     str += "</table>";
                     $("#replyBox").html(str);
+                    buttonDisplay();
 
                 },
                 error: function(e) {
@@ -78,33 +96,41 @@
         }// End Of read reply
 
         function deleteReply(replynum) {
-		let r = replynum;
-		let n = $("#bdn").val();
-		console.log(r);
-		console.log(n);
-		$.ajax({
-			url:"deleteReply",
-			type:"get",
-			data: {replynum: r,
-					boardnum : n},
-			success: function(rst){
-				if(!rst) {
-					alert("자신의 댓글만 삭제할 수 있습니다.");
-					return false;
-				};
-				alert("삭제되었습니다.");
-				callReply();
-			},
-			error: function(e) {
-				alert(JSON.stringify(e));
-			}
+            let r = replynum;
+            let n = $("#bdn").val();
+            console.log(r);
+            console.log(n);
+            $.ajax({
+                url:"deleteReply",
+                type:"get",
+                data: {replynum: r},
+                success: function(rst){
+                    if(!rst) {
+                        alert("자신의 댓글만 삭제할 수 있습니다.");
+                        return false;
+                    };
+                    alert("삭제되었습니다.");
+                    callReply();
+                },
+                error: function(e) {
+                    alert(JSON.stringify(e));
+                }
             });
         }
+<<<<<<< HEAD
 		
         $("#delete").click(function (){
         	
         });
 		
+=======
+        
+		function buttonDisplay() {
+            let lid = $("#loginId").val();
+            console.log(lid)
+            $('.'+lid).show();
+        }
+>>>>>>> origin/main
 
     });// End Of jQuery
 </script>
@@ -112,9 +138,11 @@
 </head>
 
 <body>
+    
     <h1>글 읽기</h1>
     <div>
         <input type="hidden" th:value="${board.boardnum}" id="boardNum">
+        <input type="hidden" th:value="${#authentication.name}" id="loginId">
         <div th:text="${board.boardtitle}">
         </div>
         
