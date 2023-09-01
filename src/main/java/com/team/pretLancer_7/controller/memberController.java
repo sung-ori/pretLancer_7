@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.service.MemberService;
@@ -60,5 +61,11 @@ public class memberController {
 		m.addAttribute("result", result);
 			
 		return "memberForm/idcheck";
+	}
+
+	@GetMapping("getUser")
+	@ResponseBody
+	public Member getUser(String id)  {
+		return service.getUser(id);
 	}
 }

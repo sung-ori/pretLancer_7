@@ -8,9 +8,30 @@
     <script>
         $(document).ready(function() {
 
+            // function getUser() 
             
             $('#charge_kakao').click(function () {
                 // getter
+            let name ="";
+            let mail = "";
+            let id = $("#userId").val();
+            
+            console.log(id);
+            $.ajax({
+                type:"get",
+                url: "../member/getUser",
+                data: {"id" : id},
+                dataType: "json",
+                success: function(data) {
+                    name = data.membername;
+                    email = data.membermail;
+                },
+                error: function(e) {
+                    alert(JSON.stringify(e));
+                }
+            });
+
+            
             var IMP = window.IMP;
             IMP.init('imp31533133'); // 
             var money = $('input[name="cp_item"]:checked').val();
@@ -20,11 +41,11 @@
                 pg : 'kakaopay',
                 // pay_method : 'card', //생략 가능
                 // merchant_uid: "order_no_0001", // 상점에서 관리하는 주문 번호
-                name : '주문명:결제테스트',
+                name : 'PretLancer:포인트 충전',
                 amount : money,
-                buyer_email : 'iamport@siot.do',
-                buyer_name : '구매자이름',
-                buyer_tel : '010-1234-5678',
+                buyer_email : mail,
+                buyer_name : name,
+                // buyer_tel : '010-1234-5678',
                 // buyer_addr : '서울특별시 강남구 삼성동',
                 // buyer_postcode : '123-456'
             }, function (rsp) {
@@ -37,17 +58,24 @@
                     msg += '카드 승인번호 : ' + rsp.apply_num;
                     $.ajax({
                         type: "GET", 
-                        url: "/reward/charge", //충전 금액값을 보낼 url 설정
+                        url: "../reward/charge", //충전 금액값을 보낼 url 설정
                         data: {
-                            "amount" : money
+                            "amount" : money,
+                            "payment_method" : "kakaopay"
                         },
+                        success: function(data) {
+                            alert(data);
+                        },
+                        error: function(e) {
+                            alert(JSON.stringify(e));
+                        }
                     });
                 } else {
                     var msg = '결제에 실패하였습니다.';
                     msg += '에러내용 : ' + rsp.error_msg;
                 }
                 alert(msg);
-                document.location.href=""; //alert창 확인 후 이동할 url 설정
+                //document.location.href=""; //alert창 확인 후 이동할 url 설정
             });
         });
     });
@@ -57,6 +85,7 @@
     
 </head>
 <body>
+    <input type="hidden" th:value="${#authentication.name}" id="userId">
     <div class="card-body bg-white mt-0 shadow">
         <p style="font-weight: bold">카카오페이 현재 사용가능</p>
         <label class="box-radio-input"><input type="radio" name="cp_item" value="5000"><span>5,000원</span></label>

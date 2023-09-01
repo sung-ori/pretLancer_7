@@ -28,6 +28,12 @@ public class MemberSerciceImple implements MemberService {
 		return dao.selectOne(searchid) == null;
 	}
 
+	@Override
+	public Member getUser(String searchid) {
+		return dao.selectOne(searchid);
+		
+	}
+
 	
 	
 }
