@@ -20,10 +20,10 @@
 
     <div th:each="b : ${list}" style="border: solid 2px black;">
         <!-- <div th:text="${b.boardnum}"></div>   -->
-        <div><a th:text="${b.boardtitle}" th:href="@{/community/read(boardnum=${b.boardnum})}"></a> </div>
+        <div><a th:text="${b.boardtitle}" th:href="@{/community/read(boardnum=${b.boardnum})}"></a></div>
         <div th:text="${b.memberid}"></div>
         <div th:text="${b.hits}"></div>
         <div th:text="${b.inputdate}"></div>
-    <div/>
+    </div>
 </body>
 </html>

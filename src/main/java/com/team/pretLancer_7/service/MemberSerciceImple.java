@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.team.pretLancer_7.dao.MemberDAO;
 import com.team.pretLancer_7.domain.Member;
+import com.team.pretLancer_7.domain.MyPage;
 
 @Service
 public class MemberSerciceImple implements MemberService {
@@ -26,6 +27,11 @@ public class MemberSerciceImple implements MemberService {
 	public boolean idcheck(String searchid) {
 		
 		return dao.selectOne(searchid) == null;
+	}
+
+	@Override
+	public void insertMyPage(MyPage mp) {
+		dao.insertMp(mp);
 	}
 
 	
