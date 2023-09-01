@@ -16,4 +16,7 @@ public interface MemberDAO {
 	
 	// 마이페이지 안 소개글 , 사진 조회
 	public MyPage selectOneMyPage(String memberId);
+
+	public void insertMp(MyPage mp);
+	
 }

@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("member")
-public class memberController {
+public class MemberController {
 	
 	@Autowired
 	MemberService service;
