@@ -56,6 +56,15 @@
 	
 </style>
 <script type="text/javascript">
+
+	window.focus = function() {
+		let tn = '[[${member.tutorial_num}]]'
+		if (tn == 50) {
+			alert('축하합니다! 튜토리얼을 통과하셨습니다. \n 확인 버튼을 누르시면 홈페이지로 이동합니다.');
+			location.href = "http://localhost:8888/pretLancer";
+		}
+	}
+	
 	$(document).ready( function() {
 		$('#correct').ready(changeColor);
 		$('#answer_check').ready(answer_check);
@@ -97,13 +106,6 @@
 			return false;
 		}
 
-		let tutorial_num = '[[${member.tutorial_num}]]';
-		
-		if (tutorial_num == 50) {
-			alert('축하합니다! 튜토리얼을 통과하셨습니다. \n 확인 버튼을 누르시면 홈페이지로 이동합니다.');
-			location.href = "http://localhost:8888/pretLancer";
-		}
-		
 		return true;
 	}
 	

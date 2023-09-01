@@ -61,4 +61,5 @@ public class memberController {
 			
 		return "memberForm/idcheck";
 	}
+	
 }

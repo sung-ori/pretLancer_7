@@ -20,12 +20,9 @@ public class MypageController {
     MypageService service;
 
     @GetMapping("main")
-    public String myPageForm(Model m, UserDetails user) {
+    public String myPageForm() {
         
-        // MyPage mp =  service.getMyPage(user.getUsername());
-        // m.addAttribute("MyPage", mp);
-        
-        return"/myPageView/MyPage";
+        return"myPageForm/MyPage";
     }
 
 }
