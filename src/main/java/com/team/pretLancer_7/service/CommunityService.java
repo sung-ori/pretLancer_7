@@ -1,6 +1,5 @@
 package com.team.pretLancer_7.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.team.pretLancer_7.domain.Board;
@@ -23,6 +22,8 @@ public interface CommunityService {
 	public void deleteReply(Reply r);
 
 	public int commyDelete(Board b);
+
+	public int update(Board b);
 
 
 }

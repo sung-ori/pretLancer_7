@@ -33,5 +33,8 @@
 	<delete id="deleteOne" parameterType="Board">
 		delete from pret_board where boardnum = #{boardnum} and memberid = #{memberid}
 	</delete>
-		
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE pret_board SET boardtitle = #{boardtitle}, boardcontent = #{boardcontent}
+	</update>
 </mapper>
