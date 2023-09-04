@@ -7,13 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.service.MemberService;
-import com.team.pretLancer_7.utill.FileService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -79,5 +79,11 @@ public class MemberController {
 		m.addAttribute("result", result);
 			
 		return "memberForm/idcheck";
+	}
+
+	@GetMapping("getUser")
+	@ResponseBody
+	public Member getUser(String id) {
+		return service.getUser(id);
 	}
 }
