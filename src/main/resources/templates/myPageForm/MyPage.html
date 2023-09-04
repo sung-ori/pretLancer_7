@@ -67,15 +67,16 @@
 		<div class = "profile_photo"></div>
 		
 		<!-- 000 님의 마이페이지가 출력되는 영역 -->
-		<div class = "idoutput"><span th:text = "${member.memberid}">id</span> 님의 마이페이지</div>
+		<!-- 내 정보가 보여야 하므로 id는 authen어쩌구 이용해서 작성 -->
+		<div class = "idoutput"><h2><span th:text = "${member.memberid}">id</span> 님의 마이페이지</h2></div>
 		
 		<!-- 개인정보가 출력되는 영역 -->
 		<div class = "member_info">
 			<p>닉네임		<span th:text = "${member.membernick}">닉네임 default</span></p>
 			<p>이메일		<span th:text = "${member.membermail}">이메일 default</span></p>
-			<p></p>
-			<p></p>
-			<p></p>
+			<p>이메일		<span th:text = "${member.membermail}">이메일 default</span></p>
+			<p>이메일		<span th:text = "${member.membermail}">이메일 default</span></p>
+			<p>이메일		<span th:text = "${member.membermail}">이메일 default</span></p>
 		
 		</div>
 	</div>
