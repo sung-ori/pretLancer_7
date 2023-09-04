@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.team.pretLancer_7.dao.MemberDAO;
+import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 
@@ -25,16 +26,19 @@ public class MemberSerciceImple implements MemberService {
 
 	@Override
 	public boolean idcheck(String searchid) {
-		
 		return dao.selectOne(searchid) == null;
 	}
 
 	@Override
-	public Member getUser(String searchid) {
-		return dao.selectOne(searchid);
-	}
-	
 	public void insertMyPage(MyPage mp) {
-	dao.insertMp(mp);
+		dao.insertMp(mp);
 	}
+
+	@Override
+	public void insertAbility(Ability ab) {
+		dao.insertAb(ab);
+	}
+
+	
+	
 }

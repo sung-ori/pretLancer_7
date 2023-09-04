@@ -17,9 +17,28 @@
 		select * from pret_member_profile where memberid = #{memberid}
 	</select>
 	
-	<insert id="insertmP" parameterType="MyPage">
-	insert into pret_member_profile (profilecomment, originphoto, savedphoto)
-	values ('자기소개를 입력해주세요.', #{originphoto}, #{savedphoto})
+	<insert id="insertMp" parameterType="MyPage">
+	insert into pret_member_profile (memberid, profilecomment)
+	values (#{memberid}, '자기소개를 입력해주세요.')
 	</insert>
+	
+	<insert id="insertAb" parameterType="Ability">
+	insert into pret_ability (memberid)
+	values (#{memberid})
+	</insert>
+	
+	<update id="updateProfile" parameterType="Mypage">
+	update from pret_member_profile set 
+	profilecomment = #{profilecomment}, originphoto = #{originphoto}, savedphoto = #{savedphoto}
+	where memberid = #{memberid}
+	</update>
+	
+	<update id="updateOne" parameterType="member">
+	update pret_member set membername = #{membername}, membermail = #{membermail}, membernick = #{membernick}
+	<if test="memberpw != null and memberpw != ''">
+		, memberpw = #{memberpw}
+	</if>
+	where memberid = #{memberid}
+	</update>
 	
 </mapper>

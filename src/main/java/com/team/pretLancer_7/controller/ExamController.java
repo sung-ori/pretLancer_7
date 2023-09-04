@@ -50,15 +50,20 @@ public class ExamController {
 		// Exam ex에 my_answer와 examnum의 값을 HTML에서 받음
 		ex.setMemberid(user.getUsername());
 		log.error("post로 가져오는 Exam 객체 {}", ex);
-		int cnt = service.getAnswer(ex);
+		int cnt = service.getAnswerTu(ex);
 		if (cnt == 1) {
 			session.setAttribute("answer", "correct");
 		}
 		else session.setAttribute("answer", "");
 
-		log.error("cnt : {}", cnt);
-		// tutorial 오른 횟수를 확인
+		// tutorial_num이 오른 횟수를 확인
 		Member member = service.getMemberOne(ex.getMemberid());
+		
+		// tutorial_num이 50 이상일 때 tutorial의 값을 Y로 변경 
+		if (member.getTutorial_num() >= 50) {
+			service.tutorialCheck(ex.getMemberid());
+		}
+		
 		m.addAttribute("member", member);
 		return "redirect:/translated/tutorial";
 	}
@@ -74,6 +79,32 @@ public class ExamController {
 		m.addAttribute("member", member);
 		return "examForm/exam";
 	}
+	
+	
+	
+	@PostMapping("exam")
+	public String examAnswer (HttpSession session, @AuthenticationPrincipal UserDetails user, Exam ex, Model m) {
+		// Exam ex에 my_answer와 examnum의 값을 HTML에서 받음
+		ex.setMemberid(user.getUsername());
+		log.error("post로 가져오는 Exam 객체 {}", ex);
+		int cnt = service.getAnswerEx(ex);
+		if (cnt == 1) {
+			session.setAttribute("answer", "correct");
+		}
+		else session.setAttribute("answer", "");
+
+		// tutorial_num이 오른 횟수를 확인
+		Member member = service.getMemberOne(ex.getMemberid());
+		
+		// tutorial_num이 50 이상일 때 tutorial의 값을 Y로 변경 
+		if (member.getTutorial_num() >= 50) {
+			service.tutorialCheck(ex.getMemberid());
+		}
+		
+		m.addAttribute("member", member);
+		return "redirect:/translated/tutorial";
+	}
+	
 	
 	/*
 	@ResponseBody
