@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko"     xmlns:th="http://www.thymeleaf.org"
+                    xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>글수정 폼</h1>
+    <form th:action="@{/community/update}" method="post" >
+        <input type="text" name="boardtitle" id="boardtitle" th:value="${board.boardtitle}"><br>
+        <textarea name="boardcontent" id="boardcontent" cols="30" rows="10" th:text="${board.boardcontent}"></textarea><br>
+        <input type="submit" value="수정">
+    </form>
+</body>
+</html>

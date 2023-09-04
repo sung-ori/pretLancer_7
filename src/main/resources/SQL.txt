@@ -351,3 +351,24 @@ CREATE TABLE PRET_VANBOARD (
 	BOARDTITLE  	VARCHAR2(500)	NOT NULL, -- 게시글 제목
 	INPUTDATE	    DATE                      -- 게시글 생성 날짜
 );
+
+-- 19. 결제 내역 테이블
+
+CREATE TABLE PRET_PAY (
+    PAYNUM          NUMBER          NOT NULL PRIMARY KEY , -- 고유번호 시퀀스 이용
+    MEMBERID        VARCHAR2(20)    NOT NULL ,             -- 회원 아이디
+    AMOUNT          NUMBER          NOT NULL,              -- 결제 금액
+    PAYDATE         DATE            DEFAULT SYSDATE,       -- 결제 날짜
+    PAYMENT_METHOD  VARCHAR2(100),                         -- 결제 수단
+
+    FOREIGN KEY (MEMBERID)          REFERENCES PRET_MEMBER(MEMBERID)       -- 외래키 지정
+
+);
+
+    -- 결제내역 시퀀스
+
+    CREATE SEQUENCE PRET_PAY_SEQ
+        START WITH 1
+        INCREMENT BY 1
+        MINVALUE 1
+        NOCYCLE;

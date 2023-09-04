@@ -9,12 +9,17 @@
 	values (#{memberid}, #{memberpw}, #{membermail}, #{membername}, #{membernick}, #{memberlang})
 	</insert>
 	
-	<select id="selectOne" parameterType="string" resultType="Member">
+	<select id="selectOne" parameterType="String" resultType="Member">
 	select * from pret_member where memberid = #{searchid}
 	</select>
 
 	<select id="selectOneMyPage" parameterType="String" resultType="MyPage">
 		select * from pret_member_profile where memberid = #{memberid}
 	</select>
+	
+	<insert id="insertmP" parameterType="MyPage">
+	insert into pret_member_profile (profilecomment, originphoto, savedphoto)
+	values ('자기소개를 입력해주세요.', #{originphoto}, #{savedphoto})
+	</insert>
 	
 </mapper>

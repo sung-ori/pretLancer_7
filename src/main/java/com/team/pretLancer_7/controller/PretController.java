@@ -6,14 +6,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
-@RequestMapping("reward")
-public class RewardController {
-    
-    @GetMapping("mainpage")
-    public String reawarPage() {
-        
-        return "/rewardView/mainPage";
-    }
+@RequestMapping("pret")
+@Slf4j
+public class PretController {
+
+	// 단문, 중문, 장문 번역 관련 Controller
+	
+	@GetMapping("mainpage")
+	public String pretMain() {
+		
+		return "pretForm/mainPage";
+	}
 }

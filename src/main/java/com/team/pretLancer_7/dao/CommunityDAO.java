@@ -31,5 +31,6 @@ public interface CommunityDAO {
 	// 글삭제
 	public int deleteOne(Board b);
 	
-	
+	// 글 수정
+	public int updateBoard(Board b);
 }

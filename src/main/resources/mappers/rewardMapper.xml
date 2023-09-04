@@ -1,0 +1,21 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.pretLancer_7.reward.RewardDAO">
+
+	<insert id="insertPretPay" parameterType="Reward">
+	insert into pret_pay (paynum, memberid, amount, payment_method)
+	values (pret_pay_seq.nextval, #{memberid},#{amount},#{payment_method})
+	</insert>
+
+	<update id="updateCharge" parameterType="Reward">
+		UPDATE pret_member
+		SET cash = cash + #{amount}
+		WHERE memberid = #{memberid}
+		
+	</update>
+	
+
+	
+</mapper>

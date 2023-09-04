@@ -16,6 +16,6 @@ public class MyPage {
 	String memberlang;      // 사용 언어 정보
     String profilecomment;  // 소개문
     String originphoto;     // 원본 프로필 사진
-    String savedphoth;      // 저장 프로필 사진
+    String savedphoto;      // 저장 프로필 사진
     
 }

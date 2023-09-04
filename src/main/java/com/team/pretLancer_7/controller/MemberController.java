@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.service.MemberService;
@@ -15,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("member")
-public class memberController {
+public class MemberController {
 	
 	@Autowired
 	MemberService service;
@@ -62,4 +63,10 @@ public class memberController {
 		return "memberForm/idcheck";
 	}
 	
+
+	@GetMapping("getUser")
+	@ResponseBody
+	public Member getUser(String id)  {
+		return service.getUser(id);
+	}
 }

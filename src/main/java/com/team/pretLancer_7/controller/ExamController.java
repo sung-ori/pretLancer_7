@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("translated")
-public class examController {
+public class ExamController {
 
 	@Autowired
 	ExamService service;
