@@ -1,5 +1,6 @@
 package com.team.pretLancer_7.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,34 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public int update(Board b) {
 		return dao.updateBoard(b);
+		
+	}
+
+	@Override
+	public int hitsUP(int boardNum) {
+		return dao.updateHits(boardNum);
+	}
+
+	@Override
+	public void recommendUp(int boardNum, String id) {
+		
+		String bdn = "" + boardNum;
+		HashMap<String, String> map = new HashMap<String,String>();
+
+		map.put("boardnum", bdn);
+		map.put("memberid", id);
+		
+		int result = dao.selectReco(map);
+
+		if (result == 1) {
+			dao.deleteReco(map);
+			dao.downReco(boardNum);
+		}
+		else if (result == 0 ) {
+			dao.insertReco(map);
+			dao.upReco(boardNum);
+		}
+		
 		
 	}
     

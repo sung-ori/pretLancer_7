@@ -1,5 +1,6 @@
 package com.team.pretLancer_7.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -14,8 +15,11 @@ public interface CommunityDAO {
     public List<Board> selectAll();
 
     // 긁읽기
-	public Board selectOne(int Boardnum);
-	
+	public Board selectOne(int boardnum);
+
+	// 조회수 상승
+	public int updateHits(int boardnum);
+
 	// 댓글목록
 	public List<Reply> replyAll(int boardnum);
 
@@ -33,4 +37,15 @@ public interface CommunityDAO {
 	
 	// 글 수정
 	public int updateBoard(Board b);
+
+	// 댓글 확인
+	public int selectReco(HashMap<String, String> map);
+
+	public int deleteReco(HashMap<String, String> map);
+
+	public int downReco(int boardNum);
+	
+	public int upReco(int boardNum);
+
+	public int insertReco(HashMap<String, String> map);
 }

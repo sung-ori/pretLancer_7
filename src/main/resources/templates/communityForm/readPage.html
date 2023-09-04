@@ -12,8 +12,11 @@
 <script>
     $(document).ready(function() {
         readReply();
+        readInfo();
         $("#rBt").click(writeReply);
         $(document).on("click", ".dBt", deleteReply);
+        $(document).on("click", "#recoBt", recoUp);
+        // $("#recoBt").click(recoUp);
 
 
         function writeReply() {
@@ -65,7 +68,7 @@
                             <td>${n.replydate}</td>
                             <td>${n.reply_recommend}</td>`;
                         
-                        
+                        // 댓글 다 만들고 안보이게 만든다.
                         str += `<td>
                 
                                 <span style="display: none;" class="${n.memberid}">
@@ -103,11 +106,59 @@
                 }
             });
         }
-        
+        // 댓글 주인이면 글 버튼 보이게 한다.
 		function buttonDisplay() {
             let lid = $("#loginId").val();
             console.log(lid)
             $('.'+lid).show();
+        }
+
+        function readInfo() {
+            let bdn = $("#boardNum").val();
+
+            $.ajax({
+                type:"GET",
+                url:"readInfo",
+                data:{"boardnum" : bdn},
+                dataType:"json",
+                success: function(board) {
+                    let str = ` 
+                        🧚‍♀️
+                        <span>${board.memberid}</span>
+                        🕰️
+                        <span>${board.inputdate}</span>
+                        👁️
+                        <span>${board.hits}</span>
+                        <input type="button" id="recoBt" value="👍">
+                        <span>${board.recommend}</span>
+                        <input type="button" id="decoBt" value="👎">
+                        <span>${board.decommend}</span>
+                        <input type="button" id="polBt" value="🚨">
+                        <span>${board.police}</span>`;
+
+                        $("#info").html(str);
+                },
+                error: function(e) {
+
+                }
+            })
+        }
+
+        function recoUp(){
+            let bdn = $("#boardNum").val();
+
+            $.ajax({
+                type: "GET",
+                url : "recommendUp",
+                data:{"boardnum" : bdn},
+                success: function() {
+                    readInfo();
+                },
+                error: function(e) {
+                    console.log(JSON.stringify(e));
+                }
+
+            });
         }
         
     });// End Of jQuery
@@ -131,13 +182,19 @@
                 <a th:href="@{/community/updateForm(boardnum=${board.boardnum})}">글 수정</a>
             </p>
         </div>
-        <div>
+        <div id = "info">
+            <!-- 🧚‍♀️
             <span th:text="${board.memberid}"></span>
+            🕰️
             <span th:text="${board.inputdate}"></span>
+            👁️
             <span th:text="${board.hits}"></span>
+            <input type="button" id="recoBt" value="👍">
             <span th:text="${board.recommend}"></span>
+            <input type="button" id="decoBt" value="👎">
             <span th:text="${board.decommend}"></span>
-            <span th:text="${board.police}"></span>
+            <input type="button" id="polBt" value="🚨">
+            <span th:text="${board.police}"></span> -->
         </div>
         
         <div th:text="${board.boardcontent}">
