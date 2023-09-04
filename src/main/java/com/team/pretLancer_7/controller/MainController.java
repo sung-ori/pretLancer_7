@@ -16,19 +16,22 @@ public class MainController {
 	@Autowired
 	MemberService service;
 	
-	// 로그인 후 메인페이지
+	// 로그인 전 메인페이지
     @GetMapping({" ", "/"})
-    public String mainForm(@AuthenticationPrincipal UserDetails user, Model m) {
+    public String mainForm() {
         // 마감기한(번역을 수주한 경우), 회원등급, 신뢰도, 보유포인트 불러오는 메서드 필요. 
-    	Member member = service.getUser(user.getUsername());
-    	m.addAttribute("member", member);
+    	
         return "main";
     }
     
-    // 로그인 전 페이지
-    @GetMapping("public")
-    public String pubilcForm() {
-        return "public";
+    // 로그인 후 페이지
+    @GetMapping("pret")
+    public String pubilcForm(@AuthenticationPrincipal UserDetails user, Model m) {
+    	
+    	Member member = service.getUser(user.getUsername());
+    	m.addAttribute("member", member);
+        
+    	return "main2";
     }
      
 }

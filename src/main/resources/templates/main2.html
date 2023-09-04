@@ -42,18 +42,18 @@
 		          	 	<div class="row move-right-50" style="backround-color: #fff;">
 		          	 		<div class="row">
 		          	 			<div class="col-md-2 col-sm-4 b">프로젝트 마감기한</div>
-	            				<div class="col-md-2 col-sm-4 b">1레벨</div>
-	            				<div class="col-md-2 col-sm-4 b">OOO님</div>
+	            				<div class="col-md-2 col-sm-4 b"><span th:text="${member.mem_level}">1레벨</span></div>
+	            				<div class="col-md-2 col-sm-4 b"><span th:text="${member.memberid}">OOO님</span></div>
 	            				<div class="col-md-2 col-sm-4 b"></div>
 
-	            				<div class="col-md-2 col-sm-4 b">0p</div>
+	            				<div class="col-md-2 col-sm-4 b"><span th:text="${member.point}">0p</span></div>
 		          	 		</div>
 		          	 		<div class="row">
 		          	 			<div class="col-md-2 col-sm-4 b">23/08/25 00:00</div>
-	            				<div class="col-md-2 col-sm-4 b">0</div>
+	            				<div class="col-md-2 col-sm-4 b"><span th:text="${member.mem_ex}">0</span></div>
 	            				<div class="col-md-2 col-sm-4 b">===========</div>
 	            				<div class="col-md-2 col-sm-4 b"></div>
-	            				<div class="col-md-2 col-sm-4 b">0p</div>
+	            				<div class="col-md-2 col-sm-4 b"><span th:text="${member.cash}">0p</span></div>
 		          			</div>
 		          		</div> 
 		          	</ul>
