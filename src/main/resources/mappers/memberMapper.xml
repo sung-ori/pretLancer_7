@@ -9,7 +9,7 @@
 	values (#{memberid}, #{memberpw}, #{membermail}, #{membername}, #{membernick}, #{memberlang})
 	</insert>
 	
-	<select id="selectOne" parameterType="string" resultType="Member">
+	<select id="selectOne" parameterType="String" resultType="Member">
 	select * from pret_member where memberid = #{searchid}
 	</select>
 
