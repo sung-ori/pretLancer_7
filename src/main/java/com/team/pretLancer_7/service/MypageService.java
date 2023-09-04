@@ -7,5 +7,8 @@ public interface MypageService {
     
     public MyPage getMyPage(String userId) ;
 
+	public int updateProfile(MyPage mp);
+
+	public int updateMember(Member m);
 
 }

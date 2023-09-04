@@ -45,18 +45,37 @@ public class ExamServiceImple implements ExamService {
     }
 
 	@Override
-	public int getAnswer(Exam ex) {
+	public int getAnswerTu(Exam ex) {
 		Exam answer = dao.findAnswer(ex);
 		double similarity = AnswerUtill.findSimilarity(answer.getExam_answer(),ex.getMy_answer());
         System.out.println(similarity);
 		int cnt;
         if (similarity > 0.7) {
         	cnt = 1;
-        	dao.tutorialUp(ex);
+        	dao.tutorialUp(ex.getMemberid());
         	dao.insertExamMember(ex);
         }
         else {
         	cnt = 0;
+        }
+        log.debug("similarity : {}", similarity);
+		return cnt;
+	}
+	
+	@Override
+	public int getAnswerEx(Exam ex) {
+		Exam answer = dao.findAnswer(ex);
+		double similarity = AnswerUtill.findSimilarity(answer.getExam_answer(),ex.getMy_answer());
+        System.out.println(similarity);
+		int cnt;
+        if (similarity > 0.7) {
+        	cnt = 1;
+        	dao.psucceedUp(ex.getMemberid());
+        	dao.insertExamMember(ex);
+        }
+        else {
+        	cnt = 0;
+        	dao.pfailedUp(ex.getMemberid());
         }
         log.debug("similarity : {}", similarity);
 		return cnt;
@@ -68,6 +87,16 @@ public class ExamServiceImple implements ExamService {
 		return dao.selectOne(memberid);
 	}
 
+	// tutorial 'Y'로 변경
+	@Override
+	public void tutorialCheck(String memberid) {
+		dao.tutorialClear(memberid);
+		
+	}
+
+	
+	
+	
 	/*ajax용 
 	@Override
 	public int getExamInfo(Exam ex) {
