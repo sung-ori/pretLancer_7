@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.service.MemberService;
@@ -40,15 +41,15 @@ public class MemberController {
 		log.error("회원가입 {}",m);
 		service.insertMember(m);
 		
-		 // 프로필 사진을 저장할 MyPage 객체 생성
+		// MyPage 객체 생성
 	    MyPage mp = new MyPage();
-	    
-	    // 기본 프로필 사진을 설정
-	    String defaultPhotoPath = uploadPath + "/basic.jpg"; // 기본 프로필 사진 파일 경로
-	    mp.setOriginphoto(defaultPhotoPath);
-	    mp.setSavedphoto(defaultPhotoPath);
-	    
+	    mp.setMemberid(m.getMemberid());
 	    service.insertMyPage(mp);
+	    
+	    // Ability 객체 생성
+	    Ability ab = new Ability();
+	    ab.setMemberid(m.getMemberid());
+	    service.insertAbility(ab);
 		
 		return "redirect:/";
 	}

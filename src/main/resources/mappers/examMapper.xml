@@ -17,13 +17,25 @@
 	select * from pret_member where memberid = #{memberid}
 	</select>
 	
-	<update id="tutorialUp">
+	<update id="tutorialUp" parameterType="string">
 	update pret_member set tutorial_num = tutorial_num + 1 where memberid = #{memberid}
 	</update>
 	
-	<insert id="insertExamMember">
+	<update id="psucceedUp" parameterType="string">
+	update pret_ability set psucceed = psucceed + 1 where memberid = #{memberid}
+	</update>
+	
+	<update id="pfailedUp" parameterType="string">
+	update pret_ability set pfailed = pfailed + 1 where memberid = #{memberid}
+	</update>
+	
+	<insert id="insertExamMember" parameterType="Exam">
 	insert into pret_exam (memberid, examnum) values (#{memberid}, #{examnum})
 	</insert>
+	
+	<update id="tutorialClear" parameterType="string">
+	update pret_member set tutorial= 'Y' where memberid = #{memberid}
+	</update>
 
 	<!-- ajax -->
 	<select id="getExamInfo" parameterType="Exam" resultType="Exam">

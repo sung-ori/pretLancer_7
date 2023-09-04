@@ -18,10 +18,16 @@ public interface ExamDAO {
 
 	public Member selectOne(String memberid);
 
-	public void tutorialUp(Exam ex);
+	public void tutorialUp(String memberid);
 
 	public void insertExamMember(Exam ex);
 
 	public Exam getExamInfo(Exam ex);
+
+	public void tutorialClear(String memberid);
+
+	public void psucceedUp(String memberid);
+
+	public void pfailedUp(String memberid);
 
 }
