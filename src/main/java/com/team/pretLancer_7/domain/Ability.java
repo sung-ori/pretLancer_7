@@ -7,12 +7,23 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Reply {
+public class Ability {
 
-	int replynum;
-	int boardnum;
 	String memberid;
-	String replycontent;
-	String replydate;
-	int reply_recommend;
+	
+	int psucceed;
+	int pfailed;
+	
+	int ssucceed;
+	int sfailed;
+	
+	int msucceed;
+	int mfailed;
+	
+	int lsucceed;
+	int lfailed;
+	
+	int esucceed;
+	int efailed;
+	
 }

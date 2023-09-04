@@ -7,8 +7,14 @@ public interface ExamService {
 
 	Exam getQuestion(Exam ex);
 
-	int getAnswer(Exam ex);
+	int getAnswerTu(Exam ex);
 
 	Member getMemberOne(String memberid);
 
+	void tutorialCheck(String memberid);
+
+	int getAnswerEx(Exam ex);
+
+	//에이젝스 부분
+	//int getExamInfo(Exam ex);
 }

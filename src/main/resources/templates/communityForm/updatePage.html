@@ -4,16 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>글쓰기</title>
+    <title>글 수정 폼</title>
+    
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    
     <script>
         $(document).ready(function() {
+
             $("#cancelBt").click(cancel);
 
             function cancel() {
+                let bdn = $("#boardnum").val();
                 $("#boardtitle").val("");
                 $("#boardcontent").val("");
-                location.href="../community/main"
+                location.href="../community/read?boardnum="+bdn
 
             }
 
@@ -22,11 +26,12 @@
     </script>
 </head>
 <body>
-    <h1>글쓰기 폼</h1>
-    <form th:action="@{/community/write}" method="post" >
-        <input type="text" name="boardtitle" id="boardtitle"><br>
-        <textarea name="boardcontent" id="boardcontent" cols="30" rows="10"></textarea><br>
-        <input type="submit" value="글쓰기">
+    <h1>글수정 폼</h1>
+    <input type="hidden" th:value="${board.boardnum}" id = "boardnum">
+    <form th:action="@{/community/update}" method="post" >
+        <input type="text" name="boardtitle" id="boardtitle" th:value="${board.boardtitle}"><br>
+        <textarea name="boardcontent" id="boardcontent" cols="30" rows="10" th:text="${board.boardcontent}"></textarea><br>
+        <input type="submit" value="수정">
         <input type="button" id="cancelBt" value="취소">
     </form>
 </body>

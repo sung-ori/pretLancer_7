@@ -24,5 +24,13 @@ public interface CommunityDAO {
 	
 	// 댓글쓰기
 	public void insertReply(Reply r);
+
+	// 댓글 삭제
+	public void deleteReply(Reply r);
 	
+	// 글삭제
+	public int deleteOne(Board b);
+	
+	// 글 수정
+	public int updateBoard(Board b);
 }

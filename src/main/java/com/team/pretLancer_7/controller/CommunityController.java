@@ -43,8 +43,7 @@ public class CommunityController {
     	Board board = service.boardListOne(boardnum);
     	List<Reply> reply = service.replyList(boardnum);
     	m.addAttribute("board", board);
-    	m.addAttribute("reply", reply);
-		
+
     	return "/communityForm/readPage";
     }
     
@@ -65,20 +64,55 @@ public class CommunityController {
     	return ("redirect:/community/main");
     }
     
+    // 글 삭제
+    @GetMapping("delete")
+    public String commyDelete(@AuthenticationPrincipal UserDetails user, Board b) {
+    	b.setMemberid(user.getUsername());
+    	
+    	int cnt = service.commyDelete(b);
+    	return ("redirect:/community/main");
+    }
+
+	// 글 수정 폼
+	@GetMapping("updateForm")
+	public String updateForm(Model m, @RequestParam(name="boardnum", defaultValue="0") int boardnum) {
+	Board board = service.boardListOne(boardnum);
+    	List<Reply> reply = service.replyList(boardnum);
+    	m.addAttribute("board", board);
+		return "/communityForm/updatePage";
+	}
+
+	//  글 수정
+	@PostMapping("update")
+	public String update(@AuthenticationPrincipal UserDetails user, Board b) {
+		service.update(b);
+		return "redirect:/community/main";
+	}
+    
     // 리플 저장 기능
  	@ResponseBody
  	@PostMapping("insertReply")
  	public void insertReply(@AuthenticationPrincipal UserDetails user, Reply r) {
- 		r.setMemeberid(user.getUsername());
+		log.debug("리플삽입 {}",r);
+		r.setMemberid(user.getUsername());
+		log.debug("멤버이름 넣고 {}",r);
  		service.writeReply(r);
  	}
  	
  	// 리플 읽어오기 기능
  	@ResponseBody
  	@GetMapping("readReply")
- 	public List<Reply> readReply(int boardnum) {
+ 	public List<Reply> readReply(@RequestParam(name="boardnum", defaultValue="0") int boardnum) {
  		List<Reply> replyList = service.getReplylist(boardnum);
  		return replyList;
+ 	}
+ 	
+ 	// 리플 삭제
+ 	@ResponseBody
+ 	@GetMapping("deleteReply")
+ 	public void deleteReply(@AuthenticationPrincipal UserDetails user ,Reply r) {
+ 		r.setMemberid(user.getUsername());
+ 		service.deleteReply(r);
  	}
  	
 }

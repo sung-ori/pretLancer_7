@@ -5,14 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Reply {
-
-	int replynum;
-	int boardnum;
-	String memberid;
-	String replycontent;
-	String replydate;
-	int reply_recommend;
+@AllArgsConstructor
+public class Reward {
+    int paynum;
+    String memberid;
+    long amount;
+    String paydate;
+    String payment_method;
 }

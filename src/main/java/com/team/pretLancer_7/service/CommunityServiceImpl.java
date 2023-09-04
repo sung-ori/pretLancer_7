@@ -1,6 +1,5 @@
 package com.team.pretLancer_7.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +44,23 @@ public class CommunityServiceImpl implements CommunityService {
 	public List<Reply> getReplylist(int boardnum) {
 		return dao.replyAll(boardnum);
 	}
+
+	@Override
+	public void deleteReply(Reply r) {
+		dao.deleteReply(r);
+	}
+
+	@Override
+	public int commyDelete(Board b) {
+		return dao.deleteOne(b);
+	}
+
+	@Override
+	public int update(Board b) {
+		return dao.updateBoard(b);
+		
+	}
     
+	
+	
 }

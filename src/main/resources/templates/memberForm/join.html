@@ -76,8 +76,9 @@
 
 
 </style>
-<script th:src="@{/assets/js/jquery-3.6.0.js}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script>
+	//이메일 인증 구현
 	$(document).ready(function() {
 		$("#sendEmail").click(sendEmail);
 		$("#confirmBt").click(confirmPassword);
@@ -152,8 +153,89 @@
 
 </script>
 <script>
-	//만들어야 하는 기능 : 아이디 중복확인 페이지 및 중복확인 기능, 에이젝스로 닉네임 중복확인 기능, 에이젝스로 비밀번호 확인 기능
-	//아이디, 비밀번호 길이 확인 : 에이젝스로 구현해보기
+
+	/* 제이쿼리! 
+		1. 아이디 길이 : 5글자에서 9글자 사이(idcheck에서 구현 완료)
+		2. 비밀번호 : 길이 설정 (8글자~12글자, 영어 + 숫자 조합)
+		3. 비밀번호 확인 : 비밀번호와 같지 않으면 밑에 '비밀번호와 일치하지 않습니다' 문구가 뜸
+		4. 이메일 : @가 포함되지 않을 경우 '이메일은 ㅇㅇㅇㅇ@.ㅇㅇㅇ의 형식으로 작성해주세요'
+		5. 이름 : 1글자만 입력할 경우 '이름을 올바르게 입력해주세요'
+		6. 언어 : 언어를 선택하지 않을 경우 '언어를 선택해주세요'
+	*/
+
+	$(document).ready(function() {
+		$('#pw').keyup(pwhtml);
+		$('#pwcheck').keyup(pwcheck);
+		$('#email').keyup(mailhtml);
+		$('#name').keyup(namehtml);
+		$('#lang').focus(langhtml);
+	});
+	
+	//pwhtml : 입력된 비밀번호를 받아서 글자 수를 체크한 다음 8글자에서 12글자 사이가 아니면 아래 경고문구가 뜬다.
+	function pwhtml() {
+		//input에서 pw 밸류를 받아온다.
+		let pw = document.getElementById('pw').value;
+		
+		//pw length를 잰 후 html 반환
+		if (pw.length < 8 || pw.length > 12) {
+			$('#pwspan').html('<br>비밀번호는 8글자에서 12글자 사이로 입력해주세요.');
+		} else {
+			$('#pwspan').html('');			
+		}
+	}
+
+	//pwcheck : 입력된 비밀번호 확인이 비밀번호와 같지 않으면 '입력하신 비밀번호와 똑같이 입력해주세요.'라고 뜸
+	function pwcheck() {
+		//input에서 pw 밸류를 받아온다.
+		let pw = document.getElementById('pw').value; //비밀번호 value
+		let pwc = document.getElementById('pwcheck').value; //비밀번호 확인 value
+		
+		//pwc와 pw가 같은지 여부에 따라 html 변환
+		if (pwc != pw) {
+			$('#pwcspan').html('<br>입력하신 비밀번호와 똑같이 입력해주세요.');
+		} else {
+			$('#pwcspan').html('');			
+		}
+	}
+
+	//mailhtml : 이메일에 @가 포함되지 않으면 'ooo@ooo.ooo'의 형식으로 입력하라고 뜸
+	function mailhtml() {
+		//input에서 mail 밸류를 받아온다.
+		let mail = document.getElementById('email').value; //이메일 value
+		
+		//email에 @가 들어있는지 여부에 따라 html 변환
+		if (!mail.includes('@')) {
+			$('#mailspan').html('<br>OOO@OOO.OO의 형식으로 입력해주세요.');
+		} else {
+			$('#mailspan').html('');			
+		}		
+	}
+
+	//namehtml : 이름이 2글자 미만일 경우 '이름을 정확하게 입력하세요.'라고 뜸
+	function namehtml() {
+		//input에서 name 밸류를 받아온다.
+		let name = document.getElementById('name').value; //이름 value
+		
+		//name 길이에 따라 html 변환
+		if (name.length < 2) {
+			$('#namespan').html('<br>이름을 올바르게 입력해주세요.');
+		} else {
+			$('#namespan').html('');			
+		}				
+	}
+
+	//langhtml : value를 선택하지 않았을 경우 '언어를 선택하세요'라고 뜬다
+	function langhtml() {
+		//input에서 lang 밸류를 받아온다.
+		let lang = $("#lang option:selected").val();		
+		//lang 값에 따라 html 변환
+		if (lang == 'JP' || lang == 'EN') {
+			$('#langspan').html('');
+		} else {
+			$('#langspan').html('<br>자주 사용하는 언어를 선택하세요.');			
+		}				
+		
+	}
 
 	function check() {
 		let id = document.getElementById('id').value;
@@ -203,7 +285,7 @@
 
 		return true;
 	}
-	
+		
 	function openwin() {
 		window.open('http://localhost:8888/pretLancer/member/idcheck','아이디 중복체크', 'w, width=500, height=300, top=200, left=600');
 	}
@@ -220,22 +302,25 @@
 	
 	<form th:action = "@{/member/join}" method = "post" onsubmit = "return check()">
 	<table>
-	<tr><td>아이디</td> <td><input type = "text" placeholder = "사용할 아이디를 입력해주세요." name = "memberid" id = "id" class = "login"></td> <td><a href = "javascript:openwin()">중복확인</a></td></tr>
-	<tr><td>비밀번호</td> <td><input type = "password" placeholder = "비밀번호를 입력해주세요." name = "memberpw" id = "pw" class = "login"></td><td></td></tr>
-	<tr><td>비밀번호 확인</td> <td><input type = "password" placeholder = "비밀번호를 한 번 더 입력해주세요." id = "pwcheck" class = "login"></td><td></td></tr>
-	<tr><td>이메일</td> <td><input type = "text"  placeholder = "이메일을 입력해주세요." name = "membermail" id = "email" class = "login"></td>
-		<td><input type="button" id="sendEmail" value="이메일 전송"></td>
+	<!-- 
+	
+	1. 아이디의 경우, readOnly로 설정되어 클릭 시 아이디 중복확인 폼이 나오고, 중복확인을 통과한 아이디를 사용하기 버튼을 눌러 이용할 수 있게 한다 -->
+	<tr><td>아이디</td> <td><input type = "text" placeholder = "사용할 아이디를 입력해주세요." name = "memberid" id = "id" class = "login"  readonly onclick = "javascript:openwin()"></td> </tr>
+	<tr><td>비밀번호</td> <td><input type = "password" placeholder = "비밀번호를 입력해주세요." name = "memberpw" id = "pw" class = "login"><span id = "pwspan" style = "font-size : 10pt; color : red"></span></td><td></td></tr>
+	<tr><td>비밀번호 확인</td> <td><input type = "password" placeholder = "비밀번호를 한 번 더 입력해주세요." id = "pwcheck" class = "login"><span id = "pwcspan" style = "font-size : 10pt; color : red"></span></td><td></td></tr>
+	<tr><td>이메일</td> <td><input type = "text"  placeholder = "이메일을 입력해주세요." name = "membermail" id = "email" class = "login"><span id = "mailspan" style = "font-size : 10pt; color : red"></span></td>
+		<td><input type="button" id="sendEmail" value="이메일 전송" class = "join_button"></td>
 	</tr>
 	<tr id="confirmBox" style="display: none;">
 		<td><input type = "text"  placeholder = "인증번호를 입력해주세요." name = "mailPw" id = "mailPw" class = "login"></td>
 		<td><input type="button" id="confirmBt" value="인증번호 확인"></td>
 	</tr>
-	<tr><td>이름</td> <td><input type = "text"  placeholder = "이름을 입력해주세요." name = "membername" id = "name" class = "login"></td><td></td></tr>
-	<tr><td>닉네임</td> <td><input type = "text" placeholder = "닉네임을 입력해주세요." name = "membernick" id = "nick" class = "login"></td><td></td></tr>
-	<tr><td>자주 사용하는 언어<br>(번역 언어)</td><td><select name = "memberlang"><option selected>자주 사용하는 언어를 선택해주세요.</option>
+	<tr><td>이름</td> <td><input type = "text"  placeholder = "이름을 입력해주세요." name = "membername" id = "name" class = "login"><span id = "namespan" style = "font-size : 10pt; color : red"></span></td><td></td></tr>
+	<tr><td>닉네임</td> <td><input type = "text" placeholder = "닉네임을 입력해주세요." name = "membernick" id = "nick" class = "login"><span id = "nickspan" style = "font-size : 10pt; color : red"></span></td><td></td></tr>
+	<tr><td>자주 사용하는 언어<br>(번역 언어)</td><td><select name = "memberlang" id = "lang"><option selected value = null>자주 사용하는 언어를 선택해주세요.</option>
 										<option value = "JP">일본어</option>
 										<option value = "EN">영어</option>
-										</select></td><td></td></tr>
+										</select><span id = "langspan" style = "font-size : 10pt; color : red"></span></td><td></td></tr>
 	</table>
 	<br>
 	<div class = "button">

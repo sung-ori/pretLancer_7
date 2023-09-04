@@ -2,6 +2,7 @@ package com.team.pretLancer_7.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 
@@ -16,4 +17,17 @@ public interface MemberDAO {
 	
 	// 마이페이지 안 소개글 , 사진 조회
 	public MyPage selectOneMyPage(String memberId);
+
+	// 회원가입 시 마이프로필 테이블 생성
+	public void insertMp(MyPage Mp);
+	
+	// 마이프로필 수정
+	public int updateProfile(MyPage mp);
+	
+	// 회원정보 수정
+	public int updateMember(Member m);
+	
+	// 회원가입 시 번역능력 테이블 생성
+	public void insertAb(Ability ab);
+	
 }

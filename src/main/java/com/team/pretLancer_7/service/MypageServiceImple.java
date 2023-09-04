@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.team.pretLancer_7.dao.MemberDAO;
 import com.team.pretLancer_7.domain.Member;
+import com.team.pretLancer_7.domain.MyPage;
 
 @Service
 public class MypageServiceImple implements MypageService {
@@ -14,19 +15,30 @@ public class MypageServiceImple implements MypageService {
 
 
     @Override
-    public Member getMyPage(String userId) {
+    public MyPage getMyPage(String userId) {
         Member m = mDao.selectOne(userId);
 
-        // MyPage mP = mDao.selectOneMyPage(userId);
+        MyPage Mp = mDao.selectOneMyPage(userId);
 
-        // mP.setMemberid(m.getMemberid());
-        // mP.setMembername(m.getMembername());
-        // mP.setMem_level(m.getMem_level());
-        // mP.setMembernick(m.getMembernick());
-        // mP.setMem_ex(m.getMem_ex());
-        // mP.setOriginphoto(m.getMem_level());
-        // mP.setMemberlang(m.getMemberlang());
+        Mp.setMemberid(m.getMemberid());
+        Mp.setMembername(m.getMembername());
+        Mp.setMem_level(m.getMem_level());
+        Mp.setMembernick(m.getMembernick());
+        Mp.setMem_ex(m.getMem_ex());
         
-        return m;
+        return Mp;
     }
+
+	@Override
+	public int updateProfile(MyPage mp) {
+		return mDao.updateProfile(mp);
+	}
+
+	@Override
+	public int updateMember(Member m) {
+		return mDao.updateMember(m);
+	}
+    
+    
+    
 }

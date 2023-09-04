@@ -65,7 +65,7 @@ CREATE TABLE PRET_EXAM (
 CREATE TABLE PRET_BOARD (
     BOARDNUM        NUMBER          NOT NULL  PRIMARY KEY, -- 게시판 고유번호 시퀀스(PRET_BOARD_SEQ.NEXTVAL) 사용
     MEMBERID        VARCHAR2(20)    NOT NULL ,                      -- 게시자 아이디 PRET_MEMBER의 MEMBERID참조
-    BOARDTITLE      VARCHAR2(200)   NOT NULL                        -- 게시판 제목
+    BOARDTITLE      VARCHAR2(200)   NOT NULL ,                      -- 게시판 제목
     BOARDCONTENT    VARCHAR2(2000)  NOT NULL,                       -- 게시판 내용
     INPUTDATE       DATE    DEFAULT SYSDATE,                        -- 작성 날짜 SYSDATE
     HITS            NUMBER  DEFAULT 0,                              -- 조회수
@@ -118,7 +118,7 @@ CREATE TABLE PRET_EVALUATIONREASON (
 
 -- 8. 번역 능력 테이블
 
-CREATE TABLE PRET_ABLIITY (
+CREATE TABLE PRET_ABILITY (
     MEMBERID    VARCHAR2(20) NOT NULL PRIMARY KEY, -- 사용자 아이디 PK, FK
 
     PSUCCEED    NUMBER DEFAULT 0 ,  -- 연습 성공
@@ -351,3 +351,92 @@ CREATE TABLE PRET_VANBOARD (
 	BOARDTITLE  	VARCHAR2(500)	NOT NULL, -- 게시글 제목
 	INPUTDATE	    DATE                      -- 게시글 생성 날짜
 );
+
+-- 19. 결제 내역 테이블
+
+CREATE TABLE PRET_PAY (
+    PAYNUM          NUMBER          NOT NULL PRIMARY KEY , -- 고유번호 시퀀스 이용
+    MEMBERID        VARCHAR2(20)    NOT NULL ,             -- 회원 아이디
+    AMOUNT          NUMBER          NOT NULL,              -- 결제 금액
+    PAYDATE         DATE            DEFAULT SYSDATE,       -- 결제 날짜
+    PAYMENT_METHOD  VARCHAR2(100),                         -- 결제 수단
+
+    FOREIGN KEY (MEMBERID)          REFERENCES PRET_MEMBER(MEMBERID)       -- 외래키 지정
+
+);
+
+    -- 결제내역 시퀀스
+
+    CREATE SEQUENCE PRET_PAY_SEQ
+        START WITH 1
+        INCREMENT BY 1
+        MINVALUE 1
+        NOCYCLE;
+
+-- 20 . 추천 중복 방지 테이블 (게시글)
+
+CREATE TABLE PRET_BOARD_RECO (
+    RECOMENDNUM     NUMBER      PRIMARY KEY,
+    BOARDNUM        NUMBER,
+    MEMBERID        VARCHAR2(20),
+
+     FOREIGN KEY (MEMBERID)          REFERENCES PRET_MEMBER(MEMBERID) ON DELETE CASCADE,       -- 외래키 지정
+     FOREIGN KEY (BOARDNUM)          REFERENCES PRET_BOARD(BOARDNUM)  ON DELETE CASCADE     -- 외래키 지정
+
+);
+    CREATE SEQUENCE     BOARD_RECO_SEQ
+        START WITH 1
+        INCREMENT BY 1
+        MINVALUE 1
+        NOCYCLE;
+
+-- 21 . 반대 중복 방지 테이블 (게시글)
+
+CREATE TABLE PRET_BOARD_DECO (
+    DECOMENDNUM     NUMBER      PRIMARY KEY,
+    BOARDNUM        NUMBER,
+    MEMBERID        VARCHAR2(20),
+
+     FOREIGN KEY (MEMBERID)          REFERENCES PRET_MEMBER(MEMBERID) ON DELETE CASCADE,       -- 외래키 지정
+     FOREIGN KEY (BOARDNUM)          REFERENCES PRET_BOARD(BOARDNUM)  ON DELETE CASCADE        -- 외래키 지정
+
+);
+    CREATE SEQUENCE     BOARD_DECO_SEQ
+        START WITH 1
+        INCREMENT BY 1
+        MINVALUE 1
+        NOCYCLE;
+
+-- 22 . 추천 중복 방지 테이블 (댓글)
+
+CREATE TABLE PRET_REPLY_RECO (
+    REPLYRECONUM     NUMBER      PRIMARY KEY,
+    REPLYNUM        NUMBER,
+    MEMBERID        VARCHAR2(20),
+
+     FOREIGN KEY (MEMBERID)          REFERENCES PRET_MEMBER(MEMBERID) ON DELETE CASCADE,       -- 외래키 지정
+     FOREIGN KEY (REPLYNUM)          REFERENCES PRET_REPLY(REPLYNUM)  ON DELETE CASCADE        -- 외래키 지정
+
+);
+    CREATE SEQUENCE     REPLY_RECO_SEQ
+        START WITH 1
+        INCREMENT BY 1
+        MINVALUE 1
+        NOCYCLE;
+
+-- 23 . 신고 중복 방지 테이블 (게시글)
+
+CREATE TABLE PRET_BOARD_POLICE (
+    RECOMENDNUM     NUMBER      PRIMARY KEY,
+    BOARDNUM        NUMBER,
+    MEMBERID        VARCHAR2(20),
+
+     FOREIGN KEY (MEMBERID)          REFERENCES PRET_MEMBER(MEMBERID) ON DELETE CASCADE,       -- 외래키 지정
+     FOREIGN KEY (BOARDNUM)          REFERENCES PRET_BOARD(BOARDNUM)  ON DELETE CASCADE        -- 외래키 지정
+
+);
+    CREATE SEQUENCE     BOARD_POL_SEQ
+        START WITH 1
+        INCREMENT BY 1
+        MINVALUE 1
+        NOCYCLE;
