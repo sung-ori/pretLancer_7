@@ -152,6 +152,39 @@ public class CommunityServiceImpl implements CommunityService {
 				
 		}	
 	}
+
+	@Override
+	public String colorize(int boardnum, String id) {
+		String bdn = "" + boardnum;
+		HashMap<String, String> map = new HashMap<String,String>();
+
+		map.put("boardnum", bdn);
+		map.put("memberid", id);
+
+		Integer recoRst = dao.selectReco(map);
+		Integer decoRst = dao.selectDeco(map);
+		int rst = 0;
+		
+		if (recoRst == null && decoRst == null) {
+			rst  = 1;
+		}
+		else if (recoRst == null && decoRst != null) {
+			rst = 2;}
+		else if (recoRst != null && decoRst == null) {
+			rst = 3;
+		}
+
+		String bt = "";
+		switch (rst) {
+			case 1 : bt = "" ; break;
+			case 2 : bt = "decoBt"; break;
+			case 3 : bt = "recoBt"; break;
+			default : break;
+		}
+
+		return bt;
+		
+	}
     
 	
 	

@@ -130,14 +130,16 @@
                         <span>${board.inputdate}</span>
                         👁️
                         <span>${board.hits}</span>
-                        <input type="button" id="recoBt" value="👍">
+                        <input type="button" id="recoBt" value="👍" class="bt">
                         <span>${board.recommend}</span>
-                        <input type="button" id="decoBt" value="👎">
+                        <input type="button" id="decoBt" value="👎" class="bt">
                         <span>${board.decommend}</span>
-                        <input type="button" id="polBt" value="🚨">
+                        <input type="button" id="polBt" value="🚨" class="bt">
                         <span>${board.police}</span>`;
 
                         $("#info").html(str);
+
+                        btColorize();
                 },
                 error: function(e) {
 
@@ -152,7 +154,7 @@
                 type: "GET",
                 url : "recommendUp",
                 data:{"boardnum" : bdn},
-                success: function() {
+                success: function(color) {
                     readInfo();
                 },
                 error: function(e) {
@@ -170,6 +172,26 @@
                 data:{"boardnum" : bdn},
                 success: function() {
                     readInfo();
+                },
+                error: function(e) {
+                    console.log(JSON.stringify(e));
+                }
+
+            });
+        }
+
+        function btColorize() {
+            let bdn = $("#boardNum").val();
+            $.ajax({
+                type: "GET",
+                url : "colorize",
+                data:{"boardnum" : bdn},
+                success: function(bt) {
+                    if (bt == "") {
+                        $(".bt").css("background-color","none");
+                    }else{
+                        $('#'+bt).css("background-color","red");
+                    }
                 },
                 error: function(e) {
                     console.log(JSON.stringify(e));

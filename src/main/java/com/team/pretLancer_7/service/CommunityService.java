@@ -31,5 +31,7 @@ public interface CommunityService {
 
 	public void decommendUp(int boardNum, String id);
 
+	public String colorize(int boardnum, String id);
+
 
 }

@@ -140,4 +140,12 @@ public class CommunityController {
 		service.decommendUp(boardnum,id);
 	}
  	
+	@ResponseBody
+	@GetMapping("colorize")
+	public String colorize(@RequestParam(name="boardnum", defaultValue="0") int boardnum,
+							@AuthenticationPrincipal UserDetails user){
+		String id = user.getUsername();
+		return service.colorize(boardnum,id);
+		
+	}
 }
