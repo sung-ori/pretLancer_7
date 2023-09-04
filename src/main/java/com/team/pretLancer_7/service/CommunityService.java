@@ -29,5 +29,7 @@ public interface CommunityService {
 
 	public void recommendUp(int boardNum, String id);
 
+	public void decommendUp(int boardNum, String id);
+
 
 }

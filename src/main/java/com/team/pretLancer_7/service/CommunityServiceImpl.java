@@ -10,7 +10,10 @@ import com.team.pretLancer_7.dao.CommunityDAO;
 import com.team.pretLancer_7.domain.Board;
 import com.team.pretLancer_7.domain.Reply;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class CommunityServiceImpl implements CommunityService {
 
     @Autowired
@@ -76,19 +79,78 @@ public class CommunityServiceImpl implements CommunityService {
 		map.put("boardnum", bdn);
 		map.put("memberid", id);
 		
-		Integer result = dao.selectReco(map);
+		Integer recoRst = dao.selectReco(map);
+		Integer decoRst = dao.selectDeco(map);
 
-		if (result == null) {
-			dao.insertReco(map);
-			dao.upReco(boardNum);
+		log.debug("레코 {}",recoRst);
+		log.debug("데코 {}",decoRst);
+		
+		int rst = 0;
+
+		if (recoRst == null && decoRst == null) {
+			rst  = 1;
 		}
-		else {
-			dao.deleteReco(map);
-			dao.downReco(boardNum);
+		else if (recoRst != null && decoRst == null) {
+			rst = 2;}
+		else if (recoRst != null && decoRst == null) {
+			rst = 3;
+		}
+		log.debug("추천 {}", rst);
+		switch (rst) {
+			case 1 :
+				dao.insertReco(map);
+				dao.upReco(boardNum);
+				break;
+			case 2 :
+				dao.deleteReco(map);
+				dao.downReco(boardNum);
+				break;
+			default : break;
+				
+		}
+		
+			
 			
 		}
 		
 		
+	
+
+	@Override
+	public void decommendUp(int boardNum, String id) {
+
+		String bdn = "" + boardNum;
+		HashMap<String, String> map = new HashMap<String,String>();
+
+		map.put("boardnum", bdn);
+		map.put("memberid", id);
+		
+		Integer recoRst = dao.selectReco(map);
+		Integer decoRst = dao.selectDeco(map);
+
+		int rst = 0;
+
+		if (recoRst == null && decoRst == null) {
+			rst  = 1;
+		}
+		else if (recoRst == null && decoRst != null) {
+			rst = 2;}
+		else if (recoRst != null && decoRst == null) {
+			rst = 3;
+		}
+		log.debug("반대 {}", rst);
+		switch (rst) {
+			case 1 :
+				dao.insertDeco(map);
+				dao.upDeco(boardNum);
+				break;
+			case 2 :
+				dao.deleteDeco(map);
+				dao.downDeco(boardNum);
+				break;
+			default : break;
+				
+		}	
 	}
     
 	

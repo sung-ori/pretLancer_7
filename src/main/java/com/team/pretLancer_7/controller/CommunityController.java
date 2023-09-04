@@ -131,5 +131,13 @@ public class CommunityController {
 		String id = user.getUsername();
 		service.recommendUp(boardnum,id);
 	}
+
+	@ResponseBody
+	@GetMapping("decommendUp")
+	public void decommendUp(@RequestParam(name="boardnum", defaultValue="0") int boardnum,
+							 @AuthenticationPrincipal UserDetails user) {
+		String id = user.getUsername();
+		service.decommendUp(boardnum,id);
+	}
  	
 }

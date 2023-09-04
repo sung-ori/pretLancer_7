@@ -38,14 +38,26 @@ public interface CommunityDAO {
 	// 글 수정
 	public int updateBoard(Board b);
 
-	// 댓글 확인
+	// 추천 확인
 	public Integer selectReco(HashMap<String, String> map);
-
+	
 	public int deleteReco(HashMap<String, String> map);
-
+	
 	public int downReco(int boardNum);
 	
 	public int upReco(int boardNum);
-
+	
 	public int insertReco(HashMap<String, String> map);
+
+	// 반대 확인
+	public Integer selectDeco(HashMap<String, String> map);
+
+	public int deleteDeco(HashMap<String, String> map);
+	
+	public int downDeco(int boardNum);
+	
+	public int upDeco(int boardNum);
+	
+	public int insertDeco(HashMap<String, String> map);
+
 }

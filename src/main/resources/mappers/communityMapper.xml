@@ -42,8 +42,8 @@
 		UPDATE pret_board SET hits = hits+1 where boardnum = #{boardnum}
 	</update>
 
-	<select id="selectReco" parameterType="Map">
-		select * from pret_board_reco where boardnum = #{boardnum} and memberid = #{memberid}
+	<select id="selectReco" parameterType="Map" resultType="Integer">
+		select recommendnum from pret_board_reco where boardnum = #{boardnum} and memberid = #{memberid}
 	</select>
 
 	<update id="downReco" parameterType="int">
@@ -61,6 +61,28 @@
 		
 	<update id="upReco" parameterType="int">
 		UPDATE pret_board SET recommend = recommend +1 where boardnum = #{boardnum}
+	</update>
+
+
+	<select id="selectDeco" parameterType="Map" resultType="Integer">
+		select decommendnum from pret_board_Deco where boardnum = #{boardnum} and memberid = #{memberid}
+	</select>
+
+	<update id="downDeco" parameterType="int">
+		UPDATE pret_board SET decommend = decommend - 1 where boardnum = #{boardnum}
+	</update>
+
+	<delete id="deleteDeco" parameterType="Map">
+		delete from pret_board_deco where boardnum = #{boardnum} and memberid = #{memberid}
+	</delete>
+
+	<insert id="insertDeco" parameterType="Map">
+		insert into pret_board_deco (decommendnum, boardnum, memberid)
+		values(board_deco_seq.nextval, #{boardnum}, #{memberid})
+	</insert>
+		
+	<update id="upDeco" parameterType="int">
+		UPDATE pret_board SET decommend = decommend +1 where boardnum = #{boardnum}
 	</update>
 
 

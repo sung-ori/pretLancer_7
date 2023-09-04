@@ -15,7 +15,8 @@
         readInfo();
         $("#rBt").click(writeReply);
         $(document).on("click", ".dBt", deleteReply);
-        $(document).on("click", "#recoBt", recoUp);
+        $(document).on("click", "#recoBt", reco);
+        $(document).on("click", "#decoBt", deco);
         // $("#recoBt").click(recoUp);
 
 
@@ -144,12 +145,28 @@
             })
         }
 
-        function recoUp(){
+        function reco(){
             let bdn = $("#boardNum").val();
 
             $.ajax({
                 type: "GET",
                 url : "recommendUp",
+                data:{"boardnum" : bdn},
+                success: function() {
+                    readInfo();
+                },
+                error: function(e) {
+                    console.log(JSON.stringify(e));
+                }
+
+            });
+        }
+        function deco(){
+            let bdn = $("#boardNum").val();
+
+            $.ajax({
+                type: "GET",
+                url : "decommendUp",
                 data:{"boardnum" : bdn},
                 success: function() {
                     readInfo();
