@@ -39,7 +39,7 @@ public interface CommunityDAO {
 	public int updateBoard(Board b);
 
 	// 댓글 확인
-	public int selectReco(HashMap<String, String> map);
+	public Integer selectReco(HashMap<String, String> map);
 
 	public int deleteReco(HashMap<String, String> map);
 

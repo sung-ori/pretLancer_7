@@ -55,7 +55,7 @@
 	</delete>
 
 	<insert id="insertReco" parameterType="Map">
-		insert pret_board_reco (recomendnum, boardnum, memberid)
+		insert into pret_board_reco (recommendnum, boardnum, memberid)
 		values(board_reco_seq.nextval, #{boardnum}, #{memberid})
 	</insert>
 		

@@ -76,15 +76,16 @@ public class CommunityServiceImpl implements CommunityService {
 		map.put("boardnum", bdn);
 		map.put("memberid", id);
 		
-		int result = dao.selectReco(map);
+		Integer result = dao.selectReco(map);
 
-		if (result == 1) {
-			dao.deleteReco(map);
-			dao.downReco(boardNum);
-		}
-		else if (result == 0 ) {
+		if (result == null) {
 			dao.insertReco(map);
 			dao.upReco(boardNum);
+		}
+		else {
+			dao.deleteReco(map);
+			dao.downReco(boardNum);
+			
 		}
 		
 		
