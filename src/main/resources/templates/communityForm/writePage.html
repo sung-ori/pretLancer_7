@@ -4,7 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>글쓰기</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <script>
+        $(document).ready(function() {
+            $("#cancelBt").click(cancel);
+
+            function cancel() {
+                $("#boardtitle").val("");
+                $("#boardcontent").val("");
+                location.href="../community/main"
+
+            }
+
+        });
+
+    </script>
 </head>
 <body>
     <h1>글쓰기 폼</h1>
@@ -12,6 +27,7 @@
         <input type="text" name="boardtitle" id="boardtitle"><br>
         <textarea name="boardcontent" id="boardcontent" cols="30" rows="10"></textarea><br>
         <input type="submit" value="글쓰기">
+        <input type="button" id="cancelBt" value="취소">
     </form>
 </body>
 </html>

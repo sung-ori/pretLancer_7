@@ -11,6 +11,7 @@ public interface MemberService {
 	boolean idcheck(String searchid);
 
 	Member getUser(String searchid);
+
 	void insertMyPage(MyPage mp);
 
 	void insertAbility(Ability ab);

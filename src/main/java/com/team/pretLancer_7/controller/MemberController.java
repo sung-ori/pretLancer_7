@@ -14,7 +14,6 @@ import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.service.MemberService;
-import com.team.pretLancer_7.utill.FileService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -83,9 +82,11 @@ public class MemberController {
 	}
 	
 
+
+
 	@GetMapping("getUser")
 	@ResponseBody
-	public Member getUser(String id)  {
+	public Member getUser(String id) {
 		return service.getUser(id);
 	}
 }

@@ -39,6 +39,12 @@ public class MemberSerciceImple implements MemberService {
 		dao.insertAb(ab);
 	}
 
+	@Override
+	public Member getUser(String searchid) {
+		return dao.selectOne(searchid);
+		
+	}
+
 	
 	
 }
