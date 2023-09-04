@@ -57,19 +57,17 @@
 </style>
 <script type="text/javascript">
 
-	window.onload = function() {
-		let tutorial = '[[${member.tutorial}]]'
-			
-			if (tutorial == 'Y') {
-				alert('축하합니다! 튜토리얼을 통과했습니다.');
-			}
+	window.focus = function() {
+		let tn = '[[${member.tutorial_num}]]'
+		if (tn == 50) {
+			alert('축하합니다! 튜토리얼을 통과하셨습니다. \n 확인 버튼을 누르시면 홈페이지로 이동합니다.');
+			location.href = "http://localhost:8888/pretLancer";
+		}
 	}
 	
 	$(document).ready( function() {
 		$('#correct').ready(changeColor);
 		$('#answer_check').ready(answer_check);
-		$('#answer_button').ready(next_page);
-
 	});
 
 	function changeColor() {
@@ -95,18 +93,9 @@
 			} else {
 			$('#answer_check').html('');
 			}
-	}
-	
-	function next_page() {
-		let tutorial = '[[${member.tutorial}]]'
-			
-			if (tutorial == 'Y') {
-				location.href = 'examForm/tutorial_fin'
-			}
-
 
 	}
-	
+
 	function check() {
 		//my_answer : 번역 입력 창에 입력된 값
 		let my_answer = document.getElementById('my_answer').value;
