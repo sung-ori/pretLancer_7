@@ -96,7 +96,7 @@
 				success: function(password) {
 					code = password;
 					alert("전송 성공!");
-					alert(password);
+					//alert(password);
 					$("#confirmBox").attr("style","display: ;");
 
 
@@ -121,6 +121,7 @@
 				alert("인증번호를 확인해주세요");
 			}
 		}
+		
 		// function confirmPassword() {
 		// 	let sendPw = $("#mailPw").val();
 		// 	alert("클릭은 돼.");
@@ -148,7 +149,7 @@
 		// 		}
 		// 	});
 		// };// End Of confirmPasword
-
+		
 	}); // End Of jQuery
 
 </script>
@@ -168,7 +169,7 @@
 		$('#pwcheck').keyup(pwcheck);
 		$('#email').keyup(mailhtml);
 		$('#name').keyup(namehtml);
-		$('#lang').focus(langhtml);
+		$('#lang').onchange(langhtml);
 	});
 	
 	//pwhtml : 입력된 비밀번호를 받아서 글자 수를 체크한 다음 8글자에서 12글자 사이가 아니면 아래 경고문구가 뜬다.
@@ -242,13 +243,21 @@
 		let pw = document.getElementById('pw').value;
 		let pw2 = document.getElementById('pwcheck').value;
 		let email = document.getElementById('email').value;
+		let mailPw = document.getElementById('mailPw').value;
 		let name = document.getElementById('name').value;
 		let nick = document.getElementById('nick').value;
+		let lang = document.getElementById('lang').value;
 
 		
 		//아이디 입력
 		if (id == '' || id.length == 0) {
 			alert('아이디를 입력하세요.');
+			return false;
+		}
+		
+		//id는 5글자에서 9글자 사이로 입력되어야 함
+		if (id.length < 5 || id.length > 9) {
+			alert('아이디는 5글자에서 9글자 사이로 입력되어야 합니다.');
 			return false;
 		}
 
@@ -258,9 +267,21 @@
 			return false;
 		}
 
+		//비밀번호는 8글자에서 12글자 사이
+		if (pw.length < 8 || pw.length > 12) {
+			alert('비밀번호는 8글자에서 12글자 사이로 입력되어야 합니다.');
+			return false;
+		}
+
 		//비밀번호확인 입력
 		if (pw2 == '' || pw2.length == 0) {
 			alert('비밀번호 확인을 입력하세요.');
+			return false;
+		}
+
+		//비밀번호 확인은 비밀번호와 일치해야 함
+		if (pw2 != pw) {
+			alert('비밀번호 확인을 확인하세요.');
 			return false;
 		}
 
@@ -269,7 +290,19 @@
 			alert('이메일을 입력하세요.');
 			return false;
 		}
-		
+
+		//이메일에 @가 포함되지 않으면 올바른 형식으로 입력하라고 함
+		if (!email.includes('@')) {
+			alert('이메일을 올바른 형식으로 입력하세요.');
+			return false;
+		}
+
+		//이메일 인증번호 입력
+		if (mailPw == null || mailPw.length == 0) {
+			alert('인증 번호를 입력하세요.');
+			return false;
+		}
+
 		//이름 입력
 		if (name == '' || name.length == 0) {
 			alert('이름을 입력하세요.');
@@ -282,6 +315,11 @@
 			return false;
 		}
 
+		//언어 선택되지 않았을 때
+		if (lang == null || lang.length == 0) {
+			alert('언어를 선택하세요.');
+			return false;
+		}
 
 		return true;
 	}
@@ -312,8 +350,9 @@
 		<td><input type="button" id="sendEmail" value="이메일 전송" class = "join_button"></td>
 	</tr>
 	<tr id="confirmBox" style="display: none;">
+		<td></td>
 		<td><input type = "text"  placeholder = "인증번호를 입력해주세요." name = "mailPw" id = "mailPw" class = "login"></td>
-		<td><input type="button" id="confirmBt" value="인증번호 확인"></td>
+		<td><input type="button" id="confirmBt" value="인증번호 확인" class = "join_button"></td>
 	</tr>
 	<tr><td>이름</td> <td><input type = "text"  placeholder = "이름을 입력해주세요." name = "membername" id = "name" class = "login"><span id = "namespan" style = "font-size : 10pt; color : red"></span></td><td></td></tr>
 	<tr><td>닉네임</td> <td><input type = "text" placeholder = "닉네임을 입력해주세요." name = "membernick" id = "nick" class = "login"><span id = "nickspan" style = "font-size : 10pt; color : red"></span></td><td></td></tr>

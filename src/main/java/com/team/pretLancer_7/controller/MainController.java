@@ -20,18 +20,18 @@ public class MainController {
     @GetMapping({" ", "/"})
     public String mainForm() {
         // 마감기한(번역을 수주한 경우), 회원등급, 신뢰도, 보유포인트 불러오는 메서드 필요. 
-    	
-        return "main";
+        return "public";
     }
+  
     
     // 로그인 후 페이지
-    @GetMapping("pret")
+    @GetMapping("main")
     public String pubilcForm(@AuthenticationPrincipal UserDetails user, Model m) {
     	
     	Member member = service.getUser(user.getUsername());
     	m.addAttribute("member", member);
         
-    	return "main2";
+    	return "main";
     }
      
 }

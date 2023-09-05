@@ -41,11 +41,19 @@ public class CommunityController {
     @GetMapping("read")
     public String commyRead(Model m, @RequestParam(name="boardnum", defaultValue="0") int boardnum) {
     	Board board = service.boardListOne(boardnum);
-    	List<Reply> reply = service.replyList(boardnum);
+		// 조회수 증가
+    	service.hitsUP(boardnum);
     	m.addAttribute("board", board);
 
     	return "/communityForm/readPage";
     }
+
+	@GetMapping("readInfo")
+	@ResponseBody
+	public Board readInfo(@RequestParam(name="boardnum", defaultValue="0") int boardnum) {
+
+		return service.boardListOne(boardnum);
+	}
     
     // 커뮤니티 게시판 글쓰기 폼
     @GetMapping("write")
@@ -114,5 +122,30 @@ public class CommunityController {
  		r.setMemberid(user.getUsername());
  		service.deleteReply(r);
  	}
+
+	// 글 추천
+	@ResponseBody
+	@GetMapping("recommendUp")
+	public void recommendUp(@RequestParam(name="boardnum", defaultValue="0") int boardnum,
+							 @AuthenticationPrincipal UserDetails user) {
+		String id = user.getUsername();
+		service.recommendUp(boardnum,id);
+	}
+
+	@ResponseBody
+	@GetMapping("decommendUp")
+	public void decommendUp(@RequestParam(name="boardnum", defaultValue="0") int boardnum,
+							 @AuthenticationPrincipal UserDetails user) {
+		String id = user.getUsername();
+		service.decommendUp(boardnum,id);
+	}
  	
+	@ResponseBody
+	@GetMapping("colorize")
+	public String colorize(@RequestParam(name="boardnum", defaultValue="0") int boardnum,
+							@AuthenticationPrincipal UserDetails user){
+		String id = user.getUsername();
+		return service.colorize(boardnum,id);
+		
+	}
 }
