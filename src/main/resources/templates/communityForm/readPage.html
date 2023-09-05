@@ -29,13 +29,14 @@
             $.ajax({
                 type:"POST",
                 url: "insertReply",
-                beforeSend: function(xhr){
-                    xhr.setRequestHeader(header, token);
-                },
+                // beforeSend: function(xhr){
+                //     xhr.setRequestHeader(header, token);
+                // },
                 data: {"replycontent" : reply ,
                         "boardnum" : bdn },
                 success: function() {
                     alert("댓글 작성 성공");
+                    let reply = $("#inputReply").val("");
                     readReply();
                 },
                 error: function(e) {
@@ -222,18 +223,7 @@
             </p>
         </div>
         <div id = "info">
-            <!-- 🧚‍♀️
-            <span th:text="${board.memberid}"></span>
-            🕰️
-            <span th:text="${board.inputdate}"></span>
-            👁️
-            <span th:text="${board.hits}"></span>
-            <input type="button" id="recoBt" value="👍">
-            <span th:text="${board.recommend}"></span>
-            <input type="button" id="decoBt" value="👎">
-            <span th:text="${board.decommend}"></span>
-            <input type="button" id="polBt" value="🚨">
-            <span th:text="${board.police}"></span> -->
+           
         </div>
         
         <div th:text="${board.boardcontent}">
