@@ -25,5 +25,13 @@ public interface CommunityService {
 
 	public int update(Board b);
 
+	public int hitsUP(int boardNum);
+
+	public void recommendUp(int boardNum, String id);
+
+	public void decommendUp(int boardNum, String id);
+
+	public String colorize(int boardnum, String id);
+
 
 }
