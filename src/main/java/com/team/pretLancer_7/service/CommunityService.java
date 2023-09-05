@@ -33,5 +33,6 @@ public interface CommunityService {
 
 	public String colorize(int boardnum, String id);
 
+	public void replyRecommend(int replynum, String id);
 
 }

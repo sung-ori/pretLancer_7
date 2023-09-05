@@ -185,6 +185,28 @@ public class CommunityServiceImpl implements CommunityService {
 		return bt;
 		
 	}
+
+	@Override
+	public void replyRecommend(int replynum, String id) {
+	String rpn = "" + replynum;
+	HashMap<String, String> map = new HashMap<String,String>();
+
+	map.put("replynum", rpn);
+	map.put("memberid",id);
+
+	Integer rst = dao.selectReplyReco(map);
+
+	if(rst == null) {
+		dao.insertReplyReco(map);
+		dao.upReplyReco(replynum);
+	}
+	else{
+		dao.deleteReplyReco(map);
+		dao.downReplyReco(replynum);
+		return;
+	}
+
+	}
     
 	
 	

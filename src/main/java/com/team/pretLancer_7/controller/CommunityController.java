@@ -145,7 +145,16 @@ public class CommunityController {
 	public String colorize(@RequestParam(name="boardnum", defaultValue="0") int boardnum,
 							@AuthenticationPrincipal UserDetails user){
 		String id = user.getUsername();
-		return service.colorize(boardnum,id);
+		return service.colorize(boardnum,id);	
+	}
+
+	@ResponseBody
+	@GetMapping("replyRecommend")
+	public void replyRecommend(@RequestParam(name="replynum", defaultValue="0") int replynum,
+							@AuthenticationPrincipal UserDetails user) {
+		log.debug("댓글추천 {}",replynum);
+		String id = user.getUsername();
+		service.replyRecommend(replynum,id );
 		
 	}
 }
