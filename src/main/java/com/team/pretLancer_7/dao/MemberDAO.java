@@ -30,4 +30,10 @@ public interface MemberDAO {
 	// 회원가입 시 번역능력 테이블 생성
 	public void insertAb(Ability ab);
 	
+	// 의뢰 요청 시 포인트 차감
+	public void usePoint(Member m);
+	
+	// 의뢰 취소 시 포인트 돌려줌
+	public void cancelPoint(Member m);
+	
 }
