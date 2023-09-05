@@ -41,7 +41,11 @@ public class ExamController {
 		m.addAttribute("member", member);
 		String answer = (String) session.getAttribute("answer");
 		m.addAttribute("answer", answer);
-		return "examForm/tutorial";
+		
+		if (member.getTutorial_num() >= 50 && member.getTutorial().equals("Y"))
+			return "redirect:/translated/exam";
+		else
+			return "examForm/tutorial";
 	}
 	
 	
@@ -65,7 +69,10 @@ public class ExamController {
 		}
 		
 		m.addAttribute("member", member);
-		return "redirect:/translated/tutorial";
+		if (member.getTutorial_num() >= 50 && member.getTutorial().equals("Y"))
+			return "redirect:/translated/exam";
+		else
+			return "redirect:/translated/tutorial";
 	}
 	
 	

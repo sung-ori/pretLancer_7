@@ -2,7 +2,7 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>튜토리얼 | 신개념 번역 플랫폼 프릿랜서</title>
+<title>연습문제 | 신개념 번역 플랫폼 프릿랜서</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <style>
 
@@ -57,19 +57,17 @@
 </style>
 <script type="text/javascript">
 
-	window.onload = function() {
-		let tutorial = '[[${member.tutorial}]]'
-			
-			if (tutorial == 'Y') {
-				alert('축하합니다! 튜토리얼을 통과했습니다.');
-			}
+	window.focus = function() {
+		let tn = '[[${member.tutorial_num}]]'
+		if (tn == 50) {
+			alert('축하합니다! 튜토리얼을 통과하셨습니다. \n 확인 버튼을 누르시면 홈페이지로 이동합니다.');
+			location.href = "http://localhost:8888/pretLancer";
+		}
 	}
 	
 	$(document).ready( function() {
 		$('#correct').ready(changeColor);
 		$('#answer_check').ready(answer_check);
-		$('#answer_button').ready(next_page);
-
 	});
 
 	function changeColor() {
@@ -95,18 +93,9 @@
 			} else {
 			$('#answer_check').html('');
 			}
-	}
-	
-	function next_page() {
-		let tutorial = '[[${member.tutorial}]]'
-			
-			if (tutorial == 'Y') {
-				location.href = 'examForm/tutorial_fin'
-			}
-
 
 	}
-	
+
 	function check() {
 		//my_answer : 번역 입력 창에 입력된 값
 		let my_answer = document.getElementById('my_answer').value;
@@ -126,9 +115,9 @@
 </head>
 <body>
 		
-	<h1>튜토리얼</h1>
+	<h1>연습문제</h1>
 	<div class = "outer">
-		<div> <!-- <div><h2>오늘의 문제</h2></div>--> <br><div id = "correct"><span id = "answer_check">answer 기본값</span>  맞은 문제 수 : <span th:text ="${member.tutorial_num}">0</span> / 50</div></div><hr>
+		<div> ><div><h2>오늘의 문제</h2></div> <br><div id = "correct"><span id = "answer_check">answer 기본값</span>  맞은 문제 수 : <span th:text ="${member.tutorial_num}">0</span> / 50</div></div><hr>
 		<!-- 문제 나오는 부분 -->
 		<div>
 			<!-- 문제 내용 -->
