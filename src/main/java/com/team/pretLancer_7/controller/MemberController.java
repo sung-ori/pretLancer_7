@@ -80,6 +80,9 @@ public class MemberController {
 			
 		return "memberForm/idcheck";
 	}
+	
+
+
 
 	// 결제 시 회원 정보 가져올 거야.
 	@GetMapping("getUser")
