@@ -131,7 +131,7 @@
 		<hr>
 		<!-- 답 입력하는 부분 -->
 		<div>
-		<form th:action = "@{/translated/tutorial}" method = "post" onsubmit = "return check()"> 
+		<form th:action = "@{/translated/exam}" method = "post" onsubmit = "return check()"> 
 			<p>번역을 정확하게 입력해주세요.</p>
 			<input type = "hidden" name = "memberid"  th:value="${#authentication.name}">
 			<input type = "hidden" name = "examnum" th:value = "${question?.examnum}">
