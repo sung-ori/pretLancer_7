@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>튜토리얼 | 신개념 번역 플랫폼 프릿랜서</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<style>
+
+	@font-face {
+	    font-family: 'LINESeedKR-Bd';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+	
+	* {
+	    font-family: 'LINESeedKR-Bd';	
+	}
+
+	div {
+		background-color: #EFF0F0;
+		border-radius : 5px;
+
+	}
+	
+	.outer {
+		width : 1000px;
+		height : 600px;
+		border-radius : 5px;
+		
+	
+	}
+	
+	.answer_input {
+	
+		width : 900px;
+		height : 300px;
+		
+		border : solid 2px #EFF0F0;
+		border-radius : 5px;
+	
+	}
+	
+	.answer_button{
+	
+		width : 100px;
+		height : 35px;
+		background-color:#2334DE;
+		color : #FFFFFF;
+		
+		border : 0px;
+		border-radius : 5px;
+		
+	}
+	
+	
+</style>
+<script type="text/javascript">
+
+	window.onload = function() {
+		let tutorial = '[[${member.tutorial}]]'
+			
+			if (tutorial == 'Y') {
+				alert('축하합니다! 튜토리얼을 통과했습니다.');
+			}
+	}
+	
+	$(document).ready( function() {
+		$('#correct').ready(changeColor);
+		$('#answer_check').ready(answer_check);
+		$('#answer_button').ready(next_page);
+
+	});
+
+	function changeColor() {
+		let back_page = document.referrer;
+		let tutorial_page = 'http://localhost:8888/pretLancer/translated/tutorial';
+		let answer = '[[${answer}]]';
+		
+		//만약 전 페이지가 tutorial page와 같은 url이고, answer가 correct일 경우 맞은 문제 수를 표시하는 div의 색이 파란색으로 바뀜
+		if (back_page == tutorial_page && answer == 'correct'){
+			$('#correct').css('color', 'blue');
+			}
+				
+	};
+	
+	function answer_check() {
+		let back_page = document.referrer;
+		let tutorial_page = 'http://localhost:8888/pretLancer/translated/tutorial';
+		let answer = '[[${answer}]]';
+
+		//만일 전 페이지가 tutorial page와 같은 url이고, answer가 correct일 경우 정답입니다! 라는 글자가 나옴
+		if (back_page == tutorial_page && answer == 'correct'){
+			$('#answer_check').html('정답입니다!');
+			} else {
+			$('#answer_check').html('');
+			}
+	}
+	
+	function next_page() {
+		let tutorial = '[[${member.tutorial}]]'
+			
+			if (tutorial == 'Y') {
+				location.href = 'examForm/tutorial_fin'
+			}
+
+
+	}
+	
+	function check() {
+		//my_answer : 번역 입력 창에 입력된 값
+		let my_answer = document.getElementById('my_answer').value;
+		
+		//my_answer에 값이 입력되지 않은 경우 번역을 입력하라는 알림이 뜨며, 다음 창으로 넘어가지 않는다.
+		if (my_answer == '' || my_answer.length == 0) {
+			alert('번역을 입력하세요.');
+			return false;
+		}
+
+		return true;
+	}
+	
+	
+</script>
+
+</head>
+<body>
+		
+	<h1>튜토리얼</h1>
+	<div class = "outer">
+		<div> <!-- <div><h2>오늘의 문제</h2></div>--> <br><div id = "correct"><span id = "answer_check">answer 기본값</span>  맞은 문제 수 : <span th:text ="${member.tutorial_num}">0</span> / 50</div></div><hr>
+		<!-- 문제 나오는 부분 -->
+		<div>
+			<!-- 문제 내용 -->
+			<br>
+			<br>
+			<span th:text = "${question?.exam_content}">문제 내용 기본값</span>
+			<br>
+			<br>
+			<br>
+		</div>
+		<hr>
+		<!-- 답 입력하는 부분 -->
+		<div>
+		<form th:action = "@{/translated/tutorial}" method = "post" onsubmit = "return check()"> 
+			<p>번역을 정확하게 입력해주세요.</p>
+			<input type = "hidden" name = "memberid"  th:value="${#authentication.name}">
+			<input type = "hidden" name = "examnum" th:value = "${question?.examnum}">
+			<input type = "text" name = "my_answer" class = "answer_input" id = "my_answer"> <br>
+			<input type = "submit" value = "제출" class = "answer_button" id = "answer_button">
+		</form>
+		</div>
+	</div>
+</body>
+</html>
