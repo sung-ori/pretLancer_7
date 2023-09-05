@@ -41,11 +41,11 @@
 	where memberid = #{memberid}
 	</update>
 	
-	<update id="usePoint" parameterMap="int">
+	<update id="usePoint" parameterType="int">
 	update pret_member set cash = cash - #{cash} where memberid = #{memberid}
 	</update>
 	
-	<update id="cancelPoint" parameterMap="int">
+	<update id="cancelPoint" parameterType="int">
 	update pret_member set cash = cash + #{cash} where memberid = #{memberid}
 	</update>
 	

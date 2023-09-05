@@ -112,7 +112,7 @@
 
 	<!--  -->
 	<select id="selectPolice" parameterType="Map" resultType="Integer">
-		select POLICENUM from PRET_BOARD_POLICE where boardnum = #{boardnum} and memberid = #{memberid}
+		select POLICENUM from PRET_BOARD_POLICE where boardnum = #{boardnum} and repoterid = #{memberid}
 	</select>
 	
 </mapper>

@@ -16,7 +16,7 @@
         $("#rBt").click(writeReply);
         
     
-        $(document).on("click", "#polBt", policeForm);
+        $(document).on("click", "#polBt", checkPolice);
 
         $(document).on("click", ".replyRecoBt", replyReco);
         $(document).on("click", ".dBt", deleteReply);
@@ -223,9 +223,31 @@
                 }
             });
         }
+
         function policeForm() {
             let = childForm = window.open('policeForm', '신고?', 'width=350,height=400,top=200,left=500,maximizable=false');
             
+        }
+
+        function checkPolice() {
+            let bdn = $("#boardNum").val();
+            $.ajax({
+                type:"get",
+                url:"policeCheck",
+                data:{"boardnum" : bdn,},
+                dataType:"text",
+                success: function(data) {
+                    if(data){
+                        alert("아직 신고 안 함");
+                        policeForm();
+                    }else{
+                        alert("이미 신고 하셨습니다.");
+                    }
+                },
+                error: function(e) {
+                    alert(JSON.stringify(e));
+                }
+            });
         }
         
     });// End Of jQuery
