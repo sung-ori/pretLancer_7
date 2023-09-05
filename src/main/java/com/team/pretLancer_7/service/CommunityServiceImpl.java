@@ -207,6 +207,26 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	}
+
+	@Override
+	public String policeCheck(int boardnum, String id) {
+		String bdn = "" + boardnum;
+		String result = "";
+		HashMap<String, String> map = new HashMap<String,String>();
+
+		map.put("boardnum", bdn);
+		map.put("memberid", id);
+
+		Integer rst = dao.selectPolice(map);
+
+		if(rst == null){
+			result = "ture";
+		}
+		else{result = "false";}
+
+		return result;
+		
+	}
     
 	
 	

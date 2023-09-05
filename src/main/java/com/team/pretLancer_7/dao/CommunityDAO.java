@@ -71,4 +71,7 @@ public interface CommunityDAO {
 
 	public int downReplyReco(int replynum);
 
+	// 신고
+	public Integer selectPolice(HashMap<String, String> map);
+
 }

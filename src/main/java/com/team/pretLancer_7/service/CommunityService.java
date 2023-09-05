@@ -35,4 +35,6 @@ public interface CommunityService {
 
 	public void replyRecommend(int replynum, String id);
 
+	public String policeCheck(int boardnum, String id);
+
 }

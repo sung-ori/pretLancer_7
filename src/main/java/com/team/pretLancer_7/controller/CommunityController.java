@@ -157,4 +157,19 @@ public class CommunityController {
 		service.replyRecommend(replynum,id );
 		
 	}
+
+	@GetMapping("policeForm")
+	public String policeForm(){
+		return "/communityForm/policeForm";
+	}
+
+	@ResponseBody
+	@GetMapping("policeCheck")
+	public String policeCheck(@RequestParam(name="boardnum", defaultValue="0") int boardnum,
+							@AuthenticationPrincipal UserDetails user) {
+		String id = user.getUsername();
+		
+		String result = service.policeCheck(boardnum, id);
+		return result;
+		}
 }

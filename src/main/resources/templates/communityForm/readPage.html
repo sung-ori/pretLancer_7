@@ -14,7 +14,10 @@
         readReply();
         readInfo();
         $("#rBt").click(writeReply);
+        
     
+        $(document).on("click", "#polBt", policeForm);
+
         $(document).on("click", ".replyRecoBt", replyReco);
         $(document).on("click", ".dBt", deleteReply);
         
@@ -220,9 +223,12 @@
                 }
             });
         }
+        function policeForm() {
+            let = childForm = window.open('policeForm', '신고?', 'width=350,height=400,top=200,left=500,maximizable=false');
+            
+        }
         
     });// End Of jQuery
-
     
 </script>
 

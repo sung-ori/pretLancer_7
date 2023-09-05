@@ -109,4 +109,10 @@
 	<update id="downReplyReco" parameterType="int">
 		UPDATE pret_reply SET replyrecommend = replyrecommend -1 where replynum = #{replynum}
 	</update>
+
+	<!--  -->
+	<select id="selectPolice" parameterType="Map" resultType="Integer">
+		select POLICENUM from PRET_BOARD_POLICE where boardnum = #{boardnum} and memberid = #{memberid}
+	</select>
+	
 </mapper>
