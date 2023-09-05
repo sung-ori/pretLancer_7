@@ -9,7 +9,7 @@
 	values (pret_req_s_seq.nextval, #{memberid}, #{requestcontent_S},#{cash}, #{comment_sr},#{startlang}, #{endlang})
 	</insert>
 	
-	<delete id="insertRS" parameterType="Request_S">
+	<delete id="deleteRS" parameterType="Request_S">
 	delete from pret_request_s where requestnum_s = #{requestnum_s} and memberid = #{memberid}
 	</delete>
 	
@@ -22,7 +22,7 @@
 	values (pret_req_m_seq.nextval, #{memberid}, #{requestcontent_m},#{cash}, #{comment_mr},#{startlang}, #{endlang})
 	</insert>
 	
-	<delete id="insertRM" parameterType="Request_M">
+	<delete id="deleteRM" parameterType="Request_M">
 	delete from pret_request_m where requestnum_m = #{requestnum_m} and memberid = #{memberid}
 	</delete>
 	
