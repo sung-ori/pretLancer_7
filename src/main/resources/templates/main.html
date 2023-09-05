@@ -9,7 +9,7 @@
     
     <link rel="stylesheet" th:href="@{/assets/css/pages/upperBar.css}">
     <!-- <link rel="stylesheet" th:href="@{/assets/css/main/app.css}"> -->
-    <link rel="stylesheet" th:href="@{/assets/css/main/app.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/main/app.css}">,
     <link rel="stylesheet" th:href="@{/assets/css/main/app-dark.css}">
     <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.svg}" type="image/x-icon">
     <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.png}" type="image/png">
@@ -33,7 +33,7 @@
 </head>
 
 <body>
-	<nav class="navbar navbar-dark sticky-top navbar-expand-lg rounded navbar-expand-md" style="z-index: 10; background-color: white; color: black;">
+	<nav class="navbar navbar-dark sticky-top navbar-expand-lg rounded navbar-expand-md" style="z-index: 10; background-color: #00ff0000; color: black;">
 		<div class="container-fluid">
 	        <div class="collapse navbar-collapse d-lg-flex custom-centering" >
 	          <!--  <a class="navbar-brand col-lg-3 me-0" href="#">Centered nav</a>-->
@@ -41,19 +41,16 @@
 		           <ul class="navbar-nav col-lg-10 d-flex">
 		          	 	<div class="row move-right-50" style="backround-color: #fff;">
 		          	 		<div class="row">
-		          	 			<div class="col-md-2 col-sm-4 b">프로젝트 마감기한</div>
-	            				<div class="col-md-2 col-sm-4 b">1레벨</div>
-	            				<div class="col-md-2 col-sm-4 b">OOO님</div>
-	            				<div class="col-md-2 col-sm-4 b"></div>
-
-	            				<div class="col-md-2 col-sm-4 b">0p</div>
+		          	 			<div class="col-md-3 col-sm-3 b">프로젝트 마감기한</div>
+	            				<div class="col-md-3 col-sm-3 b">1레벨</div>
+	            				<div class="col-md-3 col-sm-3 b">OOO님</div>
+	            				<div class="col-md-3 col-sm-3 b">0p</div>
 		          	 		</div>
 		          	 		<div class="row">
-		          	 			<div class="col-md-2 col-sm-4 b">23/08/25 00:00</div>
-	            				<div class="col-md-2 col-sm-4 b">0</div>
-	            				<div class="col-md-2 col-sm-4 b">===========</div>
-	            				<div class="col-md-2 col-sm-4 b"></div>
-	            				<div class="col-md-2 col-sm-4 b">0p</div>
+		          	 			<div class="col-md-3 col-sm-3 b">23/08/25 00:00</div>
+	            				<div class="col-md-3 col-sm-3 b">0</div>
+	            				<div class="col-md-3 col-sm-3 b">===========</div>
+	            				<div class="col-md-3 col-sm-3 b">0p</div>
 		          			</div>
 		          		</div> 
 		          	</ul>
@@ -72,7 +69,7 @@
     <div class="sidebar-header position-relative">
         <div class="d-flex justify-content-between align-items-center">
             <div class="logo">
-                <a th:href="index.html"><img src="assets/images/logo/logo.svg" alt="Logo" srcset=""></a>
+                <a th:href="index.html"><img src="assets/images/logo/pretLancer.svg" alt="Logo" srcset="" style="width:160px; height:90px;"></a>
             </div>
             <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21"><g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 14.5c2.219 0 4-1.763 4-3.982a4.003 4.003 0 0 0-4-4.018c-2.219 0-4 1.781-4 4c0 2.219 1.781 4 4 4zM4.136 4.136L5.55 5.55m9.9 9.9l1.414 1.414M1.5 10.5h2m14 0h2M4.135 16.863L5.55 15.45m9.899-9.9l1.414-1.415M10.5 19.5v-2m0-14v-2" opacity=".3"></path><g transform="translate(-210 -1)"><path d="M220.5 2.5v2m6.5.5l-1.5 1.5"></path><circle cx="220.5" cy="11.5" r="4"></circle><path d="m214 5l1.5 1.5m5 14v-2m6.5-.5l-1.5-1.5M214 18l1.5-1.5m-4-5h2m14 0h2"></path></g></g></svg>
@@ -96,24 +93,44 @@
                     <span>홈</span>
                 </a>
             </li>
+            
+            <div class="col ps-0">
+                      <hr class="mb-0 navbar-vertical-divider">
+            </div>
+            
             <li class="sidebar-item">
                 <a href="index.html" class='sidebar-link'>
                     <i class="bi bi-translate"></i>
                     <span>번역</span>
                 </a>
             </li>
+            
+            <div class="col ps-0">
+                      <hr class="mb-0 navbar-vertical-divider">
+            </div>
+            
             <li class="sidebar-item">
                 <a href="index.html" class='sidebar-link'>
                     <i class="bi bi-currency-dollar"></i>
                     <span>돈</span>
                 </a>
             </li>
+            
+            <div class="col ps-0">
+                      <hr class="mb-0 navbar-vertical-divider">
+            </div>
+            
             <li class="sidebar-item">
                 <a href="index.html" class='sidebar-link'>
                     <i class="bi bi-emoji-smile-fill"></i>
                     <span>게시판</span>
                 </a>
             </li>
+            
+            <div class="col ps-0">
+                      <hr class="mb-0 navbar-vertical-divider">
+            </div>
+            
             <li class="sidebar-item">
                 <a href="index.html" class='sidebar-link'>
                     <i class="bi bi-question-circle"></i>
