@@ -14,5 +14,5 @@ public class Reply {
 	String memberid;
 	String replycontent;
 	String replydate;
-	int reply_recommend;
+	int replyrecommend;
 }

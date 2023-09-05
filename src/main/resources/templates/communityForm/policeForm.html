@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신고 사유</title>
+    <script th:src="@{/assets/js/jquery-3.6.0.js}"></script>
+    <script>
+        $(document).ready(function() {
+            let boardnum =  opener.$("#boardNum").val();
+            $("#boardNum").val();
+
+            function sendReason() {
+                let reason = $("input[name='reason']:checked");
+                 $.ajax({
+                    type:"get",
+                    url: "police",
+                    data: {"reason" : reason,
+                            "boardnum" : boardnum},
+                    success: function() {
+
+                    },
+                    error: function(e) {
+
+                    }
+                 });
+            }
+        });
+
+    </script>
+</head>
+<body>
+    <h1>짭새페이지</h1>
+    <h2>일러바치는 이유라도 이야기 해 보라 이거야.</h2>
+    <form action="" method="get">
+        <input type="hidden" id="boardNum">
+        <input type="radio" name="reason" class="reason" value="1"> 스팸, 홍보 도배글입니다. <br>
+        <input type="radio" name="reason" class="reason" value="2"> 불법 정보를 포함하고 있습니다. <br>
+        <input type="radio" name="reason" class="reason" value="3"> 청소년에게 유해한 내용입니다. <br>
+        <input type="radio" name="reason" class="reason" value="4"> 음란물입니다. <br>
+        <input type="radio" name="reason" class="reason" value="5"> 욕설,비방 등 불쾌한 표현이 있습니다. <br>
+        <input type="button" value="제출">
+    </form>
+
+</body>
+</html>

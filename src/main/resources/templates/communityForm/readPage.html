@@ -14,7 +14,13 @@
         readReply();
         readInfo();
         $("#rBt").click(writeReply);
+        
+    
+        $(document).on("click", "#polBt", policeForm);
+
+        $(document).on("click", ".replyRecoBt", replyReco);
         $(document).on("click", ".dBt", deleteReply);
+        
         $(document).on("click", "#recoBt", reco);
         $(document).on("click", "#decoBt", deco);
         // $("#recoBt").click(recoUp);
@@ -29,13 +35,14 @@
             $.ajax({
                 type:"POST",
                 url: "insertReply",
-                beforeSend: function(xhr){
-                    xhr.setRequestHeader(header, token);
-                },
+                // beforeSend: function(xhr){
+                //     xhr.setRequestHeader(header, token);
+                // },
                 data: {"replycontent" : reply ,
                         "boardnum" : bdn },
                 success: function() {
                     alert("댓글 작성 성공");
+                    let reply = $("#inputReply").val("");
                     readReply();
                 },
                 error: function(e) {
@@ -67,7 +74,8 @@
                             <td>${n.memberid}</td>
                             <td>${n.replycontent}</td>
                             <td>${n.replydate}</td>
-                            <td>${n.reply_recommend}</td>`;
+                            <td><input type="button" id="${n.replynum}" class="replyRecoBt" value="👍"></td>
+                            <td>${n.replyrecommend}</td>`;
                         
                         // 댓글 다 만들고 안보이게 만든다.
                         str += `<td>
@@ -199,8 +207,29 @@
 
             });
         }
+
+        function replyReco() {
+            let replynum = $(this).attr("id");
+            alert(replynum);
+            $.ajax({
+                type: "get",
+                url: "replyRecommend",
+                data: {"replynum" : replynum},
+                success: function() {
+                    readReply();
+                },
+                error: function(e) {
+                    alert(JSON.stringify(e));
+                }
+            });
+        }
+        function policeForm() {
+            let = childForm = window.open('policeForm', '신고?', 'width=350,height=400,top=200,left=500,maximizable=false');
+            
+        }
         
     });// End Of jQuery
+    
 </script>
 
 </head>
@@ -222,18 +251,7 @@
             </p>
         </div>
         <div id = "info">
-            <!-- 🧚‍♀️
-            <span th:text="${board.memberid}"></span>
-            🕰️
-            <span th:text="${board.inputdate}"></span>
-            👁️
-            <span th:text="${board.hits}"></span>
-            <input type="button" id="recoBt" value="👍">
-            <span th:text="${board.recommend}"></span>
-            <input type="button" id="decoBt" value="👎">
-            <span th:text="${board.decommend}"></span>
-            <input type="button" id="polBt" value="🚨">
-            <span th:text="${board.police}"></span> -->
+           
         </div>
         
         <div th:text="${board.boardcontent}">

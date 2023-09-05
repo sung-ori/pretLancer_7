@@ -37,33 +37,35 @@
 	<update id="updateBoard" parameterType="Board">
 		UPDATE pret_board SET boardtitle = #{boardtitle}, boardcontent = #{boardcontent}
 	</update>
-
+<!-- 조회수 업데이트 -->
 	<update id="updateHits" parameterType="int">
 		UPDATE pret_board SET hits = hits+1 where boardnum = #{boardnum}
 	</update>
 
+<!-- 게시물 추천 -->
+	<!-- 이미 추천했는지 확인 -->
 	<select id="selectReco" parameterType="Map" resultType="Integer">
 		select recommendnum from pret_board_reco where boardnum = #{boardnum} and memberid = #{memberid}
 	</select>
-
+	<!-- 다시 눌렀을 때 추천 -1 -->
 	<update id="downReco" parameterType="int">
 		UPDATE pret_board SET recommend = recommend - 1 where boardnum = #{boardnum}
 	</update>
-
+	<!-- -추천 기록 테이불에서 삭제 -->
 	<delete id="deleteReco" parameterType="Map">
 		delete from pret_board_reco where boardnum = #{boardnum} and memberid = #{memberid}
 	</delete>
-
+	<!-- 게시물 추천 테이블에 추천 정보를 입력 -->
 	<insert id="insertReco" parameterType="Map">
 		insert into pret_board_reco (recommendnum, boardnum, memberid)
 		values(board_reco_seq.nextval, #{boardnum}, #{memberid})
 	</insert>
-		
+	<!-- 게시물 추천 정보를 게시물에도 반영 -->
 	<update id="upReco" parameterType="int">
 		UPDATE pret_board SET recommend = recommend +1 where boardnum = #{boardnum}
 	</update>
 
-
+<!-- 게시물 반대 -->
 	<select id="selectDeco" parameterType="Map" resultType="Integer">
 		select decommendnum from pret_board_Deco where boardnum = #{boardnum} and memberid = #{memberid}
 	</select>
@@ -85,5 +87,32 @@
 		UPDATE pret_board SET decommend = decommend +1 where boardnum = #{boardnum}
 	</update>
 
+<!-- 댓글 추천 -->
+	<!-- 이미 추천 했는지 확인 -->
+	<select id="selectReplyReco" parameterType="Map" resultType="Integer">
+		select replynum from pret_reply_reco where replynum = #{replynum} and memberid = #{memberid}
+	</select>
 
+	<insert id="insertReplyReco" parameterType="Map">
+		insert into pret_reply_reco (replyreconum, replynum, memberid)
+		values(reply_reco_seq.nextval, #{replynum}, #{memberid})
+	</insert>
+
+	<delete id="deleteReplyReco" parameterType="Map">
+		delete from pret_reply_reco where replynum = #{replynum} and memberid = #{memberid}
+	</delete>
+
+	<update id="upReplyReco" parameterType="int">
+		UPDATE pret_reply SET replyrecommend = replyrecommend +1 where replynum = #{replynum}
+	</update>
+
+	<update id="downReplyReco" parameterType="int">
+		UPDATE pret_reply SET replyrecommend = replyrecommend -1 where replynum = #{replynum}
+	</update>
+
+	<!--  -->
+	<select id="selectPolice" parameterType="Map" resultType="Integer">
+		select POLICENUM from PRET_BOARD_POLICE where boardnum = #{boardnum} and memberid = #{memberid}
+	</select>
+	
 </mapper>
