@@ -42,7 +42,10 @@ public class ExamController {
 		String answer = (String) session.getAttribute("answer");
 		m.addAttribute("answer", answer);
 		
-		if (member.getTutorial_num() >= 50 && member.getTutorial().equals("Y"))
+		if (member.getTutorial_num() == 50 && member.getTutorial().equals("Y")) {
+			service.getTutorialUp(member.getMemberid());
+			return "redirect:/translated/tutorial_fin";
+		} else if (member.getTutorial_num() > 50 && member.getTutorial().equals("Y"))
 			return "redirect:/translated/exam";
 		else
 			return "examForm/tutorial";
@@ -69,10 +72,24 @@ public class ExamController {
 		}
 		
 		m.addAttribute("member", member);
-		if (member.getTutorial_num() >= 50 && member.getTutorial().equals("Y"))
-			return "redirect:/translated/exam";
-		else
+		return "redirect:/translated/tutorial";
+	}
+	
+	/**
+	 * 튜토리얼 완료한 사람에 한해서 튜토리얼 완료 페이지로 이동하는 method
+	 * @return
+	 */
+	@GetMapping("tutorial_fin")
+	public String tutorial_fin(@AuthenticationPrincipal UserDetails user) {
+		Member member = service.getMemberOne(user.getUsername());
+		if (member.getTutorial_num() == 51 && member.getTutorial().equals("Y")) {
+			service.getTutorialUp(member.getMemberid());
+			return "examForm/tutorial_fin";
+		}
+		else if (member.getTutorial_num() <= 50 && member.getTutorial().equals("N"))
 			return "redirect:/translated/tutorial";
+		else
+			return "redirect:/translated/exam";
 	}
 	
 	
