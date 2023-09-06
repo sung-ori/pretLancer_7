@@ -9,7 +9,7 @@
 	</select>
 	
 	<select id="selectOne" parameterType="int" resultType="Board">
-		select * from pret_board where boardnum = #{boardnum}
+		select * from pret_board where boardnum = #{boardnum} and enabled = 'Y'
 	</select>
 	
 	<select id="replyAll" parameterType="int" resultType="Reply">

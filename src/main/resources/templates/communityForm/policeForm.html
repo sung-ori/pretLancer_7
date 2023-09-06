@@ -28,6 +28,7 @@
                         alert(msg);
                         opener.parent.location.reload();
                         window.close();
+                        opener.location.href="main"
                     },
                     error: function(e) {
                         alert(JSON.stringify(e));

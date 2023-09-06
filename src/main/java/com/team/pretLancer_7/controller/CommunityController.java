@@ -184,5 +184,11 @@ public class CommunityController {
 		
 		return msg;
 	}
+
+	@ResponseBody
+	@GetMapping("policeCount")
+	public String policeCount(@RequestParam(name="boardnum", defaultValue="0") int boardnum) {
+		return service.policeCount(boardnum);
+	}
 	
 }
