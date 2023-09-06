@@ -41,23 +41,37 @@ public interface CommunityDAO {
 	// 추천 확인
 	public Integer selectReco(HashMap<String, String> map);
 	
-	public int deleteReco(HashMap<String, String> map);
+	public int insertReco(HashMap<String, String> map);
 	
-	public int downReco(int boardNum);
+	public int deleteReco(HashMap<String, String> map);
 	
 	public int upReco(int boardNum);
 	
-	public int insertReco(HashMap<String, String> map);
+	public int downReco(int boardNum);
 
 	// 반대 확인
 	public Integer selectDeco(HashMap<String, String> map);
 
-	public int deleteDeco(HashMap<String, String> map);
+	public int insertDeco(HashMap<String, String> map);
 	
-	public int downDeco(int boardNum);
+	public int deleteDeco(HashMap<String, String> map);
 	
 	public int upDeco(int boardNum);
 	
-	public int insertDeco(HashMap<String, String> map);
+	public int downDeco(int boardNum);
+
+	// 댓글 확인
+	public Integer selectReplyReco(HashMap<String, String> map);
+
+	public int insertReplyReco(HashMap<String, String> map);
+	
+	public int deleteReplyReco(HashMap<String, String> map);
+
+	public int upReplyReco(int replynum);
+
+	public int downReplyReco(int replynum);
+
+	// 신고 확인
+	public Integer selectPolice(HashMap<String, String> map);
 
 }
