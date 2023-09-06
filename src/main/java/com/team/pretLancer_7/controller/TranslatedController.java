@@ -34,7 +34,7 @@ public class TranslatedController {
 	@PostMapping("insertTS")
 	public String insertTS(@AuthenticationPrincipal UserDetails user, Translated t) {
 		// 의뢰를 받았을 시 의뢰테이블에서 가장 최근의 글을 하나 선택
-		Request_S rs = RService.selectRS();
+		//Request_S rs = RService.selectRS();
 		// 의뢰를 받았을 때, 번역 페이지로 return 시켜야함
 		// 의뢰를 받았을 시 테이블에 정보를 저장하고, 의뢰와 번역 테이블의 값을 변환시켜야함
 		t.setMemberid(user.getUsername());
