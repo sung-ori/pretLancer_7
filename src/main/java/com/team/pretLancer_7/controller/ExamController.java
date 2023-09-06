@@ -33,10 +33,10 @@ public class ExamController {
 		ex.setMemberid(user.getUsername());
 		Member member = service.getMemberOne(ex.getMemberid());
 		ex.setLanguage(member.getMemberlang());
-		log.error("ex 객체 {}", ex);
+		log.debug("ex 객체 {}", ex);
 		Exam question = service.getQuestion(ex);
-		log.error("question 객체 {}", question);
-		log.error("member 객체 {}", member);
+		log.debug("question 객체 {}", question);
+		log.debug("member 객체 {}", member);
 		m.addAttribute("question", question);
 		m.addAttribute("member", member);
 		String answer = (String) session.getAttribute("answer");
