@@ -17,4 +17,5 @@ public class Board {
     int     recommend;      // 추천수
     int     decommend;      // 반대수
     int     police;         // 신고 수 
+    String  enabled;        // 신고 밴 여부
 }

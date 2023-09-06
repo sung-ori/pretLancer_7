@@ -231,14 +231,22 @@
 
         function checkPolice() {
             let bdn = $("#boardNum").val();
+            let lId = $("#loginId").val();
+            let wId = $("#writerId").val();
+
+            if(lId == wId) {
+                alert("자신의 글은 신고할 수 없습니다.");
+                return;
+            }
+            
             $.ajax({
                 type:"get",
                 url:"policeCheck",
                 data:{"boardnum" : bdn,},
                 dataType:"text",
                 success: function(data) {
-                    if(data){
-                        alert("아직 신고 안 함");
+                    if(data == "true"){
+                        confirm("신고는 취소가 불가능합니다. 정말 취소하시겠습니까?");
                         policeForm();
                     }else{
                         alert("이미 신고 하셨습니다.");
@@ -261,9 +269,12 @@
     <h1>글 읽기</h1>
     <div>
         <input type="hidden" th:value="${board.boardnum}" id="boardNum">
+        <input type="hidden" th:value="${board.memberid}" id="writerId">
         <input type="hidden" th:value="${#authentication.name}" id="loginId">
+        
         <div th:text="${board.boardtitle}">
         </div>
+
         <div>
             <p th:if="${#authentication.name} == ${board.memberid}">
                 <a th:href="@{/community/delete(boardnum=${board.boardnum})}">글 지우기</a>
@@ -272,12 +283,14 @@
                 <a th:href="@{/community/updateForm(boardnum=${board.boardnum})}">글 수정</a>
             </p>
         </div>
-        <div id = "info">
-           
-        </div>
+        
         
         <div th:text="${board.boardcontent}">
 
+        </div>
+
+        <div id = "info">
+           
         </div>
 
         <div>

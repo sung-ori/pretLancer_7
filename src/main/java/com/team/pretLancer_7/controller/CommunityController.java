@@ -172,4 +172,17 @@ public class CommunityController {
 		String result = service.policeCheck(boardnum, id);
 		return result;
 		}
+	
+	@ResponseBody
+	@GetMapping("police")
+	public String police(@RequestParam(name="boardnum", defaultValue="0") int boardnum,
+							@AuthenticationPrincipal UserDetails user, String reason){
+		String id = user.getUsername();
+		log.error("신고 컨 {}",reason);
+		String msg = service.police(boardnum,id,reason);
+		
+		
+		return msg;
+	}
+	
 }

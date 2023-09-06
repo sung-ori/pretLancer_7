@@ -8,21 +8,29 @@
     <script th:src="@{/assets/js/jquery-3.6.0.js}"></script>
     <script>
         $(document).ready(function() {
-            let boardnum =  opener.$("#boardNum").val();
-            $("#boardNum").val();
+            $("#bt").click(sendReason);
+
+            
+            
 
             function sendReason() {
-                let reason = $("input[name='reason']:checked");
+                let boardnum =  opener.$("#boardNum").val();
+                let writerId = opener.$("#writerId").val();
+                let reason = $("input[name='reason']:checked").val();
+                alert(reason);
                  $.ajax({
                     type:"get",
                     url: "police",
                     data: {"reason" : reason,
-                            "boardnum" : boardnum},
-                    success: function() {
-
+                        "boardnum" : boardnum},
+                    dataType:"text",
+                    success: function(msg) {
+                        alert(msg);
+                        opener.parent.location.reload();
+                        window.close();
                     },
                     error: function(e) {
-
+                        alert(JSON.stringify(e));
                     }
                  });
             }
@@ -34,13 +42,13 @@
     <h1>짭새페이지</h1>
     <h2>일러바치는 이유라도 이야기 해 보라 이거야.</h2>
     <form action="" method="get">
-        <input type="hidden" id="boardNum">
+        
         <input type="radio" name="reason" class="reason" value="1"> 스팸, 홍보 도배글입니다. <br>
         <input type="radio" name="reason" class="reason" value="2"> 불법 정보를 포함하고 있습니다. <br>
         <input type="radio" name="reason" class="reason" value="3"> 청소년에게 유해한 내용입니다. <br>
         <input type="radio" name="reason" class="reason" value="4"> 음란물입니다. <br>
         <input type="radio" name="reason" class="reason" value="5"> 욕설,비방 등 불쾌한 표현이 있습니다. <br>
-        <input type="button" value="제출">
+        <input type="button" value="제출" id="bt">
     </form>
 
 </body>

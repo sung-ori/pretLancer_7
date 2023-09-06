@@ -74,4 +74,11 @@ public interface CommunityDAO {
 	// 신고 확인
 	public Integer selectPolice(HashMap<String, String> map);
 
+	public int insertPolice(HashMap<String, String> map);
+
+	public int countPolice(int boardnum);
+
+	public int upPolice(int boardnum);
+
+	public int updateVan(int boardnum);
 }

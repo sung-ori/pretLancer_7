@@ -5,7 +5,7 @@
 <mapper namespace="com.team.pretLancer_7.dao.CommunityDAO">
 	
 	<select id="selectAll" resultType="Board">
-		select * from pret_board order by boardnum desc
+		select * from pret_board where enabled = 'Y' order by boardnum desc
 	</select>
 	
 	<select id="selectOne" parameterType="int" resultType="Board">
@@ -115,4 +115,20 @@
 		select POLICENUM from PRET_BOARD_POLICE where boardnum = #{boardnum} and repoterid = #{memberid}
 	</select>
 	
+	<insert id="insertPolice" parameterType="Map">
+		insert into pret_board_police (policenum, boardnum, writerid, repoterid, policereason)
+		values(board_pol_seq.nextval,#{boardnum}, #{writerid}, #{repoterid}, #{reason})
+	</insert>
+	
+	<select id="countPolice" parameterType="int">
+		select count(*) from pret_board_police where boardnum = #{boardnum}
+	</select>
+
+	<update id="upPolice" parameterType="int">
+		UPDATE pret_board SET police = police +1 where boardnum = #{boardnum}
+	</update>
+
+	<update id="updateVan" parameterType="int">
+		UPDATE pret_board SET enabled = 'N' where boardnum = #{boardnum}
+	</update>
 </mapper>
