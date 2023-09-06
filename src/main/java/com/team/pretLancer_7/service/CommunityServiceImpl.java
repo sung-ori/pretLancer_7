@@ -219,15 +219,51 @@ public class CommunityServiceImpl implements CommunityService {
 
 		Integer rst = dao.selectPolice(map);
 
+		log.error("신고 확인 {}",rst);
+
 		if(rst == null){
-			result = "ture";
+			result = "true";
 		}
 		else{result = "false";}
 
 		return result;
 		
 	}
-    
+
+	@Override
+	public String police(int boardnum, String id, String reason) {
+		// String msg = " ";
+		Board bd =  dao.selectOne(boardnum);
+		String writerId = "" ;
+		try{
+			writerId = bd.getMemberid();
+		}catch(NullPointerException e){
+			
+		}
+		log.error("writerId {}",writerId);
+		
+		String bdn = "" + boardnum;
+		String result = "";
+		HashMap<String, String> map = new HashMap<String,String>();
+
+		map.put("boardnum", bdn);
+		map.put("repoterid", id);
+
+		map.put("writerid", writerId);
+		map.put("reason",reason);
+		log.error("이유 {}", reason);
+
+		dao.insertPolice(map);
+		dao.upPolice(boardnum);
+
+		int cnt = dao.countPolice(boardnum);
+
+		if(cnt >= 5) {
+			dao.updateVan(boardnum);
+		}
+
+		return "신고가 완료되었습니다.";
+	}
 	
 	
 }

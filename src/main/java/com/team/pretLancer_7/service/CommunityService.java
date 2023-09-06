@@ -37,4 +37,6 @@ public interface CommunityService {
 
 	public String policeCheck(int boardnum, String id);
 
+	public String police(int boardnum, String id, String reason);
+
 }
