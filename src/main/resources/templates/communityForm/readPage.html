@@ -13,6 +13,7 @@
     $(document).ready(function() {
         readReply();
         readInfo();
+        policeCount();
         $("#rBt").click(writeReply);
         
     
@@ -258,6 +259,27 @@
             });
         }
         
+        function policeCount() {
+            let bdn = $("#boardNum").val();
+            $.ajax({
+                type: "get",
+                url: "policeCount",
+                data:{"boardnum" : bdn},
+                dataType:"text",
+                success: function(rst) {
+
+                    if(rst == "true"){
+                        alert("삭제된 게시물 입니다.");
+                        location.href="main"
+                    }else{
+
+                    }
+                },
+                error: function(e) {
+                    alert(JSON.stringify(e));
+                }
+            });
+        }
     });// End Of jQuery
     
 </script>

@@ -256,13 +256,23 @@ public class CommunityServiceImpl implements CommunityService {
 		dao.insertPolice(map);
 		dao.upPolice(boardnum);
 
+		
+
+		return "신고가 완료되었습니다.";
+	}
+
+	@Override
+	public String policeCount(int boardnum) {
 		int cnt = dao.countPolice(boardnum);
+
+		String result = "false";
 
 		if(cnt >= 5) {
 			dao.updateVan(boardnum);
+			result = "true";
 		}
+		return result;
 
-		return "신고가 완료되었습니다.";
 	}
 	
 	
