@@ -9,8 +9,9 @@
 	values (pret_req_s_seq.nextval, #{memberid}, #{requestcontent_S},#{cash}, #{comment_sr},#{startlang}, #{endlang})
 	</insert>
 	
-	<delete id="deleteRS" parameterType="Request_S">
-	delete from pret_request_s where requestnum_s = #{requestnum_s} and memberid = #{memberid}
+	<delete id="cancelRS" parameterType="Request_S">
+	update pret_request_s set requestcondition_s = 'F' 
+	where requestnum_s = #{requestnum_s} and memberid = #{memberid}
 	</delete>
 	
 	<select id="selectRS" parameterType="Request_S">
@@ -22,12 +23,18 @@
 	values (pret_req_m_seq.nextval, #{memberid}, #{requestcontent_m},#{cash}, #{comment_mr},#{startlang}, #{endlang})
 	</insert>
 	
-	<delete id="deleteRM" parameterType="Request_M">
-	delete from pret_request_m where requestnum_m = #{requestnum_m} and memberid = #{memberid}
+	<delete id="cancelRM" parameterType="Request_M">
+	update pret_request_m set requestcondition_m = 'F' 
+	where requestnum_m = #{requestnum_m} and memberid = #{memberid}
 	</delete>
 	
 	<select id="selectRM" parameterType="Request_M">
 	select * from pret_request_m where requestnum_m = #{requestnum_m} and memberid = #{memberid}
+	</select>
+	
+	<select id="choiceRS" resultType="Request_S">
+	select * from pret_request_s where enddate > sysdate oreder by enddate - sysdate asc
+	fetch first 1 rows only
 	</select>
 
 </mapper>
