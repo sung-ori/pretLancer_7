@@ -94,7 +94,11 @@ public class ExamServiceImple implements ExamService {
 		
 	}
 
-	
+	@Override
+	public void getTutorialUp(String memberid) {
+		dao.tutorialUp(memberid);;
+	}
+
 	
 	
 	/*ajax용 
