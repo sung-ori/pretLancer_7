@@ -1,4 +1,4 @@
-package com.team.pretLancer_7.email;
+package com.team.pretLancer_7.Email;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
