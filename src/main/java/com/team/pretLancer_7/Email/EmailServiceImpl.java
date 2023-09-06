@@ -1,4 +1,4 @@
-package com.team.pretLancer_7.Email;
+package com.team.pretLancer_7.email;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
