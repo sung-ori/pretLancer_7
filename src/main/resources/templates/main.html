@@ -1,4 +1,4 @@
-<!-- http://localhost:8888/pretLancer/# -->
+<!-- http://localhost:8888/pretLancer/main -->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
@@ -7,9 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Mazer Admin Dashboard</title>
     
+    
+    <!-- 드롭다운용 링크 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0-beta3/css/bootstrap.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.0.0-beta3/js/bootstrap.min.js"></script>
+    
+    
     <link rel="stylesheet" th:href="@{/assets/css/pages/upperBar.css}">
     <!-- <link rel="stylesheet" th:href="@{/assets/css/main/app.css}"> -->
-    <link rel="stylesheet" th:href="@{/assets/css/main/app.css}">,
+    <link rel="stylesheet" th:href="@{/assets/css/main/app.css}">
     <link rel="stylesheet" th:href="@{/assets/css/main/app-dark.css}">
     <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.svg}" type="image/x-icon">
     <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.png}" type="image/png">
@@ -88,7 +95,7 @@
         <ul class="menu">
   
             <li class="sidebar-item active">
-                <a href="index.html" class='sidebar-link'>
+                <a href="/pretLancer/main" class='sidebar-link'>
                     <i class="bi bi-house-fill"></i>
                     <span>홈</span>
                 </a>
@@ -98,33 +105,112 @@
                       <hr class="mb-0 navbar-vertical-divider">
             </div>
             
-            <li class="sidebar-item">
+            <li class="sidebar-item has-sub">
                 <a href="index.html" class='sidebar-link'>
                     <i class="bi bi-translate"></i>
                     <span>번역</span>
                 </a>
-            </li>
+                
+                 <ul class="submenu">
+                 
+                    <li class="submenu-item ">
+                        <a th:href="@{/translated/exam}">연습문제</a>
+                    </li> 
+                
+                <li class="sidebar-item has-sub">
+	                <a href="index.html" class='sidebar-link'>
+	                    <i class="bi bi-file-person-fill"></i>
+	                    <span>의뢰하기</span>
+	                </a>
+	                <ul class="submenu">
+	                	<li class="submenu-item ">
+                       		<a href="component-alert.html">장문의뢰</a>
+                    	</li>
+                    	<li class="submenu-item ">
+                       		<a href="component-alert.html">단, 중문의뢰</a>
+                    	</li>
+	                </ul>
+	            </li>
+	            <li class="sidebar-item has-sub">
+	                <a href="index.html" class='sidebar-link'>
+	                    <i class="bi bi-pencil-square"></i>
+	                    <span>번역하기</span>
+	                </a>
+	                <ul class="submenu">
+	                	<li class="submenu-item ">
+                       		<a href="component-alert.html">단문</a>
+                    	</li>
+                    	<li class="submenu-item ">
+                       		<a href="component-alert.html">중문</a>
+                    	</li>
+                    	<li class="submenu-item ">
+                       		<a href="component-alert.html">장문</a>
+                    	</li>
+	                </ul>
+	            </li>
+	            <li class="sidebar-item has-sub">
+	                <a href="index.html" class='sidebar-link'>
+	                    <i class="bi bi-award-fill"></i>
+	                    <span>평가하기</span>
+	                </a>
+	                <ul class="submenu">
+	                	<li class="submenu-item ">
+                       		<a href="component-alert.html">단문</a>
+                    	</li>
+                    	<li class="submenu-item ">
+                       		<a href="component-alert.html">중문</a>
+                    	</li>
+                    	
+	                </ul>
+	            </li>
+               
+                    <!--  <li class="submenu-item ">
+                        <a href="component-badge.html">번역하기</a>
+                    </li>
+                    <li class="submenu-item ">
+                        <a href="component-breadcrumb.html">평가하기</a>
+                    </li>-->
+                </ul>   
+            </li> <!-- 번역 -->
             
             <div class="col ps-0">
                       <hr class="mb-0 navbar-vertical-divider">
             </div>
             
             <li class="sidebar-item">
-                <a href="index.html" class='sidebar-link'>
-                    <i class="bi bi-currency-dollar"></i>
-                    <span>돈</span>
-                </a>
-            </li>
-            
-            <div class="col ps-0">
-                      <hr class="mb-0 navbar-vertical-divider">
-            </div>
-            
-            <li class="sidebar-item">
-                <a href="index.html" class='sidebar-link'>
-                    <i class="bi bi-emoji-smile-fill"></i>
+            <!-- ../pretLancer/community/main}*/ --> 
+                <a th:href="@{/community/main}" class='sidebar-link'>
+                    <i class="bi bi-file-earmark-text"></i>
                     <span>게시판</span>
                 </a>
+            </li>
+            
+            
+            
+            <div class="col ps-0">
+                      <hr class="mb-0 navbar-vertical-divider">
+            </div>
+            
+            <li class="sidebar-item has-sub">
+                <a href="index.html" class='sidebar-link'>
+                    <i class="bi bi-file-earmark-person"></i>
+                    <span>내 정보</span>
+                </a>
+                <ul class="submenu ">
+                    <li class="submenu-item ">
+                        <a href="component-alert.html">마이페이지</a>
+                    </li>
+                    <li class="submenu-item ">
+                        <a href="component-badge.html">프로필 설정</a>
+                    </li>
+                    
+                    <li class="submenu-item ">
+                        <a th:href="@{/reward/main}">리워드</a>
+                    </li>
+                    <li class="submenu-item ">
+                        <a href="component-badge.html">로그아웃</a>
+                    </li>
+                </ul>
             </li>
             
             <div class="col ps-0">
@@ -137,7 +223,11 @@
                     <span>문의</span>
                 </a>
             </li>
-                   
+            
+            
+              <div class="col ps-0">
+                      <hr class="mb-0 navbar-vertical-divider">
+            </div>
         </ul>
     </div>
 </div>

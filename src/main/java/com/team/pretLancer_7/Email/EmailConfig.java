@@ -1,4 +1,4 @@
-package com.team.pretLancer_7.Email;
+package com.team.pretLancer_7.email;
 
 import java.util.Properties;
 
@@ -9,7 +9,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 @Configuration
 public class EmailConfig {
-
+ 
     @Bean
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
