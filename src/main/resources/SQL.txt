@@ -25,7 +25,7 @@ CREATE TABLE pret_member_profile (
     MEMBERID        VARCHAR2(20)    NOT NULL,                   -- 사용자 아이디        PK, FK
     PROFILECOMMENT  VARCHAR2(2000),                             -- 프로필 문구
     ORIGINPHOTO     VARCHAR2(2000),                             -- 사진 원본 파일
-    SAVEDPHOTH      VARCHAR2(2000),                             -- 저장된 사진 파일
+    SAVEDPHOTO      VARCHAR2(2000),                             -- 저장된 사진 파일
 
     FOREIGN KEY (MEMBERID)      REFERENCES PRET_MEMBER   (MEMBERID),  -- MEMBERID 외래키 지정
    
