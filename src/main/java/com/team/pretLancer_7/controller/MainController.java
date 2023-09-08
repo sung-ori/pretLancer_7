@@ -31,7 +31,12 @@ public class MainController {
     	Member member = service.getUser(user.getUsername());
     	m.addAttribute("member", member);
         
-    	return "main";
+    	return "main3";
     }
      
+    //사이드바,Nav바 로드
+    @GetMapping("snBar")
+    public String snBar(){
+    	return "fragments/snBar";
+    }
 }
