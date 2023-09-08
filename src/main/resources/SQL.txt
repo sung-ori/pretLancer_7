@@ -72,9 +72,11 @@ CREATE TABLE PRET_BOARD (
     RECOMMEND       NUMBER  DEFAULT 0,                              -- 추천수
     DECOMMEND       NUMBER  DEFAULT 0,                              -- 비추천수
     POLICE          NUMBER  DEFAULT 0,                              -- 신고 갯수
+    ENABLED         VARCHAR2(1) DEFAULT 'Y',                         -- 밴 여부 Y: 게시 가능 / N: 게시 불가
 
 
-    FOREIGN KEY (MEMBERID) REFERENCES PRET_MEMBER (MEMBERID)        -- MEMBERID 외래키 지정
+    FOREIGN KEY (MEMBERID) REFERENCES PRET_MEMBER (MEMBERID),        -- MEMBERID 외래키 지정
+    CONSTRAINT chk_enabled CHECK (ENABLED IN ('Y','N' ))            -- 밴 여부 제약조건
 );
 
         -- 게시판 시퀀스

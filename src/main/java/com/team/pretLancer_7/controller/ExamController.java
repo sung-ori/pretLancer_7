@@ -42,7 +42,10 @@ public class ExamController {
 		String answer = (String) session.getAttribute("answer");
 		m.addAttribute("answer", answer);
 		
-		if (member.getTutorial_num() >= 50 && member.getTutorial().equals("Y"))
+		if (member.getTutorial_num() == 50 && member.getTutorial().equals("Y")) {
+			service.getTutorialUp(member.getMemberid());
+			return "redirect:/translated/tutorial_fin";
+		} else if (member.getTutorial_num() > 50 && member.getTutorial().equals("Y"))
 			return "redirect:/translated/exam";
 		else
 			return "examForm/tutorial";
@@ -69,21 +72,47 @@ public class ExamController {
 		}
 		
 		m.addAttribute("member", member);
-		if (member.getTutorial_num() >= 50 && member.getTutorial().equals("Y"))
-			return "redirect:/translated/exam";
-		else
+		return "redirect:/translated/tutorial";
+	}
+
+	/**
+	 * 튜토리얼 완료한 사람에 한해서 튜토리얼 완료 페이지로 이동하는 method
+	 * @return
+	 */
+	@GetMapping("tutorial_fin")
+	public String tutorial_fin(@AuthenticationPrincipal UserDetails user) {
+		Member member = service.getMemberOne(user.getUsername());
+		if (member.getTutorial_num() == 51 && member.getTutorial().equals("Y")) {
+			service.getTutorialUp(member.getMemberid());
+			return "examForm/tutorial_fin";
+		}
+		else if (member.getTutorial_num() <= 50 && member.getTutorial().equals("N"))
 			return "redirect:/translated/tutorial";
+		else
+			return "redirect:/translated/exam";
 	}
 	
 	
 	@GetMapping("exam")
-	public String exam (@AuthenticationPrincipal UserDetails user, Exam ex, Model m) {
+	public String exam (HttpSession session, @AuthenticationPrincipal UserDetails user, Exam ex, Model m) {
 		ex.setMemberid(user.getUsername());
 		Member member = service.getMemberOne(ex.getMemberid());
 		ex.setLanguage(member.getMemberlang());
 		Exam question = service.getQuestion(ex);
 		m.addAttribute("question", question);
 		m.addAttribute("member", member);
+		
+		String answer = (String) session.getAttribute("answer");
+		m.addAttribute("answer", answer);
+		
+		int answer_num;
+		if (session.getAttribute("answer_num") == null)
+			answer_num = 0;
+		else
+			answer_num = (int) session.getAttribute("answer_num");
+
+		m.addAttribute("answer_num", answer_num);
+
 		return "examForm/exam";
 	}
 	
@@ -96,6 +125,13 @@ public class ExamController {
 		int cnt = service.getAnswerEx(ex);
 		if (cnt == 1) {
 			session.setAttribute("answer", "correct");
+			if (session.getAttribute("answer_num") == null)
+				session.setAttribute("answer_num", 1);
+			else {
+				int num = (int) session.getAttribute("answer_num");
+				num = num + 1;
+				session.setAttribute("answer_num", num);
+			}
 		}
 		else session.setAttribute("answer", "");
 
