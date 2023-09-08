@@ -34,7 +34,6 @@
 </head>
 
 <body>
-<<<<<<< HEAD
 		<div id="snBar-placeholder"></div>
 		
         <div id="main">
@@ -44,87 +43,29 @@
                 </a>
             </header>
 	
-            
-<div class="page-heading">
-    <h3>커뮤니티</h3>
-</div>
+<div class="page-heading pricing-header p-3 pb-md-4 mx-auto text-center" style="margin-top: 0px;">
+    <h1 class="display-4 fw-normal ">커뮤니티</h1> <!-- text-body-emphasis -->
+    <p class="fs-5 text-body-secondary">커뮤니티는 공중장소입니다. 깨끗하게 사용하세요.</p>
+</div> 
+
 
 <!-- 커뮤니티 시작 -->
-	<h1>목록</h1>
 
-		
-		<a th:href="@{/community/write}" class="btn btn-primary">글 쓰러 가기</a>
-		
-	<div class="list-group list-group-flush border-bottom scrollarea">
-      <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-        <div class="d-flex w-100 align-items-center justify-content-between">
-          <strong class="mb-1">List group item heading</strong>
-          <small class="text-body-secondary">Mon</small>
-        </div>
-        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div>
-      </a>
-      <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-        <div class="d-flex w-100 align-items-center justify-content-between">
-          <strong class="mb-1">List group item heading</strong>
-          <small class="text-body-secondary">Mon</small>
-        </div>
-        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div>
-      </a>
-    </div>
-		
-	
-               
-	    <div class="card" th:each="b : ${list}" >
-	    	<div class="card">
-	        <!-- <div th:text="${b.boardnum}"></div>   -->
-	        <div><a th:text="${b.boardtitle}" th:href="@{../community/read(boardnum=${b.boardnum})}"></a></div>
-	        <div th:text="${b.memberid}"></div>
-	        <div th:text="${b.hits}"></div>
-	        <div th:text="${b.inputdate}"></div>
-	        </div>
-	    </div>
-	    
-	    	
-		
-		
-		
-		<div class="card">
-                    <div class="card-header">
-                        Floating Labels
-                    </div>
-                    <div class="card-body">
-                        <div class="form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-                            <label for="floatingTextarea">Comments</label>
-                        </div>
-                    </div>
-                </div>
-                
+		<div class="list-group list-group-flush border-bottom scrollarea" th:each="b : ${list}" style="margin-top: 0px;">
+		    <a th:href="@{../community/read(boardnum=${b.boardnum})}" class="list-group-item list-group-item-action py-3 lh-sm">
+		        <div class="d-flex w-100 align-items-center justify-content-between">
+		            <strong class="mb-1" th:text="${b.boardtitle}"></strong>
+		            <small class="text-body-secondary" th:text="${b.inputdate}"></small>
+		        </div>
+		        <div class="col-10 mb-1 small">
+		            <span th:text="${b.memberid}"></span> |
+		            <span th:text="${b.hits}"></span>
+		        </div>
+		    </a>
+		</div>
+		<a th:href="@{/community/write}" class="btn btn-primary">글쓰기</a>
 
-
-<!-- 왜 있는 지 모르지만 일단 둘게 -->
-=======
-    <h1>커뮤니티  깡통</h1>
-    <li>
-        <ol><a th:href="@{/community/write}">글 쓰러 가기</a></ol>
-    </li>
-    <div>
-        <form th:action="@{/member/logout}" method="post">
-            <input type="submit" value="로그아웃">
-        </form>
-        <a th:href="@{/member/logout}">로그아웃</a>
->>>>>>> af9708c91667d80a118ed435040070fb13d0b069
-    </div>
-
-    <div th:each="b : ${list}" style="border: solid 2px black;">
-        <!-- <div th:text="${b.boardnum}"></div>   -->
-        <div><a th:text="${b.boardtitle}" th:href="@{/community/read(boardnum=${b.boardnum})}"></a></div>
-        <div th:text="${b.memberid}"></div>
-        <div th:text="${b.hits}"></div>
-        <div th:text="${b.inputdate}"></div>
-    </div>
-
-    <div id="pagingNavBar">
+    <div id="pagingNavBar" class=" h4 text-center"  >
         <a th:href="|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|">◁◁</a>
         <a th:href="|javascript:pagingFormSubmit(${navi.currentPage - 1})|">◀</a> 
         <!-- for each로 출력 			타임리프의 객체/ 수열을 만들어냄. -->

@@ -67,6 +67,7 @@
 	
 	<update id="updateBoard" parameterType="Board">
 		UPDATE pret_board SET boardtitle = #{boardtitle}, boardcontent = #{boardcontent}
+		where boardnum = #{boardnum} and memberid = #{memberid}
 	</update>
 <!-- 조회수 업데이트 -->
 	<update id="updateHits" parameterType="int">
