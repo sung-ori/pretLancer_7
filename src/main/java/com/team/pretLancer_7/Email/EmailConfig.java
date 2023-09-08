@@ -1,4 +1,4 @@
-package com.team.pretLancer_7.email;
+package com.team.pretLancer_7.Email;
 
 import java.util.Properties;
 
