@@ -3,12 +3,14 @@ package com.team.pretLancer_7.service;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team.pretLancer_7.dao.CommunityDAO;
 import com.team.pretLancer_7.domain.Board;
 import com.team.pretLancer_7.domain.Reply;
+import com.team.pretLancer_7.utill.PageNavigator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,10 +22,35 @@ public class CommunityServiceImpl implements CommunityService {
     CommunityDAO dao;
 
     @Override
-    public List<Board> boardList() {
-        return dao.selectAll();
+    public List<Board> boardList(PageNavigator navi, String type, String searchWord) {
+
+		HashMap<String, String> map = new HashMap<>();
+		map.put("type", type);
+		map.put("searchWord", searchWord);
+		
+		RowBounds rb = new RowBounds(navi.getStartRecord(),navi.getCountPerPage());
+		
+		List<Board> list = dao.selectAll(map,rb);
+
+		log.debug("서비스 오냐? {}",list);
+        return list;
+		
     }
 
+	@Override
+	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String type,
+			String searchWord) {
+		HashMap<String, String> map = new HashMap<>();
+		map.put("type", type);
+		map.put("searchWord", searchWord);
+		
+		int total = dao.countAll(map);
+		
+		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page, total);
+		
+		return navi;
+	}
+	
 	@Override
 	public Board boardListOne(int boardnum) {
 		return dao.selectOne(boardnum);
