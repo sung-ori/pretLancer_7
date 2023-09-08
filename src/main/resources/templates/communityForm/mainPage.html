@@ -52,14 +52,52 @@
 
 		
 		<a th:href="@{/community/write}" class="btn btn-primary">글 쓰러 가기</a>
+		
+	<div class="list-group list-group-flush border-bottom scrollarea">
+      <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
+        <div class="d-flex w-100 align-items-center justify-content-between">
+          <strong class="mb-1">List group item heading</strong>
+          <small class="text-body-secondary">Mon</small>
+        </div>
+        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
+        <div class="d-flex w-100 align-items-center justify-content-between">
+          <strong class="mb-1">List group item heading</strong>
+          <small class="text-body-secondary">Mon</small>
+        </div>
+        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div>
+      </a>
+    </div>
+		
 	
-	    <div th:each="b : ${list}" style="border: solid 2px black;">
+               
+	    <div class="card" th:each="b : ${list}" >
+	    	<div class="card">
 	        <!-- <div th:text="${b.boardnum}"></div>   -->
 	        <div><a th:text="${b.boardtitle}" th:href="@{../community/read(boardnum=${b.boardnum})}"></a></div>
 	        <div th:text="${b.memberid}"></div>
 	        <div th:text="${b.hits}"></div>
 	        <div th:text="${b.inputdate}"></div>
+	        </div>
 	    </div>
+	    
+	    	
+		
+		
+		
+		<div class="card">
+                    <div class="card-header">
+                        Floating Labels
+                    </div>
+                    <div class="card-body">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+                            <label for="floatingTextarea">Comments</label>
+                        </div>
+                    </div>
+                </div>
+                
 
 
 <!-- 왜 있는 지 모르지만 일단 둘게 -->
