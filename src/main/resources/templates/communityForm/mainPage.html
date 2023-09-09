@@ -29,6 +29,7 @@
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:src="@{/js/snBarLoader.js}"></script>
+	<script th:src="@{/js/paging.js}"></script>
     
 </head>
 
@@ -43,6 +44,28 @@
         </form>
         <a th:href="@{/member/logout}">로그아웃</a>
     </div>
+
+    <div th:each="b : ${list}" style="border: solid 2px black;">
+        <!-- <div th:text="${b.boardnum}"></div>   -->
+        <div><a th:text="${b.boardtitle}" th:href="@{/community/read(boardnum=${b.boardnum})}"></a></div>
+        <div th:text="${b.memberid}"></div>
+        <div th:text="${b.hits}"></div>
+        <div th:text="${b.inputdate}"></div>
+    </div>
+
+    <div id="pagingNavBar">
+        <a th:href="|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|">◁◁</a>
+        <a th:href="|javascript:pagingFormSubmit(${navi.currentPage - 1})|">◀</a> 
+        <!-- for each로 출력 			타임리프의 객체/ 수열을 만들어냄. -->
+        <span th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}"> 
+            <th:block th:if="${counter == navi.currentPage}"><b></th:block>
+                <a th:text="${counter}" th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp;
+            <th:block th:if="${counter == navi.currentPage}"></b></th:block>
+        </span>
+        
+        <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + 1})|">▶</a> 
+        <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
+        </div>
 
     <div th:each="b : ${list}" style="border: solid 2px black;">
         <!-- <div th:text="${b.boardnum}"></div>   -->
