@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자주 묻는 질문 | 신개념 번역 플랫폼 PretLancer</title>
+<style>
+
+
+	@font-face {
+	    font-family: 'LINESeedKR-Bd';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+	
+	* {
+	    font-family: 'LINESeedKR-Bd';	
+		color : #2C2E33;
+
+	}
+	
+	h1, h2{
+		color : #2C2E33;
+	} 
+	
+	a {
+		color : #2334DE;
+	}
+	
+	div {
+		width : 900px;
+		background-color: #EFF0F0;
+		border-radius : 5px;
+	
+		text-align : center;
+	}
+	
+	table {
+		margin-left : auto;	
+		margin-right : auto;	
+		margin-top : auto;	
+		margin-bottom : auto;	
+
+	}
+	
+	select {
+		width : 200px;
+		height : 30px;
+		
+		border : solid 2px #EFF0F0;
+		border-radius : 5px;
+	
+	}
+	
+	.login{
+	
+		width : 250px;
+		height : 30px;
+		
+		border : solid 2px #EFF0F0;
+		border-radius : 5px;
+		
+	}
+
+	.join_button{
+	
+		width : 100px;
+		height : 35px;
+		background-color:#2334DE;
+		color : #FFFFFF;
+		
+		border : 0px;
+		border-radius : 5px;
+		
+	}
+	
+	.button{
+		text-align : center;
+	}
+
+
+	.category {
+	 	display : inline;
+	 	border : 0px;
+	 	border-radius : 8px;
+		background-color:#2334DE;
+		color : #FFFFFF;
+	}
+
+	.question_button {
+		width : 80px;
+		height : 30px;
+		
+	 	border : 0px;
+	 	border-radius : 10px;
+		background-color:#2334DE;
+
+		color : #FFFFFF;
+	}
+		
+	.form {
+		width : 317px;
+		height : 30px;
+		
+		border : solid 2px #EFF0F0;
+		border-radius : 5px;
+    	
+    }
+
+	.form1 {
+		width : 520px;
+		height : 30px;
+		
+		border : solid 2px #EFF0F0;
+		border-radius : 5px;
+    	
+    }
+
+	.form2 {
+		width : 520px;
+		height : 250px;
+		vertical-align : top;
+		
+		border : solid 2px #EFF0F0;
+		border-radius : 5px;
+    	
+    }
+	
+	.form2::placeholder {
+		vertical-align : top;
+	}
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script>
+	//누르면 부드럽게 스크롤 이동하기 위한 코드. 근데 왜 안돼 이런시발 
+    const category1 = document.getElementById('category1'); //버튼
+    const section1 = document.getElementById('section1');	//섹션
+    const category2 = document.getElementById('category2'); //버튼
+    const section2 = document.getElementById('section2');	//섹션
+    const category3 = document.getElementById('category3'); //버튼
+    const section3 = document.getElementById('section3');	//섹션
+    const category4 = document.getElementById('category4'); //버튼
+    const section4 = document.getElementById('section4');	//섹션
+
+    
+    category1.addEventListener('click', () => {
+        window.scrollBy({top: section1.getBoundingClientRect().top, behavior: 'smooth'});
+    });
+
+    category2.addEventListener('click', () => {
+        window.scrollBy({top: section2.getBoundingClientRect().top, behavior: 'smooth'});
+    });
+
+    category3.addEventListener('click', () => {
+        window.scrollBy({top: section3.getBoundingClientRect().top, behavior: 'smooth'});
+    });
+
+    category4.addEventListener('click', () => {
+        window.scrollBy({top: section4.getBoundingClientRect().top, behavior: 'smooth'});
+    });
+    
+</script>
+
+</head>
+<body>
+	<div>
+		<!-- 제목 + 멘트 + 이미지 -->
+		<section>
+
+		<h1 id = "title">고객센터</h1>
+		<h3>자주 묻는 질문을 확인하고 <br>문의할 수 있는 공간입니다 :)</h3>
+		<input type = "button" value = "문의하기" class = "question_button">		
+		</section> 
+
+		<br><br>
+		
+		<!-- 문의 폼 : 평소에는 나타나지 않다가 문의하기 버튼을 누르면 나타난다 -->
+		<!-- 문의 폼의 구성 : 질문 제목, 회신받을 이메일 주소, 카테고리, 내용, 문의하기 버튼 -->
+		<section>
+			<form>
+				<input type = "text" placeholder = "답변 내용을 회신받으실 이메일을 입력해주세요." class = "form1"><br>
+				<select>
+					<option>카테고리를 선택해주세요.</option>
+					<option>번역 및 평가</option>
+					<option>리워드</option>
+					<option>회원정보</option>
+					<option>기타</option>
+				</select>
+				<input type = "text" placeholder = "문의 제목을 입력해주세요." class = "form"><br>
+				<textarea placeholder = "문의 내용을 입력해주세요." class = "form2"></textarea><br>
+				<input type = "submit" value = "문의하기" class = "question_button">
+			</form>
+		</section> 
+
+		<br><br>
+		
+		<!-- 질문 리스트 폼 : 자주 묻는 질문이 모여 있음 -->
+		<!-- 
+			1. 번역과 평가 부분
+			- 번역
+				번역 프로젝트에 참여하고 싶은데, 어떻게 참여하면 될까요?
+
+				번역하고 싶은데 접근 권한이 없다고 떠요.
+
+				튜토리얼에서 번역을 맞게 입력했는데, 틀렸다고 떠요.
+
+				번역을 의뢰하고 싶은데, 보통 어느 정도 걸리나요?
+				
+				번역 거래를 잡았는데 상대가 응답을 하지 않아요.
+				
+				신뢰도가 너무 낮아요.
+				
+				번역에 이상한 내용을 올리는 사람이 있어요.
+				
+			- 평가
+				평가는 어떻게 진행되나요?
+				
+				장문은 평가가 없나요?
+				
+				평가도 리워드를 받나요?
+				
+				이상하게 평가하는 사람이 있는 것 같아요.
+				
+			2. 리워드
+				언제 출금되나요?
+				
+				얼마부터 출금을 받을 수 있나요?
+				
+				출금 신청을 했는데 출금이 안 돼요.
+				
+				출금 제한 금액이 있나요?
+				
+				계좌를 등록하려고 하는데 오류가 나요.
+				
+				해외에 살고 있는데 출금을 할 수 있나요?
+				
+				외국인인데, 리워드를 받을 수 있나요?
+				
+				미성년자는 참여 불가능한가요?
+				
+			3. 회원정보
+				비밀번호 같은 회원정보를 수정하고 싶어요.
+				
+				개인정보는 언제 파기하나요?
+				
+				프로필 사진을 수정하고 싶어요.
+				
+				탈퇴하고 싶어요.
+			
+			4. 기타
+				커뮤니티에서 신고하고 싶은 사람이 있어요.
+				
+				집에 가고 싶은 사람이 있어요 ㅆㅂ 집에보내줘
+		 -->
+		<section>
+		<div>
+			<h2>자주 묻는 질문</h2>
+			<!-- 카테고라이즈 : 누르면 부드럽게 스크롤되어 해당 위지로 내려감. 카테고리 : 번역, 리워드, 회원정보, 기타 -->
+			
+			<input type = "button" value = "번역" class = "category" id = "category1">
+			<input type = "button" value = "리워드" class = "category" id = "category2">
+			<input type = "button" value = "회원정보" class = "category" id = "category3">
+			<input type = "button" value = "기타"class = "category" id = "category4">
+			
+			<!-- 구조는 제목으로 카테고리명, 그 안에 들어간 질문들 (질문을 누르면 숨겨져 있던 답이 나옴) -->
+
+			<section id = "section1">
+			<div class = "category">번역</div>
+			<div>
+				<p>번역<p>
+			</div>
+			<div>
+				<p>평가</p>
+			</div>
+			
+			</section>
+
+			<section id = "section2">
+			<div class = "category">리워드</div>
+			</section>
+
+			<section id = "section3">
+			<div>
+			<div class = "category">회원정보</div>
+			</div>
+			</section>
+			
+			<section id = "section4">
+			<div>
+			<div class = "category">기타</div>
+			</div>
+			</section>
+
+		</div>
+		</section>
+	</div>
+	
+</body>
+</html>

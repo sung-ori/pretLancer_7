@@ -33,5 +33,10 @@ public class MainController {
         
     	return "main";
     }
-     
+ 
+    //문의 페이지
+    @GetMapping("qna")
+    public String qnaForm() {
+    	return "qna";
+    }
 }
