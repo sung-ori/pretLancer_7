@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Translated {
+public class Translated_S {
 	
 	int translatednum_s;
 	int requestnum_s;
@@ -15,5 +15,5 @@ public class Translated {
 	String requestcontent_s;
 	String translatedcontent_s;
 	String comment_st;
-	
+
 }

@@ -36,5 +36,18 @@
 	select * from pret_request_s where enddate > sysdate oreder by enddate - sysdate asc
 	fetch first 1 rows only
 	</select>
+	
+	<select id="choiceRM" resultType="Request_M">
+	select * from pret_request_m where enddate > sysdate oreder by enddate - sysdate asc
+	fetch first 1 rows only
+	</select>
+	
+	<update id="updateMem2_S">
+	update pret_request_s set memberid2 = #{memberid} where reqeustnum_s = #{requestnum_s}
+	</update>
+	
+	<update id="updateMem2_M">
+	update pret_request_m set memberid2 = #{memberid} where reqeustnum_m = #{requestnum_m}
+	</update>
 
 </mapper>

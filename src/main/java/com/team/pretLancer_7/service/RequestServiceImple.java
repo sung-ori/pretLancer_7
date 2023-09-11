@@ -70,6 +70,11 @@ public class RequestServiceImple implements RequestService {
 	public Request_S choiceRS() {
 		return Rdao.choiceRS();
 	}
+
+	@Override
+	public Request_M choiceRM() {
+		return Rdao.choiceRM();
+	}
 	
 	
 	
