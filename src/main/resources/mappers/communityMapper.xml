@@ -5,11 +5,11 @@
 <mapper namespace="com.team.pretLancer_7.dao.CommunityDAO">
 	
 	<select id="selectAll" resultType="Board">
-		select * from pret_board order by boardnum desc
+		select * from pret_board where enabled = 'Y' order by boardnum desc
 	</select>
 	
 	<select id="selectOne" parameterType="int" resultType="Board">
-		select * from pret_board where boardnum = #{boardnum}
+		select * from pret_board where boardnum = #{boardnum} and enabled = 'Y'
 	</select>
 	
 	<select id="replyAll" parameterType="int" resultType="Reply">
@@ -21,6 +21,37 @@
 		values (pret_board_seq.nextval, #{memberid}, #{boardcontent}, #{boardtitle})
 	</insert>
 	
+	<select id="countAll" parameterType="hashmap" resultType="Int">
+		select
+			 count(*) 
+		from 
+			spring5_board
+		<where> <!-- where을 태그로 처리하면 parameter가 null 일때 where 문 자체가 사라진다. -->
+			<if test="type == 'title'">
+				<!-- 대소문자 통일과 와일드카드 사용한 검색  -->
+				upper(title) like upper('%' || #{searchWord} || '%')
+			</if>
+			
+			<if test="type == 'contents'">
+				<!-- 대소문자 통일과 와일드카드 사용한 검색  -->
+				upper(contents) like upper('%' || #{searchWord} || '%')
+			</if>
+			
+			<if test="type == 'memberid'">
+				
+				memberid like #{searchWord}
+			</if>
+			
+			<if test="type == 'all'">
+				<!-- 대소문자 통일과 와일드카드 사용한 검색  -->
+				upper(title) like upper('%' || #{searchWord} || '%')
+				or upper(contents) like upper('%' || #{searchWord} || '%')
+				or upper(memberid) like upper('%' || #{searchWord} || '%')
+			</if>
+		</where>	
+	</select>
+
+	<!-- 댓글 -->
 	<insert id="insertReply" parameterType="Reply">
 		insert into pret_reply (replynum, boardnum, memberid, replycontent)
 		values (pret_reply_seq.nextval, #{boardnum}, #{memberid}, #{replycontent})
@@ -36,6 +67,7 @@
 	
 	<update id="updateBoard" parameterType="Board">
 		UPDATE pret_board SET boardtitle = #{boardtitle}, boardcontent = #{boardcontent}
+		where boardnum = #{boardnum} and memberid = #{memberid}
 	</update>
 <!-- 조회수 업데이트 -->
 	<update id="updateHits" parameterType="int">
@@ -112,7 +144,23 @@
 
 	<!--  -->
 	<select id="selectPolice" parameterType="Map" resultType="Integer">
-		select POLICENUM from PRET_BOARD_POLICE where boardnum = #{boardnum} and memberid = #{memberid}
+		select POLICENUM from PRET_BOARD_POLICE where boardnum = #{boardnum} and repoterid = #{memberid}
 	</select>
 	
+	<insert id="insertPolice" parameterType="Map">
+		insert into pret_board_police (policenum, boardnum, writerid, repoterid, policereason)
+		values(board_pol_seq.nextval,#{boardnum}, #{writerid}, #{repoterid}, #{reason})
+	</insert>
+	
+	<select id="countPolice" parameterType="int">
+		select count(*) from pret_board_police where boardnum = #{boardnum}
+	</select>
+
+	<update id="upPolice" parameterType="int">
+		UPDATE pret_board SET police = police +1 where boardnum = #{boardnum}
+	</update>
+
+	<update id="updateVan" parameterType="int">
+		UPDATE pret_board SET enabled = 'N' where boardnum = #{boardnum}
+	</update>
 </mapper>

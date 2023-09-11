@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 import com.team.pretLancer_7.domain.Board;
 import com.team.pretLancer_7.domain.Reply;
@@ -12,8 +13,9 @@ import com.team.pretLancer_7.domain.Reply;
 public interface CommunityDAO {
     
 	// 게시판목록
-    public List<Board> selectAll();
+    public List<Board> selectAll(HashMap<String, String> map, RowBounds rb);
 
+	public int countAll(HashMap<String, String> map);
     // 긁읽기
 	public Board selectOne(int boardnum);
 
@@ -71,7 +73,14 @@ public interface CommunityDAO {
 
 	public int downReplyReco(int replynum);
 
-	// 신고
+	// 신고 확인
 	public Integer selectPolice(HashMap<String, String> map);
 
+	public int insertPolice(HashMap<String, String> map);
+
+	public int countPolice(int boardnum);
+
+	public int upPolice(int boardnum);
+
+	public int updateVan(int boardnum);
 }

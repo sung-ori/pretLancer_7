@@ -3,12 +3,14 @@ package com.team.pretLancer_7.service;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team.pretLancer_7.dao.CommunityDAO;
 import com.team.pretLancer_7.domain.Board;
 import com.team.pretLancer_7.domain.Reply;
+import com.team.pretLancer_7.utill.PageNavigator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,10 +22,35 @@ public class CommunityServiceImpl implements CommunityService {
     CommunityDAO dao;
 
     @Override
-    public List<Board> boardList() {
-        return dao.selectAll();
+    public List<Board> boardList(PageNavigator navi, String type, String searchWord) {
+
+		HashMap<String, String> map = new HashMap<>();
+		map.put("type", type);
+		map.put("searchWord", searchWord);
+		
+		RowBounds rb = new RowBounds(navi.getStartRecord(),navi.getCountPerPage());
+		
+		List<Board> list = dao.selectAll(map,rb);
+
+		log.debug("서비스 오냐? {}",list);
+        return list;
+		
     }
 
+	@Override
+	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String type,
+			String searchWord) {
+		HashMap<String, String> map = new HashMap<>();
+		map.put("type", type);
+		map.put("searchWord", searchWord);
+		
+		int total = dao.countAll(map);
+		
+		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page, total);
+		
+		return navi;
+	}
+	
 	@Override
 	public Board boardListOne(int boardnum) {
 		return dao.selectOne(boardnum);
@@ -219,15 +246,61 @@ public class CommunityServiceImpl implements CommunityService {
 
 		Integer rst = dao.selectPolice(map);
 
+		log.error("신고 확인 {}",rst);
+
 		if(rst == null){
-			result = "ture";
+			result = "true";
 		}
 		else{result = "false";}
 
 		return result;
 		
 	}
-    
+
+	@Override
+	public String police(int boardnum, String id, String reason) {
+		// String msg = " ";
+		Board bd =  dao.selectOne(boardnum);
+		String writerId = "" ;
+		try{
+			writerId = bd.getMemberid();
+		}catch(NullPointerException e){
+			
+		}
+		log.error("writerId {}",writerId);
+		
+		String bdn = "" + boardnum;
+		String result = "";
+		HashMap<String, String> map = new HashMap<String,String>();
+
+		map.put("boardnum", bdn);
+		map.put("repoterid", id);
+
+		map.put("writerid", writerId);
+		map.put("reason",reason);
+		log.error("이유 {}", reason);
+
+		dao.insertPolice(map);
+		dao.upPolice(boardnum);
+
+		
+
+		return "신고가 완료되었습니다.";
+	}
+
+	@Override
+	public String policeCount(int boardnum) {
+		int cnt = dao.countPolice(boardnum);
+
+		String result = "false";
+
+		if(cnt >= 5) {
+			dao.updateVan(boardnum);
+			result = "true";
+		}
+		return result;
+
+	}
 	
 	
 }
