@@ -61,32 +61,25 @@
 
 </head>
 <body>
-	<!-- 넣어야 할 기능
-		번역가 프로필 수정 (번역가 사진, 번역가 코멘트) // 장문 번역 수주 시 뜨는 조그만 페이지
-		내 정보 수정 (비밀번호 or 닉네임 변경)
-		내 번역 현황 (pret_ability)
-		회원탈퇴
-	 -->
 		
 	<div>
 		<!-- 프로필 사진이 들어가는 div 영역 -->
-		<div class = "profile_photo">
-		<img th:if="${mypage.originphoto}" th:src="@{/my_page/getPhoto(memberid=${mypage.memberid})}">
-		</div>
+		<div class = "profile_photo"></div>
 		
 		<!-- 000 님의 마이페이지가 출력되는 영역 -->
+		<p><img th:if="${mypage.originphoto}" th:src="@{/my_page/getPhoto(memberid=${mypage.memberid})}"></p>
 		<!-- 내 정보가 보여야 하므로 id는 authen어쩌구 이용해서 작성 -->
 		<div class = "idoutput"><h2><span th:text = "${mypage.memberid}">id</span> 님의 마이페이지</h2></div>
 		
 		<!-- 개인정보가 출력되는 영역 -->
 		<div class = "member_info">
-         <p>이메일      <span th:text = "${mypage.membername}">이름 default</span></p>      
-         <p>닉네임      <span th:text = "${mypage.membernick}">닉네임 default</span></p>
-         <p>이메일      <span th:text = "${mypage.mem_ex}">경험치 default</span></p>
-         <p>이메일      <span th:text = "${mypage.mem_level}">레벨 default</span></p>
-         <p>이메일      <span th:text = "${mypage.memberlang}">언어 default</span></p>
-      
-      </div>
+			<p>이메일		<span th:text = "${mypage.membername}">이름 default</span></p>		
+			<p>닉네임		<span th:text = "${mypage.membernick}">닉네임 default</span></p>
+			<p>이메일		<span th:text = "${mypage.mem_ex}">경험치 default</span></p>
+			<p>이메일		<span th:text = "${mypage.mem_level}">레벨 default</span></p>
+			<p>이메일		<span th:text = "${mypage.memberlang}">언어 default</span></p>
+		
+		</div>
 	</div>
 </body>
 </html>

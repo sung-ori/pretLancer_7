@@ -101,6 +101,7 @@ public class ExamServiceImple implements ExamService {
 
 	
 	
+	
 	/*ajax용 
 	@Override
 	public int getExamInfo(Exam ex) {
