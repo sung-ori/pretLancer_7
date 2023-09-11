@@ -5,8 +5,8 @@
 <mapper namespace="com.team.pretLancer_7.dao.RequestDAO">
 
 	<insert id="insertRS" parameterType="Request_S">
-	insert into pret_request_s (requestnum_s, memberid, requestcontent_S,cash, comment_sr, startlang, endlang)
-	values (pret_req_s_seq.nextval, #{memberid}, #{requestcontent_S},#{cash}, #{comment_sr},#{startlang}, #{endlang})
+	insert into pret_request_s (requestnum_s, memberid, requestcontent_s,cash, comment_sr, startlang, endlang)
+	values (pret_req_s_seq.nextval, #{memberid}, #{requestcontent_s},#{cash}, #{comment_sr},#{startlang}, #{endlang})
 	</insert>
 	
 	<delete id="deleteRS" parameterType="Request_S">

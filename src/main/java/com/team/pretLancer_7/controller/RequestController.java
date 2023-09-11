@@ -19,15 +19,17 @@ public class RequestController {
 	@Autowired
 	RequestService service;
 
-	@GetMapping({" ", "/"})
+	@GetMapping("main")
 	public String requestPage() {
 		
-		return "requestForm/requestPage";
+		return "/requestForm/requestPage";
 	}
 	
 	@PostMapping("insertRS")
 	public String insertRequest_S(@AuthenticationPrincipal UserDetails user, Request_S r) {
 		r.setMemberid(user.getUsername());
+		r.setStartlang("JP");
+		r.setEndlang("KR");
 		service.insertRequest_S(r);
 		return "redirect:/";
 	}

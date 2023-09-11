@@ -36,7 +36,7 @@
 <body>
 		<div id="snBar-placeholder"></div>
 		
-        <div id="main">
+        <div id="main" class="bg-primary">
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
                     <i class="bi bi-justify fs-3"></i>
@@ -44,8 +44,8 @@
             </header>
 	
 <div class="page-heading pricing-header p-3 pb-md-4 mx-auto text-center" style="margin-top: 0px;">
-    <h1 class="display-4 fw-normal ">커뮤니티</h1> <!-- text-body-emphasis -->
-    <p class="fs-5 text-body-secondary">커뮤니티는 공중장소입니다. 깨끗하게 사용하세요.</p>
+    <h1 class="display-4 fw-normal text-light">커뮤니티</h1> <!-- text-body-emphasis -->
+    <p class="fs-5 text-body-secondary text-light">커뮤니티는 공중장소입니다. 깨끗하게 사용하세요.</p>
 </div> 
 
 
@@ -63,20 +63,21 @@
 		        </div>
 		    </a>
 		</div>
-		<a th:href="@{/community/write}" class="btn btn-primary">글쓰기</a>
+		<br>
+		<a th:href="@{/community/write}" class="btn btn-light" style="font-weight: bold; color:black;">글쓰기</a>
 
     <div id="pagingNavBar" class=" h4 text-center"  >
-        <a th:href="|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|">◁◁</a>
-        <a th:href="|javascript:pagingFormSubmit(${navi.currentPage - 1})|">◀</a> 
+        <a th:href="|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|" class="text-light">◁◁</a>
+        <a th:href="|javascript:pagingFormSubmit(${navi.currentPage - 1})|" class="text-light">◀</a> 
         <!-- for each로 출력 			타임리프의 객체/ 수열을 만들어냄. -->
-        <span th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}"> 
-            <th:block th:if="${counter == navi.currentPage}"><b></th:block>
-                <a th:text="${counter}" th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp;
+        <span th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}" class="text-light"> 
+            <th:block th:if="${counter == navi.currentPage}" ><b></th:block>
+                <a th:text="${counter}" th:href="|javascript:pagingFormSubmit(${counter})|" class="text-light"></a>&nbsp;
             <th:block th:if="${counter == navi.currentPage}"></b></th:block>
         </span>
         
-        <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + 1})|">▶</a> 
-        <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
+        <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + 1})|" class="text-light">▶</a> 
+        <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|" class="text-light">▷▷</a>
         </div>
 
 </body>
