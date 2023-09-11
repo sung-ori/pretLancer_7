@@ -67,7 +67,7 @@
 		<div class = "profile_photo"></div>
 		
 		<!-- 000 님의 마이페이지가 출력되는 영역 -->
-		<p><img th:if="${MyPage.originfile}" th:src="@{/my_page/getPhoto(memberid=${MyPage.memberid})}"></p>
+		<p><img th:if="${mypage.originphoto}" th:src="@{/my_page/getPhoto(memberid=${mypage.memberid})}"></p>
 		<!-- 내 정보가 보여야 하므로 id는 authen어쩌구 이용해서 작성 -->
 		<div class = "idoutput"><h2><span th:text = "${mypage.memberid}">id</span> 님의 마이페이지</h2></div>
 		
