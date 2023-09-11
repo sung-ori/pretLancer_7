@@ -2,8 +2,8 @@ package com.team.pretLancer_7.service;
 
 import java.util.List;
 
-import com.team.pretLancer_7.domain.Member;
+import com.team.pretLancer_7.domain.MyPage;
 
 public interface LongService {
-    public List<Member> getTranslatorList();
+    public List<MyPage> getTranslatorList();
 }

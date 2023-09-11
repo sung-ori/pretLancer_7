@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.team.pretLancer_7.domain.Member;
+import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.service.LongService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -28,9 +28,10 @@ public class LongTranslateController {
 
     @GetMapping("/request")
     public String requestForm(Model model) {
-        List<Member> translatorList = service.getTranslatorList();
+        List<MyPage> translatorList = service.getTranslatorList();
+        log.error("돌아오나요? {}", translatorList);
         model.addAttribute("translatorList", translatorList);
-        
+
         return "translate_long/requestForm";
     }
 }

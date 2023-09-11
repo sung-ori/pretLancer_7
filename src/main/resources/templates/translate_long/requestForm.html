@@ -9,10 +9,19 @@
     <title>장문 의뢰하기</title>
 </head>
 <body>
-    <div class="container container-fluid">
-        <div class="row">
-            <div class="col-6"><a href="" class="btn btn-primary"> 요청</a></div>
-            <div class="col-6"><a href="" class="btn btn-success"> 경매</a></div>
+    <div class="container">
+        <div class=" row container-fluid">
+
+            <div th:each="translator, index : ${translatorList}" class="col-4 card">
+                <img th:src="@{|/img/${translator.savedphoto}|}" class="card-img-top" style="height: 50%;;" alt="임시 프로필 사진">
+                <div class="card-body">
+                    <h3 class="card-title"  th:text="${translator.membername}">Card title</h3>
+                    <h5 class="card-text">[[${translator.mem_level}]]등급</h5>
+                    <div class="card-text" th:text="${translator.profilecomment}"></div>
+                    <a href="#" class="btn btn-primary">프로필 자세히 보기</a>
+                </div>
+            
+            </div>
         </div>
     </div>
 </body>

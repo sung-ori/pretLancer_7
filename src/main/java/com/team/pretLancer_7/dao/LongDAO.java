@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.team.pretLancer_7.domain.Member;
+import com.team.pretLancer_7.domain.MyPage;
 
 @Mapper
 public interface LongDAO {
-    public List<Member> selectAdTranlator();
+    public List<MyPage> selectAdTranslator();
 }
