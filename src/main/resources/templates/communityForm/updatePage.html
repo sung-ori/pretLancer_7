@@ -27,10 +27,10 @@
 </head>
 <body>
     <h1>글수정 폼</h1>
-    <input type="hidden" th:value="${board.boardnum}" id = "boardnum">
     <form th:action="@{/community/update}" method="post" >
         <input type="text" name="boardtitle" id="boardtitle" th:value="${board.boardtitle}"><br>
         <textarea name="boardcontent" id="boardcontent" cols="30" rows="10" th:text="${board.boardcontent}"></textarea><br>
+		<input type="hidden" th:value="${board.boardnum}" name = "boardnum" id = "boardnum">
         <input type="submit" value="수정">
         <input type="button" id="cancelBt" value="취소">
     </form>

@@ -3,6 +3,7 @@ package com.team.pretLancer_7.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.team.pretLancer_7.domain.Board;
 import com.team.pretLancer_7.domain.Reply;
 import com.team.pretLancer_7.service.CommunityService;
+import com.team.pretLancer_7.utill.PageNavigator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,14 +28,28 @@ public class CommunityController {
     
 	@Autowired
 	CommunityService service;
+
+	// 게시판 목록의 페이지당 글 수 
+	@Value("${user.board.page}")
+	int countPerPage;
+	//게시판 목록의 페이지 이동 링크 수
+	@Value("${user.board.group}")
+	int pagePerGroup;
 	
 	// 커뮤니티 게시판 리스트
     @GetMapping("main")
-    public String commyMain(Model m) {
+    public String commyMain(Model m,String type, String searchWord,
+							@RequestParam(name="page",defaultValue="1") int page) {
     	// 모든 게시물 목록 가져옴
-    	List<Board> list = service.boardList();
-
+		// 복잡한 코드는 서비스에 넘겨서 받는다.
+		PageNavigator navi = service.getPageNavigator(pagePerGroup, countPerPage, page, type, searchWord);
+		
+		List<Board> list = service.boardList(navi, type, searchWord); 
+    	
     	m.addAttribute("list", list);
+		m.addAttribute("navi", navi);
+		m.addAttribute("type", type);
+		m.addAttribute("searchWord", searchWord);
 		return ("/communityForm/mainPage");
     }
     
@@ -93,6 +109,7 @@ public class CommunityController {
 	//  글 수정
 	@PostMapping("update")
 	public String update(@AuthenticationPrincipal UserDetails user, Board b) {
+		b.setMemberid(user.getUsername());
 		service.update(b);
 		return "redirect:/community/main";
 	}
