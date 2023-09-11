@@ -468,5 +468,47 @@ CREATE TABLE PRET_BOARD_POLICE (
 		VALUES (5,'욕설,비방 등 불쾌한 표현이 있습니다.');
  
 
+ -- 연습문제 예제
+
+    insert into pret_examvalue values (pret_exam_seq.nextval,'aaa','ㅁㅁㅁ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'sss','ㄴㄴㄴ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'ddd','ㅇㅇㅇ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'fff','ㄹㄹㄹ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'ggg','ㅎㅎㅎ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'hhh','ㅗㅗㅗ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'jjj','ㅓㅓㅓ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'kkk','ㅏㅏㅏ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'lll','ㅣㅣㅣ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'qqq','ㅂㅂㅂ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'www','ㅈㅈㅈ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'eee','ㄷㄷㄷ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'rrr','ㄱㄱㄱ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'ttt','ㅅㅅㅅ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'yyy','ㅛㅛㅛ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'uuu','ㅕㅕㅕ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'iii','ㅑㅑㅑ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'ooo','ㅐㅐㅐ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'ppp','ㅔㅔㅔ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'zzz','ㅋㅋㅋ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'xxx','ㅌㅌㅌ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'ccc','ㅊㅊㅊ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'vvv','ㅍㅍㅍ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'bbb','ㅠㅠㅠ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'nnn','ㅜㅜㅜ','JP');
+    insert into pret_examvalue values (pret_exam_seq.nextval,'mmm','ㅡㅡㅡ','JP');JP
+    insert into pret_examvalue values (pret_exam_seq.nextval,'うばい合えば足らぬわけ合えばあまる。','서로 쟁탈하면 아무것도 남지 않고, 서로 나누면 남는다.','JP');
+
+
+
+
+やる気があるときなら、誰でもできる。本当の成功者は、やる気がないときでもやる。
+의욕이 있을 때는 누구라도 할 수 있다. 하지만 성공자는 의욕이 없을 때도 노력한다.
+
+できると思うにせよ、できないと思うにせよ、そのとおりになる。
+할 수 있다고 생각하건, 할 수 없다고 생각하건, 생각대로 된다.
  
-       
+自分に打ち勝つことは、勝利のうちで最も偉大な勝利である。
+승리 중에서도 가장 위대한 승리는 자신에 맞서 이겼을 때 이다.
+
+何事も成功するまでは不可能に思えるものである。
+성공 전에는 무엇이든 불가능해보이는 것이다.

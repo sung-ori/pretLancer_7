@@ -42,9 +42,9 @@ public class MypageController {
     public String myPageForm(Model m, @AuthenticationPrincipal UserDetails user) {
         
         MyPage mp =  service.getMyPage(user.getUsername());
-        m.addAttribute("MyPage", mp);
+        m.addAttribute("mypage", mp);
         
-        return "/myPageView/MyPage";
+        return "/myPageForm/MyPage";
     }
     
     // 개인정보 수정

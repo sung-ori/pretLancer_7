@@ -4,11 +4,14 @@ import java.util.List;
 
 import com.team.pretLancer_7.domain.Board;
 import com.team.pretLancer_7.domain.Reply;
+import com.team.pretLancer_7.utill.PageNavigator;
 
 public interface CommunityService {
     
-    public List<Board> boardList() ;
-
+    public List<Board> boardList(PageNavigator navi, String type, String searchWord) ;
+	
+	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String type,
+	String searchWord);
 	public Board boardListOne(int boardnum);
 
 	public List<Reply> replyList(int boardnum);
