@@ -13,9 +13,6 @@
 	select * from pret_member where memberid = #{searchid}
 	</select>
 
-	<select id="selectOneMyPage" parameterType="String" resultType="MyPage">
-		select * from pret_member_profile where memberid = #{memberid}
-	</select>
 	
 	<insert id="insertMp" parameterType="MyPage">
 	insert into pret_member_profile (memberid, profilecomment)
