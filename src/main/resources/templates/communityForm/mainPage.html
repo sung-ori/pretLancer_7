@@ -34,26 +34,38 @@
 </head>
 
 <body>
-    <h1>커뮤니티  깡통</h1>
-    <li>
-        <ol><a th:href="@{/community/write}">글 쓰러 가기</a></ol>
-    </li>
-    <div>
-        <form th:action="@{/member/logout}" method="post">
-            <input type="submit" value="로그아웃">
-        </form>
-        <a th:href="@{/member/logout}">로그아웃</a>
-    </div>
+		<div id="snBar-placeholder"></div>
+		
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+	
+<div class="page-heading pricing-header p-3 pb-md-4 mx-auto text-center" style="margin-top: 0px;">
+    <h1 class="display-4 fw-normal ">커뮤니티</h1> <!-- text-body-emphasis -->
+    <p class="fs-5 text-body-secondary">커뮤니티는 공중장소입니다. 깨끗하게 사용하세요.</p>
+</div> 
 
-    <div th:each="b : ${list}" style="border: solid 2px black;">
-        <!-- <div th:text="${b.boardnum}"></div>   -->
-        <div><a th:text="${b.boardtitle}" th:href="@{/community/read(boardnum=${b.boardnum})}"></a></div>
-        <div th:text="${b.memberid}"></div>
-        <div th:text="${b.hits}"></div>
-        <div th:text="${b.inputdate}"></div>
-    </div>
 
-    <div id="pagingNavBar">
+<!-- 커뮤니티 시작 -->
+
+		<div class="list-group list-group-flush border-bottom scrollarea" th:each="b : ${list}" style="margin-top: 0px;">
+		    <a th:href="@{../community/read(boardnum=${b.boardnum})}" class="list-group-item list-group-item-action py-3 lh-sm">
+		        <div class="d-flex w-100 align-items-center justify-content-between">
+		            <strong class="mb-1" th:text="${b.boardtitle}"></strong>
+		            <small class="text-body-secondary" th:text="${b.inputdate}"></small>
+		        </div>
+		        <div class="col-10 mb-1 small">
+		            <span th:text="${b.memberid}"></span> |
+		            <span th:text="${b.hits}"></span>
+		        </div>
+		    </a>
+		</div>
+		<a th:href="@{/community/write}" class="btn btn-primary">글쓰기</a>
+
+    <div id="pagingNavBar" class=" h4 text-center"  >
         <a th:href="|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|">◁◁</a>
         <a th:href="|javascript:pagingFormSubmit(${navi.currentPage - 1})|">◀</a> 
         <!-- for each로 출력 			타임리프의 객체/ 수열을 만들어냄. -->

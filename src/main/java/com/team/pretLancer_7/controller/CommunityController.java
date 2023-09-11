@@ -109,6 +109,7 @@ public class CommunityController {
 	//  글 수정
 	@PostMapping("update")
 	public String update(@AuthenticationPrincipal UserDetails user, Board b) {
+		b.setMemberid(user.getUsername());
 		service.update(b);
 		return "redirect:/community/main";
 	}
