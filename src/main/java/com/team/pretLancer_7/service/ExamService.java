@@ -17,8 +17,6 @@ public interface ExamService {
 	
 	void getTutorialUp(String memberid);
 
-	void getTutorialUp(String memberid);
-
 	//에이젝스 부분
 	//int getExamInfo(Exam ex);
 }
