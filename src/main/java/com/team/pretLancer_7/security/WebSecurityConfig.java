@@ -25,13 +25,16 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
         .authorizeRequests()
-        .mvcMatchers("/","/email").permitAll()
+        .mvcMatchers("/","/email","/chat").permitAll()
         .antMatchers("/",
 
                 "/assets/**",
         		"/member/join",
         		"/member/joinForm",
                 "/member/idCheck",
+                
+                "/chat",
+                "/chat/**",
 
                 "/email",
                 "/confirm",

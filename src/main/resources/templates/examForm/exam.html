@@ -56,7 +56,6 @@
 	
 </style>
 <script type="text/javascript">
-
 	
 	$(document).ready( function() {
 		$('#correct').ready(changeColor);
@@ -65,11 +64,11 @@
 
 	function changeColor() {
 		let back_page = document.referrer;
-		let exam_page = 'http://localhost:8888/pretLancer/translated/exam';
+		let tutorial_page = 'http://localhost:8888/pretLancer/translated/exam';
 		let answer = '[[${answer}]]';
 		
 		//만약 전 페이지가 tutorial page와 같은 url이고, answer가 correct일 경우 맞은 문제 수를 표시하는 div의 색이 파란색으로 바뀜
-		if (back_page == exam_page && answer == 'correct'){
+		if (back_page == tutorial_page && answer == 'correct'){
 			$('#correct').css('color', 'blue');
 			}
 				
@@ -77,11 +76,11 @@
 	
 	function answer_check() {
 		let back_page = document.referrer;
-		let exam_page = 'http://localhost:8888/pretLancer/translated/exam';
+		let tutorial_page = 'http://localhost:8888/pretLancer/translated/exam';
 		let answer = '[[${answer}]]';
 
 		//만일 전 페이지가 tutorial page와 같은 url이고, answer가 correct일 경우 정답입니다! 라는 글자가 나옴
-		if (back_page == exam_page && answer == 'correct'){
+		if (back_page == tutorial_page && answer == 'correct'){
 			$('#answer_check').html('정답입니다!');
 			} else {
 			$('#answer_check').html('');

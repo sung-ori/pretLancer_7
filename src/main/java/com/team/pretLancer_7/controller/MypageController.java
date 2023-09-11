@@ -90,7 +90,7 @@ public class MypageController {
     }
     
     // 프로필 가져오기 + 처음 mapper에 입력할 때 default 값은 basic.jpg로 넣어서 기본 프로필 사진을 가져오게 한다.
-    // <img th:if="${MyPage.originfile}" th:src="@{/my_page/getPhoto(memberid=${MyPage.memberid})}"> 사진 불러오는 HTML
+    // <p><img th:if="${mypage.originphoto}" th:src="@{/my_page/getPhoto(memberid=${mypage.memberid})}"></p> 사진 불러오는 HTML
     @GetMapping("getPhoto")
 	public void getProfilePhoto(String memberid
 			, HttpServletRequest request
