@@ -52,6 +52,11 @@
 	
 	}
 	
+	/* hr 태그 중 짧은 길이를 지정*/
+	.short{
+		width : 50px;
+	}
+	
 	.login{
 	
 		width : 250px;
@@ -78,7 +83,6 @@
 		text-align : center;
 	}
 
-
 	.category {
 	 	display : inline;
 	 	border : 0px;
@@ -87,6 +91,10 @@
 		color : #FFFFFF;
 	}
 
+	.section_name {
+		color : #2334DE;
+	}
+	
 	.question_button {
 		width : 80px;
 		height : 30px;
@@ -126,40 +134,288 @@
     	
     }
 	
-	.form2::placeholder {
-		vertical-align : top;
+	
+	.answer {
+		display : none;
+		opacity : 0;
+	}
+	
+	.question {
+		cursor : pointer;
 	}
 
+	
+	@keyframes formopen {
+  	from {
+    	opacity: 0;
+	  }
+	
+	  to {
+	    opacity: 1;
+	  }
+	}
+
+	@keyframes formclose {
+  	from {
+    	opacity: 1;
+	  }
+	
+	  to {
+	    opacity: 0;
+	  }
+	}
+
+	
+	#qnaform {
+		display : none;
+		opacity : 0;
+	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script>
-	//누르면 부드럽게 스크롤 이동하기 위한 코드. 근데 왜 안돼 이런시발 
-    const category1 = document.getElementById('category1'); //버튼
-    const section1 = document.getElementById('section1');	//섹션
-    const category2 = document.getElementById('category2'); //버튼
-    const section2 = document.getElementById('section2');	//섹션
-    const category3 = document.getElementById('category3'); //버튼
-    const section3 = document.getElementById('section3');	//섹션
-    const category4 = document.getElementById('category4'); //버튼
-    const section4 = document.getElementById('section4');	//섹션
+	// 
+	// question 클래스에 속한 p태그를 누르면 숨겨져 있던 answer 태그가 등장한다.
+	$(document).ready(function() {
+		$('#openform').click(openForm);
+		
+		$('#question').mouseover(changeColor);
+		$('#question').mouseout(changeColor2);
+		$('#question').click(getAnswer);
 
-    
-    category1.addEventListener('click', () => {
-        window.scrollBy({top: section1.getBoundingClientRect().top, behavior: 'smooth'});
-    });
+		$('#question1').mouseover(changeColor3);
+		$('#question1').mouseout(changeColor4);
+		$('#question1').click(getAnswer1);
 
-    category2.addEventListener('click', () => {
-        window.scrollBy({top: section2.getBoundingClientRect().top, behavior: 'smooth'});
-    });
+		$('#question2').mouseover(changeColor5);
+		$('#question2').mouseout(changeColor6);
+		$('#question2').click(getAnswer2);
 
-    category3.addEventListener('click', () => {
-        window.scrollBy({top: section3.getBoundingClientRect().top, behavior: 'smooth'});
-    });
+		$('#question3').mouseover(changeColor7);
+		$('#question3').mouseout(changeColor8);
+		$('#question3').click(getAnswer3);
 
-    category4.addEventListener('click', () => {
-        window.scrollBy({top: section4.getBoundingClientRect().top, behavior: 'smooth'});
-    });
-    
+		$('#question4').mouseover(changeColor9);
+		$('#question4').mouseout(changeColor10);
+		$('#question4').click(getAnswer4);
+
+		$('#question5').mouseover(changeColor11);
+		$('#question5').mouseout(changeColor12);
+		$('#question5').click(getAnswer5);
+
+		$('#question6').mouseover(changeColor13);
+		$('#question6').mouseout(changeColor14);
+		$('#question6').click(getAnswer6);
+
+		$('#question7').mouseover(changeColor15);
+		$('#question7').mouseout(changeColor16);
+		$('#question7').click(getAnswer7);
+
+	});
+	
+	function openForm() {
+			if ($('#qnaform').css('opacity') == 0) {
+				$('#qnaform').css('animation', 'formopen');
+				$('#qnaform').css('animation-duration', '0.5s');
+				$('#qnaform').css('display', 'block');
+				$('#qnaform').css('opacity', 1);
+
+			}	else	{
+				$('#qnaform').css('animation', 'formclose');
+				$('#qnaform').css('display', 'none');
+				$('#qnaform').css('opacity', 0);
+			}
+	}
+	
+	function changeColor() {
+			$('#question').css("color","#2396DE");
+	}
+
+	function changeColor2() {
+			$('#question').css("color","#2C2E33");
+	}
+	
+	function getAnswer() {
+		if ($('#answer').css('opacity') == 0) {
+			$('#question').css("font-weight","bold");
+			$('#question').css("color","#2396DE");
+			$('#answer').css('display', 'block');
+			$('#answer').css('opacity', 1);
+		}else	{
+			$('#question').css("font-weight","normal");
+			$('#question').css("color","#2C2E33");
+			$('#answer').css('display', 'none');
+			$('#answer').css('opacity', 0);
+		}
+
+	};
+
+	
+	function changeColor3() {
+			$('#question1').css("color","#2396DE");
+	}
+	
+	function changeColor4() {
+			$('#question1').css("color","#2C2E33");
+	}
+
+	function getAnswer1() {
+		if ($('#answer1').css('opacity') == 0) {
+			$('#question1').css("font-weight","bold");
+			$('#question1').css("color","#2396DE");
+			$('#answer1').css('display', 'block');
+			$('#answer1').css('opacity', 1);
+		}else	{
+			$('#question1').css("font-weight","normal");
+			$('#question1').css("color","#2C2E33");
+			$('#answer1').css('display', 'none');
+			$('#answer1').css('opacity', 0);
+		}
+
+	};
+
+	
+	function changeColor5() {
+		$('#question2').css("color","#2396DE");
+	}
+	
+	function changeColor6() {
+			$('#question2').css("color","#2C2E33");
+	}
+	
+	function getAnswer2() {
+		if ($('#answer2').css('opacity') == 0) {
+			$('#question2').css("font-weight","bold");
+			$('#question2').css("color","#2396DE");
+			$('#answer2').css('display', 'block');
+			$('#answer2').css('opacity', 1);
+		}else	{
+			$('#question2').css("font-weight","normal");
+			$('#question2').css("color","#2C2E33");
+			$('#answer2').css('display', 'none');
+			$('#answer2').css('opacity', 0);
+		}
+	
+	};
+
+	
+	function changeColor7() {
+		$('#question3').css("color","#2396DE");
+	}
+	
+	function changeColor8() {
+			$('#question3').css("color","#2C2E33");
+	}
+	
+	function getAnswer3() {
+		if ($('#answer3').css('opacity') == 0) {
+			$('#question3').css("font-weight","bold");
+			$('#question3').css("color","#2396DE");
+			$('#answer3').css('display', 'block');
+			$('#answer3').css('opacity', 1);
+		}else	{
+			$('#question3').css("font-weight","normal");
+			$('#question3').css("color","#2C2E33");
+			$('#answer3').css('display', 'none');
+			$('#answer3').css('opacity', 0);
+		}
+	
+	};
+
+	function changeColor9() {
+		$('#question4').css("color","#2396DE");
+	}
+	
+	function changeColor10() {
+			$('#question4').css("color","#2C2E33");
+	}
+	
+	function getAnswer4() {
+		if ($('#answer4').css('opacity') == 0) {
+			$('#question4').css("font-weight","bold");
+			$('#question4').css("color","#2396DE");
+			$('#answer4').css('display', 'block');
+			$('#answer4').css('opacity', 1);
+		}else	{
+			$('#question4').css("font-weight","normal");
+			$('#question4').css("color","#2C2E33");
+			$('#answer4').css('display', 'none');
+			$('#answer4').css('opacity', 0);
+		}
+	
+	};
+
+	
+	function changeColor11() {
+		$('#question5').css("color","#2396DE");
+	}
+	
+	function changeColor12() {
+			$('#question5').css("color","#2C2E33");
+	}
+	
+	function getAnswer5() {
+		if ($('#answer5').css('opacity') == 0) {
+			$('#question5').css("font-weight","bold");
+			$('#question5').css("color","#2396DE");
+			$('#answer5').css('display', 'block');
+			$('#answer5').css('opacity', 1);
+		}else	{
+			$('#question5').css("font-weight","normal");
+			$('#question5').css("color","#2C2E33");
+			$('#answer5').css('display', 'none');
+			$('#answer5').css('opacity', 0);
+		}
+	
+	};
+
+	
+	function changeColor13() {
+		$('#question6').css("color","#2396DE");
+	}
+	
+	function changeColor14() {
+			$('#question6').css("color","#2C2E33");
+	}
+	
+	function getAnswer6() {
+		if ($('#answer6').css('opacity') == 0) {
+			$('#question6').css("font-weight","bold");
+			$('#question6').css("color","#2396DE");
+			$('#answer6').css('display', 'block');
+			$('#answer6').css('opacity', 1);
+		}else	{
+			$('#question6').css("font-weight","normal");
+			$('#question6').css("color","#2C2E33");
+			$('#answer6').css('display', 'none');
+			$('#answer6').css('opacity', 0);
+		}
+	
+	};
+
+	
+	function changeColor15() {
+		$('#question7').css("color","#2396DE");
+	}
+	
+	function changeColor16() {
+			$('#question7').css("color","#2C2E33");
+	}
+	
+	function getAnswer7() {
+		if ($('#answer7').css('opacity') == 0) {
+			$('#question7').css("font-weight","bold");
+			$('#question7').css("color","#2396DE");
+			$('#answer7').css('display', 'block');
+			$('#answer7').css('opacity', 1);
+		}else	{
+			$('#question7').css("font-weight","normal");
+			$('#question7').css("color","#2C2E33");
+			$('#answer7').css('display', 'none');
+			$('#answer7').css('opacity', 0);
+		}
+	
+	};
+
 </script>
 
 </head>
@@ -170,14 +426,14 @@
 
 		<h1 id = "title">고객센터</h1>
 		<h3>자주 묻는 질문을 확인하고 <br>문의할 수 있는 공간입니다 :)</h3>
-		<input type = "button" value = "문의하기" class = "question_button">		
+		<input type = "button" value = "문의하기" class = "question_button" id = "openform">		
 		</section> 
 
 		<br><br>
 		
 		<!-- 문의 폼 : 평소에는 나타나지 않다가 문의하기 버튼을 누르면 나타난다 -->
 		<!-- 문의 폼의 구성 : 질문 제목, 회신받을 이메일 주소, 카테고리, 내용, 문의하기 버튼 -->
-		<section>
+		<section id = "qnaform">
 			<form>
 				<input type = "text" placeholder = "답변 내용을 회신받으실 이메일을 입력해주세요." class = "form1"><br>
 				<select>
@@ -189,6 +445,7 @@
 				</select>
 				<input type = "text" placeholder = "문의 제목을 입력해주세요." class = "form"><br>
 				<textarea placeholder = "문의 내용을 입력해주세요." class = "form2"></textarea><br>
+				<input type = "file"><br>
 				<input type = "submit" value = "문의하기" class = "question_button">
 			</form>
 		</section> 
@@ -196,99 +453,186 @@
 		<br><br>
 		
 		<!-- 질문 리스트 폼 : 자주 묻는 질문이 모여 있음 -->
-		<!-- 
-			1. 번역과 평가 부분
-			- 번역
-				번역 프로젝트에 참여하고 싶은데, 어떻게 참여하면 될까요?
-
-				번역하고 싶은데 접근 권한이 없다고 떠요.
-
-				튜토리얼에서 번역을 맞게 입력했는데, 틀렸다고 떠요.
-
-				번역을 의뢰하고 싶은데, 보통 어느 정도 걸리나요?
-				
-				번역 거래를 잡았는데 상대가 응답을 하지 않아요.
-				
-				신뢰도가 너무 낮아요.
-				
-				번역에 이상한 내용을 올리는 사람이 있어요.
-				
-			- 평가
-				평가는 어떻게 진행되나요?
-				
-				장문은 평가가 없나요?
-				
-				평가도 리워드를 받나요?
-				
-				이상하게 평가하는 사람이 있는 것 같아요.
-				
-			2. 리워드
-				언제 출금되나요?
-				
-				얼마부터 출금을 받을 수 있나요?
-				
-				출금 신청을 했는데 출금이 안 돼요.
-				
-				출금 제한 금액이 있나요?
-				
-				계좌를 등록하려고 하는데 오류가 나요.
-				
-				해외에 살고 있는데 출금을 할 수 있나요?
-				
-				외국인인데, 리워드를 받을 수 있나요?
-				
-				미성년자는 참여 불가능한가요?
-				
-			3. 회원정보
-				비밀번호 같은 회원정보를 수정하고 싶어요.
-				
-				개인정보는 언제 파기하나요?
-				
-				프로필 사진을 수정하고 싶어요.
-				
-				탈퇴하고 싶어요.
-			
-			4. 기타
-				커뮤니티에서 신고하고 싶은 사람이 있어요.
-				
-				집에 가고 싶은 사람이 있어요 ㅆㅂ 집에보내줘
-		 -->
 		<section>
 		<div>
 			<h2>자주 묻는 질문</h2>
-			<!-- 카테고라이즈 : 누르면 부드럽게 스크롤되어 해당 위지로 내려감. 카테고리 : 번역, 리워드, 회원정보, 기타 -->
+			<!-- 카테고라이즈 : 누르면 부드럽게 스크롤되어 해당 위지로 내려감. 카테고리 : 번역, 리워드, 회원정보, 기타 
 			
 			<input type = "button" value = "번역" class = "category" id = "category1">
 			<input type = "button" value = "리워드" class = "category" id = "category2">
 			<input type = "button" value = "회원정보" class = "category" id = "category3">
-			<input type = "button" value = "기타"class = "category" id = "category4">
+			<input type = "button" value = "기타"class = "category" id = "category4"> -->
+			
+			<br><br>
 			
 			<!-- 구조는 제목으로 카테고리명, 그 안에 들어간 질문들 (질문을 누르면 숨겨져 있던 답이 나옴) -->
-
 			<section id = "section1">
-			<div class = "category">번역</div>
-			<div>
-				<p>번역<p>
+			<div class = "section_name">번역</div>
+			<div style = "line-height : 60%">
+				<br>
+				<p>번역에 대하여<p>
+
+				<br>
+				<p class = "question" id = "question">번역 프로젝트에 참여하고 싶은데, 어떻게 참여하면 될까요?</p>
+				<br>
+				<p class = "answer" id = "answer"> 우선 튜토리얼 과정에 통과하신 뒤, 짧은 길이의 번역부터 도전하시면서 레벨과 경험치를 쌓아주세요. <br><br>
+									일정 레벨과 경험치에 도달하면 더 긴 번역에 도전할 수 있게 됩니다. </p>
+				<br>
+				<hr class = "short">
+				
+				<br>
+				<p class = "question" id = "question1">번역하고 싶은데 접근 권한이 없다고 떠요.</p>
+				<br>
+				<p class = "answer" id = "answer1"> 아직 튜토리얼 과정을 통과하지 못하셨다면, 튜토리얼을 완전히 끝내주세요! <br><br>
+									튜토리얼을 통과했는데도 접근 권한이 없으시다면, 위의 '문의하기' 버튼으로 저희에게 메일을 보내 주세요. </p>
+
+				<br>
+				<hr class = "short">
+
+				<br>
+				<p class = "question" id = "question2">튜토리얼에서 번역을 맞게 입력했는데, 틀렸다고 떠요.</p>
+				<br>
+				<p class = "answer" id = "answer2"> 맞춤법 혹은 띄어쓰기는 맞게 입력하셨나요? <br><br>
+									튜토리얼은 정답과의 유사성을 비교하여 판단하기 때문에 맞춤법이나 띄어쓰기도 중요하게 판단됩니다. <br><br>
+									맞춤법에 유의하여 알맞은 답을 입력해주세요!</p>
+
+				<br>
+				<hr class = "short">
+
+				<br>
+				<p class = "question" id = "question3">번역을 의뢰하고 싶은데, 보통 어느 정도 걸리나요?</p>
+				<br>
+				<p class = "answer" id = "answer3"> 의뢰하시는 번역에 따라서 다릅니다. <br><br>
+									길이가 짧은 쇼트, 미디엄의 경우 번역과 평가에 걸리는 길이에 따라서 하루 이내, 길면 이틀 정도이며, <br><br>
+									길이가 길어 따로 의뢰를 문의하시는 경우에는 번역하시는 분과 조율하셔야 합니다.</p>
+				<br>
+				<hr class = "short">
+
+				<br>
+				<p class = "question" id = "question4">번역 거래를 잡았는데 상대가 응답을 하지 않아요.</p>
+				<br>
+				<p class = "answer" id = "answer4"> 일단 기다려보시고, 며칠을 기다리셔도 응답이 없을 경우 위의 '문의하기' 폼으로 저희에게 메일을 주셔요.</p>
+				<br>
+				<hr class = "short">
+
+				<br>
+				<p class = "question" id = "question5">번역을 많이 했는데 등급이나 신뢰도가 잘 오르지 않는 것 같아요.</p>
+				<br>
+				<p class = "answer" id = "answer5"> 번역을 많이 하셔도, 정확하게 하지 않으면 부정적인 평가를 받아 신뢰도가 오르지 않거나 깎일 수 있어요.<br><br>
+									최대한 정확하게 번역을 해 주세요!</p>
+				<br>
+				<hr class = "short">
+
+				<br>
+				<p class = "question" id = "question6">번역에 이상한 내용을 올리는 사람이 있어요.</p>
+				<br>
+				<p class = "answer" id = "answer6"> 해당 부분을 캡쳐하셔서, 위의 '문의하기' 폼에 첨부하여 보내주세요. <br><br>빠른 검토 후 해당 유저를 처리하도록 하겠습니다.</p>
+				<br>
+				<hr class = "short">
+				
 			</div>
 			<div>
-				<p>평가</p>
+
+				<br>
+				<p>평가에 대하여</p>
+				
+				<br>
+				<p>평가는 어떻게 진행되나요?</p>
+				<br>
+				<hr class = "short">
+				
 			</div>
 			
 			</section>
+			
+			
+			<br>
 
 			<section id = "section2">
-			<div class = "category">리워드</div>
-			</section>
-
-			<section id = "section3">
+			<div class = "section_name">리워드</div>
 			<div>
-			<div class = "category">회원정보</div>
+
+				<br>
+				<p>언제 출금되나요?</p>
+				<br>
+				<hr class = "short">
+
+				<br>
+				<p>얼마부터 출금을 받을 수 있나요?</p>
+				<br>
+				<hr class = "short">
+
+				<br>
+				<p>출금 신청을 했는데 출금이 안 돼요.</p>
+				<br>
+				<hr class = "short">
+
+				<br>
+				<p>출금 제한 금액이 있나요?</p>
+				<br>
+				<hr class = "short">
+
+				<br>
+				<p>계좌를 등록하려고 하는데 오류가 나요.</p>
+				<br>
+				<hr class = "short">
+
+				<br>
+				<p>해외에 살고 있는데 출금을 할 수 있나요?</p>
+				<br>
+				<hr class = "short">
+
+				<br>
+				<p>외국인인데, 리워드를 받을 수 있나요?</p>
+				<br>
+				<hr class = "short">
+
+				<br>
+				<p>미성년자는 참여 불가능한가요?</p>
+				<br>
+				<hr class = "short">
+
 			</div>
 			</section>
 			
-			<section id = "section4">
+			<br>
+
+			<section id = "section3">
+			<div class = "section_name">회원정보</div>
 			<div>
-			<div class = "category">기타</div>
+				<br>
+				<p>비밀번호 같은 회원정보를 수정하고 싶어요.</p>
+				<br>
+				<hr class = "short">
+
+				<br>
+				<p>개인정보는 언제 파기하나요?</p>
+				<br>
+				<hr class = "short">
+
+				<br>
+				<p>프로필 사진을 수정하고 싶어요.</p>
+				<br>
+				<hr class = "short">
+
+				<br>
+				<p>탈퇴하고 싶어요.</p>
+				<br>
+				<hr class = "short">
+
+			</div>
+			</section>
+
+			<br>
+			
+			<section id = "section4">
+			<div class = "section_name">기타</div>
+			<div>
+				<br>
+				<p>커뮤니티에서 신고하고 싶은 사람이 있어요.</p>
+				<br>
+				<hr class = "short">
+
 			</div>
 			</section>
 
