@@ -1,11 +1,12 @@
 package com.team.pretLancer_7.domain;
 
-import org.springframework.stereotype.Controller;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Controller
-@Slf4j
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Request_L {
 
     int requestnum_l;	        // 장문 의뢰번호 시퀀스 PRET_REQ_L_SEQ.NEXTVAL

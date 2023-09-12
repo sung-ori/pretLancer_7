@@ -8,10 +8,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.team.pretLancer_7.domain.MyPage;
+import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.service.LongService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +26,8 @@ public class LongTranslateController {
     
     @Autowired
     LongService service;
+
+    
 
     @GetMapping("/main")
     public String mainForm(){
@@ -62,5 +67,14 @@ public class LongTranslateController {
         return "/translate_long/writeRequestForm";
     }
 
+    @PostMapping("/writeRequest")
+    public String writeRequest(Request_L request_L, MultipartFile uploadFile, @AuthenticationPrincipal UserDetails user){
+        // String originFileName = uploadFile.getOriginalFilename();
+        log.debug("장문 요청 컨트롤러 {}",request_L);
+        // log.debug("오리진 파일 이름 {}", originFileName);
+        request_L.setMemberid(user.getUsername());
 
+        service.writeRequest(request_L,uploadFile);
+        return "redirect:/";
+    }
 }

@@ -30,6 +30,12 @@
                 
         </select>
 
+        <insert id="insertOneRequest" parameterType="Request_L">
+                insert into pret_request_L 
+                (requestnum_l, memberid, memberid2, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr, startlang, endlang)
+                values 
+                (PRET_REQ_L_SEQ.nextval, #{memberid}, #{memberid2}, #{category}, #{enddate}, #{enddate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr}, #{startlang}, #{endlang} )
+        </insert>
 
 	
 </mapper>
