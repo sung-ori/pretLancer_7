@@ -30,8 +30,8 @@ public class RequestServiceImple implements RequestService {
 	}
 
 	@Override
-	public void deleteRequest_S(Request_S r) {
-		Rdao.deleteRS(r);
+	public void cancelRequest_S(Request_S r) {
+		Rdao.cancelRS(r);
 		
 		// 취소 됐을 때 포인트를 돌려줌
 		Request_S re = Rdao.selectRS(r);
@@ -55,8 +55,8 @@ public class RequestServiceImple implements RequestService {
 	}
 
 	@Override
-	public void deleteRequest_M(Request_M r) {
-		Rdao.deleteRM(r);
+	public void cancelRequest_M(Request_M r) {
+		Rdao.cancelRM(r);
 		
 		// 취소 됐을 때 포인트를 돌려줌
 		Request_S re = Rdao.selectRM(r);
@@ -65,5 +65,18 @@ public class RequestServiceImple implements RequestService {
 		m.setCash(re.getCash());
 		Mdao.cancelPoint(m);
 	}
+
+	@Override
+	public Request_S choiceRS() {
+		return Rdao.choiceRS();
+	}
+
+	@Override
+	public Request_M choiceRM() {
+		return Rdao.choiceRM();
+	}
+	
+	
+	
 	
 }

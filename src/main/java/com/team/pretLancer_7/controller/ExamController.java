@@ -74,7 +74,7 @@ public class ExamController {
 		m.addAttribute("member", member);
 		return "redirect:/translated/tutorial";
 	}
-
+	
 	/**
 	 * 튜토리얼 완료한 사람에 한해서 튜토리얼 완료 페이지로 이동하는 method
 	 * @return

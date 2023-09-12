@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
                 xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <!-- <meta name="_csrf" th:content="${_csrf.token}">  --> 
     <!-- <meta name="_csrf_header" th:content="${_csrf.headerName}"> --> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>글 읽기</title>
-<script th:src="@{/assets/js/jquery-3.6.0.js}"></script>
-
-    <!-- 부트스트랩 5.3.1 -->
+    
+	<script th:src="@{/assets/js/jquery-3.6.0.js}"></script>
+	<script th:src="@{/js/communityRead.js}"></script>
+	<!-- 영준 스크립트 -->
+	
+	<!-- 부트스트랩 5.3.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <!-- upper bar css 쓰면 왼쪽 사이드바가 작아진다. (부과효과인듯) -->
@@ -20,317 +24,76 @@
     <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.svg}" type="image/x-icon">
     <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.png}" type="image/png">
     
-	<link rel="stylesheet" th:href="@{/assets/css/shared/iconly.css}">
-	<!-- 준규상 코드 -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script th:src="@{/js/snBarLoader.js}"></script>
-	
-	<style>
+    <link rel="stylesheet" th:href="@{/assets/css/shared/iconly.css}">
+    
+    <style>
     	.move-right-50 {transform: translateX(300px);}
 		.custom-width {width: 1100px;}
 		.b {font-weight: bold;}
     </style>
-
-<script>
-    $(document).ready(function() {
-        readReply();
-        readInfo();
-        policeCount();
-        $("#rBt").click(writeReply);
-        
     
-        $(document).on("click", "#polBt", checkPolice);
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+	<script th:src="@{/js/paging.js}"></script>
+    
+    <script>
+        $(document).ready(function() {
+            $("#cancelBt").click(cancel);
 
-        $(document).on("click", ".replyRecoBt", replyReco);
-        $(document).on("click", ".dBt", deleteReply);
-        
-        $(document).on("click", "#recoBt", reco);
-        $(document).on("click", "#decoBt", deco);
-        // $("#recoBt").click(recoUp);
+            function cancel() {
+                $("#boardtitle").val("");
+                $("#boardcontent").val("");
+                location.href="../community/main"
 
-   
-        function writeReply() {
-            let reply = $("#inputReply").val();
-            let bdn = $("#boardNum").val();
-            let header = $("meta[name='_csrf_header']").attr('content');
-            let token = $("meta[name='_csrf']").attr('content');
-            
-            $.ajax({
-                type:"POST",
-                url: "insertReply",
-                // beforeSend: function(xhr){
-                //     xhr.setRequestHeader(header, token);
-                // },
-                data: {"replycontent" : reply ,
-                        "boardnum" : bdn },
-                success: function() {
-                    alert("댓글 작성 성공");
-                    let reply = $("#inputReply").val("");
-                    readReply();
-                },
-                error: function(e) {
-                    console.log(JSON.stringify(e));
-                }
-            });
-        } // End OF write
-
-        function readReply() {
-            let bdn = $("#boardNum").val();
-            $.ajax({
-                type:"GET",
-                url: "readReply",
-                data: {"boardnum" : bdn },
-                dataType: "json",
-                success: function(list) {
-                    alert("댓글 읽어오기 성공!");
-                    let str = `<table>
-                                <tr>
-                                <td>작성자</td>
-                                <td>댓글 내용</td>
-                                <td>작성 시간</td>
-                                <td>추천 수</td>
-                                <td></td>
-                                </tr>`;
-                    
-                    $.each(list,function(i,n){
-                        str += `<tr>
-                            <td>${n.memberid}</td>
-                            <td>${n.replycontent}</td>
-                            <td>${n.replydate}</td>
-                            <td><input type="button" id="${n.replynum}" class="replyRecoBt" value="👍"></td>
-                            <td>${n.replyrecommend}</td>`;
-                        
-                        // 댓글 다 만들고 안보이게 만든다.
-                        str += `<td>
-                
-                                <span style="display: none;" class="${n.memberid}">
-                                <input type="button" id="${n.replynum}" class="dBt" value="삭제">
-                                </span>
-                                </td></tr>`;
-                    });
-                    str += "</table>";
-                    $("#replyBox").html(str);
-                    buttonDisplay();
-
-                },
-                error: function(e) {
-                    alert("댓글 못 불러옴")
-                    console.log(JSON.stringify(e));
-                }
-            });
-        }// End Of read reply
-
-        function deleteReply() {
-            let r = $(this).attr("id");
-            let n = $("#bdn").val();
-            console.log(r);
-            console.log(n);
-            $.ajax({
-                url:"deleteReply",
-                type:"get",
-                data: {replynum: r},
-                success: function(rst){
-                    alert("삭제되었습니다.");
-                    readReply();
-                },
-                error: function(e) {
-                    alert(JSON.stringify(e));
-                }
-            });
-        }
-        // 댓글 주인이면 글 버튼 보이게 한다.
-		function buttonDisplay() {
-            let lid = $("#loginId").val();
-            console.log(lid)
-            $('.'+lid).show();
-        }
-
-        function readInfo() {
-            let bdn = $("#boardNum").val();
-
-            $.ajax({
-                type:"GET",
-                url:"readInfo",
-                data:{"boardnum" : bdn},
-                dataType:"json",
-                success: function(board) {
-                    let str = ` 
-                        🧚‍♀️
-                        <span>${board.memberid}</span>
-                        🕰️
-                        <span>${board.inputdate}</span>
-                        👁️
-                        <span>${board.hits}</span>
-                        <input type="button" id="recoBt" value="👍" class="bt">
-                        <span>${board.recommend}</span>
-                        <input type="button" id="decoBt" value="👎" class="bt">
-                        <span>${board.decommend}</span>
-                        <input type="button" id="polBt" value="🚨" class="bt">
-                        <span>${board.police}</span>`;
-
-                        $("#info").html(str);
-
-                        btColorize();
-                },
-                error: function(e) {
-
-                }
-            })
-        }
-
-        function reco(){
-            let bdn = $("#boardNum").val();
-
-            $.ajax({
-                type: "GET",
-                url : "recommendUp",
-                data:{"boardnum" : bdn},
-                success: function(color) {
-                    readInfo();
-                },
-                error: function(e) {
-                    console.log(JSON.stringify(e));
-                }
-
-            });
-        }
-        function deco(){
-            let bdn = $("#boardNum").val();
-
-            $.ajax({
-                type: "GET",
-                url : "decommendUp",
-                data:{"boardnum" : bdn},
-                success: function() {
-                    readInfo();
-                },
-                error: function(e) {
-                    console.log(JSON.stringify(e));
-                }
-
-            });
-        }
-
-        function btColorize() {
-            let bdn = $("#boardNum").val();
-            $.ajax({
-                type: "GET",
-                url : "colorize",
-                data:{"boardnum" : bdn},
-                success: function(bt) {
-                    if (bt == "") {
-                        $(".bt").css("background-color","none");
-                    }else{
-                        $('#'+bt).css("background-color","red");
-                    }
-                },
-                error: function(e) {
-                    console.log(JSON.stringify(e));
-                }
-
-            });
-        }
-
-        function replyReco() {
-            let replynum = $(this).attr("id");
-            alert(replynum);
-            $.ajax({
-                type: "get",
-                url: "replyRecommend",
-                data: {"replynum" : replynum},
-                success: function() {
-                    readReply();
-                },
-                error: function(e) {
-                    alert(JSON.stringify(e));
-                }
-            });
-        }
-
-        function policeForm() {
-            let = childForm = window.open('policeForm', '신고?', 'width=350,height=400,top=200,left=500,maximizable=false');
-            
-        }
-
-        function checkPolice() {
-            let bdn = $("#boardNum").val();
-            let lId = $("#loginId").val();
-            let wId = $("#writerId").val();
-
-            if(lId == wId) {
-                alert("자신의 글은 신고할 수 없습니다.");
-                return;
             }
-            
-            $.ajax({
-                type:"get",
-                url:"policeCheck",
-                data:{"boardnum" : bdn,},
-                dataType:"text",
-                success: function(data) {
-                    if(data == "true"){
-                        confirm("신고는 취소가 불가능합니다. 정말 취소하시겠습니까?");
-                        policeForm();
-                    }else{
-                        alert("이미 신고 하셨습니다.");
-                    }
-                },
-                error: function(e) {
-                    alert(JSON.stringify(e));
-                }
-            });
-        }
-        
-        function policeCount() {
-            let bdn = $("#boardNum").val();
-            $.ajax({
-                type: "get",
-                url: "policeCount",
-                data:{"boardnum" : bdn},
-                dataType:"text",
-                success: function(rst) {
 
-                    if(rst == "true"){
-                        alert("삭제된 게시물 입니다.");
-                        location.href="main"
-                    }else{
+        });
+    </script>
+    <!-- 준규상 코드 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script th:src="@{/js/snBarLoader.js}"></script>
+	
+	<!-- 썸머노트 -->
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
 
-                    }
-                },
-                error: function(e) {
-                    alert(JSON.stringify(e));
-                }
-            });
-        }
-    });// End Of jQuery
-    
-</script>
+<!-- include summernote css/js-->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
 </head>
 
 <body>
-    <div id="snBar-placeholder"></div>
-    
-     <div id="main">
+	<div id="snBar-placeholder"></div>
+	
+	<div id="main">
             <header class="mb-3">
                 <a href="#" class="burger-btn d-block d-xl-none">
                     <i class="bi bi-justify fs-3"></i>
                 </a>
             </header>
-            
+    
     <h1>글 읽기</h1>
     <div>
         <input type="hidden" th:value="${board.boardnum}" id="boardNum">
         <input type="hidden" th:value="${board.memberid}" id="writerId">
         <input type="hidden" th:value="${#authentication.name}" id="loginId">
- 
-        <div th:text="${board.boardtitle}"> <!-- 글 제목 -->
+        
+        <div id="boardTitle" th:text="${board.boardtitle}">
         </div>
 
-   
+        <div>
+            <p th:if="${#authentication.name} == ${board.memberid}">
+                <a th:href="@{/community/delete(boardnum=${board.boardnum})}">글 지우기</a>
+            </p>
+            <p th:if="${#authentication.name} == ${board.memberid}">
+                <a th:href="@{/community/updateForm(boardnum=${board.boardnum})}">글 수정</a>
+            </p>
+        </div>
         
         
-        <div th:text="${board.boardcontent}"> <!-- 글 내용 -->
+        <div th:text="${board.boardcontent}">
 
         </div>
 
@@ -338,34 +101,34 @@
            
         </div>
 
-	        <div>
-	            <input type="text" id="inputReply" name="replycontent">
-	            <input type="button" id="rBt" value="댓글 작성">
-	        </div>
-	        
-		         <div>
-		            <p th:if="${#authentication.name} == ${board.memberid}">
-		                <a th:href="@{/community/delete(boardnum=${board.boardnum})}">글 지우기</a>
-		            </p>
-		            <p th:if="${#authentication.name} == ${board.memberid}">
-		                <a th:href="@{/community/updateForm(boardnum=${board.boardnum})}">글 수정</a>
-		            </p>
-		            
-	        	</div>
-	        <div id="replyBox">
-	        </div>
-    	</div>
-    	
-    <!-- <div id="main">   -->
-	</div> 
-    
-    <!-- 부트스트랩  JS -->
+        <div>
+            <input type="text" id="inputReply" name="replycontent">
+            <input type="button" id="rBt" value="댓글 작성">
+        </div>
+        <div id="replyBox">
+        </div>
+    </div>
+    <!-- div main -->
+    </div>
+       <!-- 부트스트랩  JS -->
     <script th:src="@{/assets/js/bootstrap.js}"></script>
     <script th:src="@{/assets/js/app.js}"></script>
-    
+
 <!-- Need: Apexcharts -->
 <script th:src="@{/assets/extensions/apexcharts/apexcharts.min.js}"></script>
 <script th:src="@{/assets/js/pages/dashboard.js}"></script>
+
+  <!-- 썸머노트용 JS -->
+ 	<script>
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                height: 300,
+                minHeight: null,
+                maxHeight: null,
+                focus: true
+            });
+        });
+    </script>
     
 </body>
 </html>

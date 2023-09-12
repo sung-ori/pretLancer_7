@@ -7,7 +7,10 @@ import com.team.pretLancer_7.dao.MemberDAO;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class MypageServiceImple implements MypageService {
     
     @Autowired
@@ -17,7 +20,7 @@ public class MypageServiceImple implements MypageService {
     @Override
     public MyPage getMyPage(String userId) {
         Member m = mDao.selectOne(userId);
-
+        
         MyPage Mp = mDao.selectOneMyPage(userId);
 
         Mp.setMemberid(m.getMemberid());

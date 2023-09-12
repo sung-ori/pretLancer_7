@@ -9,8 +9,7 @@ CREATE TABLE PRET_MEMBER (
 	MEM_EX	        NUMBER  	    DEFAULT 0,            -- 경험치 (신뢰도)
 	MEM_LEVEL	    VARCHAR2(10)	DEFAULT 'D' CHECK (MEM_LEVEL IN ('D','C','B','A')), -- 등급
 	ENABLED		    NUMBER(1)       DEFAULT 1 CHECK (ENABLED IN (0, 1)), -- 1이면 사용가능,  2는 사용불가능
-	ROLE_NAME	    VARCHAR2(20)    DEFAULT 'ROLE_USER' CHECK (ROLE_NAME IN ('ROLE_USER', 'ROLE_ADMIN')), -- 관리자, 유저 구분
-	ROLE_SCALE	    VARCHAR2(20)	DEFAULT 'ROLE_MINOR' CHECK (ROLE_SCALE IN ('ROLE_MINOR', 'ROLE_MAJOR')), -- 일반회원 전문회원 구분
+	ROLE_NAME	    VARCHAR2(20)    DEFAULT 'ROLE_USER' CHECK (ROLE_NAME IN ('ROLE_USER', 'ROLE_ADMIN','ROLE_TRANSLATOR')), -- 관리자, 일반 유저, 번역가 구분
 	POINT	        NUMBER	        DEFAULT 0,              -- 무료pt
 	CASH	        NUMBER	        DEFAULT 0,              -- 유료pt
 	TUTORIAL	    VARCHAR2(2) 	DEFAULT 'N', -- TUTORIAL_NUM이 50개면 Y로 바꿈  튜토리얼 성공 여부
@@ -25,7 +24,7 @@ CREATE TABLE pret_member_profile (
     MEMBERID        VARCHAR2(20)    NOT NULL,                   -- 사용자 아이디        PK, FK
     PROFILECOMMENT  VARCHAR2(2000),                             -- 프로필 문구
     ORIGINPHOTO     VARCHAR2(2000),                             -- 사진 원본 파일
-    SAVEDPHOTH      VARCHAR2(2000),                             -- 저장된 사진 파일
+    SAVEDPHOTO      VARCHAR2(2000),                             -- 저장된 사진 파일
 
     FOREIGN KEY (MEMBERID)      REFERENCES PRET_MEMBER   (MEMBERID),  -- MEMBERID 외래키 지정
    
@@ -151,7 +150,7 @@ CREATE TABLE PRET_REQUEST_S (
 	MEMBERID2   	        VARCHAR2(20)    REFERENCES PRET_MEMBER(MEMBERID),           -- 번역가 아이디 번역가가 정해지면 삽입
 	REQUESTCONTENT_S	    VARCHAR2(500),                                              -- 번역 요청 문장
 	TRANSLATEDCONTENT_s	    VARCHAR2(500),                                              -- 번역 된 문장
-	REQUESTCONDITION_S	    VARCHAR2(2)	    DEFAULT 'N' CHECK(REQUESTCONDITION_S IN ('N','T','E','Y')),	-- 번역안됨-N , 번역중-T, 평가대기중-E, 완료-Y'
+	REQUESTCONDITION_S	    VARCHAR2(2)	    DEFAULT 'N' CHECK(REQUESTCONDITION_S IN ('N','T','E','Y','F')),	-- 번역안됨-N , 번역중-T, 평가대기중-E, 완료-Y'
 	INPUTDATE	            DATE        	DEFAULT SYSDATE,                            -- 번역 요청 날짜
 	ENDDATE 	            DATE	        DEFAULT SYSDATE+3,                          -- 번역 마감 시간 +3일
 	CASH	                NUMBER	        DEFAULT 100,                                -- 걸린 포인트
@@ -176,7 +175,7 @@ CREATE TABLE PRET_REQUEST_M (
 	MEMBERID2   	        VARCHAR2(20)    REFERENCES PRET_MEMBER(MEMBERID),           -- 번역가 아이디 번역가가 정해지면 삽입
 	REQUESTCONTENT_M	    VARCHAR2(500),                                              -- 번역 요청 문장
 	TRANSLATEDCONTENT_M	    VARCHAR2(500),                                              -- 번역 된 문장
-	REQUESTCONDITION_M	    VARCHAR2(2)	    DEFAULT 'N' CHECK(REQUESTCONDITION_M IN ('N','T','E','Y')),	-- 번역안됨-N , 번역중-T, 평가대기중-E, 완료-Y'
+	REQUESTCONDITION_M	    VARCHAR2(2)	    DEFAULT 'N' CHECK(REQUESTCONDITION_M IN ('N','T','E','Y','F')),	-- 번역안됨-N , 번역중-T, 평가대기중-E, 완료-Y'
 	INPUTDATE	            DATE        	DEFAULT SYSDATE,                            -- 번역 요청 날짜
 	ENDDATE 	            DATE	        DEFAULT SYSDATE+3,                          -- 번역 마감 시간 +3일
 	CASH	                NUMBER	        DEFAULT 100,                                -- 의뢰 포인트
@@ -295,7 +294,7 @@ CREATE TABLE PRET_REQUEST_L (
 	MEMBERID	        VARCHAR2(20)	NOT NULL REFERENCES PRET_MEMBER(MEMBERID),      -- 의뢰자 아이디
 	MEMBERID2	        VARCHAR2(20)	REFERENCES PRET_MEMBER(MEMBERID),               -- 번역자 아이디
 	CATEGORY	        VARCHAR2(50),                                                   -- 카테고리 (도메인 지정)
-	REQUESTCONDITION_L	VARCHAR2(2)	    DEFAULT 'N' CHECK (REQUESTCONDITION_L IN ('N', 'Y')), -- 의뢰상황
+	REQUESTCONDITION_L	VARCHAR2(2)	    DEFAULT 'N' CHECK (REQUESTCONDITION_L IN ('N', 'T' , 'Y', 'F')), -- 의뢰상황
 	INPUTDATE	        DATE	        DEFAULT SYSDATE,                                -- 의뢰 날짜
 	ENDDATE	            DATE	        DEFAULT SYSDATE+10,                             -- 만료 날짜
 	WORKDATE	        DATE,                                                           -- 작업 기간
