@@ -19,23 +19,25 @@ public class RequestController {
 	@Autowired
 	RequestService service;
 
-	@GetMapping({" ", "/"})
+	@GetMapping("main")
 	public String requestPage() {
 		
-		return "requestForm/requestPage";
+		return "/requestForm/requestPage";
 	}
 	
 	@PostMapping("insertRS")
 	public String insertRequest_S(@AuthenticationPrincipal UserDetails user, Request_S r) {
 		r.setMemberid(user.getUsername());
+		r.setStartlang("JP");
+		r.setEndlang("KR");
 		service.insertRequest_S(r);
 		return "redirect:/";
 	}
 	
-	@GetMapping("deleteRS")
-	public String deleteRequest_S(@AuthenticationPrincipal UserDetails user, Request_S r) {
+	@GetMapping("cancelRS")
+	public String cancelRequest_S(@AuthenticationPrincipal UserDetails user, Request_S r) {
 		r.setMemberid(user.getUsername());
-		service.deleteRequest_S(r);
+		service.cancelRequest_S(r);
 		return "redirect:/";
 	}
 	
@@ -46,10 +48,10 @@ public class RequestController {
 		return "redirect:/";
 	}
 	
-	@GetMapping("deleteRM")
-	public String deleteRequest_M(@AuthenticationPrincipal UserDetails user, Request_M r) {
+	@GetMapping("cancelRM")
+	public String cancelRequest_M(@AuthenticationPrincipal UserDetails user, Request_M r) {
 		r.setMemberid(user.getUsername());
-		service.deleteRequest_M(r);
+		service.cancelRequest_M(r);
 		return "redirect:/";
 	}
 

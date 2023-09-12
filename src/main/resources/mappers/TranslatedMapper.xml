@@ -1,0 +1,17 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.pretLancer_7.dao.TranslatedDAO">
+
+	<insert id="insertTS" parameterType="Translated_S">
+	insert into pret_translated_s (translatednum_s, requestnum_s, memberid, requestcontent_s)
+	values (pret_trans_s_seq.nextval, #{requestnum_s}, #{memberid}, #{requestcontent_s})
+	</insert>
+
+	<insert id="insertTM" parameterType="Translated_M">
+	insert into pret_translated_m (translatednum_m, requestnum_m, memberid, requestcontent_m)
+	values (pret_trans_m_seq.nextval, #{requestnum_m}, #{memberid}, #{requestcontent_m})
+	</insert>
+
+</mapper>
