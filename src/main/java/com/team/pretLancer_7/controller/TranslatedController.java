@@ -1,15 +1,11 @@
 package com.team.pretLancer_7.controller;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.team.pretLancer_7.domain.Request_M;
@@ -52,7 +48,7 @@ public class TranslatedController {
 	}
 	
 	// 중문 번역하기 버튼 눌렀을 시 작동 - 
-		@GetMapping("insertTS")
+		@GetMapping("insertTM") // 경로 잘못 되서 수정함.
 		public String insertTM(@AuthenticationPrincipal UserDetails user, Model m) {
 			// 의뢰를 받았을 시 의뢰테이블에서 가장 최근의 글을 하나 선택
 			Request_M rm = RService.choiceRM();
