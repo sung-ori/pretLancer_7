@@ -48,6 +48,7 @@ public class TranslatedController {
 	}
 	
 	// 중문 번역하기 버튼 눌렀을 시 작동 - 
+
 		@GetMapping("insertTM") // 경로 잘못 되서 수정함.
 		public String insertTM(@AuthenticationPrincipal UserDetails user, Model m) {
 			// 의뢰를 받았을 시 의뢰테이블에서 가장 최근의 글을 하나 선택
