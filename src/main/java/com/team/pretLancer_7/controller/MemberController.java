@@ -15,11 +15,13 @@ import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.service.MemberService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 @RequestMapping("member")
+@RequiredArgsConstructor
 public class MemberController {
 	
 	@Value("${spring.servlet.multipart.location}")
