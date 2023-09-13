@@ -28,5 +28,12 @@
 	<if test="comment_st != null">, comment_st = #{comment_st}</if>
 	where translatednum_s = #{translatednum_s} and memberid = #{memberid}
 	</update>
+	
+	<update id="submitTM" parameterType="Translated_M">
+	update pret_translated_m
+	set translatedcontent_m = #{translatedcontent_m}
+	<if test="comment_mt != null">, comment_mt = #{comment_mt}</if>
+	where translatednum_m = #{translatednum_m} and memberid = #{memberid}
+	</update>
 
 </mapper>
