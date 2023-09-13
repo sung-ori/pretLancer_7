@@ -68,6 +68,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 	@Override
 	public void writeReply(Reply r) {
+		log.error("리플 서비스 {}",r);
 		dao.insertReply(r);	
 	}
 

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <title>장문 의뢰하기</title>
+    <script>
+        $(document).ready(function() {
+            $(".btn").click(openProfile);
+
+            function openProfile() {
+                
+                let mid =  $(this).attr("id");
+
+                window.open("http://localhost:8888/pretLancer/long/translatorProfile?memberid="+mid ,'번역가 상세 프로필', ' width=500, height=800, top=200, left=600');
+            }
+
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class=" row container-fluid">
+
+            <div th:each="translator, index : ${translatorList}" class="col-4 card">
+                <img th:src="@{|/img/${translator.savedphoto}|}" class="card-img-top" style="height: 50%;;" alt="임시 프로필 사진">
+                <div class="card-body">
+                    <h3 class="card-title"  th:text="${translator.membername}">Card title</h3>
+                    <h5 class="card-text"><strong>[[${translator.mem_level}]]</strong>등급</h5>
+                    <div class="card-text" th:text="${translator.profilecomment}"></div>
+                    <a th:id="${translator.memberid}" class="btn btn-primary">프로필 자세히 보기</a>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</body>
+</html>
