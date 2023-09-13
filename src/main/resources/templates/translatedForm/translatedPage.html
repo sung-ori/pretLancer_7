@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<p th:text="${request.requestcontent_s}">기본값</p>
+	<form th:action="@{/translated/submitTS}" method="post">
+		<textarea rows="30" cols="30" name="translatedcontent_s"></textarea>
+		<input type="hidden" th:value="${request.}"/>
+		<input type="submit" value="번역제출하기fuckyou">
+	</form>
+</body>
+</html>

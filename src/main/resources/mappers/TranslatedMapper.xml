@@ -13,5 +13,11 @@
 	insert into pret_translated_m (translatednum_m, requestnum_m, memberid, requestcontent_m)
 	values (pret_trans_m_seq.nextval, #{requestnum_m}, #{memberid}, #{requestcontent_m})
 	</insert>
+	
+	<update id="submitTS" parameterType="Translated_S">
+	update pret_translated_s set (translatedcontent_s = #{translatedcontent_s} requestcondition_s = 'E' 
+	<if test="comment_st != null">, comment_st</if>)
+	where translated_s = #{translated_s} and memberid = #{memberid}
+	</update>
 
 </mapper>

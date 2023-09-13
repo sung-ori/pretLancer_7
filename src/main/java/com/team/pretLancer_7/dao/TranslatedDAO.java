@@ -8,8 +8,10 @@ import com.team.pretLancer_7.domain.Translated_S;
 @Mapper
 public interface TranslatedDAO {
 
-	void insetTS(Translated_S ts);
+	void insertTS(Translated_S ts);
 
-	void insetTM(Translated_M tm);
+	void insertTM(Translated_M tm);
+
+	void submitTS(Translated_S ts);
 
 }
