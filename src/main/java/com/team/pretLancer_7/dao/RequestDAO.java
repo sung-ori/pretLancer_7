@@ -29,8 +29,13 @@ public interface RequestDAO {
 	Request_M choiceRM();
 
 	
-	void updateMem2_S(Translated_S ts);
+	void updateMem2_S(Request_S rs);
 	
-	void updateMem2_M(Translated_M tm);
+	void updateMem2_M(Request_M rm);
+	
+	
+	void updateCon_S(Translated_S ts);
+	
+	void updateCon_M(Translated_M tm);
 	
 }

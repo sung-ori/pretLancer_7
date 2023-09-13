@@ -9,10 +9,10 @@ public interface TranslatedService {
 
 	Translated_S insertTS(Request_S rs);
 
-	Translated_S insertTM(Request_M rm);
+	Translated_M insertTM(Request_M rm);
 
 	void submitTS(Translated_S ts);
 
-	Translated_S selectTS(int translatednum_s);
+	void submitTM(Translated_M tm);
 
 }

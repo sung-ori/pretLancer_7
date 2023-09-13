@@ -57,11 +57,19 @@
 	</select>
 	
 	<update id="updateMem2_S" parameterType="Translated_S">
-	update pret_request_s set memberid2 = #{memberid}, requestcondition_s = 'T' where requestnum_s = #{requestnum_s}
+	update pret_request_s set memberid2 = #{memberid2}, requestcondition_s = 'T' where requestnum_s = #{requestnum_s}
 	</update>
 	
 	<update id="updateMem2_M" parameterType="Translated_M">
-	update pret_request_m set memberid2 = #{memberid}, requestcondition_m = 'T' where requestnum_m = #{requestnum_m}
+	update pret_request_m set memberid2 = #{memberid2}, requestcondition_m = 'T' where requestnum_m = #{requestnum_m}
+	</update>
+	
+	<update id="updateCon_S" parameterType="Translated_S">
+	update pret_request_s set requestcondition_s = 'E' where requestnum_s = #{requestnum_s}
+	</update>
+	
+	<update id="updateCon_M" parameterType="Translated_M">
+	update pret_request_s set requestcondition_s = 'E' where requestnum_s = #{requestnum_s}
 	</update>
 
 </mapper>
