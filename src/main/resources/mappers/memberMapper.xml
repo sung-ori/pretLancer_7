@@ -29,8 +29,9 @@
 	</insert>
 	
 	<update id="updateProfile" parameterType="Mypage">
-	update from pret_member_profile set 
-	profilecomment = #{profilecomment}, originphoto = #{originphoto}, savedphoto = #{savedphoto}
+	update pret_member_profile set 
+	profilecomment = #{profilecomment}
+	<if test="originphoto != null and savedphoto != null"> , originphoto = #{originphoto}, savedphoto = #{savedphoto}</if>
 	where memberid = #{memberid}
 	</update>
 	
