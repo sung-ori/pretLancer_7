@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>자주 묻는 질문 | 신개념 번역 플랫폼 PretLancer</title>
@@ -172,250 +172,9 @@
 	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script type="application/javascript" th:src = "@{/js/qna.js}"></script>
 <script>
-	// 
-	// question 클래스에 속한 p태그를 누르면 숨겨져 있던 answer 태그가 등장한다.
-	$(document).ready(function() {
-		$('#openform').click(openForm);
-		
-		$('#question').mouseover(changeColor);
-		$('#question').mouseout(changeColor2);
-		$('#question').click(getAnswer);
-
-		$('#question1').mouseover(changeColor3);
-		$('#question1').mouseout(changeColor4);
-		$('#question1').click(getAnswer1);
-
-		$('#question2').mouseover(changeColor5);
-		$('#question2').mouseout(changeColor6);
-		$('#question2').click(getAnswer2);
-
-		$('#question3').mouseover(changeColor7);
-		$('#question3').mouseout(changeColor8);
-		$('#question3').click(getAnswer3);
-
-		$('#question4').mouseover(changeColor9);
-		$('#question4').mouseout(changeColor10);
-		$('#question4').click(getAnswer4);
-
-		$('#question5').mouseover(changeColor11);
-		$('#question5').mouseout(changeColor12);
-		$('#question5').click(getAnswer5);
-
-		$('#question6').mouseover(changeColor13);
-		$('#question6').mouseout(changeColor14);
-		$('#question6').click(getAnswer6);
-
-		$('#question7').mouseover(changeColor15);
-		$('#question7').mouseout(changeColor16);
-		$('#question7').click(getAnswer7);
-
-	});
-	
-	function openForm() {
-			if ($('#qnaform').css('opacity') == 0) {
-				$('#qnaform').css('animation', 'formopen');
-				$('#qnaform').css('animation-duration', '0.5s');
-				$('#qnaform').css('display', 'block');
-				$('#qnaform').css('opacity', 1);
-
-			}	else	{
-				$('#qnaform').css('animation', 'formclose');
-				$('#qnaform').css('display', 'none');
-				$('#qnaform').css('opacity', 0);
-			}
-	}
-	
-	function changeColor() {
-			$('#question').css("color","#2396DE");
-	}
-
-	function changeColor2() {
-			$('#question').css("color","#2C2E33");
-	}
-	
-	function getAnswer() {
-		if ($('#answer').css('opacity') == 0) {
-			$('#question').css("font-weight","bold");
-			$('#question').css("color","#2396DE");
-			$('#answer').css('display', 'block');
-			$('#answer').css('opacity', 1);
-		}else	{
-			$('#question').css("font-weight","normal");
-			$('#question').css("color","#2C2E33");
-			$('#answer').css('display', 'none');
-			$('#answer').css('opacity', 0);
-		}
-
-	};
-
-	
-	function changeColor3() {
-			$('#question1').css("color","#2396DE");
-	}
-	
-	function changeColor4() {
-			$('#question1').css("color","#2C2E33");
-	}
-
-	function getAnswer1() {
-		if ($('#answer1').css('opacity') == 0) {
-			$('#question1').css("font-weight","bold");
-			$('#question1').css("color","#2396DE");
-			$('#answer1').css('display', 'block');
-			$('#answer1').css('opacity', 1);
-		}else	{
-			$('#question1').css("font-weight","normal");
-			$('#question1').css("color","#2C2E33");
-			$('#answer1').css('display', 'none');
-			$('#answer1').css('opacity', 0);
-		}
-
-	};
-
-	
-	function changeColor5() {
-		$('#question2').css("color","#2396DE");
-	}
-	
-	function changeColor6() {
-			$('#question2').css("color","#2C2E33");
-	}
-	
-	function getAnswer2() {
-		if ($('#answer2').css('opacity') == 0) {
-			$('#question2').css("font-weight","bold");
-			$('#question2').css("color","#2396DE");
-			$('#answer2').css('display', 'block');
-			$('#answer2').css('opacity', 1);
-		}else	{
-			$('#question2').css("font-weight","normal");
-			$('#question2').css("color","#2C2E33");
-			$('#answer2').css('display', 'none');
-			$('#answer2').css('opacity', 0);
-		}
-	
-	};
-
-	
-	function changeColor7() {
-		$('#question3').css("color","#2396DE");
-	}
-	
-	function changeColor8() {
-			$('#question3').css("color","#2C2E33");
-	}
-	
-	function getAnswer3() {
-		if ($('#answer3').css('opacity') == 0) {
-			$('#question3').css("font-weight","bold");
-			$('#question3').css("color","#2396DE");
-			$('#answer3').css('display', 'block');
-			$('#answer3').css('opacity', 1);
-		}else	{
-			$('#question3').css("font-weight","normal");
-			$('#question3').css("color","#2C2E33");
-			$('#answer3').css('display', 'none');
-			$('#answer3').css('opacity', 0);
-		}
-	
-	};
-
-	function changeColor9() {
-		$('#question4').css("color","#2396DE");
-	}
-	
-	function changeColor10() {
-			$('#question4').css("color","#2C2E33");
-	}
-	
-	function getAnswer4() {
-		if ($('#answer4').css('opacity') == 0) {
-			$('#question4').css("font-weight","bold");
-			$('#question4').css("color","#2396DE");
-			$('#answer4').css('display', 'block');
-			$('#answer4').css('opacity', 1);
-		}else	{
-			$('#question4').css("font-weight","normal");
-			$('#question4').css("color","#2C2E33");
-			$('#answer4').css('display', 'none');
-			$('#answer4').css('opacity', 0);
-		}
-	
-	};
-
-	
-	function changeColor11() {
-		$('#question5').css("color","#2396DE");
-	}
-	
-	function changeColor12() {
-			$('#question5').css("color","#2C2E33");
-	}
-	
-	function getAnswer5() {
-		if ($('#answer5').css('opacity') == 0) {
-			$('#question5').css("font-weight","bold");
-			$('#question5').css("color","#2396DE");
-			$('#answer5').css('display', 'block');
-			$('#answer5').css('opacity', 1);
-		}else	{
-			$('#question5').css("font-weight","normal");
-			$('#question5').css("color","#2C2E33");
-			$('#answer5').css('display', 'none');
-			$('#answer5').css('opacity', 0);
-		}
-	
-	};
-
-	
-	function changeColor13() {
-		$('#question6').css("color","#2396DE");
-	}
-	
-	function changeColor14() {
-			$('#question6').css("color","#2C2E33");
-	}
-	
-	function getAnswer6() {
-		if ($('#answer6').css('opacity') == 0) {
-			$('#question6').css("font-weight","bold");
-			$('#question6').css("color","#2396DE");
-			$('#answer6').css('display', 'block');
-			$('#answer6').css('opacity', 1);
-		}else	{
-			$('#question6').css("font-weight","normal");
-			$('#question6').css("color","#2C2E33");
-			$('#answer6').css('display', 'none');
-			$('#answer6').css('opacity', 0);
-		}
-	
-	};
-
-	
-	function changeColor15() {
-		$('#question7').css("color","#2396DE");
-	}
-	
-	function changeColor16() {
-			$('#question7').css("color","#2C2E33");
-	}
-	
-	function getAnswer7() {
-		if ($('#answer7').css('opacity') == 0) {
-			$('#question7').css("font-weight","bold");
-			$('#question7').css("color","#2396DE");
-			$('#answer7').css('display', 'block');
-			$('#answer7').css('opacity', 1);
-		}else	{
-			$('#question7').css("font-weight","normal");
-			$('#question7').css("color","#2C2E33");
-			$('#answer7').css('display', 'none');
-			$('#answer7').css('opacity', 0);
-		}
-	
-	};
-
+	// 에이젝스 : 폼에 작성한 내용을 메일로 보내기
 </script>
 
 </head>
@@ -423,32 +182,37 @@
 	<div>
 		<!-- 제목 + 멘트 + 이미지 -->
 		<section>
-
+		<br><br>
 		<h1 id = "title">고객센터</h1>
 		<h3>자주 묻는 질문을 확인하고 <br>문의할 수 있는 공간입니다 :)</h3>
 		<input type = "button" value = "문의하기" class = "question_button" id = "openform">		
 		</section> 
 
-		<br><br>
+		<br>
 		
 		<!-- 문의 폼 : 평소에는 나타나지 않다가 문의하기 버튼을 누르면 나타난다 -->
 		<!-- 문의 폼의 구성 : 질문 제목, 회신받을 이메일 주소, 카테고리, 내용, 문의하기 버튼 -->
 		<section id = "qnaform">
-			<form>
-				<input type = "text" placeholder = "답변 내용을 회신받으실 이메일을 입력해주세요." class = "form1"><br>
-				<select>
+			<form id = "form">
+				<input type = "text" placeholder = "답변 내용을 회신받으실 이메일을 입력해주세요." class = "form1" id = "user_email"><br>
+				<select id = "qna_category">
 					<option>카테고리를 선택해주세요.</option>
-					<option>번역 및 평가</option>
-					<option>리워드</option>
-					<option>회원정보</option>
-					<option>기타</option>
+					<option value = "translate">번역 및 평가</option>
+					<option value = "reward">리워드</option>
+					<option value = "member">회원정보</option>
+					<option value = "etc">기타</option>
 				</select>
-				<input type = "text" placeholder = "문의 제목을 입력해주세요." class = "form"><br>
-				<textarea placeholder = "문의 내용을 입력해주세요." class = "form2"></textarea><br>
-				<input type = "file"><br>
-				<input type = "submit" value = "문의하기" class = "question_button">
+				<input type = "text" placeholder = "문의 제목을 입력해주세요." class = "form" id = "qna_title"><br>
+				<textarea placeholder = "문의 내용을 입력해주세요." class = "form2" id = "qna_text"></textarea><br>
+				<input type = "file" id = "qna_file"><br>
+				<input type = "submit" value = "문의하기" id = "form_button" class = "question_button">
 			</form>
 		</section> 
+
+<script>
+    
+	
+</script>
 
 		<br><br>
 		
@@ -463,7 +227,7 @@
 			<input type = "button" value = "회원정보" class = "category" id = "category3">
 			<input type = "button" value = "기타"class = "category" id = "category4"> -->
 			
-			<br><br>
+			<br>
 			
 			<!-- 구조는 제목으로 카테고리명, 그 안에 들어간 질문들 (질문을 누르면 숨겨져 있던 답이 나옴) -->
 			<section id = "section1">
@@ -537,7 +301,10 @@
 				<p>평가에 대하여</p>
 				
 				<br>
-				<p>평가는 어떻게 진행되나요?</p>
+				<p class = "question" id = "question7">평가는 어떻게 진행되나요?</p>
+				<br>
+				<p class = "answer" id = "answer7"> 번역 후 제출이 되면, 해당 번역물은 평가 단계로 넘어가 여러 명의 평가를 받게 됩니다. <br><br> 
+													평가 결과에 따라 번역가의 신뢰도에 영향이 가므로, 번역은 신중히 부탁드립니다!</p>
 				<br>
 				<hr class = "short">
 				
@@ -553,42 +320,60 @@
 			<div>
 
 				<br>
-				<p>언제 출금되나요?</p>
+				<p class = "question" id = "question8">언제 출금되나요?</p>
+				<br>
+				<p class = "answer" id = "answer8">한 주의 월요일부터 일요일 오후 11시 59분까지의 출금 신청 건의 출금은, <br><br> 내부 검토를 거쳐 계좌 오류나 인적사항에 이상이 없을 시 그 다음주 금요일에 지급됩니다.</p>
 				<br>
 				<hr class = "short">
 
 				<br>
-				<p>얼마부터 출금을 받을 수 있나요?</p>
+				<p class = "question" id = "question9">얼마부터 출금을 받을 수 있나요?</p>
+				<br>
+				<p class = "answer" id = "answer9">출금은 5,000원부터 가능합니다.</p>
 				<br>
 				<hr class = "short">
 
 				<br>
-				<p>출금 신청을 했는데 출금이 안 돼요.</p>
+				<p class = "question" id = "question10">출금 신청을 했는데 계좌에 입금이 안 돼요.</p>
+				<br>
+				<p class = "answer" id = "answer10">저희는 금요일 늦은 오후, 지정하신 계좌에 일괄 송금해드립니다. <br><br>
+													만일 금요일이 지난 후에도 입금이 되지 않는다면 위의 '문의하기' 폼에 문의 부탁드립니다.</p>
 				<br>
 				<hr class = "short">
 
 				<br>
-				<p>출금 제한 금액이 있나요?</p>
+				<p class = "question" id = "question11">출금 제한 금액이 있나요?</p>
+				<br>
+				<p class = "answer" id = "answer11">출금 제한 금액은 따로 없습니다.</p>
 				<br>
 				<hr class = "short">
 
 				<br>
-				<p>계좌를 등록하려고 하는데 오류가 나요.</p>
+				<p class = "question" id = "question12">계좌를 등록하려고 하는데 오류가 나요.</p>
+				<br>
+				<p class = "answer" id = "answer12">계좌번호와 계좌주가 동일하지 않거나, 은행에서 여러 가지 문제로 계좌가 막힌 경우 오류가 발생합니다. <br><br>
+													만일 계좌번호와 계좌주가 일치하는데도 오류가 난다면 위의 문의하기 폼으로 작성 부탁드립니다.</p>
 				<br>
 				<hr class = "short">
 
 				<br>
-				<p>해외에 살고 있는데 출금을 할 수 있나요?</p>
+				<p class = "question" id = "question13">해외에 살고 있는데 출금을 할 수 있나요?</p>
+				<br>
+				<p class = "answer" id = "answer13">저희는 국내에 거주하고 있는 내국인을 대상으로 출금이 가능하지만, <br><br>로밍을 사용하시거나 다른 본인인증 방법이 가능하신 분들은 출금이 가능합니다.</p>
 				<br>
 				<hr class = "short">
 
 				<br>
-				<p>외국인인데, 리워드를 받을 수 있나요?</p>
+				<p class = "question" id = "question14">외국인인데, 리워드를 받을 수 있나요?</p>
+				<br>
+				<p class = "answer" id = "answer14">저희는 아직 외국인에게 리워드를 지급하고 있지는 않습니다. 이용에 참고 부탁드립니다.</p>
 				<br>
 				<hr class = "short">
 
 				<br>
-				<p>미성년자는 참여 불가능한가요?</p>
+				<p class = "question" id = "question15">미성년자는 참여 불가능한가요?</p>
+				<br>
+				<p class = "answer" id = "answer15">네, 미성년자는 참여 불가능합니다.</p>
 				<br>
 				<hr class = "short">
 
@@ -601,22 +386,30 @@
 			<div class = "section_name">회원정보</div>
 			<div>
 				<br>
-				<p>비밀번호 같은 회원정보를 수정하고 싶어요.</p>
+				<p class = "question" id = "question16">비밀번호 같은 회원정보를 수정하고 싶어요.</p>
+				<br>
+				<p class = "answer" id = "answer16">회원정보 수정은 마이페이지에서 가능합니다.</p>
 				<br>
 				<hr class = "short">
 
 				<br>
-				<p>개인정보는 언제 파기하나요?</p>
+				<p class = "question" id = "question17">개인정보는 언제 파기하나요?</p>
+				<br>
+				<p class = "answer" id = "answer17">회원 탈퇴 후 1년 이내에 파기됩니다.</p>
 				<br>
 				<hr class = "short">
 
 				<br>
-				<p>프로필 사진을 수정하고 싶어요.</p>
+				<p class = "question" id = "question18">프로필 사진을 수정하고 싶어요.</p>
+				<br>
+				<p class = "answer" id = "answer18">프로필 사진도 마이 페이지에서 수정 가능합니다.</p>
 				<br>
 				<hr class = "short">
 
 				<br>
-				<p>탈퇴하고 싶어요.</p>
+				<p class = "question" id = "question19">탈퇴하고 싶어요.</p>
+				<br>
+				<p class = "answer" id = "answer19">회원 탈퇴는 마이 페이지에서 가능합니다. <br><br> 탈퇴 후에는 등급과 신뢰도, 리워드 복구가 안 되므로 유의하시기 바랍니다.</p>
 				<br>
 				<hr class = "short">
 
@@ -629,7 +422,10 @@
 			<div class = "section_name">기타</div>
 			<div>
 				<br>
-				<p>커뮤니티에서 신고하고 싶은 사람이 있어요.</p>
+				<p class = "question" id = "question20">커뮤니티에서 신고하고 싶은 사람이 있어요.</p>
+				<br>
+				<p class = "answer" id = "answer20">신고는 '신고하기' 기능으로 가능합니다.</p>
+
 				<br>
 				<hr class = "short">
 
