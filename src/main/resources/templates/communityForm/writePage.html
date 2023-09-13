@@ -69,13 +69,12 @@
                     <i class="bi bi-justify fs-3"></i>
                 </a>
             </header>
+            
     <h1>글쓰기 폼</h1>
     
-   
     <form th:action="@{/community/write}" method="post" >
 
-        <input type="text" name="boardtitle" id="boardtitle" placeholder="제목을 입력해주세요">
-        
+        <input type="text" name="boardtitle" id="boardtitle" placeholder="제목을 입력해주세요">     
           <!-- <textarea name="boardcontent" id="boardcontent" cols="30" rows="10"></textarea><br> -->
         <textarea name="boardcontent" id="summernote" value=""></textarea> 
         <input type="submit" value="글쓰기">
