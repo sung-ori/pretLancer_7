@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <title>번역가 상세 프로필</title>
+    <script>
+        
+        $(document).ready(function() {
+            let translatorId = $("#translatorId").val();
+            $("#cBt").click(function() {
+                window.close();
+            })
+            
+            $("#rBt").click(function() {
+                window.opener.location.href="http://localhost:8888/pretLancer/long/writeRequest?memberid=" + translatorId;
+                window.close();
+            })
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <input type="hidden" id="loginId" th:value="${loginId}">
+        <input type="hidden" id="translatorId" th:value="${tp.memberid}">
+        <div class="card col-12" >
+            <img th:src="@{|/img/${tp.savedphoto}|}" class="card-img-top" style="height: 50%;;" alt="임시 프로필 사진">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${tp.membername}">Card title</h5>
+                <p class="card-text" th:text="${tp.profilecomment}">프로필 멘트</p>
+                <a href="#" id="rBt" class="btn btn-primary">번역 요청하기</a>
+                <a href="#" id="cBt" class="btn btn-danger">취소</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -5,8 +5,10 @@
 <mapper namespace="com.team.pretLancer_7.dao.RequestDAO">
 
 	<insert id="insertRS" parameterType="Request_S">
-	insert into pret_request_s (requestnum_s, memberid, requestcontent_s,cash, comment_sr, startlang, endlang)
-	values (pret_req_s_seq.nextval, #{memberid}, #{requestcontent_s},#{cash}, #{comment_sr},#{startlang}, #{endlang})
+	insert into pret_request_s (requestnum_s, memberid, requestcontent_s, cash, startlang, endlang 
+	<if test="comment_sr != null">, comment_sr</if>)
+	values (pret_req_s_seq.nextval, #{memberid}, #{requestcontent_s}, #{cash}, #{startlang}, #{endlang}
+	<if test="comment_sr != null">, #{comment_sr}</if>)
 	</insert>
 	
 	<delete id="cancelRS" parameterType="Request_S">
@@ -33,21 +35,41 @@
 	</select>
 	
 	<select id="choiceRS" resultType="Request_S">
-	select * from pret_request_s where enddate > sysdate oreder by enddate - sysdate asc
-	fetch first 1 rows only
+	SELECT *
+    FROM (
+        SELECT *
+        FROM pret_request_s
+        WHERE requestcondition_s = 'N' AND enddate > sysdate
+        ORDER BY enddate - sysdate ASC
+    )
+    WHERE ROWNUM &lt;= 1
 	</select>
 	
 	<select id="choiceRM" resultType="Request_M">
-	select * from pret_request_m where enddate > sysdate oreder by enddate - sysdate asc
-	fetch first 1 rows only
+	SELECT *
+    FROM (
+        SELECT *
+        FROM pret_request_m
+        WHERE requestcondition_m = 'N' AND enddate > sysdate
+        ORDER BY enddate - sysdate ASC
+    )
+    WHERE ROWNUM &lt;= 1
 	</select>
 	
-	<update id="updateMem2_S">
-	update pret_request_s set memberid2 = #{memberid} where reqeustnum_s = #{requestnum_s}
+	<update id="updateMem2_S" parameterType="Translated_S">
+	update pret_request_s set memberid2 = #{memberid2}, requestcondition_s = 'T' where requestnum_s = #{requestnum_s}
 	</update>
 	
-	<update id="updateMem2_M">
-	update pret_request_m set memberid2 = #{memberid} where reqeustnum_m = #{requestnum_m}
+	<update id="updateMem2_M" parameterType="Translated_M">
+	update pret_request_m set memberid2 = #{memberid2}, requestcondition_m = 'T' where requestnum_m = #{requestnum_m}
+	</update>
+	
+	<update id="updateCon_S" parameterType="Translated_S">
+	update pret_request_s set requestcondition_s = 'E' where requestnum_s = #{requestnum_s}
+	</update>
+	
+	<update id="updateCon_M" parameterType="Translated_M">
+	update pret_request_s set requestcondition_s = 'E' where requestnum_s = #{requestnum_s}
 	</update>
 
 </mapper>

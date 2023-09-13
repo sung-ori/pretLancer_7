@@ -61,17 +61,22 @@
                 dataType: "json",
                 success: function(list) {
                     alert("댓글 읽어오기 성공!");
-                    let str = `<table>
+                    let str = `<table class="table-reply">
                                 <tr>
-                                <td>작성자</td>
-                                <td>댓글 내용</td>
-                                <td>작성 시간</td>
-                                <td>추천 수</td>
-                                <td></td>
+                                <th></th>
+                                <th>작성자</th>
+                                <th>댓글 내용</th>
+                                <th>작성 시간</th>
+                                <th>추천 수</th>      
+                                <th></th>   
+                                </tr>
+                                <tr>
+                                	<td colspan="7"><hr></td>
                                 </tr>`;
                     
                     $.each(list,function(i,n){
                         str += `<tr>
+                        	<td></td>
                             <td>${n.memberid}</td>
                             <td>${n.replycontent}</td>
                             <td>${n.replydate}</td>
@@ -80,11 +85,15 @@
                         
                         // 댓글 다 만들고 안보이게 만든다.
                         str += `<td>
-                
                                 <span style="display: none;" class="${n.memberid}">
                                 <input type="button" id="${n.replynum}" class="dBt" value="삭제">
                                 </span>
                                 </td></tr>`;
+                                
+					    // <hr> 선을 추가
+					    if (i !== list.length - 1) { // 마지막 댓글에는 <hr>을 추가하지 않기 위한 조건
+					        str += `<tr><td colspan="7"><hr></td></tr>`;
+					    }        
                     });
                     str += "</table>";
                     $("#replyBox").html(str);
@@ -92,7 +101,7 @@
 
                 },
                 error: function(e) {
-                    alert("댓글 못 불러옴")
+                    alert("댓글 못 불러옴");
                     console.log(JSON.stringify(e));
                 }
             });

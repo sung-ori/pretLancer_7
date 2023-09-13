@@ -4,14 +4,29 @@
 
 <mapper namespace="com.team.pretLancer_7.dao.TranslatedDAO">
 
-	<insert id="insertTS" parameterType="Translated_S">
+	<insert id="insertTS" parameterType="Request_S">
 	insert into pret_translated_s (translatednum_s, requestnum_s, memberid, requestcontent_s)
-	values (pret_trans_s_seq.nextval, #{requestnum_s}, #{memberid}, #{requestcontent_s})
+	values (pret_trans_s_seq.nextval, #{requestnum_s}, #{memberid2}, #{requestcontent_s})
 	</insert>
 
-	<insert id="insertTM" parameterType="Translated_M">
+	<insert id="insertTM" parameterType="Request_M">
 	insert into pret_translated_m (translatednum_m, requestnum_m, memberid, requestcontent_m)
-	values (pret_trans_m_seq.nextval, #{requestnum_m}, #{memberid}, #{requestcontent_m})
+	values (pret_trans_m_seq.nextval, #{requestnum_m}, #{memberid2}, #{requestcontent_m})
 	</insert>
+	
+	<select id="selectTS" parameterType="int" resultType="Translated_S">
+	select * from pret_translated_s where requestnum_s = #{requestnum_s}
+	</select>
+	
+	<select id="selectTM" parameterType="int" resultType="Translated_M">
+	select * from pret_translated_m where requestnum_m = #{requestnum_m}
+	</select>
+	
+	<update id="submitTS" parameterType="Translated_S">
+	update pret_translated_s
+	set translatedcontent_s = #{translatedcontent_s}
+	<if test="comment_st != null">, comment_st = #{comment_st}</if>
+	where translatednum_s = #{translatednum_s} and memberid = #{memberid}
+	</update>
 
 </mapper>

@@ -1,5 +1,8 @@
 package com.team.pretLancer_7.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,24 +12,30 @@ import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.Request_M;
 import com.team.pretLancer_7.domain.Request_S;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class RequestServiceImple implements RequestService {
 
 	@Autowired
 	RequestDAO Rdao;
+	
+	@Autowired
 	MemberDAO Mdao;
 	
 	@Override
 	public void insertRequest_S(Request_S r) {
 		// request_s 테이블에 저장
+		log.error("dao 객체 r 여부 확인 {}", r);
 		Rdao.insertRS(r);
 		
 		// 사용한 포인트만큼 pret_member에서 차감
 		Member m = new Member();
+		log.error("id: {}, cash:{}", r.getMemberid(), r.getCash());
 		m.setMemberid(r.getMemberid());
 		m.setCash(r.getCash());
 		Mdao.usePoint(m);
-		
 	}
 
 	@Override
@@ -50,7 +59,7 @@ public class RequestServiceImple implements RequestService {
 		Member m = new Member();
 		m.setMemberid(r.getMemberid());
 		m.setCash(r.getCash());
-		Mdao.usePoint(m);
+//		Mdao.usePoint(m);
 		
 	}
 

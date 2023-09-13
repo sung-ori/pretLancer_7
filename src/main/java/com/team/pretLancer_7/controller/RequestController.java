@@ -12,6 +12,9 @@ import com.team.pretLancer_7.domain.Request_M;
 import com.team.pretLancer_7.domain.Request_S;
 import com.team.pretLancer_7.service.RequestService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("request")
 public class RequestController {
@@ -28,10 +31,13 @@ public class RequestController {
 	@PostMapping("insertRS")
 	public String insertRequest_S(@AuthenticationPrincipal UserDetails user, Request_S r) {
 		r.setMemberid(user.getUsername());
+		// 저장용 임시 지정
 		r.setStartlang("JP");
 		r.setEndlang("KR");
+		r.setCash(400);
+		log.error("Request_s 객체 {}", r);
 		service.insertRequest_S(r);
-		return "redirect:/";
+		return "main3";
 	}
 	
 	@GetMapping("cancelRS")
