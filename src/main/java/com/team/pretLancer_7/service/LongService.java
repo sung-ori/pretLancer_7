@@ -13,4 +13,6 @@ public interface LongService {
     public MyPage getOneMyPage(String memberid);
 
     public int writeRequest(Request_L request_L,MultipartFile uploadFile);
+
+    public int writeAuction(Request_L request_L,MultipartFile uploadFile);
 }

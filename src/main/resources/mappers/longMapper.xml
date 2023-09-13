@@ -30,12 +30,31 @@
                 
         </select>
 
-        <insert id="insertOneRequest" parameterType="Request_L">
+        <insert id="insertOneRequst" parameterType="Request_L">
                 insert into pret_request_L 
                 (requestnum_l, memberid, memberid2, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr, startlang, endlang)
                 values 
                 (PRET_REQ_L_SEQ.nextval, #{memberid}, #{memberid2}, #{category}, #{enddate}, #{enddate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr}, #{startlang}, #{endlang} )
         </insert>
 
+        <!-- 경매 쪽으로 요청함. -->
+        <insert id="insertOneRequstAuction" parameterType="Request_L">
+                <!-- 이곳에 INSERT 쿼리 작성 -->
+                insert into pret_request_L
+                (requestnum_l, memberid, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr, startlang, endlang)
+                values
+                (PRET_REQ_L_SEQ.nextval, #{memberid}, #{category}, #{enddate}, #{enddate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr}, #{startlang}, #{endlang} )
+                
+                <!-- SELECT 문을 사용하여 자동 생성된 키 값을 가져옴 -->
+                <selectKey  keyProperty="requestnum_l" order="AFTER" resultType="int">
+                        SELECT PRET_REQ_L_SEQ.currval FROM DUAL
+                </selectKey>
+        </insert>
+
+        <!-- 옥선 테이블에 집어넣는다 -->
+        <insert id="insertAuction" parameterType="int">
+                insert into pret_auction (auctionnum,requestlnum)
+                values (PRET_AUCTION_SEQ.nextval, #{requestnum})
+        </insert>
 	
 </mapper>

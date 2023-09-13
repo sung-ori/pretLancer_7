@@ -71,10 +71,26 @@ public class LongTranslateController {
     public String writeRequest(Request_L request_L, MultipartFile uploadFile, @AuthenticationPrincipal UserDetails user){
         // String originFileName = uploadFile.getOriginalFilename();
         log.debug("장문 요청 컨트롤러 {}",request_L);
-        // log.debug("오리진 파일 이름 {}", originFileName);
+        // log.debug("오리진 파일 {}", originFileName);
+
         request_L.setMemberid(user.getUsername());
 
         service.writeRequest(request_L,uploadFile);
+        return "redirect:/";
+    }
+
+    @GetMapping("/auction")
+    public String auctionForm() {
+        return "/translate_long/writeAuctionForm";
+    }
+
+    @PostMapping("/writeAuction")
+    public String writeAuction(Request_L request_L, MultipartFile uploadFile, @AuthenticationPrincipal UserDetails user) {
+
+        request_L.setMemberid(user.getUsername());
+
+        service.writeAuction(request_L,uploadFile);
+
         return "redirect:/";
     }
 }
