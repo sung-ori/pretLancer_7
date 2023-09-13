@@ -4,18 +4,31 @@
 
 <mapper namespace="com.team.pretLancer_7.dao.LongDAO">
 
-	<select id="selectAdTranslator" resultType="MyPage">
-        SELECT m.memberid as memberid, m.membername as membername
-        , m.membernick as membenick, m.mem_ex as mem_ex
-        , m.mem_level as mem_level,m.memberlang as memberlang
-        , p.profilecomment as profilecomment, p.originphoto as originphoto
-        , p.savedphoto as savedphoto
-        FROM pret_member m
-        INNER JOIN pret_member_profile p ON m.memberid = p.memberid
-        <!--  TODO: 아직 광고 관련 속성이 없어 그냥 다 올리지만 속성 추가하고 조건도 추가해야함. -->
-        WHERE m.mem_level like 'A' or m.mem_level like 'B'  AND m.ROLE_NAME = 'ROLE_TRANSLATOR'
-        ORDER BY m.mem_level
-    </select>
+        <select id="selectAdTranslator" resultType="MyPage">
+                SELECT m.memberid as memberid, m.membername as membername
+                , m.membernick as membenick, m.mem_ex as mem_ex
+                , m.mem_level as mem_level,m.memberlang as memberlang
+                , p.profilecomment as profilecomment, p.originphoto as originphoto
+                , p.savedphoto as savedphoto
+                FROM pret_member m
+                INNER JOIN pret_member_profile p ON m.memberid = p.memberid
+                <!--  TODO: 아직 광고 관련 속성이 없어 그냥 다 올리지만 속성 추가하고 조건도 추가해야함. -->
+                WHERE m.mem_level like 'A' or m.mem_level like 'B'  AND m.ROLE_NAME = 'ROLE_TRANSLATOR'
+                ORDER BY m.mem_level
+        </select>
+
+        <select id="selectOneMyPage" parameterType="String" resultType="MyPage">
+                SELECT m.memberid as memberid, m.membername as membername
+                , m.membernick as membenick, m.mem_ex as mem_ex
+                , m.mem_level as mem_level,m.memberlang as memberlang
+                , p.profilecomment as profilecomment, p.originphoto as originphoto
+                , p.savedphoto as savedphoto
+                FROM pret_member m
+                INNER JOIN pret_member_profile p ON m.memberid = p.memberid
+                <!--  TODO: 아직 광고 관련 속성이 없어 그냥 다 올리지만 속성 추가하고 조건도 추가해야함. -->
+                WHERE m.memberid = #{memberid}
+                
+        </select>
 
 
 	

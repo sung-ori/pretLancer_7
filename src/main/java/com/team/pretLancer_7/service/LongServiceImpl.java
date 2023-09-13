@@ -26,5 +26,10 @@ public class LongServiceImpl implements LongService{
         log.error("서비스는 돌아오나? {}", translatorList);
         return translatorList;
     }
+
+    @Override
+    public MyPage getOneMyPage(String memberid) {
+        return dao.selectOneMyPage(memberid);
+    }
     
 }
