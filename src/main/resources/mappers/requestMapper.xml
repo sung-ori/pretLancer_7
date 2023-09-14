@@ -21,8 +21,10 @@
 	</select>
 	
 	<insert id="insertRM" parameterType="Request_M">
-	insert into pret_request_m (requestnum_m, memberid, requestcontent_m,cash, comment_mr, startlang, endlang)
-	values (pret_req_m_seq.nextval, #{memberid}, #{requestcontent_m},#{cash}, #{comment_mr},#{startlang}, #{endlang})
+	insert into pret_request_m (requestnum_m, memberid, requestcontent_m, cash, startlang, endlang 
+	<if test="comment_mr != null">, comment_mr</if>)
+	values (pret_req_m_seq.nextval, #{memberid}, #{requestcontent_m}, #{cash}, #{startlang}, #{endlang}
+	<if test="comment_mr != null">, #{comment_mr}</if>)
 	</insert>
 	
 	<delete id="cancelRM" parameterType="Request_M">
@@ -69,7 +71,7 @@
 	</update>
 	
 	<update id="updateCon_M" parameterType="Translated_M">
-	update pret_request_s set requestcondition_s = 'E' where requestnum_s = #{requestnum_s}
+	update pret_request_m set requestcondition_m = 'E' where requestnum_m = #{requestnum_m}
 	</update>
 
 </mapper>

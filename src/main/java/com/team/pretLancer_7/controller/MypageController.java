@@ -74,7 +74,10 @@ public class MypageController {
     	log.error("upload에 들어가 있는 것 {}", upload);
     	
     	// 업로드된 사진 처리
-    	if(MyPage.getOriginphoto() != null && !MyPage.getOriginphoto().isEmpty() && upload != null && !upload.isEmpty()) {
+    	if(MyPage.getOriginphoto() != null 
+    			&& !MyPage.getOriginphoto().isEmpty()
+    			&& !MyPage.getOriginphoto().equals("basic.jpg")
+    			&& upload != null && !upload.isEmpty()) {
     	// 삭제 처리
     	FileService.deleteFile(uploadPath + "/" + MyPage.getSavedphoto());
     	}
