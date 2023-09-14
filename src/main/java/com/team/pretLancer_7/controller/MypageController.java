@@ -63,15 +63,21 @@ public class MypageController {
     	return "/myPageView/MyProfile";
     }
     
+   
     // 마이프로필 수정
     @PostMapping("MpUpdate")
     public String update(@AuthenticationPrincipal UserDetails user, MyPage Mp, MultipartFile upload) {
     	
-    	Mp.setMemberid(user.getUsername());
-    	MyPage MyPage = service.getMyPage(Mp.getMemberid());
+    	MyPage MyPage = service.getMyPage(user.getUsername());
+    	Mp.setProfilecomment("버그 확인 중");
+    	log.error("MyPage에 들어가 있는 것 {}", MyPage);
+    	log.error("upload에 들어가 있는 것 {}", upload);
     	
     	// 업로드된 사진 처리
-    	if(MyPage.getOriginphoto() != null && !MyPage.getOriginphoto().isEmpty() && !upload.isEmpty() && upload != null) {
+    	if(MyPage.getOriginphoto() != null 
+    			&& !MyPage.getOriginphoto().isEmpty()
+    			&& !MyPage.getOriginphoto().equals("basic.jpg")
+    			&& upload != null && !upload.isEmpty()) {
     	// 삭제 처리
     	FileService.deleteFile(uploadPath + "/" + MyPage.getSavedphoto());
     	}
@@ -84,9 +90,10 @@ public class MypageController {
     	}
     	
     	// 수정된 내용 저장
+    	log.error("Mp에 들어가 있는 것 {}", Mp);
     	int cnt = service.updateProfile(Mp);
     	
-    	return "/myPageView/MyPage";
+    	return "redirect:/my_page/main";
     }
     
     // 프로필 가져오기 + 처음 mapper에 입력할 때 default 값은 basic.jpg로 넣어서 기본 프로필 사진을 가져오게 한다.

@@ -62,6 +62,27 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
+<style>
+	/* 테이블에 클래스 추가 */
+.table-reply {
+    width: 100%; /* 전체 테이블의 너비를 100%로 설정 */
+}
+
+/* 각 열의 너비를 고정값으로 설정 */
+.table-reply td:nth-child(1) { width: 50px; } /* 작성자 열 */
+.table-reply td:nth-child(2) { width: 224px; } /* 댓글 내용 열 */
+.table-reply td:nth-child(3) { width: 300px; } /* 작성 시간 열 */
+.table-reply td:nth-child(4) { width: 180px; }  /* 추천 수 열 */
+.table-reply td:nth-child(5) { width: 80px; }  /* 삭제 버튼 열 */
+
+.card-header {
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬을 위해 */
+    justify-content: space-between;
+}
+
+</style>
+
 </head>
 
 <body>
@@ -73,41 +94,77 @@
                     <i class="bi bi-justify fs-3"></i>
                 </a>
             </header>
+            
+    <div class="page-heading pricing-header p-3 pb-md-4 mx-auto text-center" style="margin-top: 0px;">
+    <h1 class="display-4 fw-normal ">커뮤니티</h1> <!-- text-body-emphasis -->
+    <p class="fs-5 text-body-secondary">커뮤니티는 공중장소입니다. 깨끗하게 사용하세요.</p>
+	</div> 
     
-    <h1>글 읽기</h1>
+    <h3 class="text-left">글 읽기 갤러리</h3>
+    
+    <!-- 여기서부터 -->
     <div>
-        <input type="hidden" th:value="${board.boardnum}" id="boardNum">
-        <input type="hidden" th:value="${board.memberid}" id="writerId">
-        <input type="hidden" th:value="${#authentication.name}" id="loginId">
+    <input type="hidden" th:value="${board.boardnum}" id="boardNum">
+    <input type="hidden" th:value="${board.memberid}" id="writerId">
+    <input type="hidden" th:value="${#authentication.name}" id="loginId">
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header" style="padding-bottom: 0px;">
+                        <!-- 글 제목 -->
+                        <h3 id="boardTitle" th:text="${board.boardtitle}"></h3>
+                        <!-- 게시글 작성자의 정보 -->
+                        <div class ="card-body" id="info" style="text-align: right; padding-bottom: 0px; padding-top: 0px;">
+		            	<!-- 글 정보 표시 -->
+		        		</div>
+                    </div>
+                    <!-- 게시글 작성자의 정보 -->
+                        <hr class="hr" />
+                    <div class="card-body">
+                        <div th:text="${board.boardcontent}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
-        <div id="boardTitle" th:text="${board.boardtitle}">
+        <!-- 지피티 -->
+        <div class="row">
+		    <div class="col">
+		    	<p th:if="${#authentication.name} == ${board.memberid}" class="text-right">
+		            <a th:href="@{/community/updateForm(boardnum=${board.boardnum})}" class="btn btn-primary">글 수정</a>
+		            <a th:href="@{/community/delete(boardnum=${board.boardnum})}" class="btn btn-danger">글 지우기</a>
+		        </p>
+		    </div>
+		</div>
+		 <!-- 지피티 -->
+		<!-- 댓글 시작 -->
+		<hr class="hr" />
+		
+		<!-- 댓글목록 -->
+		<div class="card">
+	        <div id="replyBox" class="mt-3">
+	            <!-- 댓글 목록 표시 -->
+	        </div>
+	    </div>
+		<!-- 댓글작성 -->
+        <div class="row mt-3">
+            <div class="col-8">
+                <input type="text" id="inputReply" name="replycontent" class="form-control" placeholder="댓글 작성">
+            </div>
+            <div class="col-4">
+                <button id="rBt" class="btn btn-success">댓글 작성</button>
+            </div>
         </div>
-
-        <div>
-            <p th:if="${#authentication.name} == ${board.memberid}">
-                <a th:href="@{/community/delete(boardnum=${board.boardnum})}">글 지우기</a>
-            </p>
-            <p th:if="${#authentication.name} == ${board.memberid}">
-                <a th:href="@{/community/updateForm(boardnum=${board.boardnum})}">글 수정</a>
-            </p>
-        </div>
-        
-        
-        <div th:text="${board.boardcontent}">
-
-        </div>
-
-        <div id = "info">
-           
-        </div>
-
-        <div>
-            <input type="text" id="inputReply" name="replycontent">
-            <input type="button" id="rBt" value="댓글 작성">
-        </div>
-        <div id="replyBox">
-        </div>
+  		
+  		
     </div>
+</div>
+    
+
+
+    <!-- 여기까지 -->
     <!-- div main -->
     </div>
        <!-- 부트스트랩  JS -->
