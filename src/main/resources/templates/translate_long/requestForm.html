@@ -18,12 +18,13 @@
 
                 window.open("http://localhost:8888/pretLancer/long/translatorProfile?memberid="+mid ,'번역가 상세 프로필', ' width=500, height=800, top=200, left=600');
             }
-
+            
         });
     </script>
 </head>
 <body>
     <div class="container">
+        <h1>번역가 리스트</h1>
         <div class=" row container-fluid">
 
             <div th:each="translator, index : ${translatorList}" class="col-4 card">
