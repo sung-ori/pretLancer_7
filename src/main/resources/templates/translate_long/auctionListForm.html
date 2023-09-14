@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymleaf.org/extras/spring-security" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <title>auctionList</title>
+    <script>
+      $(document).ready(function() {
+            $(".btn").click(openAuctionInfo);
+
+            function openAuctionInfo() {
+                
+                let requestnum =  $(this).attr("id");
+
+                window.open("http://localhost:8888/pretLancer/long/readAuctionInfo?requestnum_l="+requestnum ,'경매 입찰 페이지', ' width=500, height=800, top=200, left=600');
+            }
+            
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>번역 경매 리스트</h1>
+        <div class=" row container-fluid">
+
+            <div th:each="auction, index : ${auctionList}" class="col-4 card">
+                <img th:src="@{/img/paper.png}" class="card-img-top" style="height: 50%;" alt="임시 서류 이모티콘">
+                <div class="card-body">
+                    <h3>카테고리</h3>
+                    <h5 class="card-title"  th:text="${auction.category}"></h5>
+                    <h3>페이지 수</h3>
+                    <h5 class="card-text"  th:text="${auction.commentpage}"></h5>
+                    <h3>낙찰기한</h3>
+                    <h5 class="card-text"  th:text="${auction.enddate}"></h5>
+                    <h3>작업기한</h3>
+                    <h5 class="card-text"  th:text="${auction.workdate}"></h5>
+                    <h3>입찰금액</h3>
+                    <h5 class="card-text"  > [[${auction.cash}]]</h5>
+
+                    <a th:id="${auction.requestnum_l}" class="btn btn-primary">입찰하러 가기</a>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</body>
+</html>

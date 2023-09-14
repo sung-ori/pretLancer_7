@@ -44,11 +44,6 @@
                 (requestnum_l, memberid, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr, startlang, endlang)
                 values
                 (PRET_REQ_L_SEQ.nextval, #{memberid}, #{category}, #{enddate}, #{enddate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr}, #{startlang}, #{endlang} )
-                
-                <!-- SELECT 문을 사용하여 자동 생성된 키 값을 가져옴 -->
-                <!-- <selectKey  keyProperty="requestnum_l" order="AFTER" resultType="Map" >
-                        SELECT PRET_REQ_L_SEQ.currval FROM DUAL
-                </selectKey> -->
         </insert>
 
         <select id="selectMaxRequestnum" resultType="int">
@@ -60,5 +55,25 @@
                 insert into pret_auction (auctionnum,requestlnum)
                 values (PRET_AUCTION_SEQ.nextval, #{requestnum})
         </insert>
+        <!-- 경매 리스트 출력 -->
+        <select id="selectAuctionList" resultType="Request_L">
+                select * from pret_request_l
+                where requestnum_l in (select requestlnum from pret_auction)
+        </select>
+
+        <select id="selectOneRequest_L" parameterType="int" resultType="Request_L">
+                select * from pret_request_l 
+                where requestnum_l = #{requestnum_l}
+        </select>
+
+        <select id="selectAuctionNum" parameterType="int">
+                select auctionnum from pret_auction
+                where requestlnum = #{requestnum_l}
+        </select>
+
+        <select id="selectAucionInfo" parameterType="int" resultType="AuctionTranslator">
+                select * from PRET_AUCTIONTRANSLATER
+                where auctionnum = #{auctionnum}
+        </select>
 	
 </mapper>

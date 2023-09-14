@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team.pretLancer_7.domain.AuctionTranslator;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.service.LongService;
@@ -40,7 +42,7 @@ public class LongTranslateController {
         log.error("돌아오나요? {}", translatorList);
         model.addAttribute("translatorList", translatorList);
 
-        return "translate_long/requestForm";
+        return "translate_long/translatorList";
     }
 
     @GetMapping("/translatorProfile")
@@ -92,5 +94,30 @@ public class LongTranslateController {
         service.writeAuction(request_L,uploadFile);
 
         return "redirect:/";
+    }
+
+    @GetMapping("auctionList")
+    public String auctionList(Model model) {
+        List<Request_L> auctionList =  service.getAuctionList();
+        
+        model.addAttribute("auctionList", auctionList);
+        return "/translate_long/auctionListForm";
+    }
+    
+    @GetMapping("readAuctionInfo")
+    public String readAuctionInfo(Model model, @RequestParam(name="requestnum_l") int requestnum_l) {
+        Request_L rql = service.readAuctionInfo(requestnum_l);
+        model.addAttribute("info", rql);
+
+        return "/translate_long/auctionInfo";
+    }
+
+    @GetMapping("readAuctionPrice")
+    @ResponseBody
+    public List<AuctionTranslator> readAuctionPrice(@RequestParam(name="requestnum_l") int requestnum_l) {
+        List<AuctionTranslator> list ;
+        list = service.readAuctionPrice(requestnum_l);
+
+        return list;
     }
 }

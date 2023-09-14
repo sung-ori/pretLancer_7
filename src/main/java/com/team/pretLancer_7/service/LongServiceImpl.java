@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team.pretLancer_7.dao.LongDAO;
+import com.team.pretLancer_7.domain.AuctionTranslator;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.utill.FileService;
@@ -101,6 +102,28 @@ public class LongServiceImpl implements LongService{
 
         return dao.insertAuction(requestnum_l);
 
+    }
+    //  경매 리스트를 불러온다
+    @Override
+    public List<Request_L> getAuctionList() {
+        
+        List<Request_L> auctionList = dao.selectAuctionList();
+        return auctionList;
+    }
+    // 
+    @Override
+    public Request_L readAuctionInfo(int requestnum_l) {
+        Request_L rql  = dao.selectOneRequest_L(requestnum_l);
+        return rql;
+    }
+
+    @Override
+    public List<AuctionTranslator> readAuctionPrice(int requestnum_l) {
+        int auctionNum =  dao.selectAuctionNum(requestnum_l);
+
+        List<AuctionTranslator> ATList = dao.selectAuctionInfo(auctionNum);
+
+        return ATList;
     }
     
 }
