@@ -46,10 +46,14 @@
                 (PRET_REQ_L_SEQ.nextval, #{memberid}, #{category}, #{enddate}, #{enddate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr}, #{startlang}, #{endlang} )
                 
                 <!-- SELECT 문을 사용하여 자동 생성된 키 값을 가져옴 -->
-                <selectKey  keyProperty="requestnum_l" order="AFTER" resultType="int">
+                <!-- <selectKey  keyProperty="requestnum_l" order="AFTER" resultType="Map" >
                         SELECT PRET_REQ_L_SEQ.currval FROM DUAL
-                </selectKey>
+                </selectKey> -->
         </insert>
+
+        <select id="selectMaxRequestnum" resultType="int">
+                select max(requestnum_l) from pret_request_l
+        </select>
 
         <!-- 옥선 테이블에 집어넣는다 -->
         <insert id="insertAuction" parameterType="int">

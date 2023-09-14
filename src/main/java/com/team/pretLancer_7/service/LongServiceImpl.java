@@ -90,9 +90,16 @@ public class LongServiceImpl implements LongService{
         request_L.setOriginrfile(originfile);
         request_L.setSavedrfile(savedfile);
 
-        int requestnum = dao.insertOneRequstAuction(request_L).getRequestnum_l();
-        log.debug("돌아와요 부산항에 {}", requestnum);
-        return dao.insertAuction(requestnum);
+        
+        dao.insertOneRequstAuction(request_L);
+
+        int requestnum_l = dao.selectMaxRequestnum();
+
+
+        log.debug("돌아와요 부산항에 {}",requestnum_l);
+        
+
+        return dao.insertAuction(requestnum_l);
 
     }
     

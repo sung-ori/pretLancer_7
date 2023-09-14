@@ -17,8 +17,9 @@ public interface LongDAO {
     public int insertOneRequst(Request_L request_L);
 
     // 하나의 요청를 삽입하고 경매 테이블에 넣기 위해 그 키 값을 리턴
-    
-    public Request_L insertOneRequstAuction (Request_L request_L);
+    public int insertOneRequstAuction (Request_L request_L);
+
+    public int selectMaxRequestnum();
     // 경매 테이블에 삽입
     public int insertAuction(int requestnum);
 }
