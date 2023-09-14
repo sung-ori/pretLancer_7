@@ -194,6 +194,7 @@
 		<!-- 문의 폼의 구성 : 질문 제목, 회신받을 이메일 주소, 카테고리, 내용, 문의하기 버튼 -->
 		<section id = "qnaform">
 			<form id = "form">
+				<input type = "hidden" id = "memberid" th:value = "${#authentication.name}">
 				<input type = "text" placeholder = "답변 내용을 회신받으실 이메일을 입력해주세요." class = "form1" id = "user_email"><br>
 				<select id = "qna_category">
 					<option>카테고리를 선택해주세요.</option>
