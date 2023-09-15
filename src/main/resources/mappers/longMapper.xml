@@ -43,7 +43,7 @@
                 insert into pret_request_L
                 (requestnum_l, memberid, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr, startlang, endlang)
                 values
-                (PRET_REQ_L_SEQ.nextval, #{memberid}, #{category}, #{enddate}, #{enddate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr}, #{startlang}, #{endlang} )
+                (PRET_REQ_L_SEQ.nextval, #{memberid}, #{category}, #{enddate}, #{workdate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr}, #{startlang}, #{endlang} )
         </insert>
 
         <select id="selectMaxRequestnum" resultType="int">
