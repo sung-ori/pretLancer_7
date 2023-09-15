@@ -294,6 +294,7 @@ CREATE TABLE PRET_REQUEST_L (
 	MEMBERID	        VARCHAR2(20)	NOT NULL REFERENCES PRET_MEMBER(MEMBERID),      -- 의뢰자 아이디
 	MEMBERID2	        VARCHAR2(20)	REFERENCES PRET_MEMBER(MEMBERID),               -- 번역자 아이디
 	CATEGORY	        VARCHAR2(50),                                                   -- 카테고리 (도메인 지정)
+    TITLE               VARCHAR2(200),
 	REQUESTCONDITION_L	VARCHAR2(2)	    DEFAULT 'N' CHECK (REQUESTCONDITION_L IN ('N', 'T' , 'Y', 'F')), -- 의뢰상황
 	INPUTDATE	        DATE	        DEFAULT SYSDATE,                                -- 의뢰 날짜
 	ENDDATE	            DATE	        DEFAULT SYSDATE+10,                             -- 만료 날짜
@@ -518,3 +519,6 @@ ALTER TABLE PRET_AUCTIONTRANSLATER RENAME COLUMN COMMENTT TO "COMMENT";
 
 ALTER TABLE PRET_AUCTIONTRANSLATER
 ADD MEM_LEVEL VARCHAR2(10);
+
+-- 장문 요청 테이블 
+alter TABLE PRET_REQUEST_L add title varchar2(200);

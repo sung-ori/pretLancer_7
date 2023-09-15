@@ -80,13 +80,13 @@
                             <td>${n.memberid}</td>
                             <td>${n.replycontent}</td>
                             <td>${n.replydate}</td>
-                            <td><input type="button" id="${n.replynum}" class="replyRecoBt" value="👍"></td>
+                            <td><input type="button" id="${n.replynum}" class="replyRecoBt btn btn-light" value="👍"></td>
                             <td>${n.replyrecommend}</td>`;
                         
                         // 댓글 다 만들고 안보이게 만든다.
                         str += `<td>
                                 <span style="display: none;" class="${n.memberid}">
-                                <input type="button" id="${n.replynum}" class="dBt" value="삭제">
+                                <input type="button" id="${n.replynum}" class="dBt btn btn-light" value="삭제">
                                 </span>
                                 </td></tr>`;
                                 
@@ -147,11 +147,11 @@
                         <span>${board.inputdate}</span>
                         👁️
                         <span>${board.hits}</span>
-                        <input type="button" id="recoBt" value="👍" class="bt">
+                        <input type="button" id="recoBt" value="👍" class="btn btn-light">
                         <span>${board.recommend}</span>
-                        <input type="button" id="decoBt" value="👎" class="bt">
+                        <input type="button" id="decoBt" value="👎" class="btn btn-light">
                         <span>${board.decommend}</span>
-                        <input type="button" id="polBt" value="🚨" class="bt">
+                        <input type="button" id="polBt" value="🚨" class="btn btn-light">
                         <span>${board.police}</span>`;
 
                         $("#info").html(str);
@@ -204,7 +204,7 @@
                     if (bt == "") {
                         $(".bt").css("background-color","none");
                     }else{
-                        $('#'+bt).css("background-color","red");
+                        $('#'+bt).css("background-color","coral");
                     }
                 },
                 error: function(e) {

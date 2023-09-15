@@ -35,10 +35,22 @@ public class LongServiceImpl implements LongService{
     MemberDAO Mdao;
 
     @Override
-    public List<MyPage> getTranslatorList() {
+    public List<MyPage> getTranslatorList(String userid) {
+        
         List<MyPage> translatorList = new ArrayList();
-
         translatorList =  dao.selectAdTranslator();
+        
+        int idx = 0;
+
+        for(MyPage translatorProfile : translatorList ) {
+            if (translatorProfile.getMemberid().equals(userid)) {
+                translatorList.remove(idx);
+                break;
+            }
+            idx++;
+            
+        }
+
         log.error("서비스는 돌아오나? {}", translatorList);
         return translatorList;
     }
@@ -155,6 +167,22 @@ public class LongServiceImpl implements LongService{
             rst = "true";
         }
         return rst;
+    }
+
+    @Override
+    public List<Request_L> myAuctionList(String userid) {
+        List<Request_L> list = dao.selectAuctionList();
+        List<Request_L> myAuctionList =  new ArrayList();
+
+        int idx = 0;
+
+        for(Request_L auction :list) {
+            if (auction.getMemberid() == userid) {
+                myAuctionList.add(auction);
+            }
+        }
+
+        return myAuctionList;
     }
     
     

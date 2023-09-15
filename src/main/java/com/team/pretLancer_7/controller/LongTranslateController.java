@@ -39,8 +39,8 @@ public class LongTranslateController {
     }
 
     @GetMapping("/request")
-    public String requestForm(Model model) {
-        List<MyPage> translatorList = service.getTranslatorList();
+    public String requestForm(Model model,@AuthenticationPrincipal UserDetails user) {
+        List<MyPage> translatorList = service.getTranslatorList(user.getUsername());
         log.error("돌아오나요? {}", translatorList);
         model.addAttribute("translatorList", translatorList);
 
@@ -144,4 +144,10 @@ public class LongTranslateController {
         return service.bidValidation(map);
     }
 
+    @GetMapping("/myAuctionList")
+    public String myAuctionList(@AuthenticationPrincipal UserDetails user, Model model) {
+        List<Request_L> myAuctionList =  service.myAuctionList(user.getUsername());
+        model.addAttribute("myAuctionList", myAuctionList);
+        return "/translate_long/myAuctionList";
+    }
 }

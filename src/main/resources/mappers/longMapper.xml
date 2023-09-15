@@ -32,18 +32,18 @@
 
         <insert id="insertOneRequst" parameterType="Request_L">
                 insert into pret_request_L 
-                (requestnum_l, memberid, memberid2, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr, startlang, endlang)
+                (requestnum_l, memberid, memberid2,title, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr,commentpage, startlang, endlang)
                 values 
-                (PRET_REQ_L_SEQ.nextval, #{memberid}, #{memberid2}, #{category}, #{enddate}, #{enddate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr}, #{startlang}, #{endlang} )
+                (PRET_REQ_L_SEQ.nextval, #{memberid}, #{memberid2}, #{title}, #{category}, #{enddate}, #{enddate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr},#{commentpage}, #{startlang}, #{endlang} )
         </insert>
 
         <!-- 경매 쪽으로 요청함. -->
         <insert id="insertOneRequstAuction" parameterType="Request_L">
                 <!-- 이곳에 INSERT 쿼리 작성 -->
                 insert into pret_request_L
-                (requestnum_l, memberid, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr, startlang, endlang)
+                (requestnum_l, memberid, title, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr,commentpage, startlang, endlang)
                 values
-                (PRET_REQ_L_SEQ.nextval, #{memberid}, #{category}, #{enddate}, #{workdate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr}, #{startlang}, #{endlang} )
+                (PRET_REQ_L_SEQ.nextval, #{memberid},#{title} #{category}, #{enddate}, #{workdate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr},#{commentpage}, #{startlang}, #{endlang} )
         </insert>
 
         <select id="selectMaxRequestnum" resultType="int">
@@ -58,7 +58,7 @@
         <!-- 경매 리스트 출력 -->
         <select id="selectAuctionList" resultType="Request_L">
                 select * from pret_request_l
-                where requestnum_l in (select requestlnum from pret_auction)
+                where REQUESTCONDITION_L  requestnum_l in (select requestlnum from pret_auction)
         </select>
 
         <select id="selectOneRequest_L" parameterType="int" resultType="Request_L">

@@ -10,7 +10,7 @@ import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 
 public interface LongService {
-    public List<MyPage> getTranslatorList();
+    public List<MyPage> getTranslatorList(String userId);
 
     public MyPage getOneMyPage(String memberid);
 
@@ -30,4 +30,6 @@ public interface LongService {
     // 중복 입찰 확인
     public String bidValidation(Map<String, String> map);
 
+    public List<Request_L> myAuctionList (String userid);
+    
 }
