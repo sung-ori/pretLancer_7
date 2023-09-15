@@ -516,6 +516,7 @@ CREATE TABLE PRET_BOARD_POLICE (
 create table pret_qna (
     qnanum          number primary key, -- 문의 번호(시퀀스 이용)
     memberid        varchar2(20) not null,-- 문의한 회원 아이디
+    qnacategory     varchar2(50) not null,
     qnatitle        varchar2(300) not null,-- 문의 제목
     qnacontent      varchar2(3000) not null,-- 문의 내용
     qnafile         varchar2(1000),-- 문의 첨부파일

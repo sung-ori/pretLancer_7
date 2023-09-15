@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="_csrf" th:content="${_csrf.token}">  --> 
+    <!-- <meta name="_csrf_header" th:content="${_csrf.headerName}"> --> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지 | 문의 글 읽기</title>
+    
+	<script th:src="@{/assets/js/jquery-3.6.0.js}"></script>
+	<script th:src="@{/js/communityRead.js}"></script>
+	<!-- 영준 스크립트 -->
+	
+	<!-- 부트스트랩 5.3.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- upper bar css 쓰면 왼쪽 사이드바가 작아진다. (부과효과인듯) -->
+    <link rel="stylesheet" th:href="@{/assets/css/pages/upperBar.css}">
+    <!-- 기본 부트스트랩 링크들 -->
+    <link rel="stylesheet" th:href="@{/assets/css/main/app.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/main/app-dark.css}">
+    <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.svg}" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.png}" type="image/png">
+    
+    <link rel="stylesheet" th:href="@{/assets/css/shared/iconly.css}">
+    
+    <style>
+    	.move-right-50 {transform: translateX(300px);}
+		.custom-width {width: 1100px;}
+		.b {font-weight: bold;}
+    </style>
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+	<script th:src="@{/js/paging.js}"></script>
+    
+    <script>
+        $(document).ready(function() {
+            $("#cancelBt").click(cancel);
+
+            function cancel() {
+                $("#boardtitle").val("");
+                $("#boardcontent").val("");
+                location.href="../community/main"
+
+            }
+
+        });
+    </script>
+    <!-- 준규상 코드 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script th:src="@{/js/snBarLoader.js}"></script>
+	
+	<!-- 썸머노트 -->
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+<!-- include summernote css/js-->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+
+<style>
+	/* 테이블에 클래스 추가 */
+.table-reply {
+    width: 100%; /* 전체 테이블의 너비를 100%로 설정 */
+}
+
+/* 각 열의 너비를 고정값으로 설정 */
+.table-reply td:nth-child(1) { width: 50px; } /* 작성자 열 */
+.table-reply td:nth-child(2) { width: 224px; } /* 댓글 내용 열 */
+.table-reply td:nth-child(3) { width: 300px; } /* 작성 시간 열 */
+.table-reply td:nth-child(4) { width: 180px; }  /* 추천 수 열 */
+.table-reply td:nth-child(5) { width: 80px; }  /* 삭제 버튼 열 */
+
+.card-header {
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬을 위해 */
+    justify-content: space-between;
+}
+
+</style>
+
+</head>
+
+<body>
+	<div id="snBar-placeholder"></div>
+	
+	<div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+            
+    <div class="page-heading pricing-header p-3 pb-md-4 mx-auto text-center" style="margin-top: 0px;">
+    <h1 class="display-4 fw-normal ">문의 게시판</h1> <!-- text-body-emphasis -->
+    <p class="fs-5 text-body-secondary">사용자가 남긴 문의를 볼 수 있는 게시판입니다.</p>
+	</div> 
+    
+    <h3 class="text-left">사용자 문의</h3>
+    
+    <!-- 여기서부터 -->
+    <div>
+    <input type="hidden" th:value="${qna.qnanum}" id="qnanum">
+    <input type="hidden" th:value="${qna.memberid}" id="memberid">
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header" style="padding-bottom: 0px;">
+                        <!-- 글 제목 -->
+                        <h3 id="boardTitle" th:text="${qna.qnatitle}"></h3>
+                        <!-- 게시글 작성자의 정보 -->
+                        <div class ="card-body" id="info" style="text-align: right; padding-bottom: 0px; padding-top: 0px;">
+		            	<!-- 글 정보 표시 -->
+		        		</div>
+                    </div>
+                    <!-- 게시글 작성자의 정보 -->
+                        <hr class="hr" />
+                    <div class="card-body">
+                        <div th:text="${qna.qnacontent}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+          		
+    </div>
+</div>
+    
+
+
+    <!-- 여기까지 -->
+    <!-- div main -->
+    </div>
+       <!-- 부트스트랩  JS -->
+    <script th:src="@{/assets/js/bootstrap.js}"></script>
+    <script th:src="@{/assets/js/app.js}"></script>
+
+<!-- Need: Apexcharts -->
+<script th:src="@{/assets/extensions/apexcharts/apexcharts.min.js}"></script>
+<script th:src="@{/assets/js/pages/dashboard.js}"></script>
+
+  <!-- 썸머노트용 JS -->
+ 	<script>
+        $(document).ready(function() {
+            $('#summernote').summernote({
+                height: 300,
+                minHeight: null,
+                maxHeight: null,
+                focus: true
+            });
+        });
+    </script>
+    
+</body>
+</html>
