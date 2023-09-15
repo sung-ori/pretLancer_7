@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team.pretLancer_7.dao.LongDAO;
+import com.team.pretLancer_7.dao.MemberDAO;
 import com.team.pretLancer_7.domain.AuctionTranslator;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
@@ -28,6 +29,9 @@ public class LongServiceImpl implements LongService{
 
     @Autowired
     LongDAO dao ;
+
+    @Autowired
+    MemberDAO Mdao;
 
     @Override
     public List<MyPage> getTranslatorList() {
@@ -118,12 +122,27 @@ public class LongServiceImpl implements LongService{
     }
 
     @Override
-    public List<AuctionTranslator> readAuctionPrice(int requestnum_l) {
-        int auctionNum =  dao.selectAuctionNum(requestnum_l);
+    public List<AuctionTranslator> readAuctionPrice(int auctionNum) {
 
         List<AuctionTranslator> ATList = dao.selectAuctionInfo(auctionNum);
 
         return ATList;
     }
+
+    @Override
+    public int getAuctionNumber(int requestnum) {
+
+        int auctionNum =  dao.selectAuctionNum(requestnum);
+        return auctionNum;
+    }
+
+    @Override
+    public int setBid(AuctionTranslator at) {
+
+        at.setMem_level(Mdao.selectOne(at.getMemberid()).getMem_level());
+        
+        return dao.insertAuctionTranslator(at);
+    }
+    
     
 }

@@ -1,8 +1,5 @@
 package com.team.pretLancer_7.dao;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import com.team.pretLancer_7.domain.Ability;

@@ -99,7 +99,7 @@ public class LongTranslateController {
     @GetMapping("auctionList")
     public String auctionList(Model model) {
         List<Request_L> auctionList =  service.getAuctionList();
-        
+
         model.addAttribute("auctionList", auctionList);
         return "/translate_long/auctionListForm";
     }
@@ -107,17 +107,30 @@ public class LongTranslateController {
     @GetMapping("readAuctionInfo")
     public String readAuctionInfo(Model model, @RequestParam(name="requestnum_l") int requestnum_l) {
         Request_L rql = service.readAuctionInfo(requestnum_l);
+        int auctionNum  = service.getAuctionNumber(rql.getRequestnum_l());
+
         model.addAttribute("info", rql);
+        model.addAttribute("auctionNum", auctionNum);
 
         return "/translate_long/auctionInfo";
     }
 
     @GetMapping("readAuctionPrice")
     @ResponseBody
-    public List<AuctionTranslator> readAuctionPrice(@RequestParam(name="requestnum_l") int requestnum_l) {
+    public List<AuctionTranslator> readAuctionPrice(@RequestParam(name="auctionNum") int auctionNum) {
         List<AuctionTranslator> list ;
-        list = service.readAuctionPrice(requestnum_l);
+        list = service.readAuctionPrice(auctionNum);
 
         return list;
     }
+
+    @GetMapping("bid")
+    @ResponseBody
+    public void bid(AuctionTranslator at,@AuthenticationPrincipal UserDetails user){
+        at.setMemberid(user.getUsername());
+        log.debug("컨트롤러 경매 입찰 삽입 {}", at);
+        service.setBid(at);
+    }
+
+    
 }

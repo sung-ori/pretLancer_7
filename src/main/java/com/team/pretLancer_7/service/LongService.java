@@ -21,5 +21,12 @@ public interface LongService {
     
     public Request_L readAuctionInfo(int requestnum_l);
 
-    public List<AuctionTranslator> readAuctionPrice(int requestnum_l);
+    public int getAuctionNumber(int requestnum);
+
+    public List<AuctionTranslator> readAuctionPrice(int auctionNum);
+    // 입찰 정보 삽입
+    public int setBid(AuctionTranslator at);
+    // 중복 입찰 확인
+    // public int 
+
 }

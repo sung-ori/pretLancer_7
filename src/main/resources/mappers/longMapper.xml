@@ -71,9 +71,23 @@
                 where requestlnum = #{requestnum_l}
         </select>
 
-        <select id="selectAucionInfo" parameterType="int" resultType="AuctionTranslator">
+        <select id="selectAuctionInfo" parameterType="int" resultType="AuctionTranslator">
                 select * from PRET_AUCTIONTRANSLATER
                 where auctionnum = #{auctionnum}
         </select>
+
+        <insert id="insertAuctionTranslator" parameterType="AuctionTranslator">
+                insert into pret_auctiontranslater
+                <if test="comment != null">
+                        (auctionnum, memberid, translatervalue, mem_level, comment)
+                        values (#{auctionnum},#{memberid},#{translatervalue},#{mem_level},#{comment})
+                </if>
+                <if test="comment == null">
+                        (auctionnum, memberid, translatervalue,mem_level)
+                        values (#{auctionnum},#{memberid},#{translatervalue},#{mem_level})
+                </if>
+                
+                
+        </insert>
 	
 </mapper>

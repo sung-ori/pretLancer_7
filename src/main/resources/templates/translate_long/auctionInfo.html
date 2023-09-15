@@ -10,11 +10,9 @@
     <script>
         
         $(document).ready(function() {
-            let translatorId = $("#translatorId").val();
-            $("#cBt").click(function() {
-                window.close();
-            })
-            
+            $("#bidButton").click(bid);
+            readAucitonPrice();
+
             $("#rBt").click(function() {
                 window.opener.location.href="http://localhost:8888/pretLancer/long/writeRequest?memberid=" + translatorId;
                 window.close();
@@ -22,18 +20,22 @@
         });
 
         function readAucitonPrice() {
+            let acn = $("#auctionNum").val();
+
             $.ajax({
                 type:"GET",
                 url: "readAuctionPrice",
-                data: {"requestnum_l" : reqestnum},
+                data: {"auctionNum" : acn},
                 dataType:"json",
                 success: function(data) {
                     let str = ""
                     $.each(data,function(i,n) {
+                    
                         str += `<div class="col-1"></div>
                         <div class="col-10">
+                        <span>${n.mem_level} 등급</span>
                         <span>${n.memberid}</span>
-                        <span>${n.translatervalue}</span>
+                        <span>입찰가${n.translatervalue}</span>
                         <span>${n.comment}</span>
                         </div>
                         <div class="col-1"></div>
@@ -47,10 +49,25 @@
                 }
             });
         } // end of read of price
-        // TODO:    1. 리턴 값으로 옥션 넘버 받아온다.
-        //          2. 옥션 지원자 테이블에 금액 집어 넣는다.
-        //          3. 코멘트 필요한지 여부 확인.
+        // TODO: 1. 멤버 등급 불러오기 2.입찰 중복 확인하기 3.입찰가격 수정하기
         function bid() {
+            let bidCash = $("#cash").val();
+            let acn = $("#auctionNum").val();
+            
+            $.ajax({
+                type:"GET",
+                url:"bid",
+                data:{  "translatervalue" : bidCash,
+                        "auctionnum": acn
+                    },
+                success: function() {
+                    alert("입찰 완료 되었습니다.")
+                    readAucitonPrice();
+                },
+                error: function(e) {
+                    alert(JSON.stringify(e));
+                }
+            });
 
         }
     </script>
@@ -58,6 +75,7 @@
 <body>
     <div class="container">
         <input type="hidden" id="requestId" th:value="${info.memberid}">
+        <input type="hidden" id="auctionNum" th:value="${auctionNum}">
         <div class="row">
             <div class=" col-6">
                 <div class="card" >
@@ -88,7 +106,7 @@
                 </div>
 
                 <div class="col-2">
-                    <input type="button" class="btn btn-primary" value="입찰">
+                    <input type="button" id="bidButton" class="btn btn-primary" value="입찰">
                 </div>
             </div>
         </div>

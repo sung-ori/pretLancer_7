@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuctionTranslator {
     
+    int auctionnum;
     String memberid ;
-    String auctionnum;
+    String mem_level;
     String translatervalue;
-    String commentt;
+    String comment;
 }

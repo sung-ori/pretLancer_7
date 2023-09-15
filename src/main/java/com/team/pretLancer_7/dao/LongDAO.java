@@ -1,6 +1,7 @@
 package com.team.pretLancer_7.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -32,4 +33,8 @@ public interface LongDAO {
     public int selectAuctionNum(int requestnum_l);
     // 입찰가 등 정보를 맵에 불러올 거야 .
     public List<AuctionTranslator> selectAuctionInfo(int auctionNum );
+    // 경매 지원자 테이블에 경매번호, 지원자, 입찰가격을 집어넣는다. 
+    public int insertAuctionTranslator(AuctionTranslator at);
+    //
+    public int countAuctoinBid(Map<String, String> map);
 }
