@@ -1,6 +1,8 @@
 package com.team.pretLancer_7.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team.pretLancer_7.domain.AuctionTranslator;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.service.LongService;
@@ -40,7 +44,7 @@ public class LongTranslateController {
         log.error("돌아오나요? {}", translatorList);
         model.addAttribute("translatorList", translatorList);
 
-        return "translate_long/requestForm";
+        return "translate_long/translatorList";
     }
 
     @GetMapping("/translatorProfile")
@@ -93,4 +97,51 @@ public class LongTranslateController {
 
         return "redirect:/";
     }
+
+    @GetMapping("auctionList")
+    public String auctionList(Model model) {
+        List<Request_L> auctionList =  service.getAuctionList();
+
+        model.addAttribute("auctionList", auctionList);
+        return "/translate_long/auctionListForm";
+    }
+    
+    @GetMapping("readAuctionInfo")
+    public String readAuctionInfo(Model model, @RequestParam(name="requestnum_l") int requestnum_l) {
+        Request_L rql = service.readAuctionInfo(requestnum_l);
+        int auctionNum  = service.getAuctionNumber(rql.getRequestnum_l());
+
+        model.addAttribute("info", rql);
+        model.addAttribute("auctionNum", auctionNum);
+
+        return "/translate_long/auctionInfo";
+    }
+
+    @GetMapping("readAuctionPrice")
+    @ResponseBody
+    public List<AuctionTranslator> readAuctionPrice(@RequestParam(name="auctionNum") int auctionNum) {
+        List<AuctionTranslator> list ;
+        list = service.readAuctionPrice(auctionNum);
+
+        return list;
+    }
+
+    @GetMapping("bid")
+    @ResponseBody
+    public void bid(AuctionTranslator at,@AuthenticationPrincipal UserDetails user){
+        at.setMemberid(user.getUsername());
+        log.debug("컨트롤러 경매 입찰 삽입 {}", at);
+        service.setBid(at);
+    }
+
+    @GetMapping("bidValidation")
+    @ResponseBody
+    public String bidValidation(@AuthenticationPrincipal UserDetails user, String auctionNum) {
+        Map<String, String> map = new HashMap();
+        map.put("auctionnum", auctionNum);
+        map.put("memberid", user.getUsername());
+        
+        return service.bidValidation(map);
+    }
+
 }

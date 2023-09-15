@@ -2,6 +2,7 @@ package com.team.pretLancer_7.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team.pretLancer_7.dao.LongDAO;
+import com.team.pretLancer_7.dao.MemberDAO;
+import com.team.pretLancer_7.domain.AuctionTranslator;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.utill.FileService;
@@ -27,6 +30,9 @@ public class LongServiceImpl implements LongService{
 
     @Autowired
     LongDAO dao ;
+
+    @Autowired
+    MemberDAO Mdao;
 
     @Override
     public List<MyPage> getTranslatorList() {
@@ -102,5 +108,54 @@ public class LongServiceImpl implements LongService{
         return dao.insertAuction(requestnum_l);
 
     }
+    //  경매 리스트를 불러온다
+    @Override
+    public List<Request_L> getAuctionList() {
+        
+        List<Request_L> auctionList = dao.selectAuctionList();
+        return auctionList;
+    }
+    // 
+    @Override
+    public Request_L readAuctionInfo(int requestnum_l) {
+        Request_L rql  = dao.selectOneRequest_L(requestnum_l);
+        return rql;
+    }
+
+    @Override
+    public List<AuctionTranslator> readAuctionPrice(int auctionNum) {
+
+        List<AuctionTranslator> ATList = dao.selectAuctionInfo(auctionNum);
+
+        return ATList;
+    }
+
+    @Override
+    public int getAuctionNumber(int requestnum) {
+
+        int auctionNum =  dao.selectAuctionNum(requestnum);
+        return auctionNum;
+    }
+
+    @Override
+    public int setBid(AuctionTranslator at) {
+
+        at.setMem_level(Mdao.selectOne(at.getMemberid()).getMem_level());
+        
+        return dao.insertAuctionTranslator(at);
+    }
+
+    @Override
+    public String bidValidation(Map<String, String> map) {
+        AuctionTranslator result =  dao.selectAuctionBid(map);
+
+        String rst = "false";
+
+        if(result == null) {
+            rst = "true";
+        }
+        return rst;
+    }
+    
     
 }
