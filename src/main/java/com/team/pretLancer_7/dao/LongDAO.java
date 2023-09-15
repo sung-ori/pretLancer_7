@@ -36,5 +36,5 @@ public interface LongDAO {
     // 경매 지원자 테이블에 경매번호, 지원자, 입찰가격을 집어넣는다. 
     public int insertAuctionTranslator(AuctionTranslator at);
     //
-    public int countAuctoinBid(Map<String, String> map);
+    public AuctionTranslator selectAuctionBid(Map<String, String> map);
 }

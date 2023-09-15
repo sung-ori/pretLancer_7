@@ -86,8 +86,10 @@
                         (auctionnum, memberid, translatervalue,mem_level)
                         values (#{auctionnum},#{memberid},#{translatervalue},#{mem_level})
                 </if>
-                
-                
         </insert>
 	
+        <select id="selectAuctionBid" parameterType="Map" resultType="AuctionTranslator">
+                select * from PRET_AUCTIONTRANSLATER
+                where auctionnum = #{auctionnum} and memberid = #{memberid}
+        </select>
 </mapper>

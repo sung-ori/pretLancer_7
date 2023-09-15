@@ -1,6 +1,8 @@
 package com.team.pretLancer_7.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -132,5 +134,14 @@ public class LongTranslateController {
         service.setBid(at);
     }
 
-    
+    @GetMapping("bidValidation")
+    @ResponseBody
+    public String bidValidation(@AuthenticationPrincipal UserDetails user, String auctionNum) {
+        Map<String, String> map = new HashMap();
+        map.put("auctionnum", auctionNum);
+        map.put("memberid", user.getUsername());
+        
+        return service.bidValidation(map);
+    }
+
 }

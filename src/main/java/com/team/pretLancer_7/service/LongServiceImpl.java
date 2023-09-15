@@ -2,6 +2,7 @@ package com.team.pretLancer_7.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -142,6 +143,18 @@ public class LongServiceImpl implements LongService{
         at.setMem_level(Mdao.selectOne(at.getMemberid()).getMem_level());
         
         return dao.insertAuctionTranslator(at);
+    }
+
+    @Override
+    public String bidValidation(Map<String, String> map) {
+        AuctionTranslator result =  dao.selectAuctionBid(map);
+
+        String rst = "false";
+
+        if(result == null) {
+            rst = "true";
+        }
+        return rst;
     }
     
     

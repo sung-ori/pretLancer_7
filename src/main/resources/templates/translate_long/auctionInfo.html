@@ -12,6 +12,7 @@
         $(document).ready(function() {
             $("#bidButton").click(bid);
             readAucitonPrice();
+            bidValidation();
 
             $("#rBt").click(function() {
                 window.opener.location.href="http://localhost:8888/pretLancer/long/writeRequest?memberid=" + translatorId;
@@ -49,7 +50,7 @@
                 }
             });
         } // end of read of price
-        // TODO: 1. 멤버 등급 불러오기 2.입찰 중복 확인하기 3.입찰가격 수정하기
+        // TODO:  2.입찰 중복 확인하기 3.입찰가격 수정하기
         function bid() {
             let bidCash = $("#cash").val();
             let acn = $("#auctionNum").val();
@@ -68,7 +69,28 @@
                     alert(JSON.stringify(e));
                 }
             });
+        }
 
+        function bidValidation(){
+            let acn = $("#auctionNum").val();
+
+            $.ajax({
+                type:"GET",
+                url:"bidValidation",
+                data:{"auctionNum" : acn},
+                dataType:"text",
+                success: function(data) {
+                    
+                    if(data == "false") {
+                        $("#bidButton").val("입찰 완료");
+                        $("#bidButton").attr("class","btn btn-danger");
+                        $("#bidButton").attr("disabled","true");
+                    }
+                },
+                error: function(e) {
+                    alert(JSON.stringify(e));
+                }
+            });
         }
     </script>
 </head>
@@ -106,7 +128,7 @@
                 </div>
 
                 <div class="col-2">
-                    <input type="button" id="bidButton" class="btn btn-primary" value="입찰">
+                    <input type="button" id="bidButton" class="btn btn-primary " value="입찰">
                 </div>
             </div>
         </div>

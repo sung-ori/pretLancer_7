@@ -1,6 +1,7 @@
 package com.team.pretLancer_7.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +28,6 @@ public interface LongService {
     // 입찰 정보 삽입
     public int setBid(AuctionTranslator at);
     // 중복 입찰 확인
-    // public int 
+    public String bidValidation(Map<String, String> map);
 
 }
