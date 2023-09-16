@@ -32,4 +32,6 @@ public interface LongService {
 
     public List<Request_L> myAuctionList (String userid);
     
+    public int successfulBid(Map<String, String> map);
+
 }

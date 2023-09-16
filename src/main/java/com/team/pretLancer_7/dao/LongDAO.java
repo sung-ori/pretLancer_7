@@ -37,4 +37,6 @@ public interface LongDAO {
     public int insertAuctionTranslator(AuctionTranslator at);
     //
     public AuctionTranslator selectAuctionBid(Map<String, String> map);
+    //
+    public int updateRequest(Map<String, String> map);
 }

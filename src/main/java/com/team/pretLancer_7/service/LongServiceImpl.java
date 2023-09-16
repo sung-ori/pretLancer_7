@@ -109,7 +109,7 @@ public class LongServiceImpl implements LongService{
         request_L.setSavedrfile(savedfile);
 
         
-        dao.insertOneRequstAuction(request_L);
+        dao.insertOneRequst(request_L);
 
         int requestnum_l = dao.selectMaxRequestnum();
 
@@ -125,6 +125,15 @@ public class LongServiceImpl implements LongService{
     public List<Request_L> getAuctionList() {
         
         List<Request_L> auctionList = dao.selectAuctionList();
+
+        int idx = 0;
+
+        for(Request_L rql : auctionList) {
+            if(!rql.getRequestcondition_l().equals("N")) {
+                auctionList.remove(idx);
+            }   
+            idx++;
+        }
         return auctionList;
     }
     // 
@@ -172,17 +181,25 @@ public class LongServiceImpl implements LongService{
     @Override
     public List<Request_L> myAuctionList(String userid) {
         List<Request_L> list = dao.selectAuctionList();
-        List<Request_L> myAuctionList =  new ArrayList();
+        ArrayList<Request_L> myAuctionList = new ArrayList();;
 
         int idx = 0;
-
         for(Request_L auction :list) {
-            if (auction.getMemberid() == userid) {
-                myAuctionList.add(auction);
+            if (auction.getMemberid().equals(userid)) {
+                myAuctionList.add(idx,auction);
+                idx++;
             }
         }
-
+        
         return myAuctionList;
+    }
+
+    @Override
+    public int successfulBid(Map<String, String> map) {
+
+        String cash = dao.selectAuctionBid(map).getTranslatervalue();
+        map.put("cash", cash);
+        return dao.updateRequest(map);
     }
     
     

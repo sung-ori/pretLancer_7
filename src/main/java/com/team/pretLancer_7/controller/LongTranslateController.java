@@ -99,7 +99,7 @@ public class LongTranslateController {
     }
 
     @GetMapping("auctionList")
-    public String auctionList(Model model) {
+    public String auctionList(Model model,@AuthenticationPrincipal UserDetails user) {
         List<Request_L> auctionList =  service.getAuctionList();
 
         model.addAttribute("auctionList", auctionList);
@@ -148,6 +148,20 @@ public class LongTranslateController {
     public String myAuctionList(@AuthenticationPrincipal UserDetails user, Model model) {
         List<Request_L> myAuctionList =  service.myAuctionList(user.getUsername());
         model.addAttribute("myAuctionList", myAuctionList);
+        log.debug("컨트롤러에 오는 나의 옥션 리스트 {}", myAuctionList);
         return "/translate_long/myAuctionList";
+    }
+
+    @GetMapping("successfulBid")
+    @ResponseBody
+    public void successfulBid(String biderid,String requestnum, String auctionnum) {
+        
+        Map<String, String> map = new HashMap() ;
+        map.put("memberid",biderid);
+        map.put("requestnum", requestnum);
+        map.put("auctionnum",auctionnum);
+        int rst = service.successfulBid(map);
+
+        
     }
 }

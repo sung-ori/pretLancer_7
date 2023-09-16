@@ -32,20 +32,19 @@
 
         <insert id="insertOneRequst" parameterType="Request_L">
                 insert into pret_request_L 
-                (requestnum_l, memberid, memberid2,title, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr,commentpage, startlang, endlang)
-                values 
-                (PRET_REQ_L_SEQ.nextval, #{memberid}, #{memberid2}, #{title}, #{category}, #{enddate}, #{enddate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr},#{commentpage}, #{startlang}, #{endlang} )
+                <if test="memberid2 != null">
+                        (requestnum_l, memberid, memberid2,title, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr,commentpage, startlang, endlang)
+                        values 
+                        (PRET_REQ_L_SEQ.nextval, #{memberid}, #{memberid2}, #{title}, #{category}, #{enddate}, #{enddate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr},#{commentpage}, #{startlang}, #{endlang} )
+                </if>
+                <if test="memberid2 == null">
+                        (requestnum_l, memberid, title, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr,commentpage, startlang, endlang)
+                        values 
+                        (PRET_REQ_L_SEQ.nextval, #{memberid}, #{title}, #{category}, #{enddate}, #{workdate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr},#{commentpage}, #{startlang}, #{endlang} )
+                </if>
         </insert>
 
-        <!-- 경매 쪽으로 요청함. -->
-        <insert id="insertOneRequstAuction" parameterType="Request_L">
-                <!-- 이곳에 INSERT 쿼리 작성 -->
-                insert into pret_request_L
-                (requestnum_l, memberid, title, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr,commentpage, startlang, endlang)
-                values
-                (PRET_REQ_L_SEQ.nextval, #{memberid},#{title} #{category}, #{enddate}, #{workdate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr},#{commentpage}, #{startlang}, #{endlang} )
-        </insert>
-
+        <!-- 지금 삽입한 요청 번호 -->
         <select id="selectMaxRequestnum" resultType="int">
                 select max(requestnum_l) from pret_request_l
         </select>
@@ -55,12 +54,13 @@
                 insert into pret_auction (auctionnum,requestlnum)
                 values (PRET_AUCTION_SEQ.nextval, #{requestnum})
         </insert>
+
         <!-- 경매 리스트 출력 -->
         <select id="selectAuctionList" resultType="Request_L">
                 select * from pret_request_l
-                where REQUESTCONDITION_L  requestnum_l in (select requestlnum from pret_auction)
+                where requestnum_l in (select requestlnum from pret_auction)
         </select>
-
+        
         <select id="selectOneRequest_L" parameterType="int" resultType="Request_L">
                 select * from pret_request_l 
                 where requestnum_l = #{requestnum_l}
@@ -92,4 +92,15 @@
                 select * from PRET_AUCTIONTRANSLATER
                 where auctionnum = #{auctionnum} and memberid = #{memberid}
         </select>
+
+        
+
+        <!-- 낙찰 -->
+        <update id="updateRequest" parameterType="Map">
+                update pret_request_l
+                set
+                memberid2 = #{memberid}, cash = #{cash}, REQUESTCONDITION_L = 'T'
+                where requestnum_l = #{requestnum}
+        </update>
+        
 </mapper>
