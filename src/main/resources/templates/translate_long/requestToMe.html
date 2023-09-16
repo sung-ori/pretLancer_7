@@ -7,9 +7,9 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <title>내가 신청한 경매 리스트</title>
+    <title>번역가에게 온 요청리스트</title>
     <script>
-      // auctionListForm의 함수와 완전히 같은 함수. js 파일로 옮길 것
+      
       $(document).ready(function() {
             $(".btn-primary").click(openAuctionInfo);
             // $(".title").click(openAuctionInfo);
@@ -31,9 +31,10 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             
         });
     </script>
+    <!-- TODO: 번역가가 보는 요청 목록 / 요청 상세보기 /  수락 거절 버튼  / 경매 유찰 시 다시 올리기 / 스프링부트 배치, 베세지 전달할 방법 찾기 -->
 </head>
 <body>
-    <h1>내가 신청한 경매 리스트</h1>
+    <h1>번역가에게 온 요청 리스트</h1>
     <div class="container">
       <table class="table table-striped">
         <thead>
@@ -41,8 +42,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             <th scope="col">#</th>
             <th scope="col">카테고리</th>
             <th scope="col">제목</th>
-            <th scope="col">상태</th>
-            <th scope="col">경매 마감 일자</th>
+            <th scope="col">작업 마감 일자</th>
             <th scope="col">버튼</th>
           </tr>
         </thead>
