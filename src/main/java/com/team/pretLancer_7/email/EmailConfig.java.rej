@@ -1,0 +1,9 @@
+diff a/src/main/java/com/team/pretLancer_7/email/EmailConfig.java b/src/main/java/com/team/pretLancer_7/email/EmailConfig.java	(rejected hunks)
+@@ -16,6 +16,7 @@
+         mailSender.setHost("smtp.gmail.com");
+         mailSender.setPort(587);
+         mailSender.setUsername("projectSeven0305@gmail.com");
++        mailSender.setPassword("vfauzfcqkdmbadmc");
+         
+         Properties props = mailSender.getJavaMailProperties();
+         props.put("mail.smtp.auth", "true");

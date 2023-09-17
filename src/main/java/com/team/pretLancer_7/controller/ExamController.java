@@ -1,3 +1,4 @@
+//http://localhost:8888/pretLancer/translated/tutorial
 package com.team.pretLancer_7.controller;
 
 import javax.servlet.http.HttpSession;
