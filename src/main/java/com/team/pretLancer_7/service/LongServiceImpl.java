@@ -199,7 +199,36 @@ public class LongServiceImpl implements LongService{
 
         String cash = dao.selectAuctionBid(map).getTranslatervalue();
         map.put("cash", cash);
-        return dao.updateRequest(map);
+        return dao.updateRequestAuction(map);
+    }
+
+    @Override
+    public List<Request_L> getRequestToMe(String userid) {
+        return dao.selectRequestToMe(userid);
+    }
+
+    @Override
+    public Request_L readRequestInfo(int requestnum_l) {
+
+        return dao.selectOneRequest_L(requestnum_l);
+    }
+
+    @Override
+    public String resoponseToRequest(Map<String, String> map) {
+        
+        String result = "";
+
+        if(map.get("message").equals("accept")) {
+            dao.updateRequestResponse(map);
+            result = "accept";
+        
+        }
+
+        if(map.get("message").equals(("refuse"))) {
+            dao.updateRequestResponse(map);
+                result = "refuse";
+        }
+        return result;
     }
     
     

@@ -9,12 +9,12 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <title>번역가에게 온 요청리스트</title>
     <script>
-      
+    //   비슷해보이지만 경매 정보 와 다른 코드이다. 
       $(document).ready(function() {
-            $(".btn-primary").click(openAuctionInfo);
-            // $(".title").click(openAuctionInfo);
+            $(".btn-primary").click(openRequestInfo);
+            // $(".title").click(openRequestInfo);
 
-            function openAuctionInfo() {
+            function openRequestInfo() {
                 let width = window.screen.width;
                 let height = window.screen.height;
 
@@ -26,12 +26,12 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 
                 let requestnum =  $(this).attr("id");
 
-                window.open("http://localhost:8888/pretLancer/long/readAuctionInfo?requestnum_l="+requestnum ,'경매 입찰 페이지', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
+                window.open("http://localhost:8888/pretLancer/long/readRequestInfo?requestnum_l="+requestnum ,'요청 상세 페이지', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
             }
             
         });
     </script>
-    <!-- TODO: 번역가가 보는 요청 목록 / 요청 상세보기 /  수락 거절 버튼  / 경매 유찰 시 다시 올리기 / 스프링부트 배치, 베세지 전달할 방법 찾기 -->
+    
 </head>
 <body>
     <h1>번역가에게 온 요청 리스트</h1>
@@ -40,6 +40,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
         <thead>
           <tr>
             <th scope="col">#</th>
+            <th scope="col">요청자 아이디</th>
             <th scope="col">카테고리</th>
             <th scope="col">제목</th>
             <th scope="col">작업 마감 일자</th>
@@ -47,33 +48,24 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
           </tr>
         </thead>
         <tbody>
-          <tr th:each="auction, index : ${myAuctionList}">
+          <tr th:each="request, index : ${list}">
             <th scope="row" th:text="${index.count}"></th>
 
-            <td th:text="${auction.category}">카테고리</td>
+            <td th:text="${request.memberid}">요청자 아이디</td>
+
+            <td th:text="${request.category}">카테고리</td>
             
-            <!-- 낙찰 하면 낙찰 페이지에 접근 못함. -->
-            <td th:if="${auction.requestcondition_l == 'N' }">
-              <a class="title" th:id="${auction.requestnum_l}" th:text="${auction.title}"></a>
-            </td>
-            <td th:if="${auction.requestcondition_l != 'N' }" class="nontitle" th:id="${auction.requestnum_l}" th:text="${auction.title}" aria-disabled="true">
+            <!-- 요청의 제목 -->
+            <td class="nontitle" th:id="${request.requestnum_l}" th:text="${request.title}" aria-disabled="true">
             </td>
 
-            <!-- 번역 진행 상태 -->
-            <td th:if="${auction.requestcondition_l == 'N'}">낙찰 전</td>
-            <td th:if="${auction.requestcondition_l == 'T'}">진행중</td>
-            <td th:if="${auction.requestcondition_l == 'Y'}">성공</td>
-            <td th:if="${auction.requestcondition_l == 'F'}">실패</td>
-            <td th:text="${auction.enddate}">마감일</td>
-
+            <!-- 마감일 -->
+            <td th:text="${request.enddate}">마감일</td>
             <!-- 버튼 -->
-            <td th:if="${auction.requestcondition_l == 'N'}">
-              <a  class="btn btn-primary btn-sm" th:id="${auction.requestnum_l}" href="#">낙찰하러 가기</a>
+            <td>
+              <a  class="btn btn-primary btn-sm" th:id="${request.requestnum_l}" href="#">요청 상세보기</a>
             </td>
-            
-            <td th:if="${auction.requestcondition_l == 'F'}">
-              <input type="button" class="btn btn-danger btn-sm" value="경매 다시 올리기" th:id="${auction.requestnum_l}" >
-            </td>
+
           </tr>
         </tbody>
       </table>

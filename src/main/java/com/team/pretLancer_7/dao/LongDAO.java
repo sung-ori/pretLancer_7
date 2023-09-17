@@ -35,8 +35,12 @@ public interface LongDAO {
     public List<AuctionTranslator> selectAuctionInfo(int auctionNum );
     // 경매 지원자 테이블에 경매번호, 지원자, 입찰가격을 집어넣는다. 
     public int insertAuctionTranslator(AuctionTranslator at);
-    //
+    // 입찰 정보를 출력
     public AuctionTranslator selectAuctionBid(Map<String, String> map);
-    //
-    public int updateRequest(Map<String, String> map);
+    //낙찰 하면 낙찰한 정보대로 요청테이블의 정보를 수정
+    public int updateRequestAuction(Map<String, String> map);
+    // 나에게 온 요청 리스트 출력
+    public List<Request_L> selectRequestToMe(String userid) ;
+    // 요청 수락 or  거절
+    public int updateRequestResponse(Map<String, String> map);
 }
