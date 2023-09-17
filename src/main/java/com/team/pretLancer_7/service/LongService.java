@@ -10,7 +10,7 @@ import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 
 public interface LongService {
-    public List<MyPage> getTranslatorList();
+    public List<MyPage> getTranslatorList(String userId);
 
     public MyPage getOneMyPage(String memberid);
 
@@ -29,5 +29,16 @@ public interface LongService {
     public int setBid(AuctionTranslator at);
     // 중복 입찰 확인
     public String bidValidation(Map<String, String> map);
+    // 내가 신청한 경매 리스트 
+    // TODO: 이거 그냥 요청이랑 경매 다 출력하고 페이지에서 동작 바꾸는게 페이지가 줄어들 듯, 
+    public List<Request_L> myAuctionList (String userid);
+    // 낙찰
+    public int successfulBid(Map<String, String> map);
+    // 유저에게 온 요청들을 출력
+    public List<Request_L> getRequestToMe (String userid);
 
+    public Request_L readRequestInfo(int requestnum_l);
+    
+    public String resoponseToRequest(Map<String, String> map);
+    
 }

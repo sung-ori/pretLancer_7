@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +31,10 @@
         <form id="form" th:action="@{/long/writeAuction}" method="POST" enctype="multipart/form-data">
             
             <input class="form-control " type="text" value="장문 경매 신청서" aria-label="readonly input example" readonly>
-            
+
+            <label for="title" class="form-label">제목</label>
+            <input name="title" type="text" id="title" class="form-control " >
+
             <label for="category" class="form-label">카테고리 선택</label>
             <select name="category" id="category" class="form-select" aria-label="Default select example">
                 <option selected>카테고리를 선택하세요.</option>
@@ -46,6 +50,9 @@
             <label for="date" class="form-label">요청 마감일</label>
             <input id="date" name="workdate" class="form-control form-control-sm" type="date" >
             
+            <label for="title" class="form-label">페이지 및 글자 수</label>
+            <input name="commentpage" type="text" id="commentpage" class="form-control " >
+
             <div class="mb-3">
                 <label for="comment" class="form-label">번역 요청 설명</label>
                 <textarea name="comment_lr" class="form-control" id="comment" rows="15" placeholder="페이지 및 글자 수 등 번역 요청물에 대한 자세한 설명을 적어주세요."></textarea>

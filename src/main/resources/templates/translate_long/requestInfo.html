@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <title>요청 상세정보</title>
+    <script>
+        $(document).ready(function() {
+            $(".btn").click(requestResponse);
+        });
+
+        function requestResponse() {
+            let rql = $("#requestnum").val();
+            let message = $(this).attr("id");
+            
+            if(message == "accept") {
+                let result = confirm("수락 하시겠습니까?");
+                if(!result) {
+                    return;
+                }
+            } 
+            if(message == "refuse"){
+                let result = confirm("거절하시겠습니까?");
+                if(!result) {
+                    return;
+                }
+            }
+            alert("true");
+
+            $.ajax({
+                type:"GET",
+                url:"requestResponse",
+                data: { "requestnum" : rql,
+                        "message" : message},
+                dataType: "text",
+                success: function(result) {
+                    if(result == "accept") {
+                        alert("요청을 수락했습니다!");
+                    }
+                    else if(result == "refuse") {
+                        alert("요청을 거절했습니다.");
+                    }
+
+                    window.opener.location.reload();
+                    window.close();
+                },
+                error: function(e) {
+                    alert(JSON.stringify(e));
+                }
+             });
+        }
+
+        function refuse() {
+
+        }
+    </script>
+</head>
+<body>
+    <h1>요청 상세 정보</h1>
+
+    <input type="hidden" id="requestnum" th:value="${request.requestnum_l}">
+    <div class="container">
+        <div>
+            <span>요청 제목 : </span>
+            <span class="h2 text-center" th:text="${request.title}">요청 제목</span>
+        </div>
+        
+        <div>
+            <span>카테고리 : </span>
+            <span th:text="${request.category}">카테고리</span>
+        </div>
+        <div>
+            <span>마감 날짜 : </span>
+            <span th:text="${request.enddate}"></span>
+        </div>
+        <div>
+            <span>글자 및 페이지 수 : </span>
+            <span th:text="${request.commentpage}"></span>
+        </div>
+        <div>
+            <div>요청 상세 설명 : </div>
+            <div th:text="${request.comment_lr}"></div>
+        </div>
+        <div>
+            <span>요청 금액 : </span>
+            <span th:text="${request.cash}"></span>
+        </div>
+        <div>
+            <span>시작 언어 : </span>
+            <span th:if="${request.startlang == 'KR'}">한국어</span> 
+            <span th:if="${request.startlang == 'JP'}">일본어</span> 
+            <span th:if="${request.startlang == 'EN'}">영어</span> 
+        </div>
+        <div>
+            <span>도착 언어 : </span>
+            <span th:if="${request.endlang == 'KR'}">한국어</span> 
+            <span th:if="${request.endlang == 'JP'}">일본어</span> 
+            <span th:if="${request.endlang == 'EN'}">영어</span> 
+        </div>
+
+            <button type="button" id="accept" class="btn btn-primary">수락</button>
+            <button type="button" id="refuse" class="btn btn-danger">거절</button>
+    </div>
+    
+</body>
+</html>

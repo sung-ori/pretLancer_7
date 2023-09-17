@@ -39,8 +39,8 @@ public class LongTranslateController {
     }
 
     @GetMapping("/request")
-    public String requestForm(Model model) {
-        List<MyPage> translatorList = service.getTranslatorList();
+    public String requestForm(Model model,@AuthenticationPrincipal UserDetails user) {
+        List<MyPage> translatorList = service.getTranslatorList(user.getUsername());
         log.error("돌아오나요? {}", translatorList);
         model.addAttribute("translatorList", translatorList);
 
@@ -99,7 +99,7 @@ public class LongTranslateController {
     }
 
     @GetMapping("auctionList")
-    public String auctionList(Model model) {
+    public String auctionList(Model model,@AuthenticationPrincipal UserDetails user) {
         List<Request_L> auctionList =  service.getAuctionList();
 
         model.addAttribute("auctionList", auctionList);
@@ -144,4 +144,51 @@ public class LongTranslateController {
         return service.bidValidation(map);
     }
 
+    @GetMapping("/myAuctionList")
+    public String myAuctionList(@AuthenticationPrincipal UserDetails user, Model model) {
+        List<Request_L> myAuctionList =  service.myAuctionList(user.getUsername());
+        model.addAttribute("myAuctionList", myAuctionList);
+        log.debug("컨트롤러에 오는 나의 옥션 리스트 {}", myAuctionList);
+        return "/translate_long/myAuctionList";
+    }
+
+    @GetMapping("successfulBid")
+    @ResponseBody
+    public void successfulBid(String biderid,String requestnum, String auctionnum) {
+        
+        Map<String, String> map = new HashMap() ;
+        map.put("memberid",biderid);
+        map.put("requestnum", requestnum);
+        map.put("auctionnum",auctionnum);
+        int rst = service.successfulBid(map);
+
+    }
+
+    @GetMapping("/requestToMe")
+    public String requestToMe(Model model, @AuthenticationPrincipal UserDetails user) {
+        List<Request_L> list =  service.getRequestToMe(user.getUsername());
+
+        model.addAttribute("list", list);
+
+        return "/translate_long/requestToMe";
+
+    }
+    
+    @GetMapping("/readRequestInfo")
+    public String readRequestInfo(Model model, @RequestParam(name = "requestnum_l") int requestnum_l) {
+
+        Request_L request = service.readRequestInfo(requestnum_l);
+        model.addAttribute("request", request);
+        return "/translate_long/requestInfo";
+    }
+
+    @GetMapping("/requestResponse")
+    @ResponseBody
+    public String requestResponse(String requestnum, String message) {
+        log.debug("컨트롤러 들어오나 확인");
+        Map<String, String> map = new HashMap();
+        map.put("requestnum", requestnum);
+        map.put("message", message);
+        return service.resoponseToRequest(map);
+    }
 }

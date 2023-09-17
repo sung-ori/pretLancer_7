@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,6 +34,9 @@
             <input type="hidden" name="memberid2" th:value="${translatorId}">
             <input class="form-control " type="text" th:value="|${translatorId} 님에게 장문 번역을 요청합니다.|" aria-label="readonly input example" readonly>
             
+            <label for="title" class="form-label">제목</label>
+            <input name="title" type="text" id="title" class="form-control" >
+
             <label for="category" class="form-label">카테고리 선택</label>
             <select name="category" id="category" class="form-select" aria-label="Default select example">
                 <option selected>카테고리를 선택하세요.</option>
@@ -44,6 +48,9 @@
 
             <label for="date" class="form-label">요청 마감일</label>
             <input id="date" name="enddate" class="form-control form-control-sm" type="date" >
+            
+            <label for="title" class="form-label">페이지 및 글자 수</label>
+            <input name="commentpage" type="text" id="commentpage" class="form-control " >
             
             <div class="mb-3">
                 <label for="comment" class="form-label">번역 요청 설명</label>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,11 +14,10 @@
             $("#bidButton").click(bid);
             readAucitonPrice();
             bidValidation();
+            $(document).on("click",".btn-warning", successfulBid);
 
-            $("#rBt").click(function() {
-                window.opener.location.href="http://localhost:8888/pretLancer/long/writeRequest?memberid=" + translatorId;
-                window.close();
-            })
+
+            
         });
 
         function readAucitonPrice() {
@@ -38,12 +38,18 @@
                         <span>${n.memberid}</span>
                         <span>입찰가${n.translatervalue}</span>
                         <span>${n.comment}</span>
+                        <span><input type="button" value="낙찰" name="${n.memberid}" class="btn btn-warning rounded-pill" style="display : none"></span>
                         </div>
                         <div class="col-1"></div>
                         `;
-
-                        $("#auctionPrice").html(str);
                     });
+                    // 아무도 입찰 안했을 때 메세지
+                    if(str == "") {
+                            str += "<h1> 아직 입찰한 번역가가 존재하지 않습니다 </h1>";
+                        }
+                        $("#auctionPrice").html(str);
+                        btnDisplay();
+
                 },
                 error: function(e) {
                     alert(JSON.stringify(e));
@@ -64,6 +70,7 @@
                 success: function() {
                     alert("입찰 완료 되었습니다.")
                     readAucitonPrice();
+                    bidValidation();
                 },
                 error: function(e) {
                     alert(JSON.stringify(e));
@@ -92,11 +99,34 @@
                 }
             });
         }
+        function successfulBid() {
+            let rst = confirm("정말 낙찰 하시겠습니까?");
+            if(!rst) return;
+            let biderid = $(this).attr("name");
+            let rql = $("#requestNum").val();
+            let acn = $("#auctionNum").val();
+            $.ajax({
+                type:"GET",
+                url:"successfulBid",
+                data:{  "biderid" : biderid,
+                        "requestnum" : rql,
+                        "auctionnum" : acn},
+                success: function() {
+                    alert("낙찰!");
+                    window.opener.location.reload();
+                    window.close();
+                },
+                error: function(e) {
+                    alert(JSON.stringify(e));
+                }
+            });
+        }
     </script>
 </head>
 <body>
     <div class="container">
         <input type="hidden" id="requestId" th:value="${info.memberid}">
+        <input type="hidden" id="requestNum" th:value="${info.requestnum_l}">
         <input type="hidden" id="auctionNum" th:value="${auctionNum}">
         <div class="row">
             <div class=" col-6">
@@ -118,23 +148,29 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-6">
+            
+            <div class="col-6" th:if="${info.requestcondition_l == 'N'}">
                 <div id="auctionPrice">
-
+                    
                 </div>
-                <div class="col-8">
+            
+                <div th:if="${#authentication.name != info.memberid}" class="col-8">
                     <input name="cash" type="text" id="cash" class="form-control text-end " >
                 </div>
 
-                <div class="col-2">
-                    <input type="button" id="bidButton" class="btn btn-primary " value="입찰">
+                <div th:if="${#authentication.name != info.memberid}" class="col-2">
+                    <input type="button" id="bidButton" class="btn btn-primary  " value="입찰">
                 </div>
             </div>
+
+            
         </div>
-        
-        
-        
     </div>
+    
+    <script th:if="${#authentication.name == info.memberid}">
+        function btnDisplay() {
+            $(".btn-warning").show();
+        }
+    </script>
 </body>
 </html>

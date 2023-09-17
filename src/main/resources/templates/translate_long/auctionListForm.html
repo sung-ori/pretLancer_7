@@ -10,14 +10,24 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <title>auctionList</title>
     <script>
-      $(document).ready(function() {
+        // let width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        // let height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        $(document).ready(function() {
             $(".btn").click(openAuctionInfo);
 
             function openAuctionInfo() {
-                
+                let width = window.screen.width;
+                let height = window.screen.height;
+
+                let openWidth = width/2;
+                let openHeight = height/2;
+
+                let top = height/4;
+                let left = width/4;
+
                 let requestnum =  $(this).attr("id");
 
-                window.open("http://localhost:8888/pretLancer/long/readAuctionInfo?requestnum_l="+requestnum ,'경매 입찰 페이지', ' width=500, height=800, top=200, left=600');
+                window.open("http://localhost:8888/pretLancer/long/readAuctionInfo?requestnum_l="+requestnum ,'경매 입찰 페이지', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
             }
             
         });
@@ -78,7 +88,10 @@
                     <h3>입찰금액</h3>
                     <h5 class="card-text"  > [[${auction.cash}]]</h5>
 
-                    <a th:id="${auction.requestnum_l}" class="btn btn-primary">입찰하러 가기</a>
+                    <a th:id="${auction.requestnum_l}" class="btn btn-primary"
+                    th:if="${#authentication.name} != ${auction.memberid}" >입찰하러 가기</a>
+                    <a th:id="${auction.requestnum_l}" class="btn btn-danger"
+                    th:if="${#authentication.name} == ${auction.memberid}" >나의 경매</a>
                 </div>
             
             </div>

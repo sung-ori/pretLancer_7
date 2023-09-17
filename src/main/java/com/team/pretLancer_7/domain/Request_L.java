@@ -16,6 +16,8 @@ public class Request_L {
 
 	String category;            // 카테고리 (도메인 지정) / 논문, 
 
+	String title;				// 경매 요청의 제목
+
 	String requestcondition_l;	// ('N', 'T', 'Y', 'F')), 의뢰상황 아직/ 하는중/ 성공/ 실패
     
 	String inputdate;	        // 의뢰 날짜
