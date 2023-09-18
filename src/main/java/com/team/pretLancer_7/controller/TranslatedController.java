@@ -40,6 +40,12 @@ public class TranslatedController {
 	public String insertTS(@AuthenticationPrincipal UserDetails user, Model m) {
 		// 의뢰를 받았을 시 의뢰테이블에서 가장 최근의 글을 하나 선택
 		Request_S rs = RService.choiceRS();
+		
+		 if (rs == null) {
+		        // rs가 null이면 값을 찾지 못한 경우로 간주하고 에러 페이지로 리다이렉션
+		        return "errorForm/NoTranslated";
+		 }
+		
 		rs.setMemberid2(user.getUsername());
 		log.error("Request 객체 {}",rs);
 		
