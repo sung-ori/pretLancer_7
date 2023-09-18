@@ -294,6 +294,7 @@ CREATE TABLE PRET_REQUEST_L (
 	MEMBERID	        VARCHAR2(20)	NOT NULL REFERENCES PRET_MEMBER(MEMBERID),      -- 의뢰자 아이디
 	MEMBERID2	        VARCHAR2(20)	REFERENCES PRET_MEMBER(MEMBERID),               -- 번역자 아이디
 	CATEGORY	        VARCHAR2(50),                                                   -- 카테고리 (도메인 지정)
+    TITLE               VARCHAR2(200),
 	REQUESTCONDITION_L	VARCHAR2(2)	    DEFAULT 'N' CHECK (REQUESTCONDITION_L IN ('N', 'T' , 'Y', 'F')), -- 의뢰상황
 	INPUTDATE	        DATE	        DEFAULT SYSDATE,                                -- 의뢰 날짜
 	ENDDATE	            DATE	        DEFAULT SYSDATE+10,                             -- 만료 날짜
@@ -337,10 +338,11 @@ CREATE TABLE PRET_AUCTION (
 -- 17. 경매 지원자 테이블
 
 CREATE TABLE PRET_AUCTIONTRANSLATER (
-	MEMBERID	    VARCHAR2(20)    NOT NULL REFERENCES PRET_MEMBER(MEMBERID),      -- 지원자 아이디
 	AUCTIONNUM  	NUMBER	        NOT NULL REFERENCES PRET_AUCTION(AUCTIONNUM),   -- 지원한 경매의 고유 번호
+	MEMBERID	    VARCHAR2(20)    NOT NULL REFERENCES PRET_MEMBER(MEMBERID),      -- 지원자 아이디
+    MEM_LEVEL	    VARCHAR2(10)                                                    
 	TRANSLATERVALUE	NUMBER	        NOT NULL,                                       -- 입찰한 가격
-	COMMENTT	    VARCHAR2(1000)                                                  -- 코멘트
+	COMMENT 	    VARCHAR2(1000)                                                  -- 코멘트
 );
 
 -- 18. 커뮤니티 신고 게시판
@@ -512,6 +514,7 @@ CREATE TABLE PRET_BOARD_POLICE (
 何事も成功するまでは不可能に思えるものである。
 성공 전에는 무엇이든 불가능해보이는 것이다.
 
+
 --문의 테이블(관리자게시판으로 문의가 보이는 시스템)
 create table pret_qna (
     qnanum          number primary key, -- 문의 번호(시퀀스 이용)
@@ -525,3 +528,13 @@ create table pret_qna (
 
 --문의 테이블 번호 시퀀스
 create sequence qna_seq;
+
+-- 경매 지원가 테이블 수정문.
+ALTER TABLE PRET_AUCTIONTRANSLATER RENAME COLUMN COMMENTT TO "COMMENT";
+
+ALTER TABLE PRET_AUCTIONTRANSLATER
+ADD MEM_LEVEL VARCHAR2(10);
+
+-- 장문 요청 테이블 
+alter TABLE PRET_REQUEST_L add title varchar2(200);
+

@@ -27,15 +27,82 @@
 		.b {font-weight: bold;}
     </style>
     
-</head>
+    <style>
+		.background{
+		    background-image: url(./img/face.jpg);
+		    background-size: cover;
+		    width: 600px;
+		    height: 600px;
+		    display: flex;
+		    align-items: center;
+		    justify-content: center;
+		}
+		.font-color{
+			color: white;
+		}
+		.backdrop{
+		    width: 300px;
+		    height: 300px;
+		    background-color: rgba(0,0,128,0.1);
+		    border-radius: 30px;
+		}
+    
+    </style>
+    <style>
+    	.headerBar {
+    	  background: #2B2B90;
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  flex-direction: column;
+		  text-align: center;
+		}
+    </style>
+    
+    <style>
+    	.buttonFixed{
+    		position: fixed;
+    		right: 260px;
+    		top: 0px;
+    	}
+    </style>
 
+</head>
+<!--  <a class="navbar-brand col-lg-3 me-0" href="#">Centered nav</a>-->
 <body>
-	<nav class="navbar navbar-dark sticky-top navbar-expand-lg rounded navbar-expand-md" style="z-index: 10; background-color: #00ff0000; color: black;">
-		<div class="container-fluid">
-	        <div class="collapse navbar-collapse d-lg-flex custom-centering" >
-	          <!--  <a class="navbar-brand col-lg-3 me-0" href="#">Centered nav</a>-->
-	          <div class="container p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3 custom-width" >
-		           <ul class="navbar-nav col-lg-10 d-flex">
+	
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-between py-2 fixed-top headerBar" style="z-index: 10;">
+        <div class="collapse navbar-collapse d-lg-flex">
+            <div class="row">
+                <div class="row headBar font-color">
+                    <div class="col-md-3 col-sm-3 b">프로젝트 마감기한</div>
+                    <div class="col-md-3 col-sm-3 b">1레벨</div>
+                    <div class="col-md-3 col-sm-3 b">OOO님</div>
+                    <div class="col-md-3 col-sm-3 b">0p</div>
+                </div>
+                <div class="row headBar font-color">
+                    <div class="col-md-3 col-sm-3 b">23/08/25 00:00</div>
+                    <div class="col-md-3 col-sm-3 b">0</div>
+                    <div class="col-md-3 col-sm-3 b">===========</div>
+                    <div class="col-md-3 col-sm-3 b">0p</div>
+                </div>
+            </div>
+            <div class="buttonFixed" >
+                <button class="btn btn-primary"><i class="bi bi-bell-fill" style="font-size: 2em;"></i> </button>
+                <button class="btn btn-primary"><i class="bi bi-chat-fill" style="font-size: 2em;"></i></button>
+            </div>
+        </div>
+    </header>
+</div>
+	
+	<!--  <div class="container" style="padding-bottom: 0; margin-bottom: 0;">
+	    <header class="d-flex flex-wrap justify-content-center py-3 fixed-top headerBar" style="z-index: 10; padding-bottom: 0; margin-bottom: 0;">
+	        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+	            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+	            <span class="fs-4">Simple header</span>
+	        </a>
+        <ul class="navbar-nav col-lg-10 d-flex">
 		          	 	<div class="row move-right-50" style="backround-color: #fff;">
 		          	 		<div class="row">
 		          	 			<div class="col-md-3 col-sm-3 b">프로젝트 마감기한</div>
@@ -51,14 +118,11 @@
 		          			</div>
 		          		</div> 
 		          	</ul>
-	          	</div>
-	          	<button class="btn btn-primary me-2"><i class="bi bi-bell-fill" style="font-size: 3em;"></i> </button>
-	          	<button class="btn btn-primary"><i class="bi bi-chat-fill" style="font-size: 3em;"></i></button>
-	          </div>
-	          <div class="ms-auto">
-	          </div>
-	      </div>
-	</nav>
+		    </header>
+		</div> -->
+
+
+
     <div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">

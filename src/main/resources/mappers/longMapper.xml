@@ -16,7 +16,7 @@
                 WHERE m.mem_level like 'A' or m.mem_level like 'B'  AND m.ROLE_NAME = 'ROLE_TRANSLATOR'
                 ORDER BY m.mem_level
         </select>
-
+        <!-- TODO: 위 아래 if문으로 하나로 합쳐도 될 듯. -->
         <select id="selectOneMyPage" parameterType="String" resultType="MyPage">
                 SELECT m.memberid as memberid, m.membername as membername
                 , m.membernick as membenick, m.mem_ex as mem_ex
@@ -30,27 +30,22 @@
                 
         </select>
 
+        <!-- 요청을 삽입 , memberid2가 있으면 요청 / 없으면 경매 -->
         <insert id="insertOneRequst" parameterType="Request_L">
                 insert into pret_request_L 
-                (requestnum_l, memberid, memberid2, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr, startlang, endlang)
-                values 
-                (PRET_REQ_L_SEQ.nextval, #{memberid}, #{memberid2}, #{category}, #{enddate}, #{enddate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr}, #{startlang}, #{endlang} )
+                <if test="memberid2 != null">
+                        (requestnum_l, memberid, memberid2,title, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr,commentpage, startlang, endlang)
+                        values 
+                        (PRET_REQ_L_SEQ.nextval, #{memberid}, #{memberid2}, #{title}, #{category}, #{enddate}, #{enddate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr},#{commentpage}, #{startlang}, #{endlang} )
+                </if>
+                <if test="memberid2 == null">
+                        (requestnum_l, memberid, title, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr,commentpage, startlang, endlang)
+                        values 
+                        (PRET_REQ_L_SEQ.nextval, #{memberid}, #{title}, #{category}, #{enddate}, #{workdate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr},#{commentpage}, #{startlang}, #{endlang} )
+                </if>
         </insert>
 
-        <!-- 경매 쪽으로 요청함. -->
-        <insert id="insertOneRequstAuction" parameterType="Request_L">
-                <!-- 이곳에 INSERT 쿼리 작성 -->
-                insert into pret_request_L
-                (requestnum_l, memberid, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr, startlang, endlang)
-                values
-                (PRET_REQ_L_SEQ.nextval, #{memberid}, #{category}, #{enddate}, #{enddate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr}, #{startlang}, #{endlang} )
-                
-                <!-- SELECT 문을 사용하여 자동 생성된 키 값을 가져옴 -->
-                <!-- <selectKey  keyProperty="requestnum_l" order="AFTER" resultType="Map" >
-                        SELECT PRET_REQ_L_SEQ.currval FROM DUAL
-                </selectKey> -->
-        </insert>
-
+        <!-- 지금 삽입한 요청 번호 -->
         <select id="selectMaxRequestnum" resultType="int">
                 select max(requestnum_l) from pret_request_l
         </select>
@@ -60,5 +55,76 @@
                 insert into pret_auction (auctionnum,requestlnum)
                 values (PRET_AUCTION_SEQ.nextval, #{requestnum})
         </insert>
+
+        <!-- 경매 리스트 출력 -->
+        <select id="selectAuctionList" resultType="Request_L">
+                select * from pret_request_l
+                where requestnum_l in (select requestlnum from pret_auction)
+        </select>
+        
+        <select id="selectOneRequest_L" parameterType="int" resultType="Request_L">
+                select * from pret_request_l 
+                where requestnum_l = #{requestnum_l}
+        </select>
+
+        <!-- 경매 고유 번호 보내서 html페이지에 박아넣음. -->
+        <select id="selectAuctionNum" parameterType="int">
+                select auctionnum from pret_auction
+                where requestlnum = #{requestnum_l}
+        </select>
+
+
+        <select id="selectAuctionInfo" parameterType="int" resultType="AuctionTranslator">
+                select * from PRET_AUCTIONTRANSLATER
+                where auctionnum = #{auctionnum}
+        </select>
+
+        <!-- 입찰 정보를 넣는다. -->
+        <insert id="insertAuctionTranslator" parameterType="AuctionTranslator">
+                insert into pret_auctiontranslater
+                <if test="comment != null">
+                        (auctionnum, memberid, translatervalue, mem_level, comment)
+                        values (#{auctionnum},#{memberid},#{translatervalue},#{mem_level},#{comment})
+                </if>
+                <if test="comment == null">
+                        (auctionnum, memberid, translatervalue,mem_level)
+                        values (#{auctionnum},#{memberid},#{translatervalue},#{mem_level})
+                </if>
+        </insert>
 	
+        <!-- 경매의 입찰 정보를가져온다. -->
+        <select id="selectAuctionBid" parameterType="Map" resultType="AuctionTranslator">
+                select * from PRET_AUCTIONTRANSLATER
+                where auctionnum = #{auctionnum} and memberid = #{memberid}
+        </select>
+
+        
+
+        <!-- 낙찰 -->
+        <update id="updateRequestAuction" parameterType="Map">
+                update pret_request_l
+                set
+                memberid2 = #{memberid}, cash = #{cash}, REQUESTCONDITION_L = 'T'
+                where requestnum_l = #{requestnum}
+        </update>
+        
+        <!-- 나에게 온 요청들을 출력 -->
+        <select id="selectRequestToMe" parameterType="String" resultType="Request_L">
+                select * from pret_request_l
+                where memberid2 = #{userid}
+                and  REQUESTCONDITION_L = 'N'
+                and requestnum_l not in (select requestlnum from pret_auction)
+        </select>
+        <!-- 요청 수락 or 거절 -->
+        <update id="updateRequestResponse" parameterType="Map">
+                update pret_request_l
+                set
+                <if test="message == 'accept'">
+                        requestcondition_l = 'T'
+                </if>
+                <if test="message == 'refuse' ">
+                        memberid2 = ''
+                </if>
+                where requestnum_l = #{requestnum}
+        </update>
 </mapper>

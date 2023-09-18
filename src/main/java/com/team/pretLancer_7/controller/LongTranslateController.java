@@ -1,6 +1,8 @@
 package com.team.pretLancer_7.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team.pretLancer_7.domain.AuctionTranslator;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.service.LongService;
@@ -35,12 +39,12 @@ public class LongTranslateController {
     }
 
     @GetMapping("/request")
-    public String requestForm(Model model) {
-        List<MyPage> translatorList = service.getTranslatorList();
+    public String requestForm(Model model,@AuthenticationPrincipal UserDetails user) {
+        List<MyPage> translatorList = service.getTranslatorList(user.getUsername());
         log.error("돌아오나요? {}", translatorList);
         model.addAttribute("translatorList", translatorList);
 
-        return "translate_long/requestForm";
+        return "translate_long/translatorList";
     }
 
     @GetMapping("/translatorProfile")
@@ -92,5 +96,99 @@ public class LongTranslateController {
         service.writeAuction(request_L,uploadFile);
 
         return "redirect:/";
+    }
+
+    @GetMapping("auctionList")
+    public String auctionList(Model model,@AuthenticationPrincipal UserDetails user) {
+        List<Request_L> auctionList =  service.getAuctionList();
+
+        model.addAttribute("auctionList", auctionList);
+        return "/translate_long/auctionListForm";
+    }
+    
+    @GetMapping("readAuctionInfo")
+    public String readAuctionInfo(Model model, @RequestParam(name="requestnum_l") int requestnum_l) {
+        Request_L rql = service.readAuctionInfo(requestnum_l);
+        int auctionNum  = service.getAuctionNumber(rql.getRequestnum_l());
+
+        model.addAttribute("info", rql);
+        model.addAttribute("auctionNum", auctionNum);
+
+        return "/translate_long/auctionInfo";
+    }
+
+    @GetMapping("readAuctionPrice")
+    @ResponseBody
+    public List<AuctionTranslator> readAuctionPrice(@RequestParam(name="auctionNum") int auctionNum) {
+        List<AuctionTranslator> list ;
+        list = service.readAuctionPrice(auctionNum);
+
+        return list;
+    }
+
+    @GetMapping("bid")
+    @ResponseBody
+    public void bid(AuctionTranslator at,@AuthenticationPrincipal UserDetails user){
+        at.setMemberid(user.getUsername());
+        log.debug("컨트롤러 경매 입찰 삽입 {}", at);
+        service.setBid(at);
+    }
+
+    @GetMapping("bidValidation")
+    @ResponseBody
+    public String bidValidation(@AuthenticationPrincipal UserDetails user, String auctionNum) {
+        Map<String, String> map = new HashMap();
+        map.put("auctionnum", auctionNum);
+        map.put("memberid", user.getUsername());
+        
+        return service.bidValidation(map);
+    }
+
+    @GetMapping("/myAuctionList")
+    public String myAuctionList(@AuthenticationPrincipal UserDetails user, Model model) {
+        List<Request_L> myAuctionList =  service.myAuctionList(user.getUsername());
+        model.addAttribute("myAuctionList", myAuctionList);
+        log.debug("컨트롤러에 오는 나의 옥션 리스트 {}", myAuctionList);
+        return "/translate_long/myAuctionList";
+    }
+
+    @GetMapping("successfulBid")
+    @ResponseBody
+    public void successfulBid(String biderid,String requestnum, String auctionnum) {
+        
+        Map<String, String> map = new HashMap() ;
+        map.put("memberid",biderid);
+        map.put("requestnum", requestnum);
+        map.put("auctionnum",auctionnum);
+        int rst = service.successfulBid(map);
+
+    }
+
+    @GetMapping("/requestToMe")
+    public String requestToMe(Model model, @AuthenticationPrincipal UserDetails user) {
+        List<Request_L> list =  service.getRequestToMe(user.getUsername());
+
+        model.addAttribute("list", list);
+
+        return "/translate_long/requestToMe";
+
+    }
+    
+    @GetMapping("/readRequestInfo")
+    public String readRequestInfo(Model model, @RequestParam(name = "requestnum_l") int requestnum_l) {
+
+        Request_L request = service.readRequestInfo(requestnum_l);
+        model.addAttribute("request", request);
+        return "/translate_long/requestInfo";
+    }
+
+    @GetMapping("/requestResponse")
+    @ResponseBody
+    public String requestResponse(String requestnum, String message) {
+        log.debug("컨트롤러 들어오나 확인");
+        Map<String, String> map = new HashMap();
+        map.put("requestnum", requestnum);
+        map.put("message", message);
+        return service.resoponseToRequest(map);
     }
 }
