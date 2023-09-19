@@ -61,6 +61,17 @@ public class TranslatedServiceImple implements TranslatedService {
 		Tdao.cancelTS(tm);
 	}
 
+	@Override
+	public Translated_S getMyTS(Request_S myorderS) {
+		return Tdao.getMyTS(myorderS);
+	}
+
+	@Override
+	public Translated_M getMyTM(Request_M myorderM) {
+		// TODO Auto-generated method stub
+		return Tdao.getMyTM(myorderM);
+	}
+
 	
 	
 	

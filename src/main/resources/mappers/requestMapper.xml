@@ -16,7 +16,7 @@
 	where requestnum_s = #{requestnum_s} and memberid = #{memberid}
 	</delete>
 	
-	<select id="selectRS" parameterType="Request_S">
+	<select id="selectRS" parameterType="Request_S" resultType="Request_S">
 	select * from pret_request_s where requestnum_s = #{requestnum_s} and memberid = #{memberid}
 	</select>
 	
@@ -32,7 +32,7 @@
 	where requestnum_m = #{requestnum_m} and memberid = #{memberid}
 	</delete>
 	
-	<select id="selectRM" parameterType="Request_M">
+	<select id="selectRM" parameterType="Request_M" resultType="Request_M">
 	select * from pret_request_m where requestnum_m = #{requestnum_m} and memberid = #{memberid}
 	</select>
 	
@@ -81,5 +81,13 @@
 	<update id="cancelCon_M" parameterType="Translated_M">
 	update pret_request_m set requestcondition_m = 'N', memberid2 = '' where requestnum_m = #{requestnum_m}
 	</update>
+	
+	<select id="myorderS" parameterType="String" resultType="Request_S">
+	select * from pret_request_s where memberid = #{memberid} and requestcondition_s = 'T'
+	</select>
+	
+	<select id="myorderM" parameterType="String" resultType="Request_M">
+	select * from pret_request_m where memberid = #{memberid} and requestcondition_m = 'T'
+	</select>
 	
 </mapper>
