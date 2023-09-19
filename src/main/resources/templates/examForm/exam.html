@@ -31,17 +31,86 @@
     </style>
     <!-- 여기까지 고정 바 코드 -->
 	<style>
-	
-		@font-face {
-		    font-family: 'LINESeedKR-Bd';
-		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
-		    font-weight: 700;
-		    font-style: normal;
-		}
+
+	@font-face {
+	    font-family: 'LINESeedKR-Bd';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
 		
-		* {
-		    font-family: 'LINESeedKR-Bd';	
-		}
+	@font-face {
+    font-family: 'MBC1961GulimM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/MBC1961GulimM.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	}
+
+	@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+	}
+	
+	@font-face {
+    font-family: 'Pretendard-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+	}
+
+	@font-face {
+    font-family: 'Pretendard-Black';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+	}
+	
+	* {
+    font-family: 'Pretendard-Regular';
+		color : #2C2E33;
+
+	}
+	
+	h2{
+		color : #2C2E33;
+	} 
+
+	#title {
+    font-family: 'Pretendard-Black';
+		font-size : 45px;
+		color : #2C2E33;
+	} 
+
+	#title2 {
+    font-family: 'Pretendard-Black';
+		font-size : 40px;
+		color : #2C2E33;
+	} 
+
+	#title3 {
+    font-family: 'Pretendard-Black';
+		font-size : 35px;
+		color : #2C2E33;
+	} 
+
+	#title4 {
+    font-family: 'Pretendard-Black';
+		font-size : 30px;
+		color : #2C2E33;
+	} 
+
+
+	#title_{
+    font-family: 'Pretendard-Bold';
+		font-size : 20px;
+		color : #2C2E33;
+	} 
+	 	
+	.input_exam{
+		font-size : 18px;
+	}
 	
 		/*div {
 			background-color: #EFF0F0;
@@ -96,7 +165,10 @@
 			//만약 전 페이지가 tutorial page와 같은 url이고, answer가 correct일 경우 맞은 문제 수를 표시하는 div의 색이 파란색으로 바뀜
 			if (back_page == tutorial_page && answer == 'correct'){
 				$('#correct').css('color', 'blue');
-				}
+				$('#answer_check').css('color', 'blue');
+				$('#answer_num').css('color', 'blue');
+
+			}
 					
 		};
 		
@@ -138,19 +210,18 @@
                     <i class="bi bi-justify fs-3"></i>
                 </a>
             </header>
-    <br><br>
 
-	<h1>연습문제</h1> 
-	<br>
-	
+		
+	<h1 id = "title2">연습문제</h1>
+
 	<div class = "outer">
-		<div><div><h2>오늘의 문제</h2></div> <br><div id = "correct"><span id = "answer_check">answer 기본값</span>  맞은 문제 수 : <span th:text ="${answer_num}">0</span> / 20</div></div><hr>
+		<div class = "input_exam"><div><h2 id = "title3">오늘의 문제</h2></div> <br><div id = "correct"><span id = "answer_check">answer 기본값</span>  맞은 문제 수 : <span th:text ="${answer_num}" id = "answer_num">0</span> / 20</div></div><hr>
 		<!-- 문제 나오는 부분 -->
 		<div>
 			<!-- 문제 내용 -->
 			<br>
 			<br>
-			<span th:text = "${question?.exam_content}">문제 내용 기본값</span>
+			<span th:text = "${question?.exam_content}" class = "input_exam">문제 내용 기본값</span>
 			<br>
 			<br>
 			<br>
@@ -159,10 +230,10 @@
 		<!-- 답 입력하는 부분 -->
 		<div>
 		<form th:action = "@{/translated/exam}" method = "post" onsubmit = "return check()"> 
-			<p>번역을 정확하게 입력해주세요.</p>
+			<p class = "input_exam">번역을 정확하게 입력해주세요.</p>
 			<input type = "hidden" name = "memberid"  th:value="${#authentication.name}">
 			<input type = "hidden" name = "examnum" th:value = "${question?.examnum}">
-			<input type = "text" name = "my_answer" class = "answer_input" id = "my_answer"> <br>
+			<textarea name = "my_answer" class = "answer_input" id = "my_answer" placeholder = "띄어쓰기와 맞춤법 포함 정확하게 입력해주세요. 오답률은 신뢰도와 등급에 영향을 줍니다."></textarea> <br>
 			<input type = "submit" value = "제출" class = "answer_button" id = "answer_button">
 		</form>
 		</div>

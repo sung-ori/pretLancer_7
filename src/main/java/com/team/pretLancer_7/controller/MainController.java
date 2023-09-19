@@ -6,9 +6,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.team.pretLancer_7.domain.Member;
+import com.team.pretLancer_7.domain.QnA;
 import com.team.pretLancer_7.service.MemberService;
+
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 public class MainController {
@@ -33,7 +37,21 @@ public class MainController {
         
     	return "main3";
     }
-     
+ 
+    //문의 페이지
+    @GetMapping("qna")
+    public String qnaForm() {
+    	return "qna";
+    }
+ 
+    //문의 페이지
+    @PostMapping("qna")
+    public String qnaForm(QnA q) {
+    	int n = service.insertQnA(q);
+    	
+    	return "redirect:/qna";
+    }
+ 
     //사이드바,Nav바 로드
     @GetMapping("snBar")
     public String snBar(){

@@ -514,6 +514,21 @@ CREATE TABLE PRET_BOARD_POLICE (
 何事も成功するまでは不可能に思えるものである。
 성공 전에는 무엇이든 불가능해보이는 것이다.
 
+
+--문의 테이블(관리자게시판으로 문의가 보이는 시스템)
+create table pret_qna (
+    qnanum          number primary key, -- 문의 번호(시퀀스 이용)
+    memberid        varchar2(20) not null,-- 문의한 회원 아이디
+    qnacategory     varchar2(50) not null,
+    qnatitle        varchar2(300) not null,-- 문의 제목
+    qnacontent      varchar2(3000) not null,-- 문의 내용
+    qnafile         varchar2(1000),-- 문의 첨부파일
+    qnaemail        varchar2(100) not null-- 회신받을 이메일
+);
+
+--문의 테이블 번호 시퀀스
+create sequence qna_seq;
+
 -- 경매 지원가 테이블 수정문.
 ALTER TABLE PRET_AUCTIONTRANSLATER RENAME COLUMN COMMENTT TO "COMMENT";
 
@@ -522,3 +537,4 @@ ADD MEM_LEVEL VARCHAR2(10);
 
 -- 장문 요청 테이블 
 alter TABLE PRET_REQUEST_L add title varchar2(200);
+
