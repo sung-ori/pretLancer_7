@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.pretLancer_7.domain.Member;
+import com.team.pretLancer_7.domain.Message;
 import com.team.pretLancer_7.domain.QnA;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.messaging.MessagingService;
@@ -57,7 +58,7 @@ public class MainController {
     //문의 페이지
     @PostMapping("qna")
     public String qnaForm(QnA q) {
-    	int n = service.insertQnA(q);
+    	// int n = service.insertQnA(q);
     	
     	return "redirect:/qna";
     }
