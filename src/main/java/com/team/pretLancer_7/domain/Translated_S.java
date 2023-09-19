@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Translated_S {
 	
-	int translatednum_s;
-	int requestnum_s;
-	String memberid;
-	String requestcontent_s;
-	String translatedcontent_s;
-	String comment_st;
+	int translatednum_s;			// 번역 고유 번호
+	int requestnum_s;				// 단문 의뢰 번호
+	String memberid;				// 번역자 아이디
+	String requestcontent_s;		// 번역요청내용
+	String translatedcontent_s;		// 번역결과내용
+	String comment_st;				// 비고
 
 }
