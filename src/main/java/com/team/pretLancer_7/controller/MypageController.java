@@ -47,6 +47,7 @@ public class MypageController {
         return "/myPageForm/MyPage";
     }
     
+    
     // 개인정보 수정
     @PostMapping("update")
     public String update(@AuthenticationPrincipal UserDetails user, Member m) {

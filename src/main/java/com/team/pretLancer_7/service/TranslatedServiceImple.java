@@ -41,13 +41,27 @@ public class TranslatedServiceImple implements TranslatedService {
 		Tdao.submitTS(ts);
 		Rdao.updateCon_S(ts);
 	}
-
+	
 	@Override
 	public void submitTM(Translated_M tm) {
 		Tdao.submitTM(tm);
 		Rdao.updateCon_M(tm);
 	}
 
+	// 취소
+	@Override
+	public void cancelTS(Translated_S ts) {
+		Rdao.cancelCon_S(ts);
+		Tdao.cancelTS(ts);
+	}
+
+	@Override
+	public void cancelTM(Translated_M tm) {
+		Rdao.cancelCon_M(tm);
+		Tdao.cancelTS(tm);
+	}
+
+	
 	
 	
 }
