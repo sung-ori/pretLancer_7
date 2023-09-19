@@ -37,6 +37,9 @@
 		    align-items: center;
 		    justify-content: center;
 		}
+		.font-color{
+			color: white;
+		}
 		.backdrop{
 		    width: 300px;
 		    height: 300px;
@@ -46,25 +49,62 @@
     
     </style>
     <style>
-    	.headerBar{
-    		background: #2B2B90;
-    	}
-    	
+    	.headerBar {
+    	  background: #4B8DEA;
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  flex-direction: column;
+		  text-align: center;
+		}
     </style>
     
+    <style>
+    	.buttonFixed{
+    		position: fixed;
+    		right: 40px;
+    		top: 0px;
+    	}
+    	
+    	
+    </style>
+
 </head>
 <!--  <a class="navbar-brand col-lg-3 me-0" href="#">Centered nav</a>-->
 <body>
-<<<<<<< HEAD
-	<!--  <nav class="navbar navbar-dark fixed-top navbar-expand-lg rounded navbar-expand-md" style="margin-top: 0; padding-top: 0; z-index: 10; ">
-=======
-	<nav class="navbar navbar-dark fixed-top  navbar-expand-lg rounded navbar-expand-md" style="z-index: 10; background-color: #00ff0000; color: black;">
->>>>>>> 9146acaec09d21ab9e6745e179324a0edafd132b
-		<div class="container-fluid">
-	        <div class="collapse navbar-collapse d-lg-flex custom-centering" >
-	          
-	          <div class="container p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3 custom-width" style="margin-top: 0; padding-top: 0;" >
-		           <ul class="navbar-nav col-lg-10 d-flex">
+	
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-between py-2 fixed-top headerBar" style="z-index: 10;">
+        <div class="collapse navbar-collapse d-lg-flex">
+            <div class="row">
+                <div class="row font-color ">
+                    <div class="col-md-3 col-sm-3 b">프로젝트 마감기한</div>
+                    <div class="col-md-3 col-sm-3 b">1레벨</div>
+                    <div class="col-md-3 col-sm-3 b">OOO님</div>
+                    <div class="col-md-3 col-sm-3 b">0p</div>
+                </div>
+                <div class="row font-color">
+                    <div class="col-md-3 col-sm-3 b">23/08/25 00:00</div>
+                    <div class="col-md-3 col-sm-3 b">0</div>
+                    <div class="col-md-3 col-sm-3 b">===========</div>
+                    <div class="col-md-3 col-sm-3 b">0p</div>
+                </div>
+            </div>
+            <div class="buttonFixed" >
+                <button class="btn btn-primary"><i class="bi bi-bell-fill" style="font-size: 2em;"></i> </button>
+                <button class="btn btn-primary"><i class="bi bi-chat-fill" style="font-size: 2em;"></i></button>
+            </div>
+        </div>
+    </header>
+</div>
+	
+	<!--  <div class="container" style="padding-bottom: 0; margin-bottom: 0;">
+	    <header class="d-flex flex-wrap justify-content-center py-3 fixed-top headerBar" style="z-index: 10; padding-bottom: 0; margin-bottom: 0;">
+	        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+	            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+	            <span class="fs-4">Simple header</span>
+	        </a>
+        <ul class="navbar-nav col-lg-10 d-flex">
 		          	 	<div class="row move-right-50" style="backround-color: #fff;">
 		          	 		<div class="row">
 		          	 			<div class="col-md-3 col-sm-3 b">프로젝트 마감기한</div>
@@ -80,38 +120,11 @@
 		          			</div>
 		          		</div> 
 		          	</ul>
-	          	</div>
-	          	<button class="btn btn-primary me-2"><i class="bi bi-bell-fill" style="font-size: 3em;"></i> </button>
-	          	<button class="btn btn-primary"><i class="bi bi-chat-fill" style="font-size: 3em;"></i></button>
-	          </div>
-	          <div class="ms-auto">
-	          </div>
-	      </div>
-<<<<<<< HEAD
-	</nav>-->
+		    </header>
+		</div> -->
 
-	
-	<div class="container" style="padding-bottom: 0; margin-bottom: 0;">
-    <header class="d-flex flex-wrap justify-content-center py-3 fixed-top headerBar" style="z-index: 10; padding-bottom: 0; margin-bottom: 0;">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-            <span class="fs-4">Simple header</span>
-        </a>
 
-        <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">About</a></li>     
-        </ul>
-    </header>
-</div>
-	
-=======
-	</nav>
 
->>>>>>> 9146acaec09d21ab9e6745e179324a0edafd132b
     <div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
