@@ -15,4 +15,9 @@ public interface TranslatedService {
 
 	void submitTM(Translated_M tm);
 
+	void cancelTS(Translated_S ts);
+
+	void cancelTM(Translated_M tm);
+
+	
 }
