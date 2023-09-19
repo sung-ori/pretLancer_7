@@ -21,5 +21,11 @@ public interface TranslatedDAO {
 	void submitTS(Translated_S ts);
 
 	void submitTM(Translated_M tm);
+
+	void cancelT(String username);
+
+	void cancelTS(Translated_S ts);
+
+	void cancelTS(Translated_M tm);
 	
 }

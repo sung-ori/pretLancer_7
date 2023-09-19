@@ -41,10 +41,10 @@ public class TranslatedController {
 		// 의뢰를 받았을 시 의뢰테이블에서 가장 최근의 글을 하나 선택
 		Request_S rs = RService.choiceRS();
 		
-		 if (rs == null) {
-		        // rs가 null이면 값을 찾지 못한 경우로 간주하고 에러 페이지로 리다이렉션
-		        return "errorForm/NoTranslated";
-		 }
+		if (rs == null) {
+			// rs가 null이면 값을 찾지 못한 경우로 간주하고 에러 페이지로 리다이렉션
+			return "errorForm/NoTranslated";
+		}
 		
 		rs.setMemberid2(user.getUsername());
 		log.error("Request 객체 {}",rs);
@@ -64,6 +64,12 @@ public class TranslatedController {
 	public String insertTM(@AuthenticationPrincipal UserDetails user, Model m) {
 		// 의뢰를 받았을 시 의뢰테이블에서 가장 최근의 글을 하나 선택
 		Request_M rm = RService.choiceRM();
+		
+		if (rm == null) {
+			// rs가 null이면 값을 찾지 못한 경우로 간주하고 에러 페이지로 리다이렉션
+			return "errorForm/NoTranslated";
+		}
+		
 		rm.setMemberid2(user.getUsername());
 		log.error("Request 객체 {}",rm);
 				
@@ -97,5 +103,29 @@ public class TranslatedController {
 				
 		return "redirect:/";
 	}
+	
+	// 번역 그만하기 버튼 눌렀을 시 작동 (받은 의뢰를 취소)
+	@GetMapping("cancelTS")
+	public String cancelT(@AuthenticationPrincipal UserDetails user, Translated_S ts) {
+		ts.setMemberid(user.getUsername());
+		TService.cancelTS(ts);
+		
+		return "redirect:/";
+	}
+	
+	// 번역 그만하기 버튼 눌렀을 시 작동 (받은 의뢰를 취소)
+	@GetMapping("cancelTM")
+	public String cancelTM(@AuthenticationPrincipal UserDetails user, Translated_M tm) {
+		tm.setMemberid(user.getUsername());
+		TService.cancelTM(tm);
+			
+		return "redirect:/";
+	}
+	
+	// 번역 도중에 나갔을 경우, 내가 맡은 번역 다시 불러오기
+	
+	
+	//
+	
 	
 }
