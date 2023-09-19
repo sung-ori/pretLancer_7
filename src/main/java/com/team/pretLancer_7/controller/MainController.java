@@ -73,9 +73,9 @@ public class MainController {
         Request_L rql = Lservice.checkTranslateNow(userName);
 
         model.addAttribute("user", loginUser);
-        if(rql != null) {
-            model.addAttribute("rql",rql);
-        }
+        model.addAttribute("rql",rql);
+        // if(rql != null) {
+        // }
 
     	return "fragments/snBar";
     }

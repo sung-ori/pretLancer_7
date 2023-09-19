@@ -91,39 +91,26 @@
                 </div>
             </div>
             <div class="buttonFixed" >
-                <button class="btn btn-primary"><i class="bi bi-bell-fill" style="font-size: 2em;"></i> </button>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-bell-fill" style="font-size: 2em;"></i> 
+                    </button>
+                    <span class="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger">
+                        99+
+                        <span class="visually-hidden">unread messages</span>
+                    </span>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">Action</a></li>
+                          <li><a class="dropdown-item" href="#">Another action</a></li>
+                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                </div>
                 <button class="btn btn-primary"><i class="bi bi-chat-fill" style="font-size: 2em;"></i></button>
             </div>
         </div>
     </header>
 </div>
 	
-	<!--  <div class="container" style="padding-bottom: 0; margin-bottom: 0;">
-	    <header class="d-flex flex-wrap justify-content-center py-3 fixed-top headerBar" style="z-index: 10; padding-bottom: 0; margin-bottom: 0;">
-	        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-	            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-	            <span class="fs-4">Simple header</span>
-	        </a>
-        <ul class="navbar-nav col-lg-10 d-flex">
-		          	 	<div class="row move-right-50" style="backround-color: #fff;">
-		          	 		<div class="row">
-		          	 			<div class="col-md-3 col-sm-3 b">프로젝트 마감기한</div>
-	            				<div class="col-md-3 col-sm-3 b">1레벨</div>
-	            				<div class="col-md-3 col-sm-3 b">OOO님</div>
-	            				<div class="col-md-3 col-sm-3 b">0p</div>
-		          	 		</div>
-		          	 		<div class="row">
-		          	 			<div class="col-md-3 col-sm-3 b">23/08/25 00:00</div>
-	            				<div class="col-md-3 col-sm-3 b">0</div>
-	            				<div class="col-md-3 col-sm-3 b">===========</div>
-	            				<div class="col-md-3 col-sm-3 b">0p</div>
-		          			</div>
-		          		</div> 
-		          	</ul>
-		    </header>
-		</div> -->
-
-
 
     <div id="app">
         <div id="sidebar" class="active">
