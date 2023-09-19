@@ -1,13 +1,20 @@
 package com.team.pretLancer_7.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.pretLancer_7.domain.Member;
+import com.team.pretLancer_7.domain.Message;
+import com.team.pretLancer_7.domain.Request_L;
+import com.team.pretLancer_7.messaging.MessagingService;
+import com.team.pretLancer_7.service.LongService;
 import com.team.pretLancer_7.service.MemberService;
 
 @Controller
@@ -15,7 +22,13 @@ public class MainController {
     
 	@Autowired
 	MemberService service;
+
+    @Autowired
+    MessagingService Mservice;
 	
+    @Autowired
+    LongService Lservice;
+
 	// 로그인 전 메인페이지
     @GetMapping({" ", "/"})
     public String mainForm() {
@@ -33,10 +46,28 @@ public class MainController {
         
     	return "main3";
     }
-     
+    
     //사이드바,Nav바 로드
     @GetMapping("snBar")
-    public String snBar(){
+    public String snBar(Model model, @AuthenticationPrincipal UserDetails user){
+        String userName = user.getUsername();
+        Member loginUser = service.getUser(userName);
+        
+        Request_L rql = Lservice.checkTranslateNow(userName);
+
+        model.addAttribute("user", loginUser);
+        if(rql != null) {
+            model.addAttribute("rql",rql);
+        }
+
     	return "fragments/snBar";
+    }
+
+    @GetMapping("/message")
+    @ResponseBody
+    public List<Message> messageBox(@AuthenticationPrincipal UserDetails user) {
+        
+        List<Message> msg = Mservice.getMyMessages(user.getUsername());
+        return msg;
     }
 }

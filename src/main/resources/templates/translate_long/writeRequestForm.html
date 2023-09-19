@@ -28,6 +28,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
     </script>
 </head>
 <body>
+    <!-- 장문 요청 작성 폼 -->
     <div class="container col-8">
         <h1>이제 장문 요청 보낸다.</h1>
         <form id="form" th:action="@{/long/writeRequest}" method="POST" enctype="multipart/form-data">

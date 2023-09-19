@@ -38,4 +38,9 @@ public interface RequestDAO {
 	
 	void updateCon_M(Translated_M tm);
 	
+	// 메세징
+	Request_S SRS(int r);
+
+	Request_M SRM(int r);
+	
 }

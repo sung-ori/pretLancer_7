@@ -16,7 +16,7 @@
 	where requestnum_s = #{requestnum_s} and memberid = #{memberid}
 	</delete>
 	
-	<select id="selectRS" parameterType="Request_S">
+	<select id="selectRS" parameterType="Request_S" resultType="Request_S">
 	select * from pret_request_s where requestnum_s = #{requestnum_s} and memberid = #{memberid}
 	</select>
 	
@@ -32,7 +32,7 @@
 	where requestnum_m = #{requestnum_m} and memberid = #{memberid}
 	</delete>
 	
-	<select id="selectRM" parameterType="Request_M">
+	<select id="selectRM" parameterType="Request_M" resultType="Request_M">
 	select * from pret_request_m where requestnum_m = #{requestnum_m} and memberid = #{memberid}
 	</select>
 	
@@ -73,5 +73,13 @@
 	<update id="updateCon_M" parameterType="Translated_M">
 	update pret_request_m set requestcondition_m = 'E' where requestnum_m = #{requestnum_m}
 	</update>
+
+	<select id="SRS" parameterType="int" resultType="Request_S">
+		select * from pret_request_s where requestnum_s = #{requestnum_s}
+	</select>
+
+	<select id="SRM" parameterType="int" resultType="Request_M">
+		select * from pret_request_m where requestnum_m = #{requestnum_m} 
+	</select>
 
 </mapper>

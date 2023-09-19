@@ -14,6 +14,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             $("#bidButton").click(bid);
             readAucitonPrice();
             bidValidation();
+            nowTranslateValidation();
             $(document).on("click",".btn-warning", successfulBid);
 
 
@@ -92,6 +93,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                         $("#bidButton").val("입찰 완료");
                         $("#bidButton").attr("class","btn btn-danger");
                         $("#bidButton").attr("disabled","true");
+                        $("#cash").attr("readonly","true");
                     }
                 },
                 error: function(e) {
@@ -121,10 +123,33 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                 }
             });
         }
+
+        function nowTranslateValidation() {
+            let userid = $("#userId").val();
+
+            $.ajax({
+                type:"GET",
+                url:"checkTranslateNow",
+                dataType:"json",
+                success: function(data) {
+                    if(data != null) {
+                        $("#bidButton").val("한 번에 한 개의 수주만 할 수 있습니다.");
+                        $("#bidButton").attr("class","btn btn-danger");
+                        $("#bidButton").attr("disabled","true");
+                        $("#cash").attr("readonly","true");
+                    }
+                },
+                error: function(e) {
+                    alert(JSON.stringify(e));
+                }
+            });
+        }
     </script>
 </head>
 <body>
+    <!-- 경매 상세 정보 페이지 -->
     <div class="container">
+        <input type="hidden" id="userId" th:value="${#authentication.name}">
         <input type="hidden" id="requestId" th:value="${info.memberid}">
         <input type="hidden" id="requestNum" th:value="${info.requestnum_l}">
         <input type="hidden" id="auctionNum" th:value="${auctionNum}">
@@ -155,7 +180,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                 </div>
             
                 <div th:if="${#authentication.name != info.memberid}" class="col-8">
-                    <input name="cash" type="text" id="cash" class="form-control text-end " >
+                    <input name="cash" type="number" id="cash" class="form-control text-end " >
                 </div>
 
                 <div th:if="${#authentication.name != info.memberid}" class="col-2">
@@ -166,7 +191,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             
         </div>
     </div>
-    
+    <!-- 게시글 주인고과 로그인한 유저가 같다면 낙찰 버튼을 활성화하는 함수가 생김 -->
     <script th:if="${#authentication.name == info.memberid}">
         function btnDisplay() {
             $(".btn-warning").show();

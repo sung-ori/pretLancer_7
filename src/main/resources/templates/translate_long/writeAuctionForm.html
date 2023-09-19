@@ -26,6 +26,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
     </script>
 </head>
 <body>
+    <!-- 장문 경매를 요청하는 폼 -->
     <div class="container col-8">
         <h1>이제 장문 경매 보낸다.</h1>
         <form id="form" th:action="@{/long/writeAuction}" method="POST" enctype="multipart/form-data">
