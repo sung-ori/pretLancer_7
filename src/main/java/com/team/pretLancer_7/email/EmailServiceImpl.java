@@ -49,4 +49,22 @@ public class EmailServiceImpl {
         javaMailSender.send(message);
         return number;
     }
+
+    //qna 이메일 보내기
+	public int sendQnaMail(String email, String category, String title, String content, String file) {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        String address = "pretlancer.qna@gmail.com";
+
+        try {
+            message.setFrom(senderEmail);
+            message.setRecipients(MimeMessage.RecipientType.TO, address);
+            message.setSubject("[" + category + "] " + title);
+            String body = "적어주신 고객님 이메일 : " + email + "\n" + "내용 : " + content;
+            message.setText(body,"UTF-8", "html");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+        return message;
+	}
 }

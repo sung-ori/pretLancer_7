@@ -82,4 +82,12 @@
 		select * from pret_request_m where requestnum_m = #{requestnum_m} 
 	</select>
 
+	<update id="cancelCon_S" parameterType="Translated_S">
+	update pret_request_s set requestcondition_s = 'N', memberid2 = '' where requestnum_s = #{requestnum_s}
+	</update>
+
+	<update id="cancelCon_M" parameterType="Translated_M">
+	update pret_request_m set requestcondition_m = 'N', memberid2 = '' where requestnum_m = #{requestnum_m}
+	</update>
+	
 </mapper>

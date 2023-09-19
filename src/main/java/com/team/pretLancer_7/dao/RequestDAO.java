@@ -37,6 +37,11 @@ public interface RequestDAO {
 	void updateCon_S(Translated_S ts);
 	
 	void updateCon_M(Translated_M tm);
+
+	
+	void cancelCon_S(Translated_S ts);
+
+	void cancelCon_M(Translated_M tm);
 	
 	// 메세징
 	Request_S SRS(int r);

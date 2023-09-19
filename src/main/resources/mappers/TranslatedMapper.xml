@@ -35,5 +35,13 @@
 	<if test="comment_mt != null">, comment_mt = #{comment_mt}</if>
 	where translatednum_m = #{translatednum_m} and memberid = #{memberid}
 	</update>
+	
+	<delete id="cancelTS" parameterType="Translated_S">
+	delete from pret_translated_s where memberid = #{memberid} and translatednum_s = #{translatednum_s} 
+	</delete>
+	
+	<delete id="cancelTM" parameterType="Translated_M">
+	delete from pret_translated_m where memberid = #{memberid} and translatednum_m = #{translatednum_m} 
+	</delete>
 
 </mapper>

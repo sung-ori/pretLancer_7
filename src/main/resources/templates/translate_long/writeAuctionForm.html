@@ -24,8 +24,22 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
         });
         // TODO: 시작 언어 도착언어 다른지 검증
     </script>
+    
+    <!-- 준규상 코드 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script th:src="@{/js/snBarLoader.js}"></script>
+    <!-- 고정바 -->
 </head>
 <body>
+<div id="snBar-placeholder"></div>
+<br><br><br>
+
+ <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
     <!-- 장문 경매를 요청하는 폼 -->
     <div class="container col-8">
         <h1>이제 장문 경매 보낸다.</h1>
@@ -94,6 +108,16 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             </div>
         </form>
     </div>
+    
+    <!-- main div -->
+        </div>
+    <!-- 부트스트랩  JS -->
+    <script th:src="@{/assets/js/bootstrap.js}"></script>
+    <script th:src="@{/assets/js/app.js}"></script>
+    
+<!-- Need: Apexcharts -->
+<script th:src="@{/assets/extensions/apexcharts/apexcharts.min.js}"></script>
+<script th:src="@{/assets/js/pages/dashboard.js}"></script>
     
 </body>
 </html>

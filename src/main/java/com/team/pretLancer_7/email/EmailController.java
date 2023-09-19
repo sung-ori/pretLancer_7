@@ -2,11 +2,13 @@ package com.team.pretLancer_7.email;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @Slf4j
@@ -44,5 +46,13 @@ public class EmailController {
         }
 
         return result;
+    }
+    
+    @PostMapping("qnaemail")
+    @ResponseBody
+    public String qnaemail(String email, String category, String title, String content, String file) {
+    	log.debug("email : {}, category : {}, title : {}, content : {}", email, category, title, content);
+    	int qnaEmail = emailService.sendQnaMail(email, category, title, content, file);
+    	return "sended message";
     }
 }
