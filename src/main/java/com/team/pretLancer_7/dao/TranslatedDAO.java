@@ -27,5 +27,9 @@ public interface TranslatedDAO {
 	void cancelTS(Translated_S ts);
 
 	void cancelTS(Translated_M tm);
+
+	Translated_S getMyTS(Request_S myorderS);
+
+	Translated_M getMyTM(Request_M myorderM);
 	
 }

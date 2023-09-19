@@ -42,5 +42,10 @@ public interface RequestDAO {
 	void cancelCon_S(Translated_S ts);
 
 	void cancelCon_M(Translated_M tm);
+
+	
+	Request_S myorderS(String username);
+
+	Request_M myorderM(String username);
 	
 }
