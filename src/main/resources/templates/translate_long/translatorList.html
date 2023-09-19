@@ -1,3 +1,4 @@
+<!-- http://localhost:8888/pretLancer/long/request -->
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
                 xmlns:sec="http://www.thymleaf.org/extras/spring-security">
@@ -21,8 +22,22 @@
             
         });
     </script>
+    
+    <!-- 준규상 코드 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script th:src="@{/js/snBarLoader.js}"></script>
+    <!-- 고정바 -->
 </head>
 <body>
+<div id="snBar-placeholder"></div>
+<br><br><br>
+
+ <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
     <div class="container">
         <h1>번역가 리스트</h1>
         <div class=" row container-fluid">
@@ -39,5 +54,15 @@
             </div>
         </div>
     </div>
+    
+    <!-- main div -->
+        </div>
+    <!-- 부트스트랩  JS -->
+    <script th:src="@{/assets/js/bootstrap.js}"></script>
+    <script th:src="@{/assets/js/app.js}"></script>
+    
+<!-- Need: Apexcharts -->
+<script th:src="@{/assets/extensions/apexcharts/apexcharts.min.js}"></script>
+<script th:src="@{/assets/js/pages/dashboard.js}"></script>
 </body>
 </html>
