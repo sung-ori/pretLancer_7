@@ -19,7 +19,10 @@ import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.service.LongService;
 import com.team.pretLancer_7.service.MemberService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class MainController {
     
 	@Autowired
@@ -73,17 +76,20 @@ public class MainController {
         Request_L rql = Lservice.checkTranslateNow(userName);
 
         model.addAttribute("user", loginUser);
-        model.addAttribute("rql",rql);
-        // if(rql != null) {
+
+        // if(rql == null) {
+        //     rql.setEnddate("번역을 좀 하세요 이 게으름뱅이야.");
         // }
+        model.addAttribute("rql",rql);
 
     	return "fragments/snBar";
     }
 
-    @GetMapping("/message")
+    @GetMapping("message")
     @ResponseBody
     public List<Message> messageBox(@AuthenticationPrincipal UserDetails user) {
         
+        log.debug("메세지 컨트롤러는 들어오냐? {}");
         List<Message> msg = Mservice.getMyMessages(user.getUsername());
         return msg;
     }

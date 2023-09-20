@@ -50,9 +50,9 @@ public class MessagingService {
         // 아직 수정 경로가 없어서 마이프로필로 접근
         href += "http://localhost:8888/pretLancer/my_page/MyProfile";
         
-        msg.setType("MP");
-        msg.setTo(userid);
-        msg.setFrom("Admin");
+        msg.setMessagetype("MP");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
         msg.setMessage(str);
         msg.setHref(href);
 
@@ -70,11 +70,11 @@ public class MessagingService {
         str += "님! 번역 활동을 원하시면";
         str += " 튜토리얼을 완료해주세요!";
         // 튜토리얼 페이지로 이동
-        href += "http://localhost:8888/pretLancer/tlanslated/tutorial";
+        href += "http://localhost:8888/pretLancer/tlanslated/tumemberidrial";
         
-        msg.setType("MT");
-        msg.setTo(userid);
-        msg.setFrom("Admin");
+        msg.setMessagetype("MT");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
         msg.setMessage(str);
         msg.setHref(href);
 
@@ -104,9 +104,9 @@ public class MessagingService {
         // 해당 게시글로 이동
         href += "http://localhost:8888/pretLancer/community/read?boardnum=" + r.getBoardnum();
         
-        msg.setType("CR");
-        msg.setTo(userid);
-        msg.setFrom("Admin");
+        msg.setMessagetype("CR");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
         msg.setMessage(str);
         msg.setHref(href);
 
@@ -130,9 +130,9 @@ public class MessagingService {
         // TODO: 이용약관 페이지로 가버려도 될 듯
         href += "";
         
-        msg.setType("CR");
-        msg.setTo(userid);
-        msg.setFrom("Admin");
+        msg.setMessagetype("CR");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
         msg.setMessage(str);
         msg.setHref(href);
 
@@ -156,9 +156,9 @@ public class MessagingService {
         // 해당 게시글로 이동
         href += "" ;
         
-        msg.setType("CR");
-        msg.setTo(userid);
-        msg.setFrom("Admin");
+        msg.setMessagetype("CR");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
         msg.setMessage(str);
         msg.setHref(href);
 
@@ -190,9 +190,9 @@ public class MessagingService {
         // 해당 게시글로 이동
         href += "" ;
         
-        msg.setType("ME");
-        msg.setTo(userid);
-        msg.setFrom("Admin");
+        msg.setMessagetype("ME");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
         msg.setMessage(str);
         msg.setHref(href);
 
@@ -227,9 +227,9 @@ public class MessagingService {
         // 해당 게시글로 이동
         href += "http://localhost:8888/pretLancer/long/requestToMe" ;
         
-        msg.setType("LR");
-        msg.setTo(userid);
-        msg.setFrom("Admin");
+        msg.setMessagetype("LR");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
         msg.setMessage(str);
         msg.setHref(href);
 
@@ -253,9 +253,9 @@ public class MessagingService {
         // TODO: 아직 없지만 내 요청 목록 페이지로 가도 좋을 듯
         href += "http://localhost:8888/pretLancer/long/myRequest" ;
         
-        msg.setType("LA");
-        msg.setTo(userid);
-        msg.setFrom("Admin");
+        msg.setMessagetype("LA");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
         msg.setMessage(str);
         msg.setHref(href);
 
@@ -279,9 +279,9 @@ public class MessagingService {
         // TODO: 아직 없지만 내 요청 목록 페이지로 가도 좋을 듯
         href += "http://localhost:8888/pretLancer/long/myRequest" ;
         
-        msg.setType("LF");
-        msg.setTo(userid);
-        msg.setFrom("Admin");
+        msg.setMessagetype("LF");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
         msg.setMessage(str);
         msg.setHref(href);
 
@@ -307,9 +307,9 @@ public class MessagingService {
         // TODO: 채팅 없으면 파일 다운로드 받는 페이지가 필요하다. 
         href += "" ;
         
-        msg.setType("LB");
-        msg.setTo(userid);
-        msg.setFrom("Admin");
+        msg.setMessagetype("LB");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
         msg.setMessage(str);
         msg.setHref(href);
 
