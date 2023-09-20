@@ -326,8 +326,17 @@ public class MessagingService {
     public List<Message> getMyMessages(String userid) {
 
        return dao.selectUnclickedMessage(userid);
+
     }
 
-    //TODO: 메세지를 출력하고, 클릭할 수 있도록 만드는데 왜 타임리프가 동작하지 않니?
+    // 메세지를 확인하면 체키 된 상태로 변경하고 메세지를 다시 읽어온다. 
+    public void checked(String userid){
+        dao.updateCheck(userid);
+    }
+
+    // x버튼이나 메세지를 클릭해서 다음 페이지로 이동하면 메세지를 클릭한 처리를 한다.
+    public void clicked(int messagenum) {
+        dao.updateClick(messagenum);
+    }
     
 }

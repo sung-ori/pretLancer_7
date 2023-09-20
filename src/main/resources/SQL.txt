@@ -543,12 +543,12 @@ alter TABLE PRET_REQUEST_L add title varchar2(200);
 create table pret_messages (
 
     messagenum      number      primary key,     -- 시퀀스
-    messagetype            varchar2(10),                -- 메세지의 타입을 명명
-    memberid            varchar2(200),               -- 메세지를 받는 대상
+    messagetype            varchar2(10) ,                -- 메세지의 타입을 명명
+    memberid            varchar2(200) not null,               -- 메세지를 받는 대상
     sender            varchar2(200),              -- 메세지를 발행하는 주체나 메세지를 생성한 주체
     message         varchar2(2000),              -- 실제 메세지 내용으로 화면에 띄워줄 내용
-    checked         varchar2(1),                 -- 알림 칸을 확인했는지 여부                    Y or N
-    clicked         varchar2(1),                 -- 클릭해서 알림을 실제 확인 했는지 여부           Y or N
+    checked         varchar2(1) default 'N',                 -- 알림 칸을 확인했는지 여부                    Y or N
+    clicked         varchar2(1) default 'N',                 -- 클릭해서 알림을 실제 확인 했는지 여부           Y or N
     href            varchar2(2000),              -- 링크 열 때 인자가 되는 요소
 
     FOREIGN KEY (memberid) REFERENCES PRET_MEMBER(memberid) on delete CASCADE,
@@ -556,3 +556,9 @@ create table pret_messages (
     CONSTRAINT chk_checked CHECK (checked IN ('Y','N' )),  -- 확인 안확인 Y = 확인
     CONSTRAINT chk_clicked CHECK (clicked IN ('Y','N' ))  -- 확인 안확인 Y = 확인
 );
+
+CREATE SEQUENCE     Message_SEQ
+        START WITH 1
+        INCREMENT BY 1
+        MINVALUE 1
+        NOCYCLE;
