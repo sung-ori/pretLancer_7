@@ -159,10 +159,4 @@ public class TranslatedController {
 		return "redirect:/";
 	}
 	
-	// 번역 도중에 나갔을 경우, 내가 맡은 번역 다시 불러오기
-	
-	
-	//
-	
-	
 }

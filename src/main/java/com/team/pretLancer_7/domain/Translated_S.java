@@ -15,5 +15,5 @@ public class Translated_S {
 	String requestcontent_s;		// 번역요청내용
 	String translatedcontent_s;		// 번역결과내용
 	String comment_st;				// 비고
-
+	int evaluationvalue_s;			// 평가횟수
 }

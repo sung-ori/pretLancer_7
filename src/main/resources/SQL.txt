@@ -200,7 +200,8 @@ CREATE TABLE PRET_TRANSLATED_S (
     MEMBERID                VARCHAR2(20) NOT NULL,          -- 번역자 아이디        FK
     REQUESTCONTENT_S        VARCHAR2 (500),                 -- 번역 요청 내용       FK
     TRANSLATEDCONTENT_s     VARCHAR2 (500),                 -- 번역 결과 내용
-    COMMENT_ST              VARCHAR2(300),                 -- 비고란
+    COMMENT_ST              VARCHAR2(300),                  -- 비고란
+    EVALUATIONVALUE_S		NUMBER DEFAULT 0,				-- 평가 횟수 확인
 
     FOREIGN KEY (MEMBERID)            REFERENCES PRET_MEMBER(MEMBERID),
     FOREIGN KEY (REQUESTNUM_S)         REFERENCES PRET_REQUEST_S(REQUESTNUM_S)
@@ -225,6 +226,7 @@ CREATE TABLE PRET_TRANSLATED_M (
     REQUESTCONTENT_M        VARCHAR2 (500),                 -- 번역 요청 내용       FK
     TRANSLATEDCONTENT_M     VARCHAR2 (500),                 -- 번역 결과 내용
     COMMENT_ST              VARCHAR2(300),                  -- 비고란
+    EVALUATIONVALUE_M		NUMBER DEFAULT 0,				-- 평가 횟수 확인
 
     FOREIGN KEY (MEMBERID)            REFERENCES PRET_MEMBER(MEMBERID),
     FOREIGN KEY (REQUESTNUM_M)         REFERENCES PRET_REQUEST_M(REQUESTNUM_M)
