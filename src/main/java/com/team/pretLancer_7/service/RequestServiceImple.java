@@ -84,6 +84,16 @@ public class RequestServiceImple implements RequestService {
 	public Request_M choiceRM() {
 		return Rdao.choiceRM();
 	}
+
+	@Override
+	public Request_S myorderS(String username) {
+		return Rdao.myorderS(username);
+	}
+
+	@Override
+	public Request_M myorderM(String username) {
+		return Rdao.myorderM(username);
+	}
 	
 	
 	

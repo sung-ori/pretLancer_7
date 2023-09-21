@@ -19,5 +19,9 @@ public interface TranslatedService {
 
 	void cancelTM(Translated_M tm);
 
+	Translated_S getMyTS(Request_S myorderS);
+
+	Translated_M getMyTM(Request_M myorderM);
+
 	
 }

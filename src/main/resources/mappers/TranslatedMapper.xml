@@ -44,4 +44,12 @@
 	delete from pret_translated_m where memberid = #{memberid} and translatednum_m = #{translatednum_m} 
 	</delete>
 
+	<select id="getMyTS" parameterType="Request_S" resultType="Translated_S">
+	select * from pret_translated_s where requestnum_s = #{requestnum_s} and memberid = #{memberid2}
+	</select>
+	
+	<select id="getMyTM" parameterType="Request_m" resultType="Translated_M">
+	select * from pret_translated_m where requestnum_m = #{requestnum_m} and memberid = #{memberid2}
+	</select>
+
 </mapper>
