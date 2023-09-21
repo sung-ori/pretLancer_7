@@ -47,7 +47,6 @@ public class MainController {
     //문의 페이지
     @PostMapping("qna")
     public String qnaForm(QnA q) {
-    	int n = service.insertQnA(q);
     	
     	return "redirect:/qna";
     }
