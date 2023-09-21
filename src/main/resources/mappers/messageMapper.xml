@@ -18,14 +18,14 @@
         </select>
 
         <update id="updateCheck" parameterType="String">
-                update pret_message
+                update pret_messages
                 set checked = 'Y'
                 where memberid = #{memberid}
         </update>
         
         <!-- TODO: 귀찮으니까 안바꾸는데 안돌아가면 int 로 바꾸세요 -->
         <update id="updateClick" parameterType="int">
-                update pret_message
+                update pret_messages
                 set clicked = 'Y'
                 where messagenum = #{messagenum}
         </update>
