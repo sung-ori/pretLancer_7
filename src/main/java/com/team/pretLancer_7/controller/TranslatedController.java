@@ -42,6 +42,22 @@ public class TranslatedController {
 	// 단문 번역하기 버튼 눌렀을 시 작동 - 
 	@GetMapping("insertTS")
 	public String insertTS(@AuthenticationPrincipal UserDetails user, Model m) {
+		
+		// 내가 현재 맡은 의뢰가 있는지 확인
+		Request_S myorderS = RService.myorderS(user.getUsername());
+		Request_M myorderM = RService.myorderM(user.getUsername());
+		
+		if (myorderS != null) {
+			Translated_S mytransS = TService.getMyTS(myorderS);
+			m.addAttribute("translated", mytransS);
+			return "translatedForm/translatedPageS";
+		}
+		else if (myorderM != null) {
+			Translated_M mytransM = TService.getMyTM(myorderM);
+			m.addAttribute("translated", mytransM);
+			return "translatedForm/translatedPageM";
+		}
+		
 		// 의뢰를 받았을 시 의뢰테이블에서 가장 최근의 글을 하나 선택
 		Request_S rs = RService.choiceRS();
 		
@@ -66,6 +82,22 @@ public class TranslatedController {
 	// 중문 번역하기 버튼 눌렀을 시 작동 - 
 	@GetMapping("insertTM")
 	public String insertTM(@AuthenticationPrincipal UserDetails user, Model m) {
+		
+		// 내가 현재 맡은 의뢰가 있는지 확인
+		Request_S myorderS = RService.myorderS(user.getUsername());
+		Request_M myorderM = RService.myorderM(user.getUsername());
+				
+		if (myorderS != null) {
+			Translated_S mytransS = TService.getMyTS(myorderS);
+			m.addAttribute("translated", mytransS);
+			return "translatedForm/translatedPageS";
+		}
+		else if (myorderM != null) {
+			Translated_M mytransM = TService.getMyTM(myorderM);
+			m.addAttribute("translated", mytransM);
+			return "translatedForm/translatedPageM";
+		}
+		
 		// 의뢰를 받았을 시 의뢰테이블에서 가장 최근의 글을 하나 선택
 		Request_M rm = RService.choiceRM();
 		

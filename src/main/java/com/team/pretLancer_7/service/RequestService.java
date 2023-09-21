@@ -18,5 +18,9 @@ public interface RequestService {
 	
 	// 번역하기 버튼을 눌렀을 시 중문테이블에 들어있는 의뢰 중 하나를 가져옴
 	Request_M choiceRM();
+
+	Request_S myorderS(String username);
+
+	Request_M myorderM(String username);
 	
 }
