@@ -22,6 +22,9 @@
 	<!-- 준규상 코드 -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:src="@{/js/snBarLoader.js}"></script>
+	<!-- 썸머노트 -->
+	<link rel="stylesheet" href="assets/css/pages/summernote.css">
+	<link rel="stylesheet" href="assets/extensions/summernote/summernote-lite.css">
 	<!-- 글자세기 -->
 	<script>
 		function calc(){
@@ -61,13 +64,21 @@
     <style>
     	.answer_input {
 		
-			width : 500px;
-			height : 700px;
+			width : 400px;
+			height : 100px;
 			
 			border : solid 2px #EFF0F0;
 			border-radius : 5px;
 		
 		}</style>
+		
+	<style>
+    .custom-label {
+    	color: 00FFFFFF;
+        background-color: #00FFFFFF;
+        /* 다른 스타일 속성도 여기에 추가할 수 있습니다. */
+    }
+</style>
     
 </head>
 <body>
@@ -86,50 +97,41 @@
 		<h1>번역하기</h1>
 	    <h3>단, 중문 의뢰</h3>
 	</div>
-	
-	<form th:action="@{/request/insertRS}" method="post" id='form'>
-	
-		<textarea name="reuqestcontent_s" id='content' rows="30" cols="60" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
-		<br>
-		<input type="number" id="result" value="0" readonly style="border:none;">
-		<input type="submit" value="의뢰하기">
-		<br>
-		<div id="message"></div>	
-	</form>
-	
-	<select id="selectbox" name="selectbox" onchange="" class="form-select pt-1 mt-4" style="height: 33px;width:40%; vertical-align: middle;">
-	  <option selected>시작언어 선택</option>
-	  <option value="1">ENGLISH</option>
-	  <option value="2">JAPNANESE</option>
-	  <option value="3">KOREAN</option>
-	</select>
-	<select id="selectbox" name="selectbox" onchange="" class="form-select pt-1 mt-4" style="height: 33px;width:40%; vertical-align: middle;">
-	  <option selected>도착언어 선택</option>
-	  <option value="1">ENGLISH</option>
-	  <option value="2">JAPNANESE</option>
-	  <option value="3">KOREAN</option>
-	</select>
-	
-	<div class="form-floating">
-  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-  <label for="floatingTextarea2" style="background-color: white;">Comments</label>
-</div>
 
-		<div class="form-floating">
-	  <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-	    <option selected>Open this select menu</option>
-	    <option value="1">One</option>
-	    <option value="2">Two</option>
-	    <option value="3">Three</option>
-	  </select>
-	  <label for="floatingSelect">Works with selects</label>
+	<div class="row g-5">
+		<div class="col-md-5 col-lg-4 order-md-last" style="text-align:left;">
+			<select id="selectbox" name="selectbox" onchange="" class="form-select pt-1 mt-4 " style="height: 33px;width:40%; vertical-align: middle;">
+			  <option selected>시작언어 선택</option>
+			  <option value="1">ENGLISH</option>
+			  <option value="2">JAPNANESE</option>
+			  <option value="3">KOREAN</option>
+			</select>
+			<select id="selectbox" name="selectbox" onchange="" class="form-select pt-1 mt-4" style="height: 33px;width:40%; vertical-align: middle;">
+			  <option selected>도착언어 선택</option>
+			  <option value="1">ENGLISH</option>
+			  <option value="2">JAPNANESE</option>
+			  <option value="3">KOREAN</option>
+			</select>
+			<br>
+			<textarea name = "translatedcontent_m" class = "answer_input" id = "translatedcontent_m" placeholder = "문의글"></textarea>
+			<br>
+			<br>
+			<input type="number" id="result" value="0" readonly style="border:none;" class="col-sm-3">
+			<input type="submit" value="의뢰하기">
+			<div id="message" ></div>
+		</div>
+
+		<div class="cik-md-5 col-lg-6">
+			<form th:action="@{/request/insertRS}" method="post" id='form'>
+				<textarea name="reuqestcontent_s" id='content' rows="30" cols="60" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
+			</form>
+		</div>
 	</div>
-
-
-	<p class = "input_exam">번역을 정확하게 입력해주세요.</p>
-	<textarea name = "translatedcontent_m" class = "answer_input" id = "translatedcontent_m" placeholder = "문의글"></textarea> <br>
-
-
+	
+	<div class="card-body">
+                        <div id="summernote"></div>
+                    </div>
+	
 	
 	
 	<!-- <div id="main"> -->
@@ -141,5 +143,8 @@
 <!-- Need: Apexcharts -->
 <script th:src="@{/assets/extensions/apexcharts/apexcharts.min.js}"></script>
 <script th:src="@{/assets/js/pages/dashboard.js}"></script>
+<!-- summer note -->
+<script src="assets/extensions/summernote/summernote-lite.min.js"></script>
+<script src="assets/js/pages/summernote.js"></script>
 </body>
 </html>
