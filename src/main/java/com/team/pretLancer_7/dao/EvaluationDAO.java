@@ -12,14 +12,21 @@ import com.team.pretLancer_7.domain.Translated_S;
 @Mapper
 public interface EvaluationDAO {
 
+	
 	Translated_S getES();
 	
 	Translated_M getEM();
+	
 
 	void insertES(Evaluation_S es);
 
 	void insertEM(Evaluation_M em);
 
+	
+	void evUpS(int translatednum_s);
+	
+	void evUpM(int translatednum_m);
+	
 	
 	// 단문 평가 확인
 	Translated_S evCheckS(int translatednum_s);
@@ -39,4 +46,5 @@ public interface EvaluationDAO {
 	void completeM(int requestnum_m);
 
 	void failedM(int requestnum_m);
+
 }

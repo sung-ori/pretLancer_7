@@ -5,9 +5,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form th:action="@{/insertES}" method="post">
-	<input type="hidden" name="translatednum_s" th:value="translated.translatednum_s"/>
-	<input type="hidden" name="requestnum_s" th:value="translated.requestnum_s"/>
+	<form th:action="@{/evaluation/insertES}" method="post">
+	<input type="hidden" name="translatednum_s" th:value="${translated.translatednum_s}"/>
+	<input type="hidden" name="requestnum_s" th:value="${translated.requestnum_s}"/>
+	
+	<!-- 가짜 값 -->
+	<input type="hidden" name="evaluationsuccess" value='Y'/>
+	
 	<input type="submit" value="평가하기"/>
 	</form>
 </body>

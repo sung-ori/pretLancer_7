@@ -7,23 +7,23 @@
 	<select id="getES" resultType="Translated_S">
 	SELECT *
 		FROM (
-		    SELECT *
-		    FROM pret_translated_s
-		    WHERE evaluationvalue_s &lt;= 5
-		    ORDER BY DBMS_RANDOM.RANDOM
-			)
-		WHERE ROWNUM = 1;
+	    SELECT *
+	    FROM pret_translated_s
+	    WHERE evaluationvalue_s &lt; 5
+	    ORDER BY translatednum_s ASC
+		)
+		WHERE ROWNUM = 1
 	</select>
 	
 	<select id="getEM" resultType="Translated_M">
 	SELECT *
 		FROM (
-		    SELECT *
-		    FROM pret_translated_m
-		    WHERE evaluationvalue_m &lt;= 5
-		    ORDER BY DBMS_RANDOM.RANDOM
-			)
-		WHERE ROWNUM = 1;	
+	    SELECT *
+	    FROM pret_translated_m
+	    WHERE evaluationvalue_m &lt; 5
+	    ORDER BY translatednum_m ASC
+		)
+		WHERE ROWNUM = 1
 	</select>
 	
 	<insert id="insertES" parameterType="Evaluation_S">
@@ -37,10 +37,20 @@
 	
 	<insert id="insertEM" parameterType="Evaluation_M">
 	insert into pret_evaluation_m 
-	(evaluationnum_m, translatednum_m, requestnum_m, memberid, evaluationsuccess, whyfailed) 
+	(evaluationnum_m, translatednum_m, requestnum_m, memberid, evaluationsuccess
+	<if test="whyfailed != null">, whyfailed</if>) 
 	values 
-	(pret_evalm_seq.nextval, #{translatednum_m}, #{requestnum_m}, #{memberid}, #{evaluationsuccess}, #{whyfailed})
+	(pret_evalm_seq.nextval, #{translatednum_m}, #{requestnum_m}, #{memberid}, #{evaluationsuccess}
+	<if test="whyfailed != null">, #{whyfailed}</if>)
 	</insert>
+	
+	<update id="evUpS" parameterType="int">
+	update pret_translated_s set evaluationvalue_s = evaluationvalue_s + 1 where translatednum_s = #{translatednum_s}
+	</update>
+	
+	<update id="evUpM" parameterType="int">
+	update pret_translated_m set evaluationvalue_m = evaluationvalue_m + 1 where translatednum_m = #{translatednum_m}
+	</update>
 	
 	<select id="evCheckS" parameterType="int" resultType="Translated_S">
 	select * from pret_translated_s where translatednum_s = #{translatednum_s}

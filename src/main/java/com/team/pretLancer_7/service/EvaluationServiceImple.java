@@ -30,42 +30,41 @@ public class EvaluationServiceImple implements EvaluationService {
 	@Override
 	public void insertES(Evaluation_S es) {
 		dao.insertES(es);
+		dao.evUpS(es.getTranslatednum_s());
 		Translated_S ts = dao.evCheckS(es.getTranslatednum_s());
 		long countOfY = 0;
-		if (ts.getEvaluationvalue_s() >= 5) {
+		if (ts.getEvaluationvalue_s() == 5) {
 			List<Evaluation_S> list = dao.getListES(ts.getTranslatednum_s());
 			countOfY = list.stream()
 			            .filter(evaluation -> "Y".equals(evaluation.getEvaluationsuccess()))
 			            .count();
-		}
-		if (countOfY >= 4) {
-			dao.completeS(es.getRequestnum_s());
-		}
-		
-		else {
-			dao.failedS(es.getRequestnum_s());
+			if (countOfY >= 4) {
+				dao.completeS(es.getRequestnum_s());
+			}
+			else {
+				dao.failedS(es.getRequestnum_s());
+			}
 		}
 	}
 
 	@Override
 	public void insertEM(Evaluation_M em) {
 		dao.insertEM(em);
+		dao.evUpM(em.getTranslatednum_m());
 		Translated_M tm = dao.evCheckM(em.getTranslatednum_m());
 		long countOfY = 0;
-		if (tm.getEvaluationvalue_m() >= 5) {
+		if (tm.getEvaluationvalue_m() == 5) {
 			List<Evaluation_M> list = dao.getListEM(tm.getTranslatednum_m());
 			countOfY = list.stream()
 			            .filter(evaluation -> "Y".equals(evaluation.getEvaluationsuccess()))
 			            .count();
-		}
-		if (countOfY >= 4) {
-			dao.completeM(em.getRequestnum_m());
-		}
-		
-		else {
-			dao.failedS(em.getRequestnum_m());
-		}
+			if (countOfY >= 4) {
+				dao.completeM(em.getRequestnum_m());
+			}
+			else {
+				dao.failedS(em.getRequestnum_m());
+			}
+		}	
 	}
-
 	
 }
