@@ -28,15 +28,16 @@
 
         // 알림 보이기, 가리기
         $("#pbt").click(function() {
+            let url =  "http://localhost:8888/pretLancer/messageCk"
             $("#push").slideToggle();
 
             $.ajax({
                 type:"GET",
-                url:"messageCk",
+                url: url,
                 success:function(data) {
                     $("#pop").hide();
                 },
-                error:function(e) {
+                error:function() {
                     alert(JSON.stringify(e));
                 }
             });
@@ -45,9 +46,10 @@
         // 알림 하나 지우기
         $(document).on("click",".delBt", function() {
             let msn = $(this).attr("name");
+            let url = "http://localhost:8888/pretLancer/messageCl"
         $.ajax({
             type:"GET",
-            url:"messageCl",
+            url: url,
             data:{"messagenum" : msn},
             success: function() {
                 getMessage();
@@ -63,15 +65,15 @@
         // 이돌과 동시에 알림 지우기
         $(document).on("click",".url", function() {
 
-            let url = $(this).attr("id");
+            let link = $(this).attr("id");
             let msn = $(this).attr("name");
-            
+            let url = "http://localhost:8888/pretLancer/messageCl"
         $.ajax({
             type:"GET",
-            url:"messageCl",
+            url:url,
             data:{"messagenum" : msn},
             success: function() {
-                window.location.href = url;
+                window.location.href = link;
             },
             error: function(e) {
                 alert(JSON.stringify(e));
@@ -87,39 +89,44 @@
     // 알림 불러오는 
     function getMessage() {
         let userid = $("#userid").val();
+        let url ="http://localhost:8888/pretLancer/message"
         $.ajax({
             type:"GET",
-            url:"message",
+            url:url,
             // data:{"memberid" : userid},
             dataType:"json",
             success: function(data) {   
-                let str = "";
-                $.each(data,function(i,n) {
-
-                    str += ` 
-                            <div  class="list-group-item list-group-item-action d-flex gap-3 py-3 col-6 url"  aria-current="true" id="${n.href}" name="${n.messagenum}" class="url">
-                                <img src="/src/main/resources/static/img/paper.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
-                                <div class="d-flex gap-2 w-100 justify-content-between">
-                                    <div>
-                                        <h6 class="mb-0">새 알림!</h6>
-                                        <pre class="mb-0 opacity-75">${n.message}</pre>
-                                    </div>
-                                    <input type="button" class="btn btn-sm btn-danger delBt col-1" name="${n.messagenum}" value="X">
-                                </div>
-                            </div>`;
-                });
-                $("#push").html(str);
-
-                $.each(data,function(i,n) {
-                    if(n.checked == "N") {
-                    $("#pop").show();
-                    return;
-                }
-                });
                 
+                let str = "";
+                if(data != null) {
 
+                
+                    $.each(data,function(i,n) {
+
+                        str += ` 
+                                <div  class="list-group-item list-group-item-action d-flex gap-3 py-3 col-6 "  aria-current="true"  >
+                                    <img src="/Users/sung_ori/pretLancer_7/pretLancer_7/src/main/resources/static/img/paper.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                                    <div class="d-flex gap-2 w-100 justify-content-between url" id="${n.href}" name="${n.messagenum}">
+                                        <div>
+                                            <h6 class="mb-0">새 알림!</h6>
+                                            <pre class="mb-0 opacity-75">${n.message}</pre>
+                                        </div>
+                                        </div>
+                                        <input type="button" class="btn btn-sm btn-danger delBt col-1" name="${n.messagenum}" value="X">
+                                </div>`;
+                    });
+                    $("#push").html(str);
+
+                    $.each(data,function(i,n) {
+                        if(n.checked == "N") {
+                        $("#pop").show();
+                        return;
+                    }
+                    });
+                
+                }
             },
-            error: function(e) {
+            error: function() {
                 alert(JSON.stringify(e));
             }
         });
@@ -243,7 +250,7 @@
                     
                     
                     <div class="col-md-3 col-sm-3" >
-                        <button class="btn btn-primary buttonFixed " id="pbt">
+                        <button class="btn btn-primary buttonFixed  " id="pbt">
                             <span class="position-absolute top-40 start-100  translate-middle p-2 bg-danger border border-light rounded-circle" id="pop" style="display: none;">
                                 <span class="visually-hidden">New alerts</span>
                             </span>

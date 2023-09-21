@@ -26,8 +26,11 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class LongServiceImpl implements LongService{
 
-    @Value("/Users/sung_ori/pretLancer_7/pretLancer_7/src/main/resources/static/img")
-	String uploadPath;
+    @Value("/Users/sung_ori/pretLancer_7/pretLancer_7/src/main/resources/static/request")
+	String uploadPathR;
+
+    @Value("/Users/sung_ori/pretLancer_7/pretLancer_7/src/main/resources/static/translate")
+	String uploadPathT;
 
     @Autowired
     LongDAO dao ;
@@ -78,13 +81,13 @@ public class LongServiceImpl implements LongService{
     public int writeRequest(Request_L request_L, MultipartFile uploadFile) {
         FileService fileService = new FileService();
         log.debug("장문 요청 서비스 {}",request_L);
-        log.debug("업로드 경로", uploadPath);
+        log.debug("업로드 경로", uploadPathR);
         
         String originfile =""; 
         String savedfile = "";
         try{
             originfile = uploadFile.getOriginalFilename();
-            savedfile = fileService.saveFile(uploadFile,uploadPath);
+            savedfile = fileService.saveFile(uploadFile,uploadPathR);
             
         }
         catch (NullPointerException e) {
@@ -105,13 +108,13 @@ public class LongServiceImpl implements LongService{
         
         FileService fileService = new FileService();
         log.debug("장문 요청 서비스 {}",request_L);
-        log.debug("업로드 경로", uploadPath);
+        log.debug("업로드 경로", uploadPathR);
         
         String originfile =""; 
         String savedfile = "";
         try{
             originfile = uploadFile.getOriginalFilename();
-            savedfile = fileService.saveFile(uploadFile,uploadPath);
+            savedfile = fileService.saveFile(uploadFile,uploadPathR);
             
         }
         catch (NullPointerException e) {

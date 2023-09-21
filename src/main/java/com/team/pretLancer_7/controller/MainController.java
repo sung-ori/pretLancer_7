@@ -85,7 +85,7 @@ public class MainController {
     	return "fragments/snBar";
     }
 
-    @GetMapping("message")
+    @GetMapping("/message")
     @ResponseBody
     public List<Message> messageBox(@AuthenticationPrincipal UserDetails user) {
         
@@ -94,7 +94,7 @@ public class MainController {
         return msg;
     }
 
-    @GetMapping("messagecnt")
+    @GetMapping("/messagecnt")
     @ResponseBody
     public int messagecnt(@AuthenticationPrincipal UserDetails user) {
         
@@ -102,13 +102,13 @@ public class MainController {
         return cnt ;
     }
 
-    @GetMapping("messageCk")
+    @GetMapping("/messageCk")
     @ResponseBody
     public void messageCk(@AuthenticationPrincipal UserDetails user) {
         Mservice.checked(user.getUsername());
     }
 
-    @GetMapping("messageCl")
+    @GetMapping("/messageCl")
     @ResponseBody
     public void messageCl(int messagenum) {
         Mservice.clicked(messagenum);

@@ -9,6 +9,7 @@
         let header = $("meta[name='_csrf_header']").attr('content');
         let token = $("meta[name='_csrf']").attr('content');
         
+        readContent();
         readReply();
         readInfo();
         policeCount();
@@ -280,5 +281,11 @@
                     alert(JSON.stringify(e));
                 }
             });
+        }
+
+        function readContent() {
+            let content = $("#content").val();
+            alert(content);
+            $("#contentBox").html(content);
         }
     });// End Of jQuery
