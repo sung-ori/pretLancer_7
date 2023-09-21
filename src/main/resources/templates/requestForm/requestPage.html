@@ -22,11 +22,53 @@
 	<!-- 준규상 코드 -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:src="@{/js/snBarLoader.js}"></script>
+	<!-- 글자세기 -->
+	<script>
+		function calc(){
+			document.getElementById('result').value = document.getElementById('content').value.length;
+		}
+	</script>
+	
+	<script>
+  function calc() {
+    var content = document.getElementById('content').value;
+    var result = document.getElementById('result');
+    var message = document.getElementById('message');
+
+    result.value = content.length;
+
+    if (result.value < 1000) {
+      message.innerHTML = "단문";
+    } 
+    else if(result.value < 3000){
+    	message.innerHTML = "중문";
+    	$("#content").attr("name","requestcontent_m")
+    	$("#form").attr("action","./insertRM")
+    	
+    } 
+    else {
+      message.innerHTML = "장문";
+    }
+  }
+</script>
+	<!-- 글자세기 -->
 	<style>
     	.move-right-50 {transform: translateX(300px);}
 		.custom-width {width: 1100px;}
 		.b {font-weight: bold;}
     </style>
+    <!-- 커멘트란 -->
+    <style>
+    	.answer_input {
+		
+			width : 500px;
+			height : 700px;
+			
+			border : solid 2px #EFF0F0;
+			border-radius : 5px;
+		
+		}</style>
+    
 </head>
 <body>
 	<div id="snBar-placeholder"></div>
@@ -38,14 +80,57 @@
 	                </a>
 	            </header>
 	            
+	
 	<div class="page-heading">
+		<br><br>
+		<h1>번역하기</h1>
 	    <h3>단, 중문 의뢰</h3>
 	</div>
 	
-	<form th:action="@{/request/insertRM}" method="post">
-		<textarea rows="30" cols="30" name="requestcontent_m"></textarea>
+	<form th:action="@{/request/insertRS}" method="post" id='form'>
+	
+		<textarea name="reuqestcontent_s" id='content' rows="30" cols="60" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
+		<br>
+		<input type="number" id="result" value="0" readonly style="border:none;">
 		<input type="submit" value="의뢰하기">
+		<br>
+		<div id="message"></div>	
 	</form>
+	
+	<select id="selectbox" name="selectbox" onchange="" class="form-select pt-1 mt-4" style="height: 33px;width:40%; vertical-align: middle;">
+	  <option selected>시작언어 선택</option>
+	  <option value="1">ENGLISH</option>
+	  <option value="2">JAPNANESE</option>
+	  <option value="3">KOREAN</option>
+	</select>
+	<select id="selectbox" name="selectbox" onchange="" class="form-select pt-1 mt-4" style="height: 33px;width:40%; vertical-align: middle;">
+	  <option selected>도착언어 선택</option>
+	  <option value="1">ENGLISH</option>
+	  <option value="2">JAPNANESE</option>
+	  <option value="3">KOREAN</option>
+	</select>
+	
+	<div class="form-floating">
+  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+  <label for="floatingTextarea2" style="background-color: white;">Comments</label>
+</div>
+
+		<div class="form-floating">
+	  <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+	    <option selected>Open this select menu</option>
+	    <option value="1">One</option>
+	    <option value="2">Two</option>
+	    <option value="3">Three</option>
+	  </select>
+	  <label for="floatingSelect">Works with selects</label>
+	</div>
+
+
+	<p class = "input_exam">번역을 정확하게 입력해주세요.</p>
+	<textarea name = "translatedcontent_m" class = "answer_input" id = "translatedcontent_m" placeholder = "문의글"></textarea> <br>
+
+
+	
 	
 	<!-- <div id="main"> -->
 	</div> 
