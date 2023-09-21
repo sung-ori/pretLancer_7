@@ -22,9 +22,7 @@
 	<!-- 준규상 코드 -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:src="@{/js/snBarLoader.js}"></script>
-	<!-- 썸머노트 -->
-	<link rel="stylesheet" href="assets/css/pages/summernote.css">
-	<link rel="stylesheet" href="assets/extensions/summernote/summernote-lite.css">
+	
 	<!-- 글자세기 -->
 	<script>
 		function calc(){
@@ -45,9 +43,9 @@
     } 
     else if(result.value < 3000){
     	message.innerHTML = "중문";
-    	$("#content").attr("name","requestcontent_m")
-    	$("#form").attr("action","./insertRM")
-    	
+    	$("#content").attr("name","requestcontent_m");
+    	$("#comment").attr("name", "comment_mr");
+    	$("#form").attr("action","./insertRM");
     } 
     else {
       message.innerHTML = "장문";
@@ -64,7 +62,7 @@
     <style>
     	.answer_input {
 		
-			width : 400px;
+			width : 300px;
 			height : 100px;
 			
 			border : solid 2px #EFF0F0;
@@ -94,46 +92,49 @@
 	
 	<div class="page-heading">
 		<br><br>
-		<h1>번역하기</h1>
+		<h1>의뢰하기</h1>
 	    <h3>단, 중문 의뢰</h3>
 	</div>
-
+<form th:action="@{/request/insertRS}" method="post" id='form'>
 	<div class="row g-5">
-		<div class="col-md-5 col-lg-4 order-md-last" style="text-align:left;">
-			<select id="selectbox" name="selectbox" onchange="" class="form-select pt-1 mt-4 " style="height: 33px;width:40%; vertical-align: middle;">
+		<div class="card col-md-6 col-lg-5 order-md-last" style="box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2); text-align:left; background-color:#F8F9FA;">
+			<select id="selectbox" name="startlang" onchange="" class="form-select pt-1 mt-4 " style="height: 33px;width:40%; vertical-align: middle;">
 			  <option selected>시작언어 선택</option>
-			  <option value="1">ENGLISH</option>
-			  <option value="2">JAPNANESE</option>
-			  <option value="3">KOREAN</option>
+			  <option value="EN">ENGLISH</option>
+			  <option value="JP">JAPNANESE</option>
+			  <option value="KR">KOREAN</option>
 			</select>
-			<select id="selectbox" name="selectbox" onchange="" class="form-select pt-1 mt-4" style="height: 33px;width:40%; vertical-align: middle;">
+			<select id="selectbox" name="endlang" onchange="" class="form-select pt-1 mt-4" style="height: 33px;width:40%; vertical-align: middle;">
 			  <option selected>도착언어 선택</option>
-			  <option value="1">ENGLISH</option>
-			  <option value="2">JAPNANESE</option>
-			  <option value="3">KOREAN</option>
+			  <option value="EN">ENGLISH</option>
+			  <option value="JP">JAPNANESE</option>
+			  <option value="KO">KOREAN</option>
 			</select>
 			<br>
-			<textarea name = "translatedcontent_m" class = "answer_input" id = "translatedcontent_m" placeholder = "문의글"></textarea>
+			<textarea name = "comment_sr" class = "answer_input" id = "comment_sr" placeholder = "문의글"></textarea>
 			<br>
 			<br>
-			<input type="number" id="result" value="0" readonly style="border:none;" class="col-sm-3">
-			<input type="submit" value="의뢰하기">
-			<div id="message" ></div>
+			<span><input type="number" id="result" value="0" readonly style="border:none;" class="col-sm-3">글자</span>
+			
+			<span id="message" style="color:black;" ></span>
+			<br><br>
+			<div>
+			<input id="cash" type="number" name="cash" class="col-sm-3">
+			</div>
+			<br>
+			<div>
+			<input type="submit" class="btn btn-primary" value="의뢰하기">
+			</div>
+			
 		</div>
 
 		<div class="cik-md-5 col-lg-6">
-			<form th:action="@{/request/insertRS}" method="post" id='form'>
-				<textarea name="reuqestcontent_s" id='content' rows="30" cols="60" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
-			</form>
+			
+				<textarea name="requestcontent_s" id='content' rows="30" cols="60" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
+			
 		</div>
 	</div>
-	
-	<div class="card-body">
-                        <div id="summernote"></div>
-                    </div>
-	
-	
-	
+</form>
 	<!-- <div id="main"> -->
 	</div> 
 	<!-- 부트스트랩  JS -->
@@ -143,8 +144,6 @@
 <!-- Need: Apexcharts -->
 <script th:src="@{/assets/extensions/apexcharts/apexcharts.min.js}"></script>
 <script th:src="@{/assets/js/pages/dashboard.js}"></script>
-<!-- summer note -->
-<script src="assets/extensions/summernote/summernote-lite.min.js"></script>
-<script src="assets/js/pages/summernote.js"></script>
+
 </body>
 </html>
