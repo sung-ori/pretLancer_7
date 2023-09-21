@@ -93,4 +93,24 @@ public class MainController {
         List<Message> msg = Mservice.getMyMessages(user.getUsername());
         return msg;
     }
+
+    @GetMapping("messagecnt")
+    @ResponseBody
+    public int messagecnt(@AuthenticationPrincipal UserDetails user) {
+        
+        int cnt = Mservice.getMyMessages(user.getPassword()).size();
+        return cnt ;
+    }
+
+    @GetMapping("messageCk")
+    @ResponseBody
+    public void messageCk(@AuthenticationPrincipal UserDetails user) {
+        Mservice.checked(user.getUsername());
+    }
+
+    @GetMapping("messageCl")
+    @ResponseBody
+    public void messageCl(int messagenum) {
+        Mservice.clicked(messagenum);
+    }
 }

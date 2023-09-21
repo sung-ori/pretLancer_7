@@ -32,16 +32,17 @@
         let userid = $("#userid").val();
         $.ajax({
             type:"GET",
-            url:"../message",
+            url:"message",
             // data:{"memberid" : userid},
             dataType:"json",
             success: function(data) {   
-                
+                let str = "";
                 $.each(data,function(i,n) {
-                    let str = "";
+                    alert("333");
+                    
 
                     str += `<a href="${n.href}" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-                                <img src="https://github.com/twbs.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                                <img src="src/main/resources/static/img/paper.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
                                 <div class="d-flex gap-2 w-100 justify-content-between">
                                     <div>
                                         <h6 class="mb-0">새 알림!</h6>
@@ -55,7 +56,7 @@
 
 
             },
-            error: function(enddate) {
+            error: function(e) {
                 alert(JSON.stringify(e));
             }
         });
@@ -162,7 +163,7 @@
                     
                     <div class="col-md-3 col-sm-3" >
                         <button class="btn btn-primary buttonFixed ">
-                            <span class="position-absolute top-30 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                            <span class="position-absolute top-40 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
                                 <span class="visually-hidden">New alerts</span>
                             </span>
                             <i class="bi bi-bell-fill" style="font-size: 2em;"></i>
