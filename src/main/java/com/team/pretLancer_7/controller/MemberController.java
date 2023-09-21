@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
+import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,9 @@ public class MemberController {
 	
 	@Autowired
 	MemberService service;
+
+	@Autowired
+	MessagingService msg;
 	
 	// 회원가입 폼으로 이동
 	@GetMapping("join")
@@ -52,7 +56,10 @@ public class MemberController {
 	    Ability ab = new Ability();
 	    ab.setMemberid(m.getMemberid());
 	    service.insertAbility(ab);
-		
+		// 가입 하면 웰컴 메세지
+		msg.writeMP(m.getMemberid());
+		msg.writeMT(m.getMemberid());
+
 		return "redirect:/";
 	}
 	

@@ -15,6 +15,7 @@ import com.team.pretLancer_7.dao.MemberDAO;
 import com.team.pretLancer_7.domain.AuctionTranslator;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
+import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.utill.FileService;
 
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,9 @@ public class LongServiceImpl implements LongService{
     @Autowired
     MemberDAO Mdao;
 
+    @Autowired
+    MessagingService msg;
+
     @Override
     public List<MyPage> getTranslatorList(String userid) {
         
@@ -41,14 +45,24 @@ public class LongServiceImpl implements LongService{
         translatorList =  dao.selectAdTranslator();
         
         int idx = 0;
+        //  현재 번역 중인지 확인하고 번역 중이면 출력 안해준다.
+        while(true) {
+            int max = translatorList.size();
 
-        for(MyPage translatorProfile : translatorList ) {
-            if (translatorProfile.getMemberid().equals(userid)) {
+            String a = translatorList.get(idx).getMemberid();
+            
+            Request_L rql = dao.selectTranslateNow(a);
+
+            if (a.equals(userid) || rql != null) {
                 translatorList.remove(idx);
-                break;
+                idx = 0;
+                continue;
             }
             idx++;
-            
+
+            if(idx == max) {
+                break;
+            }
         }
 
         log.error("서비스는 돌아오나? {}", translatorList);
@@ -199,7 +213,10 @@ public class LongServiceImpl implements LongService{
 
         String cash = dao.selectAuctionBid(map).getTranslatervalue();
         map.put("cash", cash);
-        return dao.updateRequestAuction(map);
+        // 낙찰금액 / 낙찰 회원 / 요청 번호 / 옥션 번호
+        int a = dao.updateRequestAuction(map);
+        msg.writeLB(map);
+        return a;
     }
 
     @Override
@@ -220,15 +237,24 @@ public class LongServiceImpl implements LongService{
 
         if(map.get("message").equals("accept")) {
             dao.updateRequestResponse(map);
+
+            msg.writeLA(map);
+
             result = "accept";
         
         }
 
         if(map.get("message").equals(("refuse"))) {
             dao.updateRequestResponse(map);
+            msg.writeLF(map);
                 result = "refuse";
         }
         return result;
+    }
+
+    @Override
+    public Request_L checkTranslateNow(String userid) {
+        return dao.selectTranslateNow(userid);
     }
     
     

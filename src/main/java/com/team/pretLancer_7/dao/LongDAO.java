@@ -43,4 +43,6 @@ public interface LongDAO {
     public List<Request_L> selectRequestToMe(String userid) ;
     // 요청 수락 or  거절
     public int updateRequestResponse(Map<String, String> map);
+
+    public Request_L selectTranslateNow(String userid);
 }

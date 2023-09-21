@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.team.pretLancer_7.domain.AuctionTranslator;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
+import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.service.LongService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +31,8 @@ public class LongTranslateController {
     
     @Autowired
     LongService service;
+    @Autowired
+    MessagingService msg;
 
     
 
@@ -80,6 +83,8 @@ public class LongTranslateController {
         request_L.setMemberid(user.getUsername());
 
         service.writeRequest(request_L,uploadFile);
+
+        msg.writeLR(request_L);
         return "redirect:/";
     }
 
@@ -144,6 +149,7 @@ public class LongTranslateController {
         return service.bidValidation(map);
     }
 
+// TODO : 내가 요청한 리스트를 전부 출력하는 걸로 바꿔도 좋을 듯
     @GetMapping("/myAuctionList")
     public String myAuctionList(@AuthenticationPrincipal UserDetails user, Model model) {
         List<Request_L> myAuctionList =  service.myAuctionList(user.getUsername());
@@ -161,6 +167,7 @@ public class LongTranslateController {
         map.put("requestnum", requestnum);
         map.put("auctionnum",auctionnum);
         int rst = service.successfulBid(map);
+        
 
     }
 
@@ -190,5 +197,11 @@ public class LongTranslateController {
         map.put("requestnum", requestnum);
         map.put("message", message);
         return service.resoponseToRequest(map);
+    }
+    // 번역가가 현재 변역중인지 확인.
+    @GetMapping("/checkTranslateNow")
+    @ResponseBody
+    public Request_L checkTranslateNow (@AuthenticationPrincipal UserDetails user) {
+        return service.checkTranslateNow(user.getUsername());
     }
 }

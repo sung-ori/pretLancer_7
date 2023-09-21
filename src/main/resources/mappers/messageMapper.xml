@@ -1,0 +1,33 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.pretLancer_7.messaging.MessagingDAO">
+
+        <insert id="insertMessage" parameterType="Message">
+                insert into pret_messages
+                        (messagenum, messagetype, memberid, sender, message, href)
+                values(message_seq.nextval, #{messagetype}, #{memberid}, #{sender}, #{message}, #{href})
+        </insert>
+
+        <select id="selectUnclickedMessage" parameterType="String" resultType="Message">
+                select * from pret_messages
+                where memberid = #{memberid}
+                and clicked = 'N'
+                <!-- and checked = 'N' -->
+        </select>
+
+        <update id="updateCheck" parameterType="String">
+                update pret_messages
+                set checked = 'Y'
+                where memberid = #{memberid}
+        </update>
+        
+        <!-- TODO: 귀찮으니까 안바꾸는데 안돌아가면 int 로 바꾸세요 -->
+        <update id="updateClick" parameterType="int">
+                update pret_messages
+                set clicked = 'Y'
+                where messagenum = #{messagenum}
+        </update>
+
+</mapper>

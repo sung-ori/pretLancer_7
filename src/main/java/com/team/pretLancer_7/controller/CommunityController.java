@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.pretLancer_7.domain.Board;
 import com.team.pretLancer_7.domain.Reply;
+import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.service.CommunityService;
 import com.team.pretLancer_7.utill.PageNavigator;
 
@@ -28,6 +29,9 @@ public class CommunityController {
     
 	@Autowired
 	CommunityService service;
+
+	@Autowired
+	MessagingService msg;
 
 	// 게시판 목록의 페이지당 글 수 
 	@Value("${user.board.page}")
@@ -122,6 +126,9 @@ public class CommunityController {
 		r.setMemberid(user.getUsername());
 		log.debug("멤버이름 넣고 {}",r);
  		service.writeReply(r);
+
+		msg.writeCR(r);
+		
  	}
  	
  	// 리플 읽어오기 기능
@@ -206,6 +213,7 @@ public class CommunityController {
 	@GetMapping("policeCount")
 	public String policeCount(@RequestParam(name="boardnum", defaultValue="0") int boardnum) {
 		return service.policeCount(boardnum);
+		
 	}
 	
 }

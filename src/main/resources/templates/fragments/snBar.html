@@ -1,7 +1,7 @@
 <!-- http://localhost:8888/pretLancer/main -->
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
-		xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 
 <head>
     <meta charset="UTF-8">
@@ -19,109 +19,281 @@
     <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.svg}" type="image/x-icon">
     <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.png}" type="image/png">
     
-	<link rel="stylesheet" th:href="@{/assets/css/shared/iconly.css}">
+   <link rel="stylesheet" th:href="@{/assets/css/shared/iconly.css}">
 
-	<style>
-    	.move-right-50 {transform: translateX(300px);}
-		.custom-width {width: 1100px;}
-		.b {font-weight: bold;}
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script>
+    $(document).ready(function() {
+        getMessage();
+
+        // 알림 보이기, 가리기
+        $("#pbt").click(function() {
+            $("#push").slideToggle();
+
+            $.ajax({
+                type:"GET",
+                url:"messageCk",
+                success:function(data) {
+                    $("#pop").hide();
+                },
+                error:function(e) {
+                    alert(JSON.stringify(e));
+                }
+            });
+        }); // end
+
+        // 알림 하나 지우기
+        $(document).on("click",".delBt", function() {
+            let msn = $(this).attr("name");
+        $.ajax({
+            type:"GET",
+            url:"messageCl",
+            data:{"messagenum" : msn},
+            success: function() {
+                getMessage();
+                $("#push").show();
+            },
+            error: function(e) {
+                alert(JSON.stringify(e));
+            }
+        });
+
+        })
+        
+        // 이돌과 동시에 알림 지우기
+        $(document).on("click",".url", function() {
+
+            let url = $(this).attr("id");
+            let msn = $(this).attr("name");
+            
+        $.ajax({
+            type:"GET",
+            url:"messageCl",
+            data:{"messagenum" : msn},
+            success: function() {
+                window.location.href = url;
+            },
+            error: function(e) {
+                alert(JSON.stringify(e));
+            }
+        });
+
+        })
+
+        
+
+    });
+
+    // 알림 불러오는 
+    function getMessage() {
+        let userid = $("#userid").val();
+        $.ajax({
+            type:"GET",
+            url:"message",
+            // data:{"memberid" : userid},
+            dataType:"json",
+            success: function(data) {   
+                let str = "";
+                $.each(data,function(i,n) {
+
+                    str += ` 
+                            <div  class="list-group-item list-group-item-action d-flex gap-3 py-3 col-6 url"  aria-current="true" id="${n.href}" name="${n.messagenum}" class="url">
+                                <img src="/src/main/resources/static/img/paper.png" alt="twbs" width="32" height="32" class="rounded-circle flex-shrink-0">
+                                <div class="d-flex gap-2 w-100 justify-content-between">
+                                    <div>
+                                        <h6 class="mb-0">새 알림!</h6>
+                                        <pre class="mb-0 opacity-75">${n.message}</pre>
+                                    </div>
+                                    <input type="button" class="btn btn-sm btn-danger delBt col-1" name="${n.messagenum}" value="X">
+                                </div>
+                            </div>`;
+                });
+                $("#push").html(str);
+
+                $.each(data,function(i,n) {
+                    if(n.checked == "N") {
+                    $("#pop").show();
+                    return;
+                }
+                });
+                
+
+            },
+            error: function(e) {
+                alert(JSON.stringify(e));
+            }
+        });
+    }
+
+    // function clickpush() {
+    //     let bt = $("#bpt")
+    //     let a = $("#push").attr("style");
+        
+    //     if(a == "display: none;") {
+    //         $("#push").show();
+            
+    //     }else{
+    //         $("#push").attr("style","display: none;");
+    //     }
+
+    // }
+
+    
+
+
+   </script>
+   <style>
+       .move-right-50 {transform: translateX(300px);}
+      .custom-width {width: 1100px;}
+      .b {font-weight: bold;}
     </style>
     
     <style>
-		.background{
-		    background-image: url(./img/face.jpg);
-		    background-size: cover;
-		    width: 600px;
-		    height: 600px;
-		    display: flex;
-		    align-items: center;
-		    justify-content: center;
-		}
-		.font-color{
-			color: white;
-		}
-		.backdrop{
-		    width: 300px;
-		    height: 300px;
-		    background-color: rgba(0,0,128,0.1);
-		    border-radius: 30px;
-		}
+      .background{
+          background-image: url(./img/face.jpg);
+          background-size: cover;
+          width: 600px;
+          height: 600px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+      .font-color{
+         color: white;
+      }
+      .backdrop{
+          width: 300px;
+          height: 300px;
+          background-color: rgba(0,0,128,0.1);
+          border-radius: 30px;
+      }
     
     </style>
     <style>
-    	.headerBar {
-    	  background: #4B8DEA;
-		  display: flex;
-		  justify-content: center;
-		  align-items: center;
-		  flex-direction: column;
-		  text-align: center;
-		}
+       .headerBar {
+         background: #4B8DEA;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+      }
     </style>
     
     <style>
-    	.buttonFixed{
-    		position: fixed;
-    		right: 40px;
-    		top: 0px;
-    	}
-    	
-    	
+       .buttonFixed{
+          position: fixed;
+          right: 100px;
+          top: 0px;
+       }
+       .bg-danger{
+        position: fixed;
+        right: 90px;
+       }
+       .push{
+        position: fixed;
+        right: 90px;
+       }
+       
     </style>
 
 </head>
 <!--  <a class="navbar-brand col-lg-3 me-0" href="#">Centered nav</a>-->
 <body>
-	
+    
+   <input type="hidden" id="userid" th:value="${user.memberid}">
 <div class="container">
     <header class="d-flex flex-wrap justify-content-between py-2 fixed-top headerBar" style="z-index: 10;">
         <div class="collapse navbar-collapse d-lg-flex">
+            
             <div class="row">
+                
                 <div class="row font-color ">
-                    <div class="col-md-3 col-sm-3 b">프로젝트 마감기한</div>
-                    <div class="col-md-3 col-sm-3 b">1레벨</div>
-                    <div class="col-md-3 col-sm-3 b">OOO님</div>
-                    <div class="col-md-3 col-sm-3 b">0p</div>
+                    <div class="col-md-3 col-sm-3 b">
+                        <div th:if="${rql == null}">
+                            <span>번역좀 해 !</span>
+                        </div>
+                        <div th:if="${rql != null}">
+                            <span>번역 마감 기한</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 b"><span th:text="${user.mem_level}"></span><span>등급</span></div>
+                    <div class="col-md-3 col-sm-3 b"><span th:text="${user.memberid}"></span><span>님</span></div>
+                    <div class="col-md-3 col-sm-3 b"><span th:text="${user.point}"></span><span> Pt</span></div>
                 </div>
+
                 <div class="row font-color">
-                    <div class="col-md-3 col-sm-3 b">23/08/25 00:00</div>
-                    <div class="col-md-3 col-sm-3 b">0</div>
+                    <div class="col-md-3 col-sm-3 b">
+                        <div th:if="${rql == null}">
+                            <span>게으름뱅이 새끼야!</span>
+                        </div>
+                        <div th:if="${rql != null}">
+                            <span th:text="${rql.enddate}"></span><span> 까지</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 b">
+                        <div class="progress" role="progressbar" aria-label="Basic example" th:aria-valuenow="${user.mem_ex}" aria-valuemin="0" aria-valuemax="100">
+                            <div th:class="|progress-bar w-${user.mem_ex}|"></div>
+                        </div>
+                        
+                    
+                    </div>
                     <div class="col-md-3 col-sm-3 b">===========</div>
-                    <div class="col-md-3 col-sm-3 b">0p</div>
+                    <div class="col-md-3 col-sm-3 b"><span th:text="${user.cash}"></span><span> Cash</span></div>
+                    
+                    
+                    <div class="col-md-3 col-sm-3" >
+                        <button class="btn btn-primary buttonFixed " id="pbt">
+                            <span class="position-absolute top-40 start-100  translate-middle p-2 bg-danger border border-light rounded-circle" id="pop" style="display: none;">
+                                <span class="visually-hidden">New alerts</span>
+                            </span>
+                            <i class="bi bi-bell-fill" style="font-size: 2em;"></i>
+                        </button>
+                        <!-- <button class="btn btn-primary"><i class="bi bi-chat-fill" style="font-size: 2em;"></i></button> -->
+                        <div class="list-group overflow-auto push" id="push" style="display: none;">
+                            
+                        </div>
+                    </div>
+
+                
+               
                 </div>
+                
+                
             </div>
-            <div class="buttonFixed" >
-                <button class="btn btn-primary"><i class="bi bi-bell-fill" style="font-size: 2em;"></i> </button>
-                <button class="btn btn-primary"><i class="bi bi-chat-fill" style="font-size: 2em;"></i></button>
-            </div>
+
+            
+            
+            
         </div>
     </header>
+    
 </div>
-	
-	<!--  <div class="container" style="padding-bottom: 0; margin-bottom: 0;">
-	    <header class="d-flex flex-wrap justify-content-center py-3 fixed-top headerBar" style="z-index: 10; padding-bottom: 0; margin-bottom: 0;">
-	        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-	            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
-	            <span class="fs-4">Simple header</span>
-	        </a>
+   
+   <!--  <div class="container" style="padding-bottom: 0; margin-bottom: 0;">
+       <header class="d-flex flex-wrap justify-content-center py-3 fixed-top headerBar" style="z-index: 10; padding-bottom: 0; margin-bottom: 0;">
+           <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+               <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+               <span class="fs-4">Simple header</span>
+           </a>
         <ul class="navbar-nav col-lg-10 d-flex">
-		          	 	<div class="row move-right-50" style="backround-color: #fff;">
-		          	 		<div class="row">
-		          	 			<div class="col-md-3 col-sm-3 b">프로젝트 마감기한</div>
-	            				<div class="col-md-3 col-sm-3 b">1레벨</div>
-	            				<div class="col-md-3 col-sm-3 b">OOO님</div>
-	            				<div class="col-md-3 col-sm-3 b">0p</div>
-		          	 		</div>
-		          	 		<div class="row">
-		          	 			<div class="col-md-3 col-sm-3 b">23/08/25 00:00</div>
-	            				<div class="col-md-3 col-sm-3 b">0</div>
-	            				<div class="col-md-3 col-sm-3 b">===========</div>
-	            				<div class="col-md-3 col-sm-3 b">0p</div>
-		          			</div>
-		          		</div> 
-		          	</ul>
-		    </header>
-		</div> -->
+                       <div class="row move-right-50" style="backround-color: #fff;">
+                          <div class="row">
+                             <div class="col-md-3 col-sm-3 b">프로젝트 마감기한</div>
+                           <div class="col-md-3 col-sm-3 b">1레벨</div>
+                           <div class="col-md-3 col-sm-3 b">OOO님</div>
+                           <div class="col-md-3 col-sm-3 b">0p</div>
+                          </div>
+                          <div class="row">
+                             <div class="col-md-3 col-sm-3 b">23/08/25 00:00</div>
+                           <div class="col-md-3 col-sm-3 b">0</div>
+                           <div class="col-md-3 col-sm-3 b">===========</div>
+                           <div class="col-md-3 col-sm-3 b">0p</div>
+                         </div>
+                      </div> 
+                   </ul>
+          </header>
+      </div> -->
 
 
 
@@ -171,52 +343,52 @@
                         <a th:href="@{/translated/exam}">연습문제</a>
                     </li> 
                     <li class="sidebar-item has-sub">
-	                <a href="index.html" class='sidebar-link'>
-	                    <i class="bi bi-file-person-fill"></i>
-	                    <span>의뢰하기</span>
-	                </a>
-	                <ul class="submenu">
-	                	<li class="submenu-item ">
-                       		<a th:href="@{/long/main}">장문의뢰</a>
-                    	</li>
-                    	<li class="submenu-item ">
-                    	<!-- http://localhost:8888/pretLancer/request/main -->
-                       		<a th:href="@{/request/main}">단, 중문의뢰</a>
-                    	</li>
-	                </ul>
-	            </li>
-	            <li class="sidebar-item has-sub">
-	                <a href="index.html" class='sidebar-link'>
-	                    <i class="bi bi-pencil-square"></i>
-	                    <span>번역하기</span>
-	                </a>
-	                	<ul class="submenu">
-		                	<li class="submenu-item ">
-	                       		<a href="component-alert.html">단문</a>
-	                    	</li>
-	                    	<li class="submenu-item ">
-	                       		<a href="component-alert.html">중문</a>
-	                    	</li>
-	                    	<li class="submenu-item ">
-	                       		<a href="component-alert.html">장문</a>
-	                    	</li>
-		                </ul>
-	            	</li>
-	            	<li class="sidebar-item has-sub">
-		                <a href="index.html" class='sidebar-link'>
-		                    <i class="bi bi-award-fill"></i>
-		                    <span>평가하기</span>
-		                </a>
-		                <ul class="submenu">
-		                	<li class="submenu-item ">
-	                       		<a href="component-alert.html">단문</a>
-	                    	</li>
-	                    	<li class="submenu-item ">
-	                       		<a href="component-alert.html">중문</a>
-	                    	</li>
-	                    	
-		                </ul>
-	            	</li>
+                   <a href="index.html" class='sidebar-link'>
+                       <i class="bi bi-file-person-fill"></i>
+                       <span>의뢰하기</span>
+                   </a>
+                   <ul class="submenu">
+                      <li class="submenu-item ">
+                             <a th:href="@{/long/main}">장문의뢰</a>
+                       </li>
+                       <li class="submenu-item ">
+                       <!-- http://localhost:8888/pretLancer/request/main -->
+                             <a th:href="@{/request/main}">단, 중문의뢰</a>
+                       </li>
+                   </ul>
+               </li>
+               <li class="sidebar-item has-sub">
+                   <a href="index.html" class='sidebar-link'>
+                       <i class="bi bi-pencil-square"></i>
+                       <span>번역하기</span>
+                   </a>
+                      <ul class="submenu">
+                         <li class="submenu-item ">
+                                <a href="component-alert.html">단문</a>
+                          </li>
+                          <li class="submenu-item ">
+                                <a href="component-alert.html">중문</a>
+                          </li>
+                          <li class="submenu-item ">
+                                <a href="component-alert.html">장문</a>
+                          </li>
+                      </ul>
+                  </li>
+                  <li class="sidebar-item has-sub">
+                      <a href="index.html" class='sidebar-link'>
+                          <i class="bi bi-award-fill"></i>
+                          <span>평가하기</span>
+                      </a>
+                      <ul class="submenu">
+                         <li class="submenu-item ">
+                                <a href="component-alert.html">단문</a>
+                          </li>
+                          <li class="submenu-item ">
+                                <a href="component-alert.html">중문</a>
+                          </li>
+                          
+                      </ul>
+                  </li>
                 </ul>
             </li>
             
@@ -272,8 +444,8 @@
         </ul>
     </div>
 </div>
-	</div>
-		</div> <!-- div id= app -->
+   </div>
+      </div> <!-- div id= app -->
 
      <!-- 부트스트랩  JS -->
     <script th:src="@{/assets/js/bootstrap.js}"></script>
