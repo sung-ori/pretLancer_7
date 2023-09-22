@@ -7,11 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.pretLancer_7.dao.MemberDAO;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.Reward;
+import com.team.pretLancer_7.email.EmailServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,6 +26,8 @@ public class RewardController {
     RewardService service;
     @Autowired
     MemberDAO mdao;
+    @Autowired
+    EmailServiceImpl eservice;
 
     @GetMapping("main")
     public String rewardMain() {
@@ -48,4 +52,32 @@ public class RewardController {
 
         return"/paybackForm";
     }
+
+    @GetMapping("checkCash")
+    @ResponseBody
+    public int checkCash(@AuthenticationPrincipal UserDetails user) {
+
+        int cash = mdao.selectOne(user.getUsername()).getCash();
+        cash = (int)(cash - cash*(0.15));
+
+        return cash;
+    }
+
+    @GetMapping("requestPayback")
+    @ResponseBody
+    public void requestPayback(@AuthenticationPrincipal UserDetails user, 
+                            @RequestParam(name="cash") int cash){
+        String userid = user.getUsername();
+        Member userinfo = mdao.selectOne(userid);
+        int realcash = (int)(cash - cash*(0.15));
+
+        service.payback(userid, cash);
+
+        eservice.sendPayEmail(userinfo, realcash);
+
+
+
+
+    }
+    
 }
