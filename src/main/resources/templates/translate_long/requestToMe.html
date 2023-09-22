@@ -30,6 +30,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
       }
             
         });
+
         function nowTranslateValidation() {
 
             $.ajax({
@@ -44,7 +45,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                         
                     }
                 },
-                error: function(e) {
+                error: function() {
                     alert(JSON.stringify(e));
                 }
             });
@@ -83,7 +84,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             <td th:text="${request.enddate}">마감일</td>
             <!-- 버튼 -->
             <td>
-              <input type="button"  class="btn btn-primary btn-sm" th:id="${request.requestnum_l}" disabled="false" value="요청 상세보기">
+              <input type="button"  class="btn btn-primary btn-sm" th:id="${request.requestnum_l}"  value="요청 상세보기">
             </td>
 
           </tr>

@@ -110,6 +110,7 @@
     <input type="hidden" th:value="${board.boardnum}" id="boardNum">
     <input type="hidden" th:value="${board.memberid}" id="writerId">
     <input type="hidden" th:value="${#authentication.name}" id="loginId">
+    <input type="hidden" th:value="${board.boardcontent}" id="content">
     
     <div class="container">
         <div class="row">
@@ -126,7 +127,9 @@
                     <!-- 게시글 작성자의 정보 -->
                         <hr class="hr" />
                     <div class="card-body">
-                        <div th:text="${board.boardcontent}"></div>
+                        <div id="contentBox">
+                            
+                        </div>
                     </div>
                 </div>
             </div>
