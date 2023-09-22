@@ -10,13 +10,15 @@ import com.team.pretLancer_7.domain.Evaluation_M;
 import com.team.pretLancer_7.domain.Evaluation_S;
 import com.team.pretLancer_7.domain.Translated_M;
 import com.team.pretLancer_7.domain.Translated_S;
+import com.team.pretLancer_7.messaging.MessagingService;
 
 @Service
 public class EvaluationServiceImple implements EvaluationService {
 
 	@Autowired
 	EvaluationDAO dao;
-	
+	@Autowired
+	MessagingService msg;
 	@Override
 	public Translated_S getES() {
 		return dao.getES();
@@ -40,9 +42,13 @@ public class EvaluationServiceImple implements EvaluationService {
 			            .count();
 			if (countOfY >= 4) {
 				dao.completeS(es.getRequestnum_s());
+				// 메세지 작성
+				msg.writeSC(ts);
 			}
 			else {
 				dao.failedS(es.getRequestnum_s());
+				// 메세지 작성
+				msg.writeSF(ts);
 			}
 		}
 	}
@@ -60,9 +66,13 @@ public class EvaluationServiceImple implements EvaluationService {
 			            .count();
 			if (countOfY >= 4) {
 				dao.completeM(em.getRequestnum_m());
+				// 메세지 작성
+				msg.writeMC(tm);
 			}
 			else {
 				dao.failedS(em.getRequestnum_m());
+				// 메세지 작성
+				msg.writeMF(tm);
 			}
 		}	
 	}

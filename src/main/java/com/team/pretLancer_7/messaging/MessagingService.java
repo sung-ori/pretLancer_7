@@ -37,6 +37,8 @@ public class MessagingService {
     @Autowired
     LongDAO Ldao;
     
+    
+    
 
     // 가입과 동시에 웰컴 메세지와 마이페이지 수정 메세지를 삽입한다.
     public void writeMP(String memberid) {
@@ -130,7 +132,7 @@ public class MessagingService {
         // TODO: 이용약관 페이지로 가버려도 될 듯
         href += "";
         
-        msg.setMessagetype("CR");
+        msg.setMessagetype("CP");
         msg.setMemberid(userid);
         msg.setSender("Admin");
         msg.setMessage(str);
@@ -156,7 +158,7 @@ public class MessagingService {
         // 해당 게시글로 이동
         href += "" ;
         
-        msg.setMessagetype("CR");
+        msg.setMessagetype("SE");
         msg.setMemberid(userid);
         msg.setSender("Admin");
         msg.setMessage(str);
@@ -164,15 +166,103 @@ public class MessagingService {
 
         dao.insertMessage(msg);
     }
-    // 단문 번역이 평가 완료 되고 성공하는 알림 요청자가 결과 페이지를 제공
-    public void writeSC() {
-
-    }
 
     // 단문 번역이 평가 완료 되고 결과가 실패여서 변역가에게 실패를 알리는 페이지를 제공
-    public void writeSF() {
+    public void writeSF(Translated_S ts) {
+        String str = "";
+        String userid = ts.getMemberid();
+        Message msg = new Message();
+        String href = "";
+
+        str += userid;
+        str += "님이 번역하신";
+        str += " 단문번역이";
+        str += " 평가를 통과하지 못했습니다.";
+        str += " 사유를 확인해주세요";
+        
+        // 해당 게시글로 이동
+        // TODO: 평가 결과 볼 수 있는 페이지 만들고 이동할 수 있는 url 을 만든다. 
+        href += "" ;
+        
+        msg.setMessagetype("SFT");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
+        msg.setMessage(str);
+        msg.setHref(href);
+
+        dao.insertMessage(msg);
+//============================================================================
+//      여기부터는 번역 신청한 사람이 받는 메세지
+        str = "";
+        userid = Rdao.SRS(ts.getRequestnum_s()).getMemberid();
+        href = "" ;
+
+        str += userid;
+        str += "님이 신청하신";
+        str += " 단문 번역이";
+        str += " 평가에 통과하지 못하여";
+        str += " 다시 번역 중입니다.";
+        str += " 조금만 더 기다려주세요.";
+
+        msg.setMessagetype("SFR");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
+        msg.setMessage(str);
+        msg.setHref(href);
+
+        dao.insertMessage(msg);
+    }
+
+    // 단문 번역이 평가 완료 되고 성공하는 알림 요청자가 결과 페이지를 제공
+    public void writeSC(Translated_S ts) {
+
+        String str = "";
+        String userid = Rdao.SRS(ts.getRequestnum_s()).getMemberid();
+        Message msg = new Message();
+        String href = "";
+
+        str += userid;
+        str += "님이 신청하신";
+        str += " 단문번역이";
+        str += " 평가를 통과하여 완료됐습니다.";
+        str += " 지금 바로 확인해보세요!!";
+        
+        
+        // TODO: 번역 결과를 볼 수 있는 페이지를 만들고 이동할 수 있는 url 을 만든다. 
+        href += "" ;
+        
+        msg.setMessagetype("SCR");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
+        msg.setMessage(str);
+        msg.setHref(href);
+
+        dao.insertMessage(msg);
+
+        //=======================================
+        // 번역가에게 성공을 알려줌.
+
+        str = "";
+        userid = ts.getMemberid();
+        href = "" ;
+
+        str += userid;
+        str += "님이 번역하신";
+        str += " 단문 번역이";
+        str += " 평가에 통과하여";
+        str += " 요청자에게 전달되었습니다!";
+        // str += " 조금만 더 기다려주세요.";
+
+        msg.setMessagetype("SCT");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
+        msg.setMessage(str);
+        msg.setHref(href);
+
+        dao.insertMessage(msg);
 
     }
+
      // 중문 번역 완료 (평가 단계로 넘어간다는 뜻)
     public void writeME(Translated_M tm) {
 
@@ -199,13 +289,99 @@ public class MessagingService {
         dao.insertMessage(msg);
     }
 
-     // 중문 번역이 평가 완료 되고 성공하는 알림 요청자가 결과 페이지를 제공
-    public void writeMC() {
+    // 중문 번역이 평가 완료 되고 결과가 실패여서 변역가에게 실패를 알리는 페이지를 제공
+    public void writeMF(Translated_M tm) {
+        String str = "";
+        String userid = tm.getMemberid();
+        Message msg = new Message();
+        String href = "";
 
+        str += userid;
+        str += "님이 번역하신";
+        str += " 중문번역이";
+        str += " 평가를 통과하지 못했습니다.";
+        str += " 사유를 확인해주세요";
+        
+        // 해당 게시글로 이동
+        // TODO: 평가 결과 볼 수 있는 페이지 만들고 이동할 수 있는 url 을 만든다. 
+        href += "" ;
+        
+        msg.setMessagetype("MFT");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
+        msg.setMessage(str);
+        msg.setHref(href);
+
+        dao.insertMessage(msg);
+//============================================================================
+//      여기부터는 번역 신청한 사람이 받는 메세지
+        str = "";
+        userid = Rdao.SRM(tm.getRequestnum_m()).getMemberid();
+        href = "" ;
+
+        str += userid;
+        str += "님이 신청하신";
+        str += " 중문 번역이";
+        str += " 평가에 통과하지 못하여";
+        str += " 다시 번역 중입니다.";
+        str += " 조금만 더 기다려주세요.";
+
+        msg.setMessagetype("MFR");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
+        msg.setMessage(str);
+        msg.setHref(href);
+
+        dao.insertMessage(msg);
     }
 
-    // 중문 번역이 평가 완료 되고 결과가 실패여서 변역가에게 실패를 알리는 페이지를 제공
-    public void writeMF() {
+    // 중문 번역이 평가 완료 되고 성공하는 알림 요청자가 결과 페이지를 제공
+    public void writeMC(Translated_M tm) {
+
+        String str = "";
+        String userid = Rdao.SRM(tm.getRequestnum_m()).getMemberid();
+        Message msg = new Message();
+        String href = "";
+
+        str += userid;
+        str += "님이 신청하신";
+        str += " 중문번역이";
+        str += " 평가를 통과하여 완료됐습니다.";
+        str += " 지금 바로 확인해보세요!!";
+        
+        
+        // TODO: 번역 결과를 볼 수 있는 페이지를 만들고 이동할 수 있는 url 을 만든다. 
+        href += "" ;
+        
+        msg.setMessagetype("MCR");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
+        msg.setMessage(str);
+        msg.setHref(href);
+
+        dao.insertMessage(msg);
+
+        //=======================================
+        // 번역가에게 성공을 알려줌.
+
+        str = "";
+        userid = tm.getMemberid();
+        href = "" ;
+
+        str += userid;
+        str += "님이 번역하신";
+        str += " 중문 번역이";
+        str += " 평가에 통과하여";
+        str += " 요청자에게 전달되었습니다!";
+        // str += " 조금만 더 기다려주세요.";
+
+        msg.setMessagetype("MCT");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
+        msg.setMessage(str);
+        msg.setHref(href);
+
+        dao.insertMessage(msg);
 
     }
 
