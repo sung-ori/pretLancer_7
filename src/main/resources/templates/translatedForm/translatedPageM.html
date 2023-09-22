@@ -221,6 +221,7 @@
 		<div>
 		<form th:action = "@{/translated/submitTM}" method = "post" onsubmit = "return check()">
 			<input type = "hidden" name = "requestnum_m"  th:value="${translated.requestnum_m}">
+			<input type = "hidden" name = "requestnum_m"  th:value="${translated.translatednum_m}">
 			<input type = "hidden" name = "memberid" th:value = "${#authentication.name}">
 			<table>
 				<colgroup>
