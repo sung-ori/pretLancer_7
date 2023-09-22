@@ -26,6 +26,7 @@ public class RewardController {
     RewardService service;
     @Autowired
     MemberDAO mdao;
+    
     @Autowired
     EmailServiceImpl eservice;
 
