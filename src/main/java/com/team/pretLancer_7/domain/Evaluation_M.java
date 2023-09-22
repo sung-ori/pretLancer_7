@@ -5,15 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Translated_M {
-	
+@AllArgsConstructor
+public class Evaluation_M {
+
+	int evaluationnum_m;
 	int translatednum_m;
 	int requestnum_m;
 	String memberid;
-	String requestcontent_m;
-	String translatedcontent_m;
-	String comment_mt;
-	int evaluationvalue_m;			// 평가횟수
+	String evaluationsuccess;
+	String whyfailed;
+	
 }

@@ -13,6 +13,7 @@ import com.team.pretLancer_7.domain.Request_M;
 import com.team.pretLancer_7.domain.Request_S;
 import com.team.pretLancer_7.domain.Translated_M;
 import com.team.pretLancer_7.domain.Translated_S;
+import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.service.RequestService;
 import com.team.pretLancer_7.service.TranslatedService;
 
@@ -28,6 +29,9 @@ public class TranslatedController {
 	
 	@Autowired
 	TranslatedService TService;
+
+	@Autowired
+	MessagingService msg;
 	
 	@GetMapping("main")
 	public String transHome() {
@@ -122,6 +126,7 @@ public class TranslatedController {
 		log.error("Translated 객체에 들어있는 것 {}", ts);
 		TService.submitTS(ts);
 		
+		msg.writeSE(ts);
 		return "redirect:/";
 	}
 		
@@ -153,11 +158,5 @@ public class TranslatedController {
 			
 		return "redirect:/";
 	}
-	
-	// 번역 도중에 나갔을 경우, 내가 맡은 번역 다시 불러오기
-	
-	
-	//
-	
 	
 }

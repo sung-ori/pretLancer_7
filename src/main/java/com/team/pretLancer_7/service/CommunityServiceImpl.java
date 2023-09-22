@@ -10,16 +10,21 @@ import org.springframework.stereotype.Service;
 import com.team.pretLancer_7.dao.CommunityDAO;
 import com.team.pretLancer_7.domain.Board;
 import com.team.pretLancer_7.domain.Reply;
+import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.utill.PageNavigator;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class CommunityServiceImpl implements CommunityService {
 
     @Autowired
     CommunityDAO dao;
+
+	MessagingService msg ;
 
     @Override
     public List<Board> boardList(PageNavigator navi, String type, String searchWord) {
@@ -297,6 +302,7 @@ public class CommunityServiceImpl implements CommunityService {
 
 		if(cnt >= 5) {
 			dao.updateVan(boardnum);
+			msg.writeCP(boardnum);
 			result = "true";
 		}
 		return result;

@@ -22,6 +22,5 @@ public interface TranslatedService {
 	Translated_S getMyTS(Request_S myorderS);
 
 	Translated_M getMyTM(Request_M myorderM);
-
 	
 }

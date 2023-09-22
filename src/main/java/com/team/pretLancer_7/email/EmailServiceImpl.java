@@ -65,6 +65,6 @@ public class EmailServiceImpl {
             e.printStackTrace();
         }
 
-        return message;
+        return 0;
 	}
 }

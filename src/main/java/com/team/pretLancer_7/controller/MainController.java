@@ -1,5 +1,7 @@
 package com.team.pretLancer_7.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,19 +9,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.team.pretLancer_7.domain.Member;
+import com.team.pretLancer_7.domain.Message;
 import com.team.pretLancer_7.domain.QnA;
+import com.team.pretLancer_7.domain.Request_L;
+import com.team.pretLancer_7.messaging.MessagingService;
+import com.team.pretLancer_7.service.LongService;
 import com.team.pretLancer_7.service.MemberService;
 
-import oracle.jdbc.proxy.annotation.Post;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
+@Slf4j
 public class MainController {
     
 	@Autowired
 	MemberService service;
+
+    @Autowired
+    MessagingService Mservice;
 	
+    @Autowired
+    LongService Lservice;
+
 	// 로그인 전 메인페이지
     @GetMapping({" ", "/"})
     public String mainForm() {
@@ -47,14 +61,56 @@ public class MainController {
     //문의 페이지
     @PostMapping("qna")
     public String qnaForm(QnA q) {
-    	int n = service.insertQnA(q);
+    	// int n = service.insertQnA(q);
     	
     	return "redirect:/qna";
     }
  
+    
     //사이드바,Nav바 로드
     @GetMapping("snBar")
-    public String snBar(){
+    public String snBar(Model model, @AuthenticationPrincipal UserDetails user){
+        String userName = user.getUsername();
+        Member loginUser = service.getUser(userName);
+        
+        Request_L rql = Lservice.checkTranslateNow(userName);
+
+        model.addAttribute("user", loginUser);
+
+        // if(rql == null) {
+        //     rql.setEnddate("번역을 좀 하세요 이 게으름뱅이야.");
+        // }
+        model.addAttribute("rql",rql);
+
     	return "fragments/snBar";
+    }
+
+    @GetMapping("/message")
+    @ResponseBody
+    public List<Message> messageBox(@AuthenticationPrincipal UserDetails user) {
+        
+        log.debug("메세지 컨트롤러는 들어오냐? {}");
+        List<Message> msg = Mservice.getMyMessages(user.getUsername());
+        return msg;
+    }
+
+    @GetMapping("/messagecnt")
+    @ResponseBody
+    public int messagecnt(@AuthenticationPrincipal UserDetails user) {
+        
+        int cnt = Mservice.getMyMessages(user.getPassword()).size();
+        return cnt ;
+    }
+
+    @GetMapping("/messageCk")
+    @ResponseBody
+    public void messageCk(@AuthenticationPrincipal UserDetails user) {
+        Mservice.checked(user.getUsername());
+    }
+
+    @GetMapping("/messageCl")
+    @ResponseBody
+    public void messageCl(int messagenum) {
+        Mservice.clicked(messagenum);
     }
 }
