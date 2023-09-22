@@ -1,0 +1,87 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.pretLancer_7.dao.EvaluationDAO">
+
+	<select id="getES" resultType="Translated_S">
+	SELECT *
+		FROM (
+	    SELECT *
+	    FROM pret_translated_s
+	    WHERE evaluationvalue_s &lt; 5
+	    ORDER BY translatednum_s ASC
+		)
+		WHERE ROWNUM = 1
+	</select>
+	
+	<select id="getEM" resultType="Translated_M">
+	SELECT *
+		FROM (
+	    SELECT *
+	    FROM pret_translated_m
+	    WHERE evaluationvalue_m &lt; 5
+	    ORDER BY translatednum_m ASC
+		)
+		WHERE ROWNUM = 1
+	</select>
+	
+	<insert id="insertES" parameterType="Evaluation_S">
+	insert into pret_evaluation_s 
+	(evaluationnum_s, translatednum_s, requestnum_s, memberid, evaluationsuccess
+	<if test="whyfailed != null">, whyfailed</if>) 
+	values 
+	(pret_evals_seq.nextval, #{translatednum_s}, #{requestnum_s}, #{memberid}, #{evaluationsuccess}
+	<if test="whyfailed != null">, #{whyfailed}</if>)
+	</insert>
+	
+	<insert id="insertEM" parameterType="Evaluation_M">
+	insert into pret_evaluation_m 
+	(evaluationnum_m, translatednum_m, requestnum_m, memberid, evaluationsuccess
+	<if test="whyfailed != null">, whyfailed</if>) 
+	values 
+	(pret_evalm_seq.nextval, #{translatednum_m}, #{requestnum_m}, #{memberid}, #{evaluationsuccess}
+	<if test="whyfailed != null">, #{whyfailed}</if>)
+	</insert>
+	
+	<update id="evUpS" parameterType="int">
+	update pret_translated_s set evaluationvalue_s = evaluationvalue_s + 1 where translatednum_s = #{translatednum_s}
+	</update>
+	
+	<update id="evUpM" parameterType="int">
+	update pret_translated_m set evaluationvalue_m = evaluationvalue_m + 1 where translatednum_m = #{translatednum_m}
+	</update>
+	
+	<select id="evCheckS" parameterType="int" resultType="Translated_S">
+	select * from pret_translated_s where translatednum_s = #{translatednum_s}
+	</select>
+	
+	<select id="getListES" parameterType="int" resultType="Evaluation_S">
+	select * from pret_evaluation_s where translatednum_s = #{translatednum_s}
+	</select>
+	
+	<update id="completeS" parameterType="int">
+	update pret_request_s set requestcondition_s = 'Y' where requestnum_s = #{requestnum_s}
+	</update>
+	
+	<update id="failedS" parameterType="int">
+	update pret_request_s set requestcondition_s = 'N', memberid2 = '' where requestnum_s = #{requestnum_s}
+	</update>
+	
+	<select id="evCheckM" parameterType="int" resultType="Translated_M">
+	select * from pret_translated_m where translatednum_m = #{translatednum_m}
+	</select>
+	
+	<select id="getListEM" parameterType="int" resultType="Evaluation_M">
+	select * from pret_evaluation_m where translatednum_m = #{translatednum_m}
+	</select>
+	
+	<update id="completeM" parameterType="int">
+	update pret_request_m set requestcondition_m = 'Y' where requestnum_m = #{requestnum_m}
+	</update>
+	
+	<update id="failedM" parameterType="int">
+	update pret_request_m set requestcondition_m = 'N', memberid2 = '' where requestnum_m = #{requestnum_m}
+	</update>
+	
+</mapper>
