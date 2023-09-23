@@ -52,4 +52,6 @@ public interface LongDAO {
     public int updateRequestResponse(Map<String, String> map);
 
     public Request_L selectTranslateNow(String userid);
+
+    
 }

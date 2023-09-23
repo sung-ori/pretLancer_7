@@ -297,4 +297,13 @@ public class LongServiceImpl implements LongService{
         return dao.updateRequestResponse(map);
 
     }
+
+    @Override
+    public void success(int requestnum_l) {
+        Map<String,String> map = new HashMap();
+
+        map.put("message", "success");
+        map.put("requestnum", ""+requestnum_l);
+        dao.updateRequestResponse(map);
+    }
 }

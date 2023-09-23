@@ -223,4 +223,23 @@ public class LongTranslateController {
         log.info("알려줘! {},{}", uploadfile.getOriginalFilename(),requestnum_l);
         service.uploadResult(uploadfile,requestnum_l);
     }
+
+    @GetMapping("/readResult")
+    public String readResult(@RequestParam("requestnum_l") int requestnum_l, Model model) {
+
+        Request_L rql = service.readRequestInfo(requestnum_l);
+        model.addAttribute("result", rql);
+
+        return "/translate_long/resultForm";
+    }
+    
+    @GetMapping("/success")
+    @ResponseBody
+    public void success(@RequestParam("requestnum_l") int requestnum_l) {
+        log.debug("되냐? : {}",""+requestnum_l);
+        service.success(requestnum_l);
+        
+
+
+    }
 }
