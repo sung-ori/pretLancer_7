@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+		
 <head>
 <meta charset="UTF-8">
 <title>My Page | 신개념 번역 플랫폼 프릿랜서</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script th:src="@{/js/snBarLoader.js}"></script>
 <style>
 
 	@font-face {
@@ -17,7 +22,7 @@
 	    font-family: 'LINESeedKR-Bd';	
 	}
 
-	div {
+	.div {
 		background-color: #EFF0F0;
 		border-radius : 5px;
 
@@ -52,22 +57,54 @@
 		border-radius : 5px;
 		
 	}
-	
-	
+
 </style>
 <script type="text/javascript">
 
 </script>
+ <!-- 부트스트랩 5.3.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- upper bar css 쓰면 왼쪽 사이드바가 작아진다. (부과효과인듯) -->
+    <link rel="stylesheet" th:href="@{/assets/css/pages/upperBar.css}">
+    <!-- 기본 부트스트랩 링크들 -->
+    <link rel="stylesheet" th:href="@{/assets/css/main/app.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/main/app-dark.css}">
+    <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.svg}" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.png}" type="image/png">
+    
+	<link rel="stylesheet" th:href="@{/assets/css/shared/iconly.css}">
+	<!-- 준규상 코드 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script th:src="@{/js/snBarLoader.js}"></script>
+	<style>
+    	.move-right-50 {transform: translateX(300px);}
+		.custom-width {width: 1100px;}
+		.b {font-weight: bold;}
+    </style>
 
 </head>
 <body>
-		
+	<div id="snBar-placeholder"></div>
+	<br><br><br><br>
+
+	 <div id="main">
+	            <header class="mb-3">
+	                <a href="#" class="burger-btn d-block d-xl-none">
+	                    <i class="bi bi-justify fs-3"></i>
+	                </a>
+	            </header>
+	            
+	<div class="page-heading">
+	    <h3>홈페이지</h3>
+	</div>
+			
 	<div>
 		<!-- 프로필 사진이 들어가는 div 영역 -->
 		<div class = "profile_photo"></div>
 		
 		<!-- 000 님의 마이페이지가 출력되는 영역 -->
-		<p><img th:if="${mypage.originphoto}" th:src="@{/my_page/getPhoto(memberid=${mypage.memberid})}"></p>
+		<p><img th:if="${mypage.originphoto}" th:src="@{/my_page/getPhoto(memberid=${mypage.memberid})}" style="width: 200px;"></p>
 		<form th:action="@{/my_page/MpUpdate}" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="memberid" th:value="${mypage.memberid}"/>
 			<input type="file" name="upload"/>
@@ -86,5 +123,14 @@
 		
 		</div>
 	</div>
+	 <!-- <div id="main"> -->
+	</div>
+     <!-- 부트스트랩  JS -->
+    <script th:src="@{/assets/js/bootstrap.js}"></script>
+    <script th:src="@{/assets/js/app.js}"></script>
+    
+<!-- Need: Apexcharts -->
+<script th:src="@{/assets/extensions/apexcharts/apexcharts.min.js}"></script>
+<script th:src="@{/assets/js/pages/dashboard.js}"></script>
 </body>
 </html>
