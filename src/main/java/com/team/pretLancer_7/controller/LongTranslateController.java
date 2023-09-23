@@ -148,13 +148,17 @@ public class LongTranslateController {
         
         return service.bidValidation(map);
     }
-
+// 테이블에 경먀 여부를 적어놓았다. 불러오면 다 불러 진다. 
 // TODO : 내가 요청한 리스트를 전부 출력하는 걸로 바꿔도 좋을 듯
     @GetMapping("/myAuctionList")
     public String myAuctionList(@AuthenticationPrincipal UserDetails user, Model model) {
         List<Request_L> myAuctionList =  service.myAuctionList(user.getUsername());
+        List<Request_L> myRequestList =  service.myRquestList(user.getUsername());
+        
+        model.addAttribute("myRequestList", myRequestList);
         model.addAttribute("myAuctionList", myAuctionList);
-        log.debug("컨트롤러에 오는 나의 옥션 리스트 {}", myAuctionList);
+        log.debug("컨트롤러에 오는 나의 옥션 리스트 {}", myRequestList);
+
         return "/translate_long/myAuctionList";
     }
 

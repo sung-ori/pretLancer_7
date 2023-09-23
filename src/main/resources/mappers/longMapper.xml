@@ -39,9 +39,9 @@
                         (PRET_REQ_L_SEQ.nextval, #{memberid}, #{memberid2}, #{title}, #{category}, #{enddate}, #{enddate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr},#{commentpage}, #{startlang}, #{endlang} )
                 </if>
                 <if test="memberid2 == null">
-                        (requestnum_l, memberid, title, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr,commentpage, startlang, endlang)
+                        (requestnum_l, memberid, title, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr,commentpage, startlang, endlang, auction)
                         values 
-                        (PRET_REQ_L_SEQ.nextval, #{memberid}, #{title}, #{category}, #{enddate}, #{workdate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr},#{commentpage}, #{startlang}, #{endlang} )
+                        (PRET_REQ_L_SEQ.nextval, #{memberid}, #{title}, #{category}, #{enddate}, #{workdate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr},#{commentpage}, #{startlang}, #{endlang},'Y')
                 </if>
         </insert>
 
@@ -61,6 +61,16 @@
                 select * from pret_request_l
                 where requestnum_l in (select requestlnum from pret_auction)
         </select>
+
+        <select id="selectRequestList" parameterType="String" resultType="Request_L">
+                select * 
+                from pret_request_l
+                <if test="#{userid} != null">
+                        where memberid = #{uesrid}
+                        <!-- and requestnum_l not in (select requestlnum from pret_auction) -->
+                </if>
+        </select>
+
         
         <select id="selectOneRequest_L" parameterType="int" resultType="Request_L">
                 select * from pret_request_l 

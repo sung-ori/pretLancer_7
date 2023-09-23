@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.team.pretLancer_7.domain.Auction;
 import com.team.pretLancer_7.domain.AuctionTranslator;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
@@ -25,8 +26,14 @@ public interface LongDAO {
     // 경매 테이블에 삽입
     public int insertAuction(int requestnum);
     // 요청 중 경매 테이블에 들어있는 것들만 출력
+
     public List<Request_L> selectAuctionList() ;
 
+    public List<Request_L> selectRequestList();
+
+    public List<Request_L> selectRequestList(String usserid);
+
+    public List<Auction> selectAuction();
     // 하나의 요청을 읽는다. 나는 경매 정보 의 상세 정보에 쓸 것이다.
     public Request_L selectOneRequest_L (int requestnum_l);
     // 리퀘스트넘버로 옥션넘버를 구한다 

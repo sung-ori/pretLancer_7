@@ -546,6 +546,9 @@ alter table pret_request_l drop constraint chk_requestcondition_l;
 
 alter table pret_request_l add constraint chk_requestcondition_l check (REQUESTCONDITION_L IN ('N', 'T', 'E', 'Y', 'F'));
 
+ALTER TABLE pret_request_l
+ADD auction VARCHAR2(2) DEFAULT 'N' CHECK (auction IN ('Y', 'N'));
+
 
 -- 메세지 테이블
 create table pret_messages (

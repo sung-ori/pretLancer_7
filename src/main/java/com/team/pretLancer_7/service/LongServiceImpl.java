@@ -212,6 +212,10 @@ public class LongServiceImpl implements LongService{
         return myAuctionList;
     }
 
+    public List<Request_L> myRquestList(String userid){
+        return dao.selectRequestList(userid);
+    }
+
     @Override
     public int successfulBid(Map<String, String> map) {
 
