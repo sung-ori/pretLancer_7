@@ -42,5 +42,7 @@ public interface LongService {
     public String resoponseToRequest(Map<String, String> map);
 
     public Request_L checkTranslateNow(String userid);
+
+    public int uploadResult (MultipartFile uploadFile, int requestnum);
     
 }

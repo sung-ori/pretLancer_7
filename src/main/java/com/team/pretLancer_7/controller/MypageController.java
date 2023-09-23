@@ -129,4 +129,10 @@ public class MypageController {
 		}
 	}
     
+
+	//
+	@GetMapping("test")
+	public String test() {
+		return "/myPageForm/test";
+	}
 }

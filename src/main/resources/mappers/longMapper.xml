@@ -112,7 +112,7 @@
         <select id="selectRequestToMe" parameterType="String" resultType="Request_L">
                 select * from pret_request_l
                 where memberid2 = #{userid}
-                and  REQUESTCONDITION_L = 'N'
+                <!-- and  REQUESTCONDITION_L = 'N' -->
                 and requestnum_l not in (select requestlnum from pret_auction)
         </select>
         <!-- 요청 수락 or 거절 -->
@@ -124,6 +124,11 @@
                 </if>
                 <if test="message == 'refuse' ">
                         memberid2 = ''
+                </if>
+                <if test="message == 'uploadResult' ">
+                        requestcondition_l = 'E',
+                        origintfile = #{originfile},
+                        savedtfile = #{savedfile}
                 </if>
                 where requestnum_l = #{requestnum}
         </update>

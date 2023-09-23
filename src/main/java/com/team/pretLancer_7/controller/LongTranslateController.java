@@ -204,4 +204,19 @@ public class LongTranslateController {
     public Request_L checkTranslateNow (@AuthenticationPrincipal UserDetails user) {
         return service.checkTranslateNow(user.getUsername());
     }
+
+    @GetMapping("/readAccessRequestInfo")
+    public String readAccessRequestInfo(Model model, @RequestParam(name = "requestnum_l") int requestnum_l) {
+
+        Request_L request = service.readRequestInfo(requestnum_l);
+        model.addAttribute("request", request);
+        return "/translate_long/accessInfo";
+    }
+
+    @PostMapping("/uploadTest")
+    @ResponseBody
+    public void uploadTest(@RequestParam("uploadfile") MultipartFile uploadfile,@RequestParam("requestnum_l") int requestnum_l) {
+        log.info("알려줘! {},{}", uploadfile.getOriginalFilename(),requestnum_l);
+        service.uploadResult(uploadfile,requestnum_l);
+    }
 }

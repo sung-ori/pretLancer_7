@@ -1,6 +1,7 @@
 package com.team.pretLancer_7.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -260,5 +261,36 @@ public class LongServiceImpl implements LongService{
         return dao.selectTranslateNow(userid);
     }
     
-    
+    @Override
+    @Transactional
+    public int uploadResult(MultipartFile uploadFile, int requestnum) {
+        
+        Map<String, String> map = new HashMap();
+        map.put("message", "uploadResult");
+        map.put("requestnum",""+requestnum);
+
+        FileService fileService = new FileService();
+        log.debug("장문 요청 서비스 {}",requestnum);
+        log.debug("업로드 경로", uploadPathR);
+        
+        String originfile =""; 
+        String savedfile = "";
+        try{
+            originfile = uploadFile.getOriginalFilename();
+            savedfile = fileService.saveFile(uploadFile,uploadPathT);
+            
+        }
+        catch (NullPointerException e) {
+        log.debug("오리진", originfile);
+        log.debug("세이브", savedfile);
+        }
+        
+        map.put("originfile", originfile);
+        map.put("savedfile", savedfile);
+        
+        
+
+        return dao.updateRequestResponse(map);
+
+    }
 }

@@ -10,79 +10,36 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
     <title>요청 상세정보</title>
     <script>
         $(document).ready(function() {
-            nowTranslateValidation();
-            $(".btn").click(requestResponse);
+            $("#uploadBtn").on("click", function() {
+                // FormData 인스턴스 생성
+                var formData = new FormData($("#form")[0]);
+
+                // 추가적인 텍스트 데이터 전송
+                formData.append("requestnum_l", $("#requestnum").val()); // 원하는 텍스트 데이터를 추가
+
+                $.ajax({
+                    url: "uploadTest", // 요청을 처리할 서버의 엔드포인트 URL
+                    type: "POST", // HTTP 메서드 (POST)
+                    data: formData, // FormData 인스턴스 전송
+                    processData: false, // 데이터 처리 방지
+                    contentType: false, // 컨텐츠 타입 설정 방지
+                    success: function() {
+                        alert("번역 완료!");
+                        window.opener.location.reload();
+                        window.close();
+                    },
+                    error: function(e) {
+                        alert(JSON.stringify(e));
+                    }
+                });
+            });
         });
 
-        function requestResponse() {
-            let rql = $("#requestnum").val();
-            let message = $(this).attr("id");
-            
-            if(message == "accept") {
-                let result = confirm("수락 하시겠습니까?");
-                if(!result) {
-                    return;
-                }
-            } 
-            if(message == "refuse"){
-                let result = confirm("거절하시겠습니까?");
-                if(!result) {
-                    return;
-                }
-            }
-            alert("true");
-
-            $.ajax({
-                type:"GET",
-                url:"requestResponse",
-                data: { "requestnum" : rql,
-                        "message" : message},
-                dataType: "text",
-                success: function(result) {
-                    if(result == "accept") {
-                        alert("요청을 수락했습니다!");
-                    }
-                    else if(result == "refuse") {
-                        alert("요청을 거절했습니다.");
-                    }
-
-                    window.opener.location.reload();
-                    window.close();
-                },
-                error: function(e) {
-                    alert(JSON.stringify(e));
-                }
-             });
-        }
-
-        function nowTranslateValidation() {
-
-            $.ajax({
-                type:"GET",
-                url:"checkTranslateNow",
-                dataType:"json",
-                success: function(data) {
-                    if(data != null) {
-                        // $(".btn").val("한 번에 한 개의 수주만 할 수 있습니다.");
-                        alert("한 번에 한 개의 수주만 할 수 있습니다.");
-                        // $(".btn-primary").attr("class","btn btn-danger btn-sm");
-                        $(".btn-primary").attr("disabled",true);
-                        
-                    }
-                },
-                error: function() {
-                    alert(JSON.stringify(e));
-                }
-            });
-}
-        function refuse() {
-
-        }
     </script>
 </head>
 <body>
-    <!-- 번역가가 받은 요청의 상세정보 -->
-    <h1>요청 상세 정보</h1>
+    <!-- 번역가가  번역할 건에 대한 상세정보 -->
+    <h1>요청 상세 정보 (수락한 요청)</h1>
 
     <input type="hidden" id="requestnum" th:value="${request.requestnum_l}">
     <div class="container">
@@ -123,9 +80,19 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             <span th:if="${request.endlang == 'JP'}">일본어</span> 
             <span th:if="${request.endlang == 'EN'}">영어</span> 
         </div>
-
-            <button type="button" id="accept" class="btn btn-primary">수락</button>
-            <button type="button" id="refuse" class="btn btn-danger">거절</button>
+        <div>
+            <span>번역할 파일 다운로드 : </span>
+            <a th:href="|@{/request}/${request.savedrfile}|" class="btn btn-success" th:download="|${request.memberid}_${request.title}|">번역할 파일</a>
+        </div>
+        <div>
+            <input type="hidden" name="requestnum_l" id="requestnum" th:value="${request.requestnum_l}">
+            <form id="form"   method="post" enctype="multipart/form-data" >
+                <label for="formFile" class="form-label">번역 완료 파일 업로드</label>
+                <input name="uploadfile" class="form-control" type="file" id="formFile">
+            </form>
+            <input id="uploadBtn" type="button" class="btn btn-warning" value="번역 완료본 제출">
+        </div>
+        
     </div>
     
 </body>
