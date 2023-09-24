@@ -30,10 +30,49 @@ public interface MemberDAO {
 	// 회원가입 시 번역능력 테이블 생성
 	public void insertAb(Ability ab);
 	
+	
+	// 마이페이지 번역능력 가져오기
+	public Ability getAbility(String username);
+	
+	
+	// 캐쉬 및 신뢰도(경험치) 관련 기능은 아래쪽
+		
 	// 의뢰 요청 시 포인트 차감
 	public void usePoint(Member m);
 	
 	// 의뢰 취소 시 포인트 돌려줌
 	public void cancelPoint(Member m);
+	
+	// 단문 번역 성공 시 경험치와 포인트 받음
+	public void getPointExS(Member m);
+	
+	// 중문 번역 성공 시 경험치와 포인트 받음
+	public void getPointExM(Member m);
+	
+	// 경험치가 넘어가면 레벨업
+	public void levelUpC(String memberid);
+	public void levelUpB(String memberid);
+	public void levelUpA(String memberid);
+	
+	
+
+	// 번역 능력 관련 기능은 아래쪽
+	
+	// 연습 성공
+	
+	// 연습 실패
+	
+	// 단문 성공
+	
+	// 단문 실패
+	
+	// 중문 성공
+	
+	// 중문 실패
+	
+	// 평가 성공
+	
+	// 평가 실패
+	
 	
 }

@@ -1,5 +1,6 @@
 package com.team.pretLancer_7.service;
 
+import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 
@@ -10,5 +11,7 @@ public interface MypageService {
 	public int updateProfile(MyPage mp);
 
 	public int updateMember(Member m);
+
+	public Ability getability(String username);
 
 }

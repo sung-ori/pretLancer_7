@@ -90,4 +90,12 @@
 	select * from pret_request_m where memberid = #{memberid} and requestcondition_m = 'T'
 	</select>
 	
+	<select id="getRequestS" parameterType="int">
+	select * from pret_request_s where requestnum_s = #{requestnum_s}
+	</select>
+	
+	<select id="getRequestM" parameterType="int">
+	select * from pret_request_m where requestnum_m = #{requestnum_m}
+	</select>
+	
 </mapper>

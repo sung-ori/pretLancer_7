@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.service.MypageService;
@@ -128,5 +129,14 @@ public class MypageController {
 			e.printStackTrace();
 		}
 	}
+    
+    // 번역 능력
+    @GetMapping("ability")
+    public String ability(@AuthenticationPrincipal UserDetails user, Model m) {
+    	
+    	Ability ab = service.getability(user.getUsername());
+    	
+    	return "myPageForm/Ability";
+    }
     
 }

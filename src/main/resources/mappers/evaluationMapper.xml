@@ -61,7 +61,8 @@
 	</select>
 	
 	<update id="completeS" parameterType="int">
-	update pret_request_s set requestcondition_s = 'Y' where requestnum_s = #{requestnum_s}
+	update pret_request_s set requestcondition_s = 'Y',  translatedcontent_s = #{translatedcontent_s} 
+	where requestnum_s = #{requestnum_s}
 	</update>
 	
 	<update id="failedS" parameterType="int">
@@ -77,7 +78,8 @@
 	</select>
 	
 	<update id="completeM" parameterType="int">
-	update pret_request_m set requestcondition_m = 'Y' where requestnum_m = #{requestnum_m}
+	update pret_request_m set requestcondition_m = 'Y', translatedcontent_m = #{translatedcontent_m} 
+	where requestnum_m = #{requestnum_m}
 	</update>
 	
 	<update id="failedM" parameterType="int">

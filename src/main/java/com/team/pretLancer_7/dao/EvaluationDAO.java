@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.team.pretLancer_7.domain.Evaluation_M;
 import com.team.pretLancer_7.domain.Evaluation_S;
+import com.team.pretLancer_7.domain.Request_M;
+import com.team.pretLancer_7.domain.Request_S;
 import com.team.pretLancer_7.domain.Translated_M;
 import com.team.pretLancer_7.domain.Translated_S;
 
@@ -33,7 +35,7 @@ public interface EvaluationDAO {
 
 	List<Evaluation_S> getListES(int translatednum_s);
 
-	void completeS(int requestnum_s);
+	void completeS(Request_S rs);
 
 	void failedS(int requestnum_s);
 	
@@ -43,7 +45,7 @@ public interface EvaluationDAO {
 	
 	List<Evaluation_M> getListEM(int translatednum_m);
 
-	void completeM(int requestnum_m);
+	void completeM(Request_M rm);
 
 	void failedM(int requestnum_m);
 
