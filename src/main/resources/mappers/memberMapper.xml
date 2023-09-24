@@ -50,5 +50,20 @@
 	<update id="cancelPoint" parameterType="Member">
 	update pret_member set cash = cash + #{cash} where memberid = #{memberid}
 	</update>
+
+	<update id = "changeNick" parameterType = "Member">
+	update pret_member set membernick = #{membernick}
+	where memberid = #{memberid}
+	</update>
+
+	<update id = "minusPoint" parameterType = "Member">
+	update pret_member set point = #{point}
+	where memberid = #{memberid}
+	</update>
 	
+	<select id = "checkPoint" parameterType = "Member">
+	select point
+	from pret_member
+	where memberid = #{memberid}
+	</select>	
 </mapper>

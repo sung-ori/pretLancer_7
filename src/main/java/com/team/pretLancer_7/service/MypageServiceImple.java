@@ -41,6 +41,17 @@ public class MypageServiceImple implements MypageService {
 	public int updateMember(Member m) {
 		return mDao.updateMember(m);
 	}
+
+	@Override
+	public int changeNick(Member member) {
+		mDao.minusPoint(member);
+		return mDao.changeNick(member);
+	}
+
+	@Override
+	public int checkPoint(Member member) {
+		return mDao.checkPoint(member);
+	}
     
     
     

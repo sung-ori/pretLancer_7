@@ -180,12 +180,12 @@
 			
 		}
 
-		.exit_button{
+		.button{
 		
-			width : 100px;
+			width : 50px;
 			height : 35px;
-			background-color:#F2F2F2;
-			color : #2C2E33;
+			background-color:#2334DE;
+			color : #FFFFFF;
 			
 			border : 0px;
 			border-radius : 5px;
@@ -193,6 +193,15 @@
 		}
 </style>
 <script type="text/javascript">
+	$(document).ready(function() {
+		$('#changeNick').click(openwin);
+	});
+	
+	function openwin() {
+		window.open('http://localhost:8888/pretLancer/my_page/changeNick','닉네임 수정', 'w, width=500, height=300, top=200, left=600');
+	}
+
+
 
 </script>
  <!-- 부트스트랩 5.3.1 -->
@@ -234,9 +243,9 @@
 	    <br>
 	    <table class = "content" style = "border-collapse: separate; text-align : center;">
 	    	<tr>
-			    <td><b><a th:href = "@{/}">내 정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></b></td>		
-			    <td><a th:href = "@{/}">번역 요청 내역 보기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
-			    <td><a th:href = "@{/}">내 번역, 평가 내역 보기</a></td>
+			    <td><b><a th:href = "@{/my_page/main}">내 정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></b></td>		
+			    <td><a th:href = "@{/my_page/myRequestList}">내가 요청한 번역 내역&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
+			    <td><a th:href = "@{/my_page/requestToMe}">내가 받은 요청과 낙찰받은 경매 리스트</a></td>
 	    	</tr>
 	    </table>
 	    <hr>
@@ -266,10 +275,10 @@
 					<th>아이디</th>		<td><span th:text = "${mypage.memberid}">아이디 default</span></td>
 				</tr>
 				<tr class = "info_tr">		
-					<th>이메일</th>		<td><span th:text = "${mypage.membername}">이름 default</span></td>	
+					<th>이름</th>		<td><span th:text = "${mypage.membername}">이름 default</span></td>	
 				</tr>
 				<tr class = "info_tr">	
-					<th>닉네임</th>		<td><span th:text = "${mypage.membernick}">닉네임 default</span></td>
+					<th>닉네임</th>		<td><span th:text = "${mypage.membernick}">닉네임 default</span>&nbsp;&nbsp;<input type = "button" value = "수정" class = "button" id = "changeNick"> </td>
 				</tr>
 				<tr class = "info_tr">
 					<th>레벨</th>			<td><span th:text = "${mypage.mem_level}">레벨 default</span></td>

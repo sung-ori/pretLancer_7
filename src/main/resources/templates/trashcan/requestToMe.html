@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <title>번역가에게 온 요청리스트</title>
+    <script>
+    //   비슷해보이지만 경매 정보 와 다른 코드이다. 
+      $(document).ready(function() {
+        // nowTranslateValidation();
+        $(".btn-primary").click(openRequestInfo);
+        $(".btn-warning").click(openAccessInfo);
+
+        function openRequestInfo() {
+          let width = window.screen.width;
+          let height = window.screen.height;
+
+          let openWidth = width/2;
+          let openHeight = height/2;
+
+          let top = height/4;
+          let left = width/4;
+
+          let requestnum =  $(this).attr("id");
+
+          window.open("http://localhost:8888/pretLancer/long/readRequestInfo?requestnum_l="+requestnum ,'요청 상세 페이지', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
+      }
+         
+      function openAccessInfo() {
+          let width = window.screen.width;
+          let height = window.screen.height;
+
+          let openWidth = width/2;
+          let openHeight = height/2;
+
+          let top = height/4;
+          let left = width/4;
+
+          let requestnum =  $(this).attr("id");
+
+          window.open("http://localhost:8888/pretLancer/long/readAccessRequestInfo?requestnum_l="+requestnum ,'요청 상세 페이지', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
+      }
+            
+        });
+
+        
+    </script>
+    
+</head>
+<body>
+  <!-- 번역가에게 온 요청 리스트 -->
+    <h1>번역가에게 온 요청 리스트,낙찰받은 경매리스트</h1>
+    <div class="container">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">요청자 아이디</th>
+            <th scope="col">카테고리</th>
+            <th scope="col">제목</th>
+            <th scope="col">작업 마감 일자</th>
+            <th scope="col">버튼</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="request, index : ${list}">
+            <th scope="row" th:text="${index.count}"></th>
+
+            <td th:text="${request.memberid}">요청자 아이디</td>
+
+            <td th:text="${request.category}">카테고리</td>
+            
+            <!-- 요청의 제목 -->
+            <td class="nontitle" th:id="${request.requestnum_l}" th:text="${request.title}" aria-disabled="true">
+            </td>
+
+            <!-- 마감일 -->
+            <td th:text="${request.enddate}">마감일</td>
+            <!-- 버튼 -->
+            <td>
+              <input th:if="${request.requestcondition_l} == 'N' " type="button"  class="btn btn-primary btn-sm" th:id="${request.requestnum_l}"  value="요청 상세보기">
+              <input th:if="${request.requestcondition_l} == 'T' " type="button"  class="btn btn-warning btn-sm" th:id="${request.requestnum_l}"  value="수락 요청 상세보기">
+              <input th:if="${request.requestcondition_l} == 'E' or ${request.requestcondition_l} == 'Y' " type="button"  class="btn btn-success btn-sm" th:id="${request.requestnum_l}" disabled="true" value="번역 완료">
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+</body>
+</html>

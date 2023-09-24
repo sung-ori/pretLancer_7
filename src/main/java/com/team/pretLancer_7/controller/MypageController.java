@@ -19,8 +19,10 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team.pretLancer_7.dao.MemberDAO;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
@@ -161,6 +163,29 @@ public class MypageController {
 		
     }
     
+    // ============================
+    
+    @GetMapping("changeNick")
+    public String changeNick() {
+    	return "mypageform/changeNick";
+    }
 	
-	
+    @ResponseBody
+    @PostMapping("changeNick")
+    public String changeNick(String id, String nick) {
+    	Member member = new Member();
+    	member.setMemberid(id);
+    	member.setMembernick(nick);
+    	int point = service.checkPoint(member);
+
+    	if (point < 300)
+    		return "failed";
+    	else
+    		point = point - 300;
+    	
+    	member.setPoint(point);
+    	service.changeNick(member);
+    	
+    	return "success";
+    }
 }

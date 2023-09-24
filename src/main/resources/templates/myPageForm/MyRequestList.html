@@ -1,61 +1,284 @@
 <!DOCTYPE html>
-<html lang="ko"  xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+		
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <title>내가 신청한 경매 리스트</title>
-    <script>
-      // requestListForm의 함수와 완전히 같은 함수. js 파일로 옮길 것
-      $(document).ready(function() {
-            $(".bidBtn").click(openRequestInfo);
-            // $(".title").click(openRequestInfo);
+<meta charset="UTF-8">
+<title>My Page | 신개념 번역 플랫폼 프릿랜서</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script th:src="@{/js/snBarLoader.js}"></script>
+<style>
 
-            function openRequestInfo() {
-                let width = window.screen.width;
-                let height = window.screen.height;
+	@font-face {
+	    font-family: 'LINESeedKR-Bd';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+		
+	@font-face {
+    font-family: 'MBC1961GulimM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/MBC1961GulimM.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	}
 
-                let openWidth = width/2;
-                let openHeight = height/2;
+	@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+	}
+	
+	@font-face {
+    font-family: 'Pretendard-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+	}
 
-                let top = height/4;
-                let left = width/4;
+	@font-face {
+    font-family: 'Pretendard-Black';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+	}
+	
+	* {
+    font-family: 'Pretendard-Regular';
+		color : #2C2E33;
 
-                let requestnum =  $(this).attr("id");
+	}
+	
+	h2{
+		color : #2C2E33;
+	} 
+	
+	th {
+		font-weight : bold;
+	}
+	
+	.info_table {
+		width : 250px;
+	
+		margin-left:auto; 
+    	margin-right:auto;
+    	border-collapse: collapse;
+    	border-spacing : 10px;
+	}
+	
+	.info_tr {
+		height : 40px;
+		border-bottom : solid 1px #D8D8D8;
+	}
 
-                window.open("http://localhost:8888/pretLancer/long/readAuctionInfo?requestnum_l="+requestnum ,'경매 입찰 페이지', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
-            }
-            $(".resultBtn").click(openResult);
-            // $(".title").click(openRequestInfo);
+	#title {
+    font-family: 'Pretendard-Black';
+		font-size : 45px;
+		color : #2C2E33;
+	} 
 
-            function openResult() {
-                let width = window.screen.width;
-                let height = window.screen.height;
+	#title2 {
+    font-family: 'Pretendard-Black';
+		font-size : 40px;
+		color : #2C2E33;
+	} 
 
-                let openWidth = width/2;
-                let openHeight = height/2;
+	#title3 {
+    font-family: 'Pretendard-Black';
+		font-size : 35px;
+		color : #2C2E33;
+	} 
 
-                let top = height/4;
-                let left = width/4;
+	#title4 {
+    font-family: 'Pretendard-Black';
+		font-size : 30px;
+		color : #2C2E33;
+	} 
 
-                let requestnum =  $(this).attr("id");
 
-                window.open("http://localhost:8888/pretLancer/long/readResult?requestnum_l="+requestnum ,'번역 결과 받기', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
-            }
-        });
+	#title_{
+    font-family: 'Pretendard-Bold';
+		font-size : 20px;
+		color : #2C2E33;
+	} 
 
-           
-            
-  
-    </script>
+	.content{
+    font-family: 'Pretendard-Regular';
+		font-size : 15px;
+		color : #D8D8D8;
+	} 
+	
+	.information {
+	text-align : center;
+	vertical-align : middle;
+	background-color : white;
+	border : solid 1px #D8D8D8;
+	border-radius : 5px;
+	width : 800px;
+	height : 500px;
+	}
+
+	.information_content{
+    font-family: 'Pretendard-Regular';
+		font-size : 15px;
+		color : #D8D8D8;
+	} 
+	 	
+	.input_translated{
+		font-size : 18px;
+		background-color : #F2F2F2;
+		word-break : break-all;
+		
+	}
+	
+		/*div {
+			background-color: #EFF0F0;
+			border-radius : 5px;
+	
+		}*/
+		
+		.outer {
+			width : 1000px;
+			height : 600px;
+			border-radius : 5px;
+			
+		
+		}
+
+		.comment_input {
+		
+			width : 900px;
+			height : 100px;
+			
+			border : solid 2px #EFF0F0;
+			border-radius : 5px;
+		
+		}
+		
+		.answer_input {
+		
+			width : 900px;
+			height : 300px;
+			
+			border : solid 2px #EFF0F0;
+			border-radius : 5px;
+		
+		}
+		
+		.submit_button{
+		
+			width : 100px;
+			height : 35px;
+			background-color:#2334DE;
+			color : #FFFFFF;
+			
+			border : 0px;
+			border-radius : 5px;
+			
+		}
+
+		.exit_button{
+		
+			width : 100px;
+			height : 35px;
+			background-color:#F2F2F2;
+			color : #2C2E33;
+			
+			border : 0px;
+			border-radius : 5px;
+			
+		}
+</style>
+<script type="text/javascript">
+// requestListForm의 함수와 완전히 같은 함수. js 파일로 옮길 것
+	$(document).ready(function() {
+	      $(".bidBtn").click(openRequestInfo);
+	      // $(".title").click(openRequestInfo);
+	
+	      function openRequestInfo() {
+	          let width = window.screen.width;
+	          let height = window.screen.height;
+	
+	          let openWidth = width/2;
+	          let openHeight = height/2;
+	
+	          let top = height/4;
+	          let left = width/4;
+	
+	          let requestnum =  $(this).attr("id");
+	
+	          window.open("http://localhost:8888/pretLancer/long/readAuctionInfo?requestnum_l="+requestnum ,'경매 입찰 페이지', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
+	      }
+	      $(".resultBtn").click(openResult);
+	      // $(".title").click(openRequestInfo);
+	
+	      function openResult() {
+	          let width = window.screen.width;
+	          let height = window.screen.height;
+	
+	          let openWidth = width/2;
+	          let openHeight = height/2;
+	
+	          let top = height/4;
+	          let left = width/4;
+	
+	          let requestnum =  $(this).attr("id");
+	
+	          window.open("http://localhost:8888/pretLancer/long/readResult?requestnum_l="+requestnum ,'번역 결과 받기', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
+	      }
+	  });
+</script>
+ <!-- 부트스트랩 5.3.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- upper bar css 쓰면 왼쪽 사이드바가 작아진다. (부과효과인듯) -->
+    <link rel="stylesheet" th:href="@{/assets/css/pages/upperBar.css}">
+    <!-- 기본 부트스트랩 링크들 -->
+    <link rel="stylesheet" th:href="@{/assets/css/main/app.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/main/app-dark.css}">
+    <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.svg}" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.png}" type="image/png">
+    
+	<link rel="stylesheet" th:href="@{/assets/css/shared/iconly.css}">
+	<!-- 준규상 코드 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script th:src="@{/js/snBarLoader.js}"></script>
+	<style>
+    	.move-right-50 {transform: translateX(300px);}
+		.custom-width {width: 1100px;}
+		.b {font-weight: bold;}
+    </style>
+
 </head>
 <body>
-  <!--내가 신청한 경매 리스트,  -->
-    <h1>내가 한 요청 , 경매 리스트</h1>
-    <div class="container">
+	<div id="snBar-placeholder"></div>
+	<br><br><br><br>
+
+	 <div id="main">
+	            <header class="mb-3">
+	                <a href="#" class="burger-btn d-block d-xl-none">
+	                    <i class="bi bi-justify fs-3"></i>
+	                </a>
+	            </header>
+	            
+	<div class="page-heading">
+	    <h1 id = "title2">마이페이지</h1>
+	    <h6 id = "title_">프로필 확인 및 수정, 지금까지의 번역 요청 및 작업 내역을 확인할 수 있습니다.</h6>
+	    <br>
+	    <table class = "content" style = "border-collapse: separate; text-align : center;">
+	    	<tr>
+			    <td><a th:href = "@{/my_page/main}">내 정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
+			    <td><b><a th:href = "@{/my_page/myRequestList}">내가 요청한 번역 내역&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></b></td>		
+			    <td><a th:href = "@{/my_page/requestToMe}">내가 받은 요청과 낙찰받은 경매 리스트</a></td>
+	    	</tr>
+	    </table>
+	    <hr>
+	</div>
+	
+	<div class="information">
       <table class="table table-striped">
         <thead>
           <tr>
@@ -133,5 +356,16 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
         </tbody>
       </table>
     </div>
+
+
+	 <!-- <div id="main"> -->
+	</div>
+     <!-- 부트스트랩  JS -->
+    <script th:src="@{/assets/js/bootstrap.js}"></script>
+    <script th:src="@{/assets/js/app.js}"></script>
+    
+<!-- Need: Apexcharts -->
+<script th:src="@{/assets/extensions/apexcharts/apexcharts.min.js}"></script>
+<script th:src="@{/assets/js/pages/dashboard.js}"></script>
 </body>
 </html>

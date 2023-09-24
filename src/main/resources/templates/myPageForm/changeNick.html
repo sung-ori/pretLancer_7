@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ID check</title>
+
+
+<style>
+	@font-face {
+	    font-family: 'LINESeedKR-Bd';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+	
+	* {
+	    font-family: 'LINESeedKR-Bd';	
+		color : #2C2E33;
+		text-align : center;
+
+	}
+	
+	h1 {
+		text-align : center;
+	}
+	
+	a {
+		color : #2334DE;
+	}
+	
+	div {
+		text-align : center;
+	}
+	
+	table {
+		margin-left : auto;	
+		margin-right : auto;	
+		margin-top : auto;	
+		margin-bottom : auto;	
+
+	}
+	
+	.login{
+	
+		width : 250px;
+		height : 30px;
+		
+		border : solid 2px #EFF0F0;
+		border-radius : 5px;
+		
+	}
+
+	.button{
+		width : 100px;
+		height : 35px;
+		background-color:#2334DE;
+		color : #FFFFFF;
+		
+		border : 0px;
+		border-radius : 5px;
+
+	}
+
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script>
+	
+	/* 닉네임 변경하기 : ajax 활용
+		1. 마이페이지의 정보 변경에 대해서는 닉네임만 변경하기로 했습니다(그 외 정보는 변경할만한 정보가 없네요..)
+		2. form에 hidden으로 현재 아이디를 hidden 타입으로 넣고, 변경할 닉네임을 넣어서 controller에 보내 변경할 계획입니다.
+			(아이디를 히든 타입으로 넣는 이유는 컨트롤러에서 멤버로 받아서 매퍼에서 활용하기 위함입니다.)
+		3. 폼의 button이라는 아이디를 가진 버튼을 클릭하면 check라는 function이 작동되게 할 것입니다.
+			1) 변경할 닉네임의 글자 수가 0(null값)인지 확인 - 해당될 경우 return false (구현 완료)
+			2) id값을 보내서 해당 id를 가진 사람이 충분한 포인트를 가지고 있는지 컨트롤러를 통해 확인한 후, 
+				포인트가 없다면 '포인트가 부족하여 닉네임을 변경할 수 없습니다'라는 문구 출력하고 return false (구현 완료)
+			3) 포인트도 있고 닉네임이 null값이 아니라면, changeNick이라는 post 방식의 메소드를 통해 닉네임을 변경하게 할 것입니다(이 경우, 포인트가 함께 차감됩니다)
+				(구현 완료)
+		3-3. 닉네임의 변경 후, 닉네임이 업데이트되었으므로 원래 부모 페이지를 새로고침하는 opener.location.reload(); 를 넣은 뒤 window.close();를 넣어
+			창이 닫히도록 했습니다.
+	*/
+	
+	$(document).ready(function() {
+		$('#button').click(check);
+	})
+	
+	function check() {
+		let id = document.getElementById('memberid').value;
+		let nick = document.getElementById('membernick').value;
+		
+		if(nick == '' || nick.length == 0) {
+			alert("변경할 닉네임을 입력하세요");
+			return false;
+		}
+		
+
+		$.ajax({
+				type : 'post',
+				url : 'changeNick',
+				data : {id : id, nick : nick},
+				success : function(s) {
+					if (s == 'success') {
+						alert('변경되었습니다.');
+						opener.location.reload();
+						window.close();
+					}
+					else {
+						alert('포인트가 부족합니다. 닉네임을 변경할 수 없습니다.');
+						return false;
+					}
+				},
+				error : function() {
+					alert('전송 실패');
+				}
+			})
+	}
+
+
+</script>
+</head>
+<body>
+
+<h1> 닉네임 변경 </h1>
+<h5>닉네임 변경 시, 포인트가 300점 차감됩니다.</h5>
+
+<form>
+	<input type = "hidden" th:value = "${#authentication.name}" id = "memberid">
+	<table>
+	<tr><td>변경할 닉네임</td> <td><input type = "text" name = "membernick" id = "membernick"></td> <td><input type = "submit" value="변경" class = "button" id = "button"></td></tr>
+	</table>
+</form>
+
+</body>
+</html>
