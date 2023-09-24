@@ -193,8 +193,8 @@ public class LongTranslateController {
     // 번역가가 현재 변역중인지 확인.
     @GetMapping("/checkTranslateNow")
     @ResponseBody
-    public Request_L checkTranslateNow (@AuthenticationPrincipal UserDetails user) {
-        return  service.checkTranslateNow(user.getUsername());
+    public Request_L checkTranslateNow (String memberid) {
+        return  service.checkTranslateNow(memberid);
     }
 
     @GetMapping("/readAccessRequestInfo")
