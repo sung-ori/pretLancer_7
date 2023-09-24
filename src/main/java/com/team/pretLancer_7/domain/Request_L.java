@@ -36,4 +36,6 @@ public class Request_L {
     
 	String startlang;	        // 시작 언어
 	String endlang;	            // 도착 언어
+
+	String auction;
 }

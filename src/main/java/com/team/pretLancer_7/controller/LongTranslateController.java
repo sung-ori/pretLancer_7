@@ -148,43 +148,28 @@ public class LongTranslateController {
         
         return service.bidValidation(map);
     }
-
+// 테이블에 경먀 여부를 적어놓았다. 불러오면 다 불러 진다. 
 // TODO : 내가 요청한 리스트를 전부 출력하는 걸로 바꿔도 좋을 듯
-    @GetMapping("/myAuctionList")
-    public String myAuctionList(@AuthenticationPrincipal UserDetails user, Model model) {
-        List<Request_L> myAuctionList =  service.myAuctionList(user.getUsername());
-        model.addAttribute("myAuctionList", myAuctionList);
-        log.debug("컨트롤러에 오는 나의 옥션 리스트 {}", myAuctionList);
-        return "/translate_long/myAuctionList";
-    }
 
-    @GetMapping("successfulBid")
-    @ResponseBody
-    public void successfulBid(String biderid,String requestnum, String auctionnum) {
-        
-        Map<String, String> map = new HashMap() ;
-        map.put("memberid",biderid);
-        map.put("requestnum", requestnum);
-        map.put("auctionnum",auctionnum);
-        int rst = service.successfulBid(map);
-        
 
-    }
+//====
 
-    @GetMapping("/requestToMe")
-    public String requestToMe(Model model, @AuthenticationPrincipal UserDetails user) {
-        List<Request_L> list =  service.getRequestToMe(user.getUsername());
+@GetMapping("successfulBid")
+	@ResponseBody
+	public void successfulBid(String biderid,String requestnum, String auctionnum) {
+		
+		Map<String, String> map = new HashMap() ;
+		map.put("memberid",biderid);
+		map.put("requestnum", requestnum);
+		map.put("auctionnum",auctionnum);
+		int rst =  service.successfulBid(map);
+		
 
-        model.addAttribute("list", list);
-
-        return "/translate_long/requestToMe";
-
-    }
-    
+	}
     @GetMapping("/readRequestInfo")
     public String readRequestInfo(Model model, @RequestParam(name = "requestnum_l") int requestnum_l) {
 
-        Request_L request = service.readRequestInfo(requestnum_l);
+        Request_L request =  service.readRequestInfo(requestnum_l);
         model.addAttribute("request", request);
         return "/translate_long/requestInfo";
     }
@@ -196,12 +181,47 @@ public class LongTranslateController {
         Map<String, String> map = new HashMap();
         map.put("requestnum", requestnum);
         map.put("message", message);
-        return service.resoponseToRequest(map);
+        return  service.resoponseToRequest(map);
     }
     // 번역가가 현재 변역중인지 확인.
     @GetMapping("/checkTranslateNow")
     @ResponseBody
     public Request_L checkTranslateNow (@AuthenticationPrincipal UserDetails user) {
-        return service.checkTranslateNow(user.getUsername());
+        return  service.checkTranslateNow(user.getUsername());
     }
+
+    @GetMapping("/readAccessRequestInfo")
+    public String readAccessRequestInfo(Model model, @RequestParam(name = "requestnum_l") int requestnum_l) {
+
+        Request_L request =  service.readRequestInfo(requestnum_l);
+        model.addAttribute("request", request);
+        return "/translate_long/accessInfo";
+    }
+
+    @PostMapping("/uploadTest")
+    @ResponseBody
+    public void uploadTest(@RequestParam("uploadfile") MultipartFile uploadfile,@RequestParam("requestnum_l") int requestnum_l) {
+        log.info("알려줘! {},{}", uploadfile.getOriginalFilename(),requestnum_l);
+         service.uploadResult(uploadfile,requestnum_l);
+    }
+
+    @GetMapping("/readResult")
+    public String readResult(@RequestParam("requestnum_l") int requestnum_l, Model model) {
+
+        Request_L rql =  service.readRequestInfo(requestnum_l);
+        model.addAttribute("result", rql);
+
+        return "/translate_long/resultForm";
+    }
+    
+    @GetMapping("/success")
+    @ResponseBody
+    public void success(@RequestParam("requestnum_l") int requestnum_l) {
+        log.debug("되냐? : {}",""+requestnum_l);
+         service.success(requestnum_l);
+        
+
+
+    }
+   
 }

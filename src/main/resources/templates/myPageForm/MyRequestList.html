@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <title>내가 신청한 경매 리스트</title>
+    <script>
+      // requestListForm의 함수와 완전히 같은 함수. js 파일로 옮길 것
+      $(document).ready(function() {
+            $(".bidBtn").click(openRequestInfo);
+            // $(".title").click(openRequestInfo);
+
+            function openRequestInfo() {
+                let width = window.screen.width;
+                let height = window.screen.height;
+
+                let openWidth = width/2;
+                let openHeight = height/2;
+
+                let top = height/4;
+                let left = width/4;
+
+                let requestnum =  $(this).attr("id");
+
+                window.open("http://localhost:8888/pretLancer/long/readAuctionInfo?requestnum_l="+requestnum ,'경매 입찰 페이지', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
+            }
+            $(".resultBtn").click(openResult);
+            // $(".title").click(openRequestInfo);
+
+            function openResult() {
+                let width = window.screen.width;
+                let height = window.screen.height;
+
+                let openWidth = width/2;
+                let openHeight = height/2;
+
+                let top = height/4;
+                let left = width/4;
+
+                let requestnum =  $(this).attr("id");
+
+                window.open("http://localhost:8888/pretLancer/long/readResult?requestnum_l="+requestnum ,'번역 결과 받기', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
+            }
+        });
+
+           
+            
+  
+    </script>
+</head>
+<body>
+  <!--내가 신청한 경매 리스트,  -->
+    <h1>내가 한 요청 , 경매 리스트</h1>
+    <div class="container">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">종류</th>
+            <th scope="col">카테고리</th>
+            <th scope="col">제목</th>
+            <!-- <th scope="col">상태</th> -->
+            <th scope="col">경매 마감일</th>
+            <th scope="col">작업 마감일</th>
+            <th scope="col">버튼</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="request, index : ${myRequestList}">
+            
+            <th scope="row" th:text="${index.count}"></th>
+
+            <td th:if="${request.auction == 'Y'}">경매</td>
+            <td th:if="${request.auction == 'N'}">요청</td>
+
+            <td th:text="${request.category}">카테고리</td>
+            
+            <!-- 낙찰 하면 낙찰 페이지에 접근 못함. -->
+            <td>
+              <p class="title" th:id="${request.requestnum_l}" th:text="${request.title}"></p>
+            </td>
+            <!-- <td th:if="${request.requestcondition_l != 'N' }" class="nontitle" th:id="${request.requestnum_l}" th:text="${request.title}" aria-disabled="true"> -->
+            <!-- </td> -->
+
+            <!-- 번역 진행 상태 -->
+
+            <!-- <td th:if="${request.auction == 'Y'}">
+              <p  th:if="${request.requestcondition_l == 'T'}">진행중</p>
+              <p  th:if="${request.requestcondition_l == 'N'}">낙찰 전</p>
+              <p  th:if="${request.requestcondition_l == 'E'}">완료</p>
+              <p  th:if="${request.requestcondition_l == 'Y'}">성공</p>
+              <p  th:if="${request.requestcondition_l == 'F'}">실패</p>
+            </td>
+            <td th:if="${request.auction == 'N'}">
+              <p  th:if="${request.requestcondition_l == 'N'}">수락 대기중</p>
+              <p  th:if="${request.requestcondition_l == 'T'}">진행중</p>
+              <p  th:if="${request.requestcondition_l == 'E'}">완료</p>
+              <p  th:if="${request.requestcondition_l == 'Y'}">성공</p>
+              <p  th:if="${request.requestcondition_l == 'F'}">실패</p>
+            </td> -->
+
+            <td th:if="${request.auction == 'Y'}">
+              <p th:text="${request.enddate}">경매 마감일</p>
+            </td>
+
+            <td th:if="${request.auction == 'N'}">
+              <p ></p>
+            </td>
+
+            <td th:text="${request.workdate}">작업 마감일</td>
+
+            <!-- 버튼 -->
+            <td th:if="${request.auction == 'Y'}">
+              <a  th:if="${request.requestcondition_l == 'N'}" class="bidBtn btn btn-warning btn-sm" th:id="${request.requestnum_l}" href="#">낙찰하러 가기</a>
+              <a  th:if="${request.requestcondition_l == 'T'}" class="aBtn btn btn-warning btn-sm" th:id="${request.requestnum_l}" href="#">진행중</a>
+              <a  th:if="${request.requestcondition_l == 'E'}" class="resultBtn btn btn-success btn-sm" th:id="${request.requestnum_l}" href="#">결과 받기</a>
+              <a  th:if="${request.requestcondition_l == 'Y'}" class="resultBtn btn btn-success btn-sm" th:id="${request.requestnum_l}" href="#">성공!</a>
+              <a  th:if="${request.requestcondition_l == 'F'}" class="aBtn btn btn-danger btn-sm" th:id="${request.requestnum_l}" href="#">실패</a>
+            </td>
+            
+            <td th:if="${request.auction == 'N'}">
+              <a  th:if="${request.requestcondition_l == 'N'}" class="rBtn btn btn-primary btn-sm" th:id="${request.requestnum_l}" href="#">수락 대기중</a>
+              <a  th:if="${request.requestcondition_l == 'T'}" class="rBtn btn btn-primary btn-sm" th:id="${request.requestnum_l}" href="#">진행중</a>
+              <a  th:if="${request.requestcondition_l == 'E'}" class="resultBtn btn btn-success btn-sm" th:id="${request.requestnum_l}" href="#">결과 받기</a>
+              <a  th:if="${request.requestcondition_l == 'Y'}" class="resultBtn btn btn-success btn-sm" th:id="${request.requestnum_l}" href="#">성공!</a>
+              <a  th:if="${request.requestcondition_l == 'F'}" class="rBtn btn btn-danger btn-sm" th:id="${request.requestnum_l}" href="#">실패</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</body>
+</html>

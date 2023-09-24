@@ -11,8 +11,9 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
     <script>
     //   비슷해보이지만 경매 정보 와 다른 코드이다. 
       $(document).ready(function() {
-        nowTranslateValidation();
+        // nowTranslateValidation();
         $(".btn-primary").click(openRequestInfo);
+        $(".btn-warning").click(openAccessInfo);
 
         function openRequestInfo() {
           let width = window.screen.width;
@@ -28,34 +29,31 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 
           window.open("http://localhost:8888/pretLancer/long/readRequestInfo?requestnum_l="+requestnum ,'요청 상세 페이지', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
       }
+         
+      function openAccessInfo() {
+          let width = window.screen.width;
+          let height = window.screen.height;
+
+          let openWidth = width/2;
+          let openHeight = height/2;
+
+          let top = height/4;
+          let left = width/4;
+
+          let requestnum =  $(this).attr("id");
+
+          window.open("http://localhost:8888/pretLancer/long/readAccessRequestInfo?requestnum_l="+requestnum ,'요청 상세 페이지', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
+      }
             
         });
 
-        function nowTranslateValidation() {
-
-            $.ajax({
-                type:"GET",
-                url:"checkTranslateNow",
-                dataType:"json",
-                success: function(data) {
-                    if(data != null) {
-                        $(".btn").val("한 번에 한 개의 수주만 할 수 있습니다.");
-                        $(".btn").attr("class","btn btn-danger btn-sm");
-                        $(".btn").attr("disabled",true);
-                        
-                    }
-                },
-                error: function() {
-                    alert(JSON.stringify(e));
-                }
-            });
-        }
+        
     </script>
     
 </head>
 <body>
   <!-- 번역가에게 온 요청 리스트 -->
-    <h1>번역가에게 온 요청 리스트</h1>
+    <h1>번역가에게 온 요청 리스트,낙찰받은 경매리스트</h1>
     <div class="container">
       <table class="table table-striped">
         <thead>
@@ -84,12 +82,15 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             <td th:text="${request.enddate}">마감일</td>
             <!-- 버튼 -->
             <td>
-              <input type="button"  class="btn btn-primary btn-sm" th:id="${request.requestnum_l}"  value="요청 상세보기">
+              <input th:if="${request.requestcondition_l} == 'N' " type="button"  class="btn btn-primary btn-sm" th:id="${request.requestnum_l}"  value="요청 상세보기">
+              <input th:if="${request.requestcondition_l} == 'T' " type="button"  class="btn btn-warning btn-sm" th:id="${request.requestnum_l}"  value="수락 요청 상세보기">
+              <input th:if="${request.requestcondition_l} == 'E' or ${request.requestcondition_l} == 'Y' " type="button"  class="btn btn-success btn-sm" th:id="${request.requestnum_l}" disabled="true" value="번역 완료">
             </td>
 
           </tr>
         </tbody>
       </table>
     </div>
+    
 </body>
 </html>
