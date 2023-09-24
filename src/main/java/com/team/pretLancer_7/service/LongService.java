@@ -48,4 +48,6 @@ public interface LongService {
     public int uploadResult (MultipartFile uploadFile, int requestnum);
 
     public void success(int requestnum_l);
+
+    public String cashCheck(String userid, int cash);
 }

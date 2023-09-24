@@ -306,4 +306,16 @@ public class LongServiceImpl implements LongService{
         map.put("requestnum", ""+requestnum_l);
         dao.updateRequestResponse(map);
     }
+
+    @Override
+    public String cashCheck(String userid, int cash) {
+        int usercash = Mdao.selectOne(userid).getCash();
+        String rst = "NO";
+
+        if(usercash > cash) {
+            rst = "OK";
+        }
+        
+        return rst;
+    }
 }
