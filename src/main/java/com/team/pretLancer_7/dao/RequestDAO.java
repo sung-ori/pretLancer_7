@@ -53,4 +53,9 @@ public interface RequestDAO {
 	
 	Request_M getRequestM(int requestnum_m);
 	
+	// 메세징
+	Request_S SRS(int r);
+
+	Request_M SRM(int r);
+	
 }

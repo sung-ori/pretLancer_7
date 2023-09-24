@@ -127,4 +127,12 @@
                 </if>
                 where requestnum_l = #{requestnum}
         </update>
+
+        <!-- 지금 번역 중인지 확인 리턴 되면 지금 번역중인 거임. 널이면 번역 안하고 있음-->
+        <select id="selectTranslateNow" parameterType="String">
+                select * from pret_request_l
+                where memberid2 = #{userid} and requestcondition_l = 'T'
+        </select>
+
+        <!-- 배치 이용해서 12시마다 마감됐는지 확인하고, 그에 맞는 처리를 한다. /DB의 수정, 메세지 전송 등  -->
 </mapper>

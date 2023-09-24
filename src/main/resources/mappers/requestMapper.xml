@@ -74,6 +74,14 @@
 	update pret_request_m set requestcondition_m = 'E' where requestnum_m = #{requestnum_m}
 	</update>
 
+	<select id="SRS" parameterType="int" resultType="Request_S">
+		select * from pret_request_s where requestnum_s = #{requestnum_s}
+	</select>
+
+	<select id="SRM" parameterType="int" resultType="Request_M">
+		select * from pret_request_m where requestnum_m = #{requestnum_m} 
+	</select>
+
 	<update id="cancelCon_S" parameterType="Translated_S">
 	update pret_request_s set requestcondition_s = 'N', memberid2 = '' where requestnum_s = #{requestnum_s}
 	</update>

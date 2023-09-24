@@ -40,5 +40,7 @@ public interface LongService {
     public Request_L readRequestInfo(int requestnum_l);
     
     public String resoponseToRequest(Map<String, String> map);
+
+    public Request_L checkTranslateNow(String userid);
     
 }
