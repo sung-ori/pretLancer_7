@@ -17,47 +17,180 @@
 	    font-weight: 700;
 	    font-style: normal;
 	}
+		
+	@font-face {
+    font-family: 'MBC1961GulimM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/MBC1961GulimM.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	}
+
+	@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+	}
+	
+	@font-face {
+    font-family: 'Pretendard-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+	}
+
+	@font-face {
+    font-family: 'Pretendard-Black';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+	}
 	
 	* {
-	    font-family: 'LINESeedKR-Bd';	
-	}
-
-	.div {
-		background-color: #EFF0F0;
-		border-radius : 5px;
+    font-family: 'Pretendard-Regular';
+		color : #2C2E33;
 
 	}
 	
-	.outer {
-		width : 1000px;
-		height : 600px;
-		border-radius : 5px;
-		
+	h2{
+		color : #2C2E33;
+	} 
 	
+	th {
+		font-weight : bold;
 	}
 	
-	.answer_input {
+	.info_table {
+		width : 250px;
 	
-		width : 900px;
-		height : 300px;
-		
-		border : solid 2px #EFF0F0;
-		border-radius : 5px;
-	
+		margin-left:auto; 
+    	margin-right:auto;
+    	border-collapse: collapse;
+    	border-spacing : 10px;
 	}
 	
-	.answer_button{
-	
-		width : 100px;
-		height : 35px;
-		background-color:#2334DE;
-		color : #FFFFFF;
-		
-		border : 0px;
-		border-radius : 5px;
-		
+	.info_tr {
+		height : 40px;
+		border-bottom : solid 1px #D8D8D8;
 	}
 
+	#title {
+    font-family: 'Pretendard-Black';
+		font-size : 45px;
+		color : #2C2E33;
+	} 
+
+	#title2 {
+    font-family: 'Pretendard-Black';
+		font-size : 40px;
+		color : #2C2E33;
+	} 
+
+	#title3 {
+    font-family: 'Pretendard-Black';
+		font-size : 35px;
+		color : #2C2E33;
+	} 
+
+	#title4 {
+    font-family: 'Pretendard-Black';
+		font-size : 30px;
+		color : #2C2E33;
+	} 
+
+
+	#title_{
+    font-family: 'Pretendard-Bold';
+		font-size : 20px;
+		color : #2C2E33;
+	} 
+
+	.content{
+    font-family: 'Pretendard-Regular';
+		font-size : 15px;
+		color : #D8D8D8;
+	} 
+	
+	.information {
+	text-align : center;
+	vertical-align : middle;
+	background-color : white;
+	border : solid 1px #D8D8D8;
+	border-radius : 5px;
+	width : 400px;
+	height : 450px;
+	}
+
+	.information_content{
+    font-family: 'Pretendard-Regular';
+		font-size : 15px;
+		color : #D8D8D8;
+	} 
+	 	
+	.input_translated{
+		font-size : 18px;
+		background-color : #F2F2F2;
+		word-break : break-all;
+		
+	}
+	
+		/*div {
+			background-color: #EFF0F0;
+			border-radius : 5px;
+	
+		}*/
+		
+		.outer {
+			width : 1000px;
+			height : 600px;
+			border-radius : 5px;
+			
+		
+		}
+
+		.comment_input {
+		
+			width : 900px;
+			height : 100px;
+			
+			border : solid 2px #EFF0F0;
+			border-radius : 5px;
+		
+		}
+		
+		.answer_input {
+		
+			width : 900px;
+			height : 300px;
+			
+			border : solid 2px #EFF0F0;
+			border-radius : 5px;
+		
+		}
+		
+		.submit_button{
+		
+			width : 100px;
+			height : 35px;
+			background-color:#2334DE;
+			color : #FFFFFF;
+			
+			border : 0px;
+			border-radius : 5px;
+			
+		}
+
+		.exit_button{
+		
+			width : 100px;
+			height : 35px;
+			background-color:#F2F2F2;
+			color : #2C2E33;
+			
+			border : 0px;
+			border-radius : 5px;
+			
+		}
 </style>
 <script type="text/javascript">
 
@@ -96,31 +229,58 @@
 	            </header>
 	            
 	<div class="page-heading">
-	    <h3>홈페이지</h3>
+	    <h1 id = "title2">마이페이지</h1>
+	    <h6 id = "title_">프로필 확인 및 수정, 지금까지의 번역 요청 및 작업 내역을 확인할 수 있습니다.</h6>
+	    <br>
+	    <table class = "content" style = "border-collapse: separate; text-align : center;">
+	    	<tr>
+			    <td><b><a th:href = "@{/}">내 정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></b></td>		
+			    <td><a th:href = "@{/}">번역 요청 내역 보기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
+			    <td><a th:href = "@{/}">내 번역, 평가 내역 보기</a></td>
+	    	</tr>
+	    </table>
+	    <hr>
 	</div>
 			
-	<div>
+	<div class = "information">
+		
+		<br>
 		<!-- 프로필 사진이 들어가는 div 영역 -->
 		<div class = "profile_photo"></div>
 		
 		<!-- 000 님의 마이페이지가 출력되는 영역 -->
-		<p><img th:if="${mypage.originphoto}" th:src="@{/my_page/getPhoto(memberid=${mypage.memberid})}" style="width: 200px;"></p>
+		<p><img th:if="${mypage.originphoto}" th:src="@{/my_page/getPhoto(memberid=${mypage.memberid})}" style="border-radius : 70% ; width: 100px;"></p>
 		<form th:action="@{/my_page/MpUpdate}" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="memberid" th:value="${mypage.memberid}"/>
 			<input type="file" name="upload"/>
 			<input type="submit" value="사진 변경하기"/>
 		</form>
-		<!-- 내 정보가 보여야 하므로 id는 authen어쩌구 이용해서 작성 -->
-		<div class = "idoutput"><h2><span th:text = "${mypage.memberid}">id</span> 님의 마이페이지</h2></div>
+		
+		<br>
+
 		
 		<!-- 개인정보가 출력되는 영역 -->
-		<div class = "member_info">
-			<p>이메일		<span th:text = "${mypage.membername}">이름 default</span></p>		
-			<p>닉네임		<span th:text = "${mypage.membernick}">닉네임 default</span></p>
-			<p>이메일		<span th:text = "${mypage.mem_ex}">경험치 default</span></p>
-			<p>이메일		<span th:text = "${mypage.mem_level}">레벨 default</span></p>
-			<p>이메일		<span th:text = "${mypage.memberlang}">언어 default</span></p>
-		
+		<div class = "information_content">
+			<table class = "info_table">
+				<tr class = "info_tr">
+					<th>아이디</th>		<td><span th:text = "${mypage.memberid}">아이디 default</span></td>
+				</tr>
+				<tr class = "info_tr">		
+					<th>이메일</th>		<td><span th:text = "${mypage.membername}">이름 default</span></td>	
+				</tr>
+				<tr class = "info_tr">	
+					<th>닉네임</th>		<td><span th:text = "${mypage.membernick}">닉네임 default</span></td>
+				</tr>
+				<tr class = "info_tr">
+					<th>레벨</th>			<td><span th:text = "${mypage.mem_level}">레벨 default</span></td>
+				</tr>
+				<tr class = "info_tr">
+					<th>경험치</th>		<td><span th:text = "${mypage.mem_ex}">경험치 default</span></td>
+				</tr>
+				<tr style = "height : 40px;">
+					<th>언어</th>			<td><span th:text = "${mypage.memberlang}">언어 default</span></td>
+				</tr>
+			</table>
 		</div>
 	</div>
 	 <!-- <div id="main"> -->
