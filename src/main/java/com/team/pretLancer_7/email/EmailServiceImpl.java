@@ -1,10 +1,14 @@
 package com.team.pretLancer_7.email;
 
+import java.time.LocalDate;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import com.team.pretLancer_7.domain.Member;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -67,4 +71,44 @@ public class EmailServiceImpl {
 
         return 0;
 	}
+
+    public int sendPayEmail(Member userinfo, int cash) {
+
+        MimeMessage message = CreatePayMail(userinfo,cash);
+        javaMailSender.send(message);
+
+        return 1;
+    }
+
+    public MimeMessage CreatePayMail(Member userinfo, int cash) {
+        String email = userinfo.getMembermail();
+        String userid = userinfo.getMemberid();
+
+        log.debug("서비스도 들어오니?CM : {}", email);
+        // 오늘 날짜
+        LocalDate today = LocalDate.now();
+        
+        // 7일 뒤 날짜 계산
+        LocalDate sevenDaysLater = today.plusDays(7);
+
+        MimeMessage message = javaMailSender.createMimeMessage();
+
+        try {
+            message.setFrom(senderEmail);
+            message.setRecipients(MimeMessage.RecipientType.TO, email);
+            message.setSubject("출금 확인 메일");
+            String body = "";
+
+            body += "<h3>" + userid + "님!" + "</h3>";
+            body += "<h3>" + "출금 신청이 완료되엇습니다." + "</h3>";
+            body += "<h3>" + "신청하신 금액" + cash +"원은 "+ "</h3>";
+            body += "<h1>" + sevenDaysLater +"안에 입금됩니다."+"</h1>";
+            body += "<h3>" + "감사합니다." + "</h3>";
+            message.setText(body,"UTF-8", "html");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+        return message;
+    }
 }

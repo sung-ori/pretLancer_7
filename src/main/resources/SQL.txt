@@ -297,7 +297,7 @@ CREATE TABLE PRET_REQUEST_L (
 	MEMBERID2	        VARCHAR2(20)	REFERENCES PRET_MEMBER(MEMBERID),               -- 번역자 아이디
 	CATEGORY	        VARCHAR2(50),                                                   -- 카테고리 (도메인 지정)
     TITLE               VARCHAR2(200),
-	REQUESTCONDITION_L	VARCHAR2(2)	    DEFAULT 'N' CHECK (REQUESTCONDITION_L IN ('N', 'T' , 'Y', 'F')), -- 의뢰상황
+	REQUESTCONDITION_L	VARCHAR2(2)	    DEFAULT 'N' CHECK (REQUESTCONDITION_L IN ('N', 'T', 'E', 'Y', 'F')), -- 의뢰상황
 	INPUTDATE	        DATE	        DEFAULT SYSDATE,                                -- 의뢰 날짜
 	ENDDATE	            DATE	        DEFAULT SYSDATE+10,                             -- 만료 날짜
 	WORKDATE	        DATE,                                                           -- 작업 기간
@@ -310,6 +310,7 @@ CREATE TABLE PRET_REQUEST_L (
 	COMMENTPAGE	        VARCHAR2(100),                                                  -- 글자수 및 페이지 수
 	STARTLANG	        VARCHAR2(30)	NOT NULL,                                       -- 시작 언어
 	ENDLANG	            VARCHAR2(30)	NOT NULL                                        -- 도착 언어
+    AUCTION          VARCHAR2(2)      DEFAULT 'N' CHECK (AUCTION IN ('N', 'Y'))         -- 경매 여부
 );
 
         -- 장문 의뢰 시퀀스
@@ -540,6 +541,15 @@ ADD MEM_LEVEL VARCHAR2(10);
 -- 장문 요청 테이블 수정문
 alter TABLE PRET_REQUEST_L add title varchar2(200);
 
+-- 장문 요청 테이블 수정문
+
+alter table pret_request_l drop constraint chk_requestcondition_l;
+
+alter table pret_request_l add constraint chk_requestcondition_l check (REQUESTCONDITION_L IN ('N', 'T', 'E', 'Y', 'F'));
+
+ALTER TABLE pret_request_l
+ADD auction VARCHAR2(2) DEFAULT 'N' CHECK (auction IN ('Y', 'N'));
+
 
 -- 메세지 테이블
 create table pret_messages (
@@ -564,3 +574,26 @@ CREATE SEQUENCE     Message_SEQ
         INCREMENT BY 1
         MINVALUE 1
         NOCYCLE;
+
+-- 채팅방 테이블
+    Create table Pret_chatRoom (
+        charroomnum     number        primary key,   -- 고유 번호 시퀀스
+        user1           varchar2(200) not null,      -- 이용 멤버 1
+        user2           varchar2(200) not null,      -- 이용 멤버 2
+        enddate         date,                        -- 채팅방 사라지는 날짜
+        enable          varchar2(1) default 'Y' check (enable in 'N','Y'), 채팅방 사용 가능 여부
+
+        FOREIGN KEY (userid1) REFERENCES PRET_MEMBER(memberid) on delete CASCADE,
+        FOREIGN KEY (userid2) REFERENCES PRET_MEMBER(memberid) on delete CASCADE,
+    )
+
+    Create table pret_chat_messages (
+        chat_messagenum     number  primary key , 
+        chatroomnum         number,
+        userid              varchar2(200),
+        message             varchar2(2000),
+        send_date           date,
+        
+        FOREIGN KEY (userid) REFERENCES PRET_MEMBER(memberid) on delete CASCADE,
+        FOREIGN KEY (chatroomnum) REFERENCES PRET_chatroom(chatroomnum) on delete CASCADE,
+    )

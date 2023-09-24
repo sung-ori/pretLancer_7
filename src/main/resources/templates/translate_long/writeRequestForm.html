@@ -22,9 +22,40 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                     return false;
                 }
             });
-            
-            
+                    
         });
+
+        // TODO: 요청 금액이 보유 금액보다 큰지 검증 내용 검증할 때 쓰셈.
+        function cashCheck() { 
+            let cash = $("#cash").val();
+
+            $.ajax({
+                    type:"GET",
+                    url:"cashCheck",
+                    data:{"cash" : cash},
+                    dataType:"text",
+                    success: function(data) {
+                        if(data == "OK") {
+                        
+                        }
+                        else{
+                            let rst = confirm("보유하신 금액이 모자랍니다. 충전 페이지로 이동하시겠습니까?");
+                            if(rst) {
+                                // 페이지이동하는 코드
+                                window.opener.location.href="http://localhost:8888/pretLancer/reward/main";
+                                window.close();
+                            }
+                            else {
+                                alert('요청할 수 없습니다. 충전해주세요.');
+                                window.close();
+                                return;
+                            }
+                        }
+                    },
+                    error: function() {}
+                })
+        }
+        
         // TODO: 시작 언어 도착언어 다른지 검증
     </script>
     

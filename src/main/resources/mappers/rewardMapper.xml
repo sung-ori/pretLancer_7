@@ -16,6 +16,10 @@
 		
 	</update>
 	
-
+	<update id="updatePayback" parameterType="Map">
+		update pret_member
+		set cash = cash - #{cash}
+		where memberid = #{userid}
+	</update>
 	
 </mapper>

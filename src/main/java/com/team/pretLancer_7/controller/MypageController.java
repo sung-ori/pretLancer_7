@@ -3,6 +3,7 @@ package com.team.pretLancer_7.controller;
 import java.io.FileInputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -20,9 +21,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
+import com.team.pretLancer_7.domain.Request_L;
+import com.team.pretLancer_7.service.LongService;
 import com.team.pretLancer_7.service.MypageService;
 import com.team.pretLancer_7.utill.FileService;
 
@@ -38,6 +40,9 @@ public class MypageController {
 
     @Autowired
     MypageService service;
+
+	@Autowired
+	LongService Lservice;
 
     @GetMapping("main")
     public String myPageForm(Model m, @AuthenticationPrincipal UserDetails user) {
@@ -130,13 +135,32 @@ public class MypageController {
 		}
 	}
     
-    // 번역 능력
-    @GetMapping("ability")
-    public String ability(@AuthenticationPrincipal UserDetails user, Model m) {
-    	
-    	Ability ab = service.getability(user.getUsername());
-    	
-    	return "myPageForm/Ability";
+	// =========================
+
+
+	 @GetMapping("/myRequestList")
+    public String myAuctionList(@AuthenticationPrincipal UserDetails user, Model model) {
+        List<Request_L> myAuctionList =  Lservice.myAuctionList(user.getUsername());
+        List<Request_L> myRequestList =  Lservice.myRquestList(user.getUsername());
+        
+        model.addAttribute("myRequestList", myRequestList);
+        model.addAttribute("myAuctionList", myAuctionList);
+        log.debug("컨트롤러에 오는 나의 옥션 리스트 {}", myRequestList);
+
+        return "/mypageform/myRequestList";
+    }
+
+	
+    @GetMapping("/requestToMe")
+    public String requestToMe(Model model, @AuthenticationPrincipal UserDetails user) {
+		List<Request_L> list =  Lservice.getRequestToMe(user.getUsername());
+		
+        model.addAttribute("list", list);
+		
+        return "/mypageform/requestToMe";
+		
     }
     
+	
+	
 }

@@ -39,9 +39,9 @@
                         (PRET_REQ_L_SEQ.nextval, #{memberid}, #{memberid2}, #{title}, #{category}, #{enddate}, #{enddate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr},#{commentpage}, #{startlang}, #{endlang} )
                 </if>
                 <if test="memberid2 == null">
-                        (requestnum_l, memberid, title, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr,commentpage, startlang, endlang)
+                        (requestnum_l, memberid, title, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr,commentpage, startlang, endlang, auction)
                         values 
-                        (PRET_REQ_L_SEQ.nextval, #{memberid}, #{title}, #{category}, #{enddate}, #{workdate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr},#{commentpage}, #{startlang}, #{endlang} )
+                        (PRET_REQ_L_SEQ.nextval, #{memberid}, #{title}, #{category}, #{enddate}, #{workdate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr},#{commentpage}, #{startlang}, #{endlang},'Y')
                 </if>
         </insert>
 
@@ -61,6 +61,16 @@
                 select * from pret_request_l
                 where requestnum_l in (select requestlnum from pret_auction)
         </select>
+
+        <select id="selectRequestList" parameterType="String" resultType="Request_L">
+                select * 
+                from pret_request_l
+                <if test="#{userid} != null">
+                        where memberid = #{uesrid}
+                        <!-- and requestnum_l not in (select requestlnum from pret_auction) -->
+                </if>
+        </select>
+
         
         <select id="selectOneRequest_L" parameterType="int" resultType="Request_L">
                 select * from pret_request_l 
@@ -112,8 +122,8 @@
         <select id="selectRequestToMe" parameterType="String" resultType="Request_L">
                 select * from pret_request_l
                 where memberid2 = #{userid}
-                and  REQUESTCONDITION_L = 'N'
-                and requestnum_l not in (select requestlnum from pret_auction)
+                <!-- and  REQUESTCONDITION_L = 'N' -->
+                <!-- and requestnum_l not in (select requestlnum from pret_auction) -->
         </select>
         <!-- 요청 수락 or 거절 -->
         <update id="updateRequestResponse" parameterType="Map">
@@ -122,8 +132,19 @@
                 <if test="message == 'accept'">
                         requestcondition_l = 'T'
                 </if>
+
                 <if test="message == 'refuse' ">
                         memberid2 = ''
+                </if>
+
+                <if test="message == 'uploadResult' ">
+                        requestcondition_l = 'E',
+                        origintfile = #{originfile},
+                        savedtfile = #{savedfile}
+                </if>
+
+                <if test="message == 'success'">
+                        requestcondition_l = 'Y'
                 </if>
                 where requestnum_l = #{requestnum}
         </update>
@@ -133,6 +154,9 @@
                 select * from pret_request_l
                 where memberid2 = #{userid} and requestcondition_l = 'T'
         </select>
+
+        
+
 
         <!-- 배치 이용해서 12시마다 마감됐는지 확인하고, 그에 맞는 처리를 한다. /DB의 수정, 메세지 전송 등  -->
 </mapper>

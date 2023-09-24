@@ -1,6 +1,7 @@
 package com.team.pretLancer_7.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,8 +27,11 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class LongServiceImpl implements LongService{
 
-    @Value("/Users/sung_ori/pretLancer_7/pretLancer_7/src/main/resources/static/img")
-	String uploadPath;
+    @Value("/Users/sung_ori/pretLancer_7/pretLancer_7/src/main/resources/static/request")
+	String uploadPathR;
+
+    @Value("/Users/sung_ori/pretLancer_7/pretLancer_7/src/main/resources/static/translate")
+	String uploadPathT;
 
     @Autowired
     LongDAO dao ;
@@ -78,13 +82,13 @@ public class LongServiceImpl implements LongService{
     public int writeRequest(Request_L request_L, MultipartFile uploadFile) {
         FileService fileService = new FileService();
         log.debug("장문 요청 서비스 {}",request_L);
-        log.debug("업로드 경로", uploadPath);
+        log.debug("업로드 경로", uploadPathR);
         
         String originfile =""; 
         String savedfile = "";
         try{
             originfile = uploadFile.getOriginalFilename();
-            savedfile = fileService.saveFile(uploadFile,uploadPath);
+            savedfile = fileService.saveFile(uploadFile,uploadPathR);
             
         }
         catch (NullPointerException e) {
@@ -105,13 +109,13 @@ public class LongServiceImpl implements LongService{
         
         FileService fileService = new FileService();
         log.debug("장문 요청 서비스 {}",request_L);
-        log.debug("업로드 경로", uploadPath);
+        log.debug("업로드 경로", uploadPathR);
         
         String originfile =""; 
         String savedfile = "";
         try{
             originfile = uploadFile.getOriginalFilename();
-            savedfile = fileService.saveFile(uploadFile,uploadPath);
+            savedfile = fileService.saveFile(uploadFile,uploadPathR);
             
         }
         catch (NullPointerException e) {
@@ -208,6 +212,10 @@ public class LongServiceImpl implements LongService{
         return myAuctionList;
     }
 
+    public List<Request_L> myRquestList(String userid){
+        return dao.selectRequestList(userid);
+    }
+
     @Override
     public int successfulBid(Map<String, String> map) {
 
@@ -257,5 +265,57 @@ public class LongServiceImpl implements LongService{
         return dao.selectTranslateNow(userid);
     }
     
-    
+    @Override
+    @Transactional
+    public int uploadResult(MultipartFile uploadFile, int requestnum) {
+        
+        Map<String, String> map = new HashMap();
+        map.put("message", "uploadResult");
+        map.put("requestnum",""+requestnum);
+
+        FileService fileService = new FileService();
+        log.debug("장문 요청 서비스 {}",requestnum);
+        log.debug("업로드 경로", uploadPathR);
+        
+        String originfile =""; 
+        String savedfile = "";
+        try{
+            originfile = uploadFile.getOriginalFilename();
+            savedfile = fileService.saveFile(uploadFile,uploadPathT);
+            
+        }
+        catch (NullPointerException e) {
+        log.debug("오리진", originfile);
+        log.debug("세이브", savedfile);
+        }
+        
+        map.put("originfile", originfile);
+        map.put("savedfile", savedfile);
+        
+        
+
+        return dao.updateRequestResponse(map);
+
+    }
+
+    @Override
+    public void success(int requestnum_l) {
+        Map<String,String> map = new HashMap();
+
+        map.put("message", "success");
+        map.put("requestnum", ""+requestnum_l);
+        dao.updateRequestResponse(map);
+    }
+
+    @Override
+    public String cashCheck(String userid, int cash) {
+        int usercash = Mdao.selectOne(userid).getCash();
+        String rst = "NO";
+
+        if(usercash > cash) {
+            rst = "OK";
+        }
+        
+        return rst;
+    }
 }
