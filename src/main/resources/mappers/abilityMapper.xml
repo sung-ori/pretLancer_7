@@ -1,0 +1,47 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team.pretLancer_7.dao.AbilityDAO">
+	
+	<update id="PsucceedUp" parameterType="string">
+	update pret_ability set psucceed = psucceed + 1 where memberid = #{memberid}
+	</update>
+	
+	<update id="PfailedUp" parameterType="string">
+	update pret_ability set pfailed = pfailed + 1 where memberid = #{memberid}
+	</update>
+	
+	<update id="SsucceedUp" parameterType="string">
+	update pret_ability set ssucceed = ssucceed + 1 where memberid = #{memberid}
+	</update>
+	
+	<update id="SfailedUp" parameterType="string">
+	update pret_ability set sfailed = sfailed + 1 where memberid = #{memberid}
+	</update>
+	
+	<update id="MsucceedUp" parameterType="string">
+	update pret_ability set msucceed = msucceed + 1 where memberid = #{memberid}
+	</update>
+	
+	<update id="MfailedUp" parameterType="string">
+	update pret_ability set mfailed = mfailed + 1 where memberid = #{memberid}
+	</update>
+	
+	<update id="LsucceedUp" parameterType="string">
+	update pret_ability set lsucceed = lsucceed + 1 where memberid = #{memberid}
+	</update>
+	
+	<update id="LfailedUp" parameterType="string">
+	update pret_ability set lfailed = lfailed + 1 where memberid = #{memberid}
+	</update>
+	
+	<update id="EsucceedUp" parameterType="string">
+	update pret_ability set esucceed = esucceed + 1 where memberid = #{memberid}
+	</update>
+	
+	<update id="EfailedUp" parameterType="string">
+	update pret_ability set efailed = efailed + 1 where memberid = #{memberid}
+	</update>
+	
+</mapper>

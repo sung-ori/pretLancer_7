@@ -36,7 +36,10 @@ public interface MemberDAO {
 	
 	
 	// 캐쉬 및 신뢰도(경험치) 관련 기능은 아래쪽
-		
+	
+	// 연습 문제 성공 시 경험치를 받음
+	public void getExExam(String Memberid);
+	
 	// 의뢰 요청 시 포인트 차감
 	public void usePoint(Member m);
 	
@@ -54,25 +57,10 @@ public interface MemberDAO {
 	public void levelUpB(String memberid);
 	public void levelUpA(String memberid);
 	
+	// 단문 평가 시 경험치를 받음 (번역의 1/10)
+	public void getExES(String memberid);
 	
-
-	// 번역 능력 관련 기능은 아래쪽
-	
-	// 연습 성공
-	
-	// 연습 실패
-	
-	// 단문 성공
-	
-	// 단문 실패
-	
-	// 중문 성공
-	
-	// 중문 실패
-	
-	// 평가 성공
-	
-	// 평가 실패
-	
+	// 중문 평가 시 경험치를 받음 (번역의 1/10)
+	public void getExEM(String memberid);
 	
 }

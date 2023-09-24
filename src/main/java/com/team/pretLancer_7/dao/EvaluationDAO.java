@@ -36,17 +36,22 @@ public interface EvaluationDAO {
 	List<Evaluation_S> getListES(int translatednum_s);
 
 	void completeS(Request_S rs);
+	
+	void completeES(int translatednum_s);
 
-	void failedS(int requestnum_s);
+	void failedTS(int requestnum_s);
 	
 	
 	// 중문 평가 확인
 	Translated_M evCheckM(int translatednum_m);
 	
 	List<Evaluation_M> getListEM(int translatednum_m);
+	
+	void completeEM(int translatednum_m);
 
 	void completeM(Request_M rm);
 
-	void failedM(int requestnum_m);
+	void failedTM(int requestnum_m);
+
 
 }

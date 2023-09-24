@@ -5,6 +5,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<form th:action="@{/evaluation/insertEM}" method="post">
+	<input type="hidden" name="translatednum_m" th:value="${translated.translatednum_m}"/>
+	<input type="hidden" name="requestnum_m" th:value="${translated.requestnum_m}"/>
+	
+	<!-- 가짜 값 -->
+	<input type="hidden" name="evaluationsuccess" value='Y'/>
+	
+	<input type="submit" value="평가하기"/>
+	</form>
 </body>
 </html>

@@ -43,6 +43,10 @@
 	where memberid = #{memberid}
 	</update>
 	
+	<update id="getExExam" parameterType="String">
+	update pret_member set mem_ex = mem_ex + 25 where memberid = #{memberid}
+	</update>
+	
 	<update id="usePoint" parameterType="Member">
 	update pret_member set cash = cash - #{cash} where memberid = #{memberid}
 	</update>
@@ -52,7 +56,7 @@
 	</update>
 	
 	<update id="getPointExS" parameterType="Member">
-	update pret_member set cash = cash + #{cash}, mem_ex = mem_ex + 100 where memberid = #{memberid}
+	update pret_member set cash = cash + #{cash}, mem_ex = mem_ex + 200 where memberid = #{memberid}
 	</update>
 	
 	<update id="getPointExM" parameterType="Member">
@@ -72,5 +76,13 @@
 	<select id="getAbility" parameterType="String" resultType="Ability">
 	select * from pret_ability where memberid = #{memberid}
 	</select>
+	
+	<update id="getExES" parameterType="String">
+	update pret_member set mem_ex = mem_ex + 20 where memberid = #{memberid}
+	</update>
+	
+	<update id="getExEM" parameterType="String">
+	update pret_member set mem_em = mem_em + 100 where memberid = #{memberid}
+	</update>
 	
 </mapper>

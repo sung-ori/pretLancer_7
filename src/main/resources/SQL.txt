@@ -148,8 +148,8 @@ CREATE TABLE PRET_REQUEST_S (
 	REQUESTNUM_S	        NUMBER	        DEFAULT 1 PRIMARY KEY,                      -- 단문 의뢰 번호 PRET_REQ_S_SEQ.NEXTVAL
 	MEMBERID	            VARCHAR2(20)	NOT NULL REFERENCES PRET_MEMBER(MEMBERID),  -- 의뢰자 아이디
 	MEMBERID2   	        VARCHAR2(20)    REFERENCES PRET_MEMBER(MEMBERID),           -- 번역가 아이디 번역가가 정해지면 삽입
-	REQUESTCONTENT_S	    VARCHAR2(500),                                              -- 번역 요청 문장
-	TRANSLATEDCONTENT_s	    VARCHAR2(500),                                              -- 번역 된 문장
+	REQUESTCONTENT_S	    VARCHAR2(3000),                                              -- 번역 요청 문장
+	TRANSLATEDCONTENT_s	    VARCHAR2(3000),                                              -- 번역 된 문장
 	REQUESTCONDITION_S	    VARCHAR2(2)	    DEFAULT 'N' CHECK(REQUESTCONDITION_S IN ('N','T','E','Y','F')),	-- 번역안됨-N , 번역중-T, 평가대기중-E, 완료-Y'
 	INPUTDATE	            DATE        	DEFAULT SYSDATE,                            -- 번역 요청 날짜
 	ENDDATE 	            DATE	        DEFAULT SYSDATE+3,                          -- 번역 마감 시간 +3일
@@ -173,8 +173,8 @@ CREATE TABLE PRET_REQUEST_M (
 	REQUESTNUM_M	        NUMBER	        DEFAULT 1 PRIMARY KEY,                      -- 중문 의뢰 번호 PRET_REQ_M_SEQ.NEXTVAL
 	MEMBERID	            VARCHAR2(20)	NOT NULL REFERENCES PRET_MEMBER(MEMBERID),  -- 의뢰자 아이디
 	MEMBERID2   	        VARCHAR2(20)    REFERENCES PRET_MEMBER(MEMBERID),           -- 번역가 아이디 번역가가 정해지면 삽입
-	REQUESTCONTENT_M	    VARCHAR2(500),                                              -- 번역 요청 문장
-	TRANSLATEDCONTENT_M	    VARCHAR2(500),                                              -- 번역 된 문장
+	REQUESTCONTENT_M	    VARCHAR2(3000 CHAR),                                              -- 번역 요청 문장
+	TRANSLATEDCONTENT_M	    VARCHAR2(3000 CHAR),                                              -- 번역 된 문장
 	REQUESTCONDITION_M	    VARCHAR2(2)	    DEFAULT 'N' CHECK(REQUESTCONDITION_M IN ('N','T','E','Y','F')),	-- 번역안됨-N , 번역중-T, 평가대기중-E, 완료-Y'
 	INPUTDATE	            DATE        	DEFAULT SYSDATE,                            -- 번역 요청 날짜
 	ENDDATE 	            DATE	        DEFAULT SYSDATE+3,                          -- 번역 마감 시간 +3일
@@ -198,8 +198,8 @@ CREATE TABLE PRET_TRANSLATED_S (
     TRANSLATEDNUM_S         NUMBER NOT NULL PRIMARY KEY,    -- 번역 고유 번호 (단문)  PK,  PRET_TRANS_S_SEQ.NEXTVAL
     REQUESTNUM_S            NUMBER  NOT NULL,               -- 단문 의뢰 번호       FK
     MEMBERID                VARCHAR2(20) NOT NULL,          -- 번역자 아이디        FK
-    REQUESTCONTENT_S        VARCHAR2 (500),                 -- 번역 요청 내용       FK
-    TRANSLATEDCONTENT_s     VARCHAR2 (500),                 -- 번역 결과 내용
+    REQUESTCONTENT_S        VARCHAR2 (3000),                 -- 번역 요청 내용       FK
+    TRANSLATEDCONTENT_s     VARCHAR2 (3000),                 -- 번역 결과 내용
     COMMENT_ST              VARCHAR2(300),                  -- 비고란
     EVALUATIONVALUE_S		NUMBER DEFAULT 0,				-- 평가 횟수 확인
 
@@ -223,8 +223,8 @@ CREATE TABLE PRET_TRANSLATED_M (
     TRANSLATEDNUM_M         NUMBER NOT NULL PRIMARY KEY,    -- 번역 고유 번호 (단문) PK,  PRET_TRANS_M_SEQ.NEXTVAL
     REQUESTNUM_M            NUMBER  NOT NULL,               -- 단문 의뢰 번호       FK
     MEMBERID                VARCHAR2(20) NOT NULL,          -- 번역자 아이디        FK
-    REQUESTCONTENT_M        VARCHAR2 (500),                 -- 번역 요청 내용       FK
-    TRANSLATEDCONTENT_M     VARCHAR2 (500),                 -- 번역 결과 내용
+    REQUESTCONTENT_M        VARCHAR2 (3000 CHAR),                 -- 번역 요청 내용       FK
+    TRANSLATEDCONTENT_M     VARCHAR2 (3000 CHAR),                 -- 번역 결과 내용
     COMMENT_ST              VARCHAR2(300),                  -- 비고란
     EVALUATIONVALUE_M		NUMBER DEFAULT 0,				-- 평가 횟수 확인
 
@@ -245,15 +245,17 @@ CREATE TABLE PRET_EVALUATION_S (
     EVALUATIONNUM_S      NUMBER          NOT NULL PRIMARY KEY, -- 평가 고유번호 PK, PRET_EVALS_SEQ.NEXTVAL
     TRANSLATEDNUM_S      NUMBER          NOT NULL,             -- 번역 고유 번호 (단문) FK
     REQUESTNUM_S         NUMBER          NOT NULL,             -- 단문 의뢰 번호 FK
-    MEMBERID            VARCHAR2(20)    NOT NULL,             -- 평가자 아이디 PK
-    EVALUATIONSUCCESS   VARCHAR2(1) ,                             -- 성공 여부 제약(Y/N)
-    WHYFAILED           NUMBER,                               -- 실패 이유 폼으로부터 value 번호로 받음.
+    MEMBERID            VARCHAR2(20)     NOT NULL,             -- 평가자 아이디 PK
+    EVALUATIONSUCCESS   VARCHAR2(1) ,                          -- 번역 성공 여부 제약(Y/N)
+    WHYFAILED           NUMBER,                                -- 실패 이유 폼으로부터 value 번호로 받음.
+    EVALUATIONCONDITION_S CHAR(1) 		 DEFAILT 'N',		   -- 평가 상황 'N'은 아직 평가가 끝나지 않음, 'Y'는 이번 평가가 끝남'
 
     FOREIGN KEY (TRANSLATEDNUM_S ) REFERENCES PRET_TRANSLATED_S(TRANSLATEDNUM_S), -- 외래키 지정
     FOREIGN KEY (REQUESTNUM_S)     REFERENCES PRET_REQUEST_S(REQUESTNUM_S),      -- 외래키 지정
     FOREIGN KEY (MEMBERID)            REFERENCES PRET_MEMBER(MEMBERID),       -- 외레키 지정
 
     CONSTRAINT chk_eval CHECK (EVALUATIONSUCCESS IN ('Y','N' ))  -- 성공, 실패 제약조건
+    CONSTRAINT chk_eval_c CHECK (EVALUATIONCONDITION_S IN ('Y','N' ))  -- 성공, 실패 제약조건
 );
 
         -- 단문 평가 테이블 시퀀스
@@ -267,18 +269,20 @@ CREATE TABLE PRET_EVALUATION_S (
 -- 14. 평가 테이블 (중문)
 
 CREATE TABLE PRET_EVALUATION_M(
-    EVALUATIONNUM_M      NUMBER          NOT NULL PRIMARY KEY, -- 평가 고유번호 PK, PRET_EVALM_SEQ.NEXTVAL
-    TRANSLATEDNUM_M      NUMBER          NOT NULL,             -- 번역 고유 번호 (단문) FK
-    REQUESTNUM_M         NUMBER          NOT NULL,             -- 단문 의뢰 번호 FK
-    MEMBERID            VARCHAR2(20)    NOT NULL,             -- 평가자 아이디 PK
-    EVALUATIONSUCCESS   VARCHAR2(1) ,                             -- 성공 여부 제약(Y/N)
-    WHYFAILED           NUMBER,                               -- 실패 이유 폼으로부터 value 번호로 받음.
+    EVALUATIONNUM_M        NUMBER          NOT NULL PRIMARY KEY, -- 평가 고유번호 PK, PRET_EVALM_SEQ.NEXTVAL
+    TRANSLATEDNUM_M        NUMBER          NOT NULL,             -- 번역 고유 번호 (단문) FK
+    REQUESTNUM_M           NUMBER          NOT NULL,             -- 단문 의뢰 번호 FK
+    MEMBERID               VARCHAR2(20)    NOT NULL,             -- 평가자 아이디 PK
+    EVALUATIONSUCCESS      VARCHAR2(1) ,                         -- 성공 여부 제약(Y/N)
+    WHYFAILED              NUMBER,                               -- 실패 이유 폼으로부터 value 번호로 받음.
+    EVALUATIONCONDITION_M  CHAR(1) 		 DEFAILT 'N',		     -- 평가 상황 'N'은 아직 평가가 끝나지 않음, 'Y'는 이번 평가가 끝남'
 
     FOREIGN KEY (TRANSLATEDNUM_M)  REFERENCES PRET_TRANSLATED_M(TRANSLATEDNUM_M), -- 외래키 지정
     FOREIGN KEY (REQUESTNUM_M)     REFERENCES PRET_REQUEST_M(REQUESTNUM_M),      -- 외래키 지정
     FOREIGN KEY (MEMBERID)            REFERENCES PRET_MEMBER(MEMBERID),       -- 외레키 지정
 
     CONSTRAINT chk_eval_m CHECK (EVALUATIONSUCCESS IN ('Y','N' ))  -- 성공, 실패 제약조건
+    CONSTRAINT chk_eval_cm CHECK (EVALUATIONCONDITION_S IN ('Y','N' ))  -- 성공, 실패 제약조건
 );
 
         -- 중문 평가 테이블 시퀀스
