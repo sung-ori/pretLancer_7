@@ -149,12 +149,19 @@ public class LongTranslateController {
         return service.bidValidation(map);
     }
 // 테이블에 경먀 여부를 적어놓았다. 불러오면 다 불러 진다. 
-// TODO : 내가 요청한 리스트를 전부 출력하는 걸로 바꿔도 좋을 듯
 
 
 //====
+    @GetMapping("/cashCheck")
+    @ResponseBody
+    public String cashCheck(@AuthenticationPrincipal UserDetails user,int cash) {
+        String userid = user.getUsername();
+        String rst = service.cashCheck(userid, cash);
 
-@GetMapping("successfulBid")
+        return rst;
+    }
+
+    @GetMapping("successfulBid")
 	@ResponseBody
 	public void successfulBid(String biderid,String requestnum, String auctionnum) {
 		

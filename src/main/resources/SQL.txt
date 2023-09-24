@@ -310,6 +310,7 @@ CREATE TABLE PRET_REQUEST_L (
 	COMMENTPAGE	        VARCHAR2(100),                                                  -- 글자수 및 페이지 수
 	STARTLANG	        VARCHAR2(30)	NOT NULL,                                       -- 시작 언어
 	ENDLANG	            VARCHAR2(30)	NOT NULL                                        -- 도착 언어
+    AUCTION          VARCHAR2(2)      DEFAULT 'N' CHECK (AUCTION IN ('N', 'Y'))         -- 경매 여부
 );
 
         -- 장문 의뢰 시퀀스
@@ -573,3 +574,26 @@ CREATE SEQUENCE     Message_SEQ
         INCREMENT BY 1
         MINVALUE 1
         NOCYCLE;
+
+-- 채팅방 테이블
+    Create table Pret_chatRoom (
+        charroomnum     number        primary key,   -- 고유 번호 시퀀스
+        user1           varchar2(200) not null,      -- 이용 멤버 1
+        user2           varchar2(200) not null,      -- 이용 멤버 2
+        enddate         date,                        -- 채팅방 사라지는 날짜
+        enable          varchar2(1) default 'Y' check (enable in 'N','Y'), 채팅방 사용 가능 여부
+
+        FOREIGN KEY (userid1) REFERENCES PRET_MEMBER(memberid) on delete CASCADE,
+        FOREIGN KEY (userid2) REFERENCES PRET_MEMBER(memberid) on delete CASCADE,
+    )
+
+    Create table pret_chat_messages (
+        chat_messagenum     number  primary key , 
+        chatroomnum         number,
+        userid              varchar2(200),
+        message             varchar2(2000),
+        send_date           date,
+        
+        FOREIGN KEY (userid) REFERENCES PRET_MEMBER(memberid) on delete CASCADE,
+        FOREIGN KEY (chatroomnum) REFERENCES PRET_chatroom(chatroomnum) on delete CASCADE,
+    )

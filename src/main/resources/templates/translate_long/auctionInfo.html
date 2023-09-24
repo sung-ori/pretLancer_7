@@ -37,8 +37,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                         <div class="col-10">
                         <span>${n.mem_level} 등급</span>
                         <span>${n.memberid}</span>
-                        <span>입찰가${n.translatervalue}</span>
-                        <span>${n.comment}</span>
+                        <span>입찰가</span><span id="${n.memberid}">${n.translatervalue}</span>
                         <span><input type="button" value="낙찰" name="${n.memberid}" class="btn btn-warning rounded-pill" style="display : none"></span>
                         </div>
                         <div class="col-1"></div>
@@ -107,21 +106,51 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             let biderid = $(this).attr("name");
             let rql = $("#requestNum").val();
             let acn = $("#auctionNum").val();
+            
+            let cash = $("#"+biderid).text();
+            alert(cash);
+
             $.ajax({
                 type:"GET",
-                url:"successfulBid",
-                data:{  "biderid" : biderid,
-                        "requestnum" : rql,
-                        "auctionnum" : acn},
-                success: function() {
-                    alert("낙찰!");
-                    window.opener.location.reload();
-                    window.close();
+                url:"cashCheck",
+                data:{"cash" : cash},
+                dataType:"text",
+                success: function(data) {
+                    if(data == "OK") {
+                        $.ajax({
+                            type:"GET",
+                            url:"successfulBid",
+                            data:{  "biderid" : biderid,
+                                    "requestnum" : rql,
+                                    "auctionnum" : acn},
+                            success: function() {
+                                alert("낙찰!");
+                                window.opener.location.reload();
+                                window.close();
+                            },
+                            error: function(e) {
+                                alert(JSON.stringify(e));
+                            }
+                        });
+                    }
+                    else{
+                        let rst = confirm("보유하신 금액이 모자랍니다. 충전 페이지로 이동하시겠습니까?");
+                        if(rst) {
+                            // 페이지이동하는 코드
+                            window.opener.location.href="http://localhost:8888/pretLancer/reward/main";
+                            window.close();
+                        }
+                        else {
+                            alert('낙찰할 수 없습니다. 충전해주세요.');
+                            window.close();
+                            return;
+                        }
+                    }
                 },
-                error: function(e) {
-                    alert(JSON.stringify(e));
-                }
+                error: function() {}
             });
+            
+           
         }
 
         function nowTranslateValidation() {
