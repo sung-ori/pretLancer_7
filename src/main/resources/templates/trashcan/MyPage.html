@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+		
+<head>
+<meta charset="UTF-8">
+<title>My Page | 신개념 번역 플랫폼 프릿랜서</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script th:src="@{/js/snBarLoader.js}"></script>
+<style>
+
+	@font-face {
+	    font-family: 'LINESeedKR-Bd';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+		
+	@font-face {
+    font-family: 'MBC1961GulimM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/MBC1961GulimM.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	}
+
+	@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+	}
+	
+	@font-face {
+    font-family: 'Pretendard-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+	}
+
+	@font-face {
+    font-family: 'Pretendard-Black';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+	}
+	
+	* {
+    font-family: 'Pretendard-Regular';
+		color : #2C2E33;
+
+	}
+	
+	h2{
+		color : #2C2E33;
+	} 
+	
+	th {
+		font-weight : bold;
+	}
+	
+	.info_table {
+		width : 250px;
+	
+		margin-left:auto; 
+    	margin-right:auto;
+    	border-collapse: collapse;
+    	border-spacing : 10px;
+	}
+	
+	.info_tr {
+		height : 40px;
+		border-bottom : solid 1px #D8D8D8;
+	}
+
+	#title {
+    font-family: 'Pretendard-Black';
+		font-size : 45px;
+		color : #2C2E33;
+	} 
+
+	#title2 {
+    font-family: 'Pretendard-Black';
+		font-size : 40px;
+		color : #2C2E33;
+	} 
+
+	#title3 {
+    font-family: 'Pretendard-Black';
+		font-size : 35px;
+		color : #2C2E33;
+	} 
+
+	#title4 {
+    font-family: 'Pretendard-Black';
+		font-size : 30px;
+		color : #2C2E33;
+	} 
+
+
+	#title_{
+    font-family: 'Pretendard-Bold';
+		font-size : 20px;
+		color : #2C2E33;
+	} 
+
+	.content{
+    font-family: 'Pretendard-Regular';
+		font-size : 15px;
+		color : #D8D8D8;
+	} 
+	
+	.information {
+	text-align : center;
+	vertical-align : middle;
+	background-color : white;
+	border : solid 1px #D8D8D8;
+	border-radius : 5px;
+	width : 400px;
+	height : 450px;
+	}
+
+	.information_content{
+    font-family: 'Pretendard-Regular';
+		font-size : 15px;
+		color : #D8D8D8;
+	} 
+	 	
+	.input_translated{
+		font-size : 18px;
+		background-color : #F2F2F2;
+		word-break : break-all;
+		
+	}
+	
+		/*div {
+			background-color: #EFF0F0;
+			border-radius : 5px;
+	
+		}*/
+		
+		.outer {
+			width : 1000px;
+			height : 600px;
+			border-radius : 5px;
+			
+		
+		}
+
+		.comment_input {
+		
+			width : 900px;
+			height : 100px;
+			
+			border : solid 2px #EFF0F0;
+			border-radius : 5px;
+		
+		}
+		
+		.answer_input {
+		
+			width : 900px;
+			height : 300px;
+			
+			border : solid 2px #EFF0F0;
+			border-radius : 5px;
+		
+		}
+		
+		.submit_button{
+		
+			width : 100px;
+			height : 35px;
+			background-color:#2334DE;
+			color : #FFFFFF;
+			
+			border : 0px;
+			border-radius : 5px;
+			
+		}
+
+		.button{
+		
+			width : 50px;
+			height : 35px;
+			background-color:#2334DE;
+			color : #FFFFFF;
+			
+			border : 0px;
+			border-radius : 5px;
+			
+		}
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#changeNick').click(openwin);
+	});
+	
+	function openwin() {
+		window.open('http://localhost:8888/pretLancer/my_page/changeNick','닉네임 수정', 'w, width=500, height=300, top=200, left=600');
+	}
+
+
+
+</script>
+ <!-- 부트스트랩 5.3.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- upper bar css 쓰면 왼쪽 사이드바가 작아진다. (부과효과인듯) -->
+    <link rel="stylesheet" th:href="@{/assets/css/pages/upperBar.css}">
+    <!-- 기본 부트스트랩 링크들 -->
+    <link rel="stylesheet" th:href="@{/assets/css/main/app.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/main/app-dark.css}">
+    <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.svg}" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.png}" type="image/png">
+    
+	<link rel="stylesheet" th:href="@{/assets/css/shared/iconly.css}">
+	<!-- 준규상 코드 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script th:src="@{/js/snBarLoader.js}"></script>
+	<style>
+    	.move-right-50 {transform: translateX(300px);}
+		.custom-width {width: 1100px;}
+		.b {font-weight: bold;}
+    </style>
+
+</head>
+<body>
+	<div id="snBar-placeholder"></div>
+	<br><br><br><br>
+
+	 <div id="main">
+	            <header class="mb-3">
+	                <a href="#" class="burger-btn d-block d-xl-none">
+	                    <i class="bi bi-justify fs-3"></i>
+	                </a>
+	            </header>
+	            
+	<div class="page-heading">
+	    <h1 id = "title2">마이페이지</h1>
+	    <h6 id = "title_">프로필 확인 및 수정, 지금까지의 번역 요청 및 작업 내역을 확인할 수 있습니다.</h6>
+	    <br>
+	    <table class = "content" style = "border-collapse: separate; text-align : center;">
+	    	<tr>
+			    <td><b><a th:href = "@{/my_page/main}">내 정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></b></td>		
+			    <td><a th:href = "@{/my_page/myRequestList}">내가 요청한 번역 내역&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
+			    <td><a th:href = "@{/my_page/requestToMe}">내가 받은 요청과 낙찰받은 경매 리스트</a></td>
+	    	</tr>
+	    </table>
+	    <hr>
+	</div>
+			
+	<div class = "information">
+		
+		<br>
+		<!-- 프로필 사진이 들어가는 div 영역 -->
+		<div class = "profile_photo"></div>
+		
+		<!-- 000 님의 마이페이지가 출력되는 영역 -->
+		<p><img th:if="${mypage.originphoto}" th:src="@{/my_page/getPhoto(memberid=${mypage.memberid})}" style="border-radius : 70% ; width: 100px;"></p>
+		<form th:action="@{/my_page/MpUpdate}" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="memberid" th:value="${mypage.memberid}"/>
+			<input type="file" name="upload"/>
+			<input type="submit" value="사진 변경하기"/>
+		</form>
+		
+		<br>
+
+		
+		<!-- 개인정보가 출력되는 영역 -->
+		<div class = "information_content">
+			<table class = "info_table">
+				<tr class = "info_tr">
+					<th>아이디</th>		<td><span th:text = "${mypage.memberid}">아이디 default</span></td>
+				</tr>
+				<tr class = "info_tr">		
+					<th>이름</th>		<td><span th:text = "${mypage.membername}">이름 default</span></td>	
+				</tr>
+				<tr class = "info_tr">	
+					<th>닉네임</th>		<td><span th:text = "${mypage.membernick}">닉네임 default</span>&nbsp;&nbsp;<input type = "button" value = "수정" class = "button" id = "changeNick"> </td>
+				</tr>
+				<tr class = "info_tr">
+					<th>레벨</th>			<td><span th:text = "${mypage.mem_level}">레벨 default</span></td>
+				</tr>
+				<tr class = "info_tr">
+					<th>경험치</th>		<td><span th:text = "${mypage.mem_ex}">경험치 default</span></td>
+				</tr>
+				<tr style = "height : 40px;">
+					<th>언어</th>			<td><span th:text = "${mypage.memberlang}">언어 default</span></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	 <!-- <div id="main"> -->
+	</div>
+     <!-- 부트스트랩  JS -->
+    <script th:src="@{/assets/js/bootstrap.js}"></script>
+    <script th:src="@{/assets/js/app.js}"></script>
+    
+<!-- Need: Apexcharts -->
+<script th:src="@{/assets/extensions/apexcharts/apexcharts.min.js}"></script>
+<script th:src="@{/assets/js/pages/dashboard.js}"></script>
+</body>
+</html>

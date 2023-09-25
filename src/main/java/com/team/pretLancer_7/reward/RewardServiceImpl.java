@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.team.pretLancer_7.dao.MemberDAO;
+import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.Reward;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +19,9 @@ public class RewardServiceImpl implements RewardService {
 
     @Autowired
     RewardDAO dao;
+    
+    @Autowired
+    MemberDAO mdao;
 
     @Override
     public void charge(Reward reward) {
@@ -34,6 +39,11 @@ public class RewardServiceImpl implements RewardService {
         log.debug("그래서 얼마인데? {}", realcash );
         dao.updatePayback(map);
     }
+
+	@Override
+	public Member getMember(String memberid) {
+		return mdao.selectOne(memberid);
+	}
    
     
 }
