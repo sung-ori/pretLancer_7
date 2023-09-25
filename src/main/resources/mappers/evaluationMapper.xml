@@ -67,7 +67,7 @@
 	
 	<update id="completeES" parameterType="int">
 	update pret_evaluation_s set evaluationcondition_s = 'Y' 
-	where translatdnum_s = #{translatdnum_s} and evaluationcondition_s = 'N'
+	where translatednum_s = #{translatednum_s} and evaluationcondition_s = 'N'
 	</update>
 	
 	<update id="failedTS" parameterType="int">
@@ -89,7 +89,7 @@
 	
 	<update id="completeEM" parameterType="int">
 	update pret_evaluation_m set evaluationcondition_m = 'Y' 
-	where translatdnum_m = #{translatdnum_m} and evaluationcondition_m = 'N'
+	where translatednum_m = #{translatednum_m} and evaluationcondition_m = 'N'
 	</update>
 	
 	<update id="failedTM" parameterType="int">
