@@ -23,4 +23,10 @@ public interface RequestService {
 
 	Request_M myorderM(String username);
 	
+	// 메인화면에 보여줄 용도
+	int RequestCount();
+	int TranslatedCountS();
+	int TranslatedCountM();
+	int EvaluationCount();
+	
 }

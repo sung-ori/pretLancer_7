@@ -83,4 +83,6 @@ public interface CommunityDAO {
 	public int upPolice(int boardnum);
 
 	public int updateVan(int boardnum);
+
+	public List<Board> todayPopular();
 }
