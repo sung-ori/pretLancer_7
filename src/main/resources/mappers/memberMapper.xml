@@ -14,7 +14,7 @@
 	</select>
 
 	<select id="selectOneMyPage" parameterType="String" resultType="MyPage">
-	select * from pret_member_profile where memberid = #{memberid}
+		select * from pret_member_profile where memberid = #{memberid}
 	</select>
 
 	
@@ -43,10 +43,6 @@
 	where memberid = #{memberid}
 	</update>
 	
-	<update id="getExExam" parameterType="String">
-	update pret_member set mem_ex = mem_ex + 25 where memberid = #{memberid}
-	</update>
-	
 	<update id="usePoint" parameterType="Member">
 	update pret_member set cash = cash - #{cash} where memberid = #{memberid}
 	</update>
@@ -54,35 +50,20 @@
 	<update id="cancelPoint" parameterType="Member">
 	update pret_member set cash = cash + #{cash} where memberid = #{memberid}
 	</update>
-	
-	<update id="getPointExS" parameterType="Member">
-	update pret_member set cash = cash + #{cash}, mem_ex = mem_ex + 200 where memberid = #{memberid}
+
+	<update id = "changeNick" parameterType = "Member">
+	update pret_member set membernick = #{membernick}
+	where memberid = #{memberid}
+	</update>
+
+	<update id = "minusPoint" parameterType = "Member">
+	update pret_member set point = #{point}
+	where memberid = #{memberid}
 	</update>
 	
-	<update id="getPointExM" parameterType="Member">
-	update pret_member set cash = cash + #{cash}, mem_ex = mem_ex + 1000 where memberid = #{memberid}
-	</update>
-	
-	<update id="levelUpC" parameterType="String">
-	update pret_member set mem_ex = 0, mem_level = 'C' where memberid = #{memberid}
-	</update>
-	<update id="levelUpB" parameterType="String">
-	update pret_member set mem_ex = 0, mem_level = 'B' where memberid = #{memberid}
-	</update>
-	<update id="levelUpA" parameterType="String">
-	update pret_member set mem_ex = 0, mem_level = 'A' where memberid = #{memberid}
-	</update>
-	
-	<select id="getAbility" parameterType="String" resultType="Ability">
-	select * from pret_ability where memberid = #{memberid}
-	</select>
-	
-	<update id="getExES" parameterType="String">
-	update pret_member set mem_ex = mem_ex + 20 where memberid = #{memberid}
-	</update>
-	
-	<update id="getExEM" parameterType="String">
-	update pret_member set mem_em = mem_em + 100 where memberid = #{memberid}
-	</update>
-	
+	<select id = "checkPoint" parameterType = "Member">
+	select point
+	from pret_member
+	where memberid = #{memberid}
+	</select>	
 </mapper>

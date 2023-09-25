@@ -31,7 +31,9 @@ public class RewardController {
     EmailServiceImpl eservice;
 
     @GetMapping("main")
-    public String rewardMain() {
+    public String rewardMain(Model model, Member member, @AuthenticationPrincipal UserDetails user) {
+    	member = service.getMember(user.getUsername());
+    	model.addAttribute("member", member);
         return "reward";
     }
 

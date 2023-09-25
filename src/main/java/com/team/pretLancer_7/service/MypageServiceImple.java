@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team.pretLancer_7.dao.MemberDAO;
-import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 
@@ -44,8 +43,14 @@ public class MypageServiceImple implements MypageService {
 	}
 
 	@Override
-	public Ability getability(String username) {
-		return mDao.getAbility(username);
+	public int changeNick(Member member) {
+		mDao.minusPoint(member);
+		return mDao.changeNick(member);
+	}
+
+	@Override
+	public int checkPoint(Member member) {
+		return mDao.checkPoint(member);
 	}
     
     

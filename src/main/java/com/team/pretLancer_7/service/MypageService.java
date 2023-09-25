@@ -1,6 +1,5 @@
 package com.team.pretLancer_7.service;
 
-import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 
@@ -12,6 +11,8 @@ public interface MypageService {
 
 	public int updateMember(Member m);
 
-	public Ability getability(String username);
+	public int changeNick(Member member);
+
+	public int checkPoint(Member member);
 
 }

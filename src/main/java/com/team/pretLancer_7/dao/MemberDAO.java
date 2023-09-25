@@ -45,6 +45,12 @@ public interface MemberDAO {
 	
 	// 의뢰 취소 시 포인트 돌려줌
 	public void cancelPoint(Member m);
+
+	public int changeNick(Member member);
+
+	public int checkPoint(Member member);
+
+	public int minusPoint(Member member);
 	
 	// 단문 번역 성공 시 경험치와 포인트 받음
 	public void getPointExS(Member m);
