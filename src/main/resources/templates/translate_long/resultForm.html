@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <title>요청 상세정보</title>
+    <script>
+        $(document).ready(function() {
+           $("#success").on("click", function() {
+            let rqln = $("#requestnum").val();
+            
+
+            $.ajax({
+                type:"GET",
+                url:"success",
+                data:{"requestnum_l" :rqln},
+                success: function() {
+                    alert("성공처리 됐습니다.");
+                    window.opener.location.reload();
+                    window.close();
+                },
+                error: function(e) {
+                    alert(JSON.stringify(e));
+                }
+            })
+
+           })
+        });
+
+    </script>
+</head>
+<body>
+    
+    <h1>번역 결과 돌려받는다. </h1>
+
+    <input type="hidden" id="requestnum" th:value="${result.requestnum_l}">
+    <div class="container">
+        <div>
+            <span>요청 제목 : </span>
+            <span class="h2 text-center" th:text="${result.title}">요청 제목</span>
+        </div>
+        
+        <div>
+            <span>카테고리 : </span>
+            <span th:text="${result.category}">카테고리</span>
+        </div>
+        <div>
+            <span>마감 날짜 : </span>
+            <span th:text="${result.enddate}"></span>
+        </div>
+        
+        <div>
+            <span>번역된 파일 다운로드 : </span>
+            <a th:href="|@{/translate}/${result.savedtfile}|" class="btn btn-success" th:download="|${result.memberid}_${result.title}|">번역된 파일</a>
+        </div>
+        <div>
+            <div th:if="${result.requestcondition_l} == 'E'">
+                <input  type="button" value="성공처리" id="success" class="btn btn-primary">
+            </div>
+            <div th:if="${result.requestcondition_l} == 'Y'">
+                <input  type="button" value="성공!" id="success" class="btn btn-primary" disabled>
+            </div>
+        </div>
+        
+    </div>
+    
+</body>
+</html>

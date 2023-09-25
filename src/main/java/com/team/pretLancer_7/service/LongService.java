@@ -32,6 +32,8 @@ public interface LongService {
     // 내가 신청한 경매 리스트 
     // TODO: 이거 그냥 요청이랑 경매 다 출력하고 페이지에서 동작 바꾸는게 페이지가 줄어들 듯, 
     public List<Request_L> myAuctionList (String userid);
+
+    public List<Request_L> myRquestList (String uesrid);
     // 낙찰
     public int successfulBid(Map<String, String> map);
     // 유저에게 온 요청들을 출력
@@ -42,5 +44,14 @@ public interface LongService {
     public String resoponseToRequest(Map<String, String> map);
 
     public Request_L checkTranslateNow(String userid);
-    
+
+    public int uploadResult (MultipartFile uploadFile, int requestnum);
+
+    public void success(int requestnum_l);
+
+    public String cashCheck(String userid, int cash);
+
+    public void pay(String userid ,String cash);
+
+    public void getmoney(String userid, String cash);
 }

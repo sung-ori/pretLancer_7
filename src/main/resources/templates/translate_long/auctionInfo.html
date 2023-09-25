@@ -37,8 +37,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                         <div class="col-10">
                         <span>${n.mem_level} 등급</span>
                         <span>${n.memberid}</span>
-                        <span>입찰가${n.translatervalue}</span>
-                        <span>${n.comment}</span>
+                        <span>입찰가</span><span id="${n.memberid}">${n.translatervalue}</span>
                         <span><input type="button" value="낙찰" name="${n.memberid}" class="btn btn-warning rounded-pill" style="display : none"></span>
                         </div>
                         <div class="col-1"></div>
@@ -104,24 +103,75 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
         function successfulBid() {
             let rst = confirm("정말 낙찰 하시겠습니까?");
             if(!rst) return;
+
             let biderid = $(this).attr("name");
             let rql = $("#requestNum").val();
             let acn = $("#auctionNum").val();
+            let cash = $("#"+biderid).text();
+
             $.ajax({
                 type:"GET",
-                url:"successfulBid",
-                data:{  "biderid" : biderid,
-                        "requestnum" : rql,
-                        "auctionnum" : acn},
-                success: function() {
-                    alert("낙찰!");
-                    window.opener.location.reload();
-                    window.close();
+                url:"cashCheck",
+                data:{"cash" : cash},
+                dataType:"text",
+                success: function(data) {
+                    // 돈 있다고 확인 하면
+                    if(data == "OK") {
+                        // 번역가가 번역 중인지 확인
+                        $.ajax({
+                            type:"GET",
+                            url:"checkTranslateNow",
+                            data:{"memberid" : biderid},
+                            dataType:"json",
+                            success: function(data) {
+                                if(data != null) {
+                                    // 해당 번역가가 이미 번역중일 때
+                                    alert("해당 번역가각 이미 번역 중입니다. 다른 번역가를 선택해주세요");
+                                    return;
+                                }
+                                else {
+                                    // 돈도 있고 번역가각 번역중이지도 않음. 
+                                    $.ajax({
+                                        type:"GET",
+                                        url:"successfulBid",
+                                        data:{  "biderid" : biderid,
+                                                "requestnum" : rql,
+                                                "auctionnum" : acn},
+                                        success: function() {
+                                            alert("낙찰!");
+                                            window.opener.location.reload();
+                                            window.close();
+                                        },
+                                        error: function(e) {
+                                            alert(JSON.stringify(e));
+                                        }
+                                    });
+                                } // end of else
+                            },
+                            error: function(e) {
+                                alert(JSON.stringify(e));
+                            }
+                        });
+                       
+                    }
+                    else{
+                        let rst = confirm("보유하신 금액이 모자랍니다. 충전 페이지로 이동하시겠습니까?");
+                        if(rst) {
+                            // 페이지이동하는 코드
+                            window.opener.location.href="http://localhost:8888/pretLancer/reward/main";
+                            window.close();
+                        }
+                        else {
+                            alert('낙찰할 수 없습니다. 충전해주세요.');
+                            window.close();
+                            return;
+                        }
+                    }
                 },
-                error: function(e) {
-                    alert(JSON.stringify(e));
-                }
+                error: function() {}
             });
+            
+           
         }
 
         function nowTranslateValidation() {
@@ -130,6 +180,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             $.ajax({
                 type:"GET",
                 url:"checkTranslateNow",
+                data:{"memberid" : userid},
                 dataType:"json",
                 success: function(data) {
                     if(data != null) {
@@ -143,6 +194,12 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                     alert(JSON.stringify(e));
                 }
             });
+        }
+
+        function translatorNowTranslateValidation() {
+            let userid = $(this).attr("id");
+
+            
         }
     </script>
     
@@ -169,8 +226,8 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 </head>
 <body>
 
-	<div id="snBar-placeholder"></div>
-	<br><br><br><br>
+	<!-- <div id="snBar-placeholder"></div>
+	<br><br><br><br> -->
 
  <div id="main">
             <header class="mb-3">
