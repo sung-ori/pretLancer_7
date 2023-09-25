@@ -308,6 +308,13 @@ public class CommunityServiceImpl implements CommunityService {
 		return result;
 
 	}
+
+	@Override
+	public List<Board> todayPopular() {
+		return dao.todayPopular();
+	}
+	
+	
 	
 	
 }

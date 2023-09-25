@@ -11,13 +11,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.team.pretLancer_7.domain.Board;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.Message;
 import com.team.pretLancer_7.domain.QnA;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.messaging.MessagingService;
+import com.team.pretLancer_7.service.CommunityService;
+import com.team.pretLancer_7.service.EvaluationService;
 import com.team.pretLancer_7.service.LongService;
 import com.team.pretLancer_7.service.MemberService;
+import com.team.pretLancer_7.service.RequestService;
+import com.team.pretLancer_7.service.TranslatedService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +32,16 @@ public class MainController {
     
 	@Autowired
 	MemberService service;
-
+	
+	@Autowired
+	TranslatedService Tservice;
+	
+	@Autowired
+	RequestService Rservice;
+	
+	@Autowired
+	CommunityService Cservice;
+	
     @Autowired
     MessagingService Mservice;
 	
@@ -48,6 +62,23 @@ public class MainController {
     	
     	Member member = service.getUser(user.getUsername());
     	m.addAttribute("member", member);
+    	
+    	// 홈페이지 보여줄 값
+    	List<Board> today = Cservice.todayPopular();
+    	
+    	if (today != null) {
+    		m.addAttribute("community", today);
+    	}
+    		
+    	int Rcount = Rservice.RequestCount();
+    	int TcountS = Rservice.TranslatedCountS();
+    	int TcountM = Rservice.TranslatedCountM();
+    	int Ecount = Rservice.EvaluationCount();
+    	
+        m.addAttribute("Rcount", Rcount);
+        m.addAttribute("TcountS", TcountS);
+        m.addAttribute("TcountM", TcountM);
+        m.addAttribute("Ecount", Ecount);
         
     	return "main3";
     }

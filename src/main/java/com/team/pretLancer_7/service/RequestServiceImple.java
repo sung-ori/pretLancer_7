@@ -94,8 +94,35 @@ public class RequestServiceImple implements RequestService {
 	public Request_M myorderM(String username) {
 		return Rdao.myorderM(username);
 	}
+
+	@Override
+	public int RequestCount() {
+		int count = 0;
+		int RS = Rdao.RScount();
+		int RM = Rdao.RMcount();
+		count = RS + RM;
+		return count;
+	}
+
+	@Override
+	public int TranslatedCountS() {
+		return Rdao.TScount();
+	}
+	
+	@Override
+	public int TranslatedCountM() {
+		return Rdao.TMcount();
+	}
+
+	@Override
+	public int EvaluationCount() {
+		int count = 0;
+		int ES = Rdao.EScount();
+		int EM = Rdao.EMcount();
+		count = ES + EM;
+		return count;
+	}
 	
 	
-	
-	
+
 }

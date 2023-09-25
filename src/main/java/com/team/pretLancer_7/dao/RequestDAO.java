@@ -57,5 +57,12 @@ public interface RequestDAO {
 	Request_S SRS(int r);
 
 	Request_M SRM(int r);
+
+	int RScount();
+	int RMcount();
+	int TScount();
+	int TMcount();
+	int EScount();
+	int EMcount();
 	
 }
