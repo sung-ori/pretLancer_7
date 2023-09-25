@@ -84,6 +84,8 @@ public class LongTranslateController {
 
         service.writeRequest(request_L,uploadFile);
 
+        service.pay(user.getUsername(),request_L.getCash());
+
         msg.writeLR(request_L);
         return "redirect:/";
     }
@@ -170,6 +172,8 @@ public class LongTranslateController {
 		map.put("requestnum", requestnum);
 		map.put("auctionnum",auctionnum);
 		int rst =  service.successfulBid(map);
+
+        
 		
 
 	}
