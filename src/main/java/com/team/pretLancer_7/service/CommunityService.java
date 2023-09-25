@@ -44,4 +44,6 @@ public interface CommunityService {
 
 	public String policeCount(int boardnum);
 
+	public List<Board> todayPopular();
+
 }
