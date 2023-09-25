@@ -66,6 +66,10 @@ public class RequestController {
 	@GetMapping("cancelRM")
 	public String cancelRequest_M(@AuthenticationPrincipal UserDetails user, Request_M r) {
 		r.setMemberid(user.getUsername());
+		Member member = Mservice.getUser(user.getUsername());
+		if (member.getCash() < r.getCash()) {
+			return "errorForm/Nocash";
+		}
 		service.cancelRequest_M(r);
 		return "redirect:/";
 	}
