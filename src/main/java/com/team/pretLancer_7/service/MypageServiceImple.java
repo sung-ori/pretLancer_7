@@ -50,7 +50,9 @@ public class MypageServiceImple implements MypageService {
 
 	@Override
 	public int checkPoint(Member member) {
+		
 		return mDao.checkPoint(member);
+
 	}
     
     

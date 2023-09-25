@@ -94,13 +94,17 @@
 		
 
 		$.ajax({
-				type : 'post',
+				type : 'POST',
 				url : 'changeNick',
-				data : {id : id, nick : nick},
-				success : function(s) {
-					if (s == 'success') {
+				data : {"id" : id, 
+					"nick" : nick},
+				dataType:"text",
+				success : function(data) {
+					alert("확인");
+
+					if (data == "success") {
 						alert('변경되었습니다.');
-						opener.location.reload();
+						window.opener.location.reload();
 						window.close();
 					}
 					else {
@@ -108,10 +112,10 @@
 						window.close();
 					}
 				},
-				error : function() {
-					alert('전송 실패');
+				error : function(e) {
+					console.log(JSON.stringify(e));
 				}
-			})
+			});
 	}
 
 

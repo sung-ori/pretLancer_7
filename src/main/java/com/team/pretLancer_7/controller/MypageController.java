@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.team.pretLancer_7.dao.MemberDAO;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
@@ -170,22 +169,28 @@ public class MypageController {
     	return "mypageform/changeNick";
     }
 	
-    @ResponseBody
     @PostMapping("changeNick")
+    @ResponseBody
     public String changeNick(String id, String nick) {
+		String rst = "success";
+
     	Member member = new Member();
+		
     	member.setMemberid(id);
     	member.setMembernick(nick);
     	int point = service.checkPoint(member);
 
-    	if (point < 300)
-    		return "failed";
+    	if (point < 300) {
+
+    		rst = "failed";
+			return rst;
+		}
     	else
     		point = point - 300;
     	
     	member.setPoint(point);
     	service.changeNick(member);
     	
-    	return "success";
+    	return rst;
     }
 }
