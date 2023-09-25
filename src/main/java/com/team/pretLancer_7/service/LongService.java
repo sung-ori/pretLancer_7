@@ -50,4 +50,8 @@ public interface LongService {
     public void success(int requestnum_l);
 
     public String cashCheck(String userid, int cash);
+
+    public void pay(String userid ,String cash);
+
+    public void getmoney(String userid, String cash);
 }

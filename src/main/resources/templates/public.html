@@ -1,12 +1,110 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
-                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pretLancer_puvblicPage</title>
-</head>
-<body>
+    <title>Login - Mazer Admin Dashboard</title>
+    <link rel="stylesheet" href="assets/css/main/app.css">
+    <link rel="stylesheet" href="assets/css/pages/auth.css">
+    <link rel="shortcut icon" href="assets/images/logo/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/png">
     
+    <style>
+.logo {
+	position: relative;
+	top: 1px;
+	left: 1px;
+}
+
+#auth-right::after {
+	content: "";
+	position: absolute;
+	top: 0%;
+	left: 41.7%;
+
+	width: 58%;
+	height: 100%;
+	background-color: rgba(0, 0, 24, 0.75);
+	/* 투명 레이어의 배경색과 투명도를 조절할 수 있습니다. */
+	z-index: 1; /* 다른 콘텐츠 위에 레이어를 표시하기 위해 z-index 설정 */
+}
+.lb-wrap {
+  width: 50%;
+  margin: 10px auto;
+  border: 1px solid #000000;
+  position: relative;
+}
+.lb-wrap img {
+  width: 100%;
+  vertical-align: middle;
+}
+.lb-text {
+
+  padding: 10px 20px;
+  border-radius: 10px;
+  /*background-color: #FFEEBC;*/
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+}
+
+</style>
+<script>
+	function gologin() {
+		window.location.href="http://localhost:8888/pretLancer/member/login";
+	}
+	function gojoin() {
+		window.location.href="http://localhost:8888/pretLancer/member/join";
+	}
+</script>
+</head>
+
+<body>
+    <div id="auth">
+        
+<div class="row h-100">
+    <div class="col-lg-5 col-12">
+        <div id="auth-left">
+           
+                <a href="index.html"><img th:src="@{/assets/images/logo/pretLancer.svg}" class ="logo" alt="Logo" style="width:160px; height:90px;"></a>
+            
+            <br><br>
+            
+            
+            <br><br><br><br>
+            <h1 class="auth-title">Get started</h1>
+            <br>
+            <p class="auth-subtitle mb-7">Start preLancer for a prosperous life.</p>
+            
+            <br>
+            <div class="grid gap-x-3 gap-y-2 sm:grid-cols-2 sm:gap-y-0">
+            <input type="button" class="btn btn-primary btn-block btn-lg shadow-lg mt-3"  value="Log In"  onclick="javascript:gologin()">
+            <input type="button" class="btn btn-primary btn-block btn-lg shadow-lg mt-3"  value="Sign Up"  onclick="javascript:gojoin()">
+<!--              	<button class="btn btn-primary btn-block btn-lg shadow-lg mt-3">Sign Up</button> -->
+            </div>
+             
+         
+     
+        </div>
+    </div>
+    <div class="col-lg-7 d-none d-lg-block">
+        <div id="auth-right">
+        	<div class="lb=wrap">
+	        	<div class="lb-text" style="z-index:12;">
+	        		<h1 style="font-size: 100px; color: white;">모두가<br>참여하는<br>번역 플랫폼<br>프릿랜서</h1>
+	        	</div>
+        	</div>
+        	<div class="lb-image">
+				<img th:src="@{/assets/images/logo/sungORI.jpg}" class ="logo" alt="Logo" style="width:1200px; height:1200px;">
+        	</div>
+        </div>
+    </div>
+</div>
+
+    </div>
 </body>
+
 </html>
