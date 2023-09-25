@@ -35,7 +35,7 @@ public class EvaluationController {
 		Translated_S ts = service.getES();
 		m.addAttribute("translated", ts);
 
-		return "evaluationForm/evaluationPageS";
+		return "evaluationForm/evaluatedPageS";
 	}
 	
 	@GetMapping("getEM")
@@ -44,7 +44,7 @@ public class EvaluationController {
 		Translated_M tm = service.getEM();
 		m.addAttribute("translated", tm);
 		
-		return "evaluationForm/evaluationPageM";
+		return "evaluationForm/evaluatedPageM";
 	}
 	
 	@PostMapping("insertES")
