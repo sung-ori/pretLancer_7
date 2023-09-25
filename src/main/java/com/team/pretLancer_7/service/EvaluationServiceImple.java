@@ -16,7 +16,7 @@ import com.team.pretLancer_7.domain.Request_M;
 import com.team.pretLancer_7.domain.Request_S;
 import com.team.pretLancer_7.domain.Translated_M;
 import com.team.pretLancer_7.domain.Translated_S;
-
+ 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -115,7 +115,7 @@ public class EvaluationServiceImple implements EvaluationService {
 				    	Adao.EfailedUp(memberid);
 				    }
 				}
-				// evaluationcondition_s를 'Y'로 처리
+				// evaluationcondition_s를 'Y'로 처리함
 				Edao.completeES(ts.getTranslatednum_s());
 				// ability 테이블에서 번역실패 횟수 증가
 				Adao.SfailedUp(ts.getMemberid());
