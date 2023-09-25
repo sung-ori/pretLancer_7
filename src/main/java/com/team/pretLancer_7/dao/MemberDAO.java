@@ -30,13 +30,6 @@ public interface MemberDAO {
 	// 회원가입 시 번역능력 테이블 생성
 	public void insertAb(Ability ab);
 	
-	
-	// 마이페이지 번역능력 가져오기
-	public Ability getAbility(String username);
-	
-	
-	// 캐쉬 및 신뢰도(경험치) 관련 기능은 아래쪽
-	
 	// 연습 문제 성공 시 경험치를 받음
 	public void getExExam(String Memberid);
 	
@@ -51,6 +44,12 @@ public interface MemberDAO {
 	public int checkPoint(Member member);
 
 	public int minusPoint(Member member);
+	
+	// 마이페이지 번역능력 가져오기
+	public Ability getAbility(String username);
+	
+	
+	// 캐쉬 및 신뢰도(경험치) 관련 기능은 아래쪽
 	
 	// 단문 번역 성공 시 경험치와 포인트 받음
 	public void getPointExS(Member m);
