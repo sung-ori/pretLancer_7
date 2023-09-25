@@ -65,5 +65,40 @@
 	select point
 	from pret_member
 	where memberid = #{memberid}
-	</select>	
+	</select>
+	
+	<select id="getAbility" parameterType="String" resultType="Ability">
+	select * from pret_ability where memberid = #{memberid}
+	</select>
+ 	
+	<update id="getPointExS" parameterType="Member">
+	update pret_member set cash = cash + #{cash}, mem_ex = mem_ex + 100 where memberid = #{memberid}
+	</update>
+	
+	<update id="getPointExM" parameterType="Member">
+	update pret_member set cash = cash + #{cash}, mem_ex = mem_ex + 1000 where memberid = #{memberid}
+	</update>
+	
+	<update id="levelUpC" parameterType="String">
+	update pret_member set mem_ex = 0, mem_level = 'C' where memberid = #{memberid}
+	</update>
+	<update id="levelUpB" parameterType="String">
+	update pret_member set mem_ex = 0, mem_level = 'B' where memberid = #{memberid}
+	</update>
+	<update id="levelUpA" parameterType="String">
+	update pret_member set mem_ex = 0, mem_level = 'A' where memberid = #{memberid}
+	</update>
+	
+	<update id="getExES" parameterType="String">
+	update pret_member set mem_ex = mem_ex + 20 where memberid = #{memberid}
+	</update>
+	
+	<update id="getExEM" parameterType="String">
+	update pret_member set mem_ex = mem_ex + 100 where memberid = #{memberid}
+	</update>
+	
+	<update id="getExExam" parameterType="String">
+	update pret_member set mem_ex = mem_ex + 25 where memberid = #{memberid}
+	</update>
+
 </mapper>
