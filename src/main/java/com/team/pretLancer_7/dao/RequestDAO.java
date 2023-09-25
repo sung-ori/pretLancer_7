@@ -47,6 +47,11 @@ public interface RequestDAO {
 	Request_S myorderS(String username);
 
 	Request_M myorderM(String username);
+
+	
+	Request_S getRequestS(int requestnum_s);
+	
+	Request_M getRequestM(int requestnum_m);
 	
 	// 메세징
 	Request_S SRS(int r);
