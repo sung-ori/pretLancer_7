@@ -27,6 +27,7 @@ import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.service.LongService;
+import com.team.pretLancer_7.service.MemberService;
 import com.team.pretLancer_7.service.MypageService;
 import com.team.pretLancer_7.utill.FileService;
 
@@ -42,6 +43,9 @@ public class MypageController {
 
     @Autowired
     MypageService service;
+
+    @Autowired
+    MemberService mservice;
 
 	@Autowired
 	LongService Lservice;
@@ -166,26 +170,27 @@ public class MypageController {
     // ============================
     
     @GetMapping("changeNick")
-    public String changeNick() {
+    public String changeNick(@AuthenticationPrincipal UserDetails user, Model model, Member member) {
+    	member = mservice.getUser(user.getUsername());
+    	model.addAttribute("member", member);
     	return "mypageform/changeNick";
     }
 	
     @ResponseBody
     @PostMapping("changeNick")
-    public String changeNick(String id, String nick) {
+    public void changeNick(String id, String nick) {
     	Member member = new Member();
     	member.setMemberid(id);
     	member.setMembernick(nick);
     	int point = service.checkPoint(member);
 
     	if (point < 300)
-    		return "failed";
+    		return;
     	else
     		point = point - 300;
     	
     	member.setPoint(point);
     	service.changeNick(member);
     	
-    	return "success";
     }
 }

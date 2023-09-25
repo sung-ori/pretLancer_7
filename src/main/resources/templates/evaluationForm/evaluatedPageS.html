@@ -1,0 +1,282 @@
+<!-- http://localhost:8888/pretLancer/translated/exam -->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>평가 게시판 - 쇼트 | 신개념 번역 플랫폼 프릿랜서</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+<!-- 부트스트랩 5.3.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- upper bar css 쓰면 왼쪽 사이드바가 작아진다. (부과효과인듯) -->
+    <link rel="stylesheet" th:href="@{/assets/css/pages/upperBar.css}">
+    <!-- 기본 부트스트랩 링크들 -->
+    <link rel="stylesheet" th:href="@{/assets/css/main/app.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/main/app-dark.css}">
+    <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.svg}" type="image/x-icon">
+    <link rel="shortcut icon" th:href="@{/assets/images/logo/favicon.png}" type="image/png">
+    
+	<link rel="stylesheet" th:href="@{/assets/css/shared/iconly.css}">
+	<!-- 준규상 코드 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script th:src="@{/js/snBarLoader.js}"></script>
+	<style>
+    	.move-right-50 {transform: translateX(300px);}
+		.custom-width {width: 1100px;}
+		.b {font-weight: bold;}
+    </style>
+    <!-- 여기까지 고정 바 코드 -->
+	<style>
+
+	@font-face {
+	    font-family: 'LINESeedKR-Bd';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+		
+	@font-face {
+    font-family: 'MBC1961GulimM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/MBC1961GulimM.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	}
+
+	@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+	}
+	
+	@font-face {
+    font-family: 'Pretendard-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+	}
+
+	@font-face {
+    font-family: 'Pretendard-Black';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+	}
+	
+	* {
+    font-family: 'Pretendard-Regular';
+		color : #2C2E33;
+
+	}
+	
+	h2{
+		color : #2C2E33;
+	} 
+
+	#title {
+    font-family: 'Pretendard-Black';
+		font-size : 45px;
+		color : #2C2E33;
+	} 
+
+	#title2 {
+    font-family: 'Pretendard-Black';
+		font-size : 40px;
+		color : #2C2E33;
+	} 
+
+	#title3 {
+    font-family: 'Pretendard-Black';
+		font-size : 35px;
+		color : #2C2E33;
+	} 
+
+	#title4 {
+    font-family: 'Pretendard-Black';
+		font-size : 30px;
+		color : #2C2E33;
+	} 
+
+
+	#title_{
+    font-family: 'Pretendard-Bold';
+		font-size : 20px;
+		color : #2C2E33;
+	} 
+	 	
+	.input_translated{
+		font-size : 18px;
+		background-color : #F2F2F2;
+		word-break : break-all;
+		
+	}
+	
+		/*div {
+			background-color: #EFF0F0;
+			border-radius : 5px;
+	
+		}*/
+		
+		.outer {
+			width : 1000px;
+			height : 600px;
+			border-radius : 5px;
+			
+		
+		}
+
+		.comment_input {
+		
+			width : 900px;
+			height : 100px;
+			
+			border : solid 2px #EFF0F0;
+			border-radius : 5px;
+		
+		}
+		
+		.answer_input {
+		
+			width : 500px;
+			height : 300px;
+			
+			border : solid 2px #EFF0F0;
+			border-radius : 5px;
+		
+		}
+		
+		.submit_button{
+		
+			width : 100px;
+			height : 35px;
+			background-color:#2334DE;
+			color : #FFFFFF;
+			
+			border : 0px;
+			border-radius : 5px;
+			
+		}
+
+		.exit_button{
+		
+			width : 100px;
+			height : 35px;
+			background-color:#F2F2F2;
+			color : #2C2E33;
+			
+			border : 0px;
+			border-radius : 5px;
+			
+		}
+		
+		#whyfailedform {
+			display : none;
+			opacity : 0;
+		}
+		
+		
+		
+	</style>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+	<script type="text/javascript">
+	
+			
+		function check() {
+			//my_answer : 번역 입력 창에 입력된 값
+			let my_answer = document.getElementById('translatedcontent_s').value;
+			
+			//my_answer에 값이 입력되지 않은 경우 번역을 입력하라는 알림이 뜨며, 다음 창으로 넘어가지 않는다.
+			if (my_answer == '' || my_answer.length == 0) {
+				alert('번역을 입력하세요.');
+				return false;
+			}
+	
+			return true;
+		}
+	</script>
+
+</head>
+<body>
+	<div id="snBar-placeholder"></div>
+	
+	<div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+		
+	<h1 id = "title2">평가 게시판</h1>
+	<div id = "title3">쇼트</div>
+	<!-- 체크해야 할 부분 : 1. 번역해야 하는 내용이 requestcontent_s이고 내가 입력하는 부분이 translatedcontent_s가 맞는지 -->
+	<div class = "outer">
+		<div>
+			<span>다음은 번역이 의뢰된 원문입니다.</span>
+			<br>
+			<br>
+			<!-- 번역 요청 내용을 가지고 온다 -->
+			<span th:text = "${translated?.requestcontent_s}" class = "input_translated">번역 내용 기본값</span>
+			<br>
+			<br>
+			<span>※비고(요청사항): 요청사항에 맞게 번역 부탁드립니다.</span><br>
+			<textarea id = "comment_st" name = "comment_st" class = "comment_input" readonly style = "color : #2334DE;" th:value = "${translated?.comment_st}">요청사항이 없습니다.</textarea>
+		</div>
+			
+		<hr>
+		<div>
+		<form th:action = "@{/evaluation/insertES}" method = "post" onsubmit = "return check()"> 
+			<table>
+				<colgroup>
+					<col style = "width : 50%;">
+					<col style = "width : 50%;">
+				</colgroup>
+				
+				<tr>
+					<td>
+						<p class = "input_exam"><b>다음은 원문을 바탕으로 입력된 번역입니다.</b></p>
+						<input type = "hidden" name = "translatednum_s" th:value = "${translated?.translatednum_s}">
+						<input type = "hidden" name = "requestnum_s"  th:value="${translated?.requestnum_s}">
+						<input type = "hidden" name = "memberid"  th:value="${translated?.memberid}">
+						<textarea name = "translatedcontent_s" class = "answer_input" id = "translatedcontent_s" th:value = "${translated?.translatedcontent_s}" readonly></textarea> <br>
+						<input type = "submit" value = "제출하기" class = "submit_button" id = "submit_button">
+						<input type = "button" value = "나가기" class = "exit_button" id = "exit_button">
+					</td>
+					<td style = "vertical-align : top;">
+						<p><b>왼쪽의 번역은 잘 되었나요?</b></p>
+						<input type = "radio" name = "evaluationSuccess" value = "1"> 문제 없이 잘 되었습니다.<br>
+						<input type = "radio" name = "evaluationSuccess" value = "2"> 번역에 문제가 있습니다.<br>
+						<br><br>
+						
+						<div id = "whyfailedform">
+						<p><b>어떤 부분에 문제가 있었나요?</b></p>
+						<input type = "radio" name = "whyFailed" value = "1"> 누락된 문장이 있습니다.<br>
+						<input type = "radio" name = "whyFailed" value = "2"> 비고에 적힌 사항을 따르지 않았습니다.<br>
+						<input type = "radio" name = "whyFailed" value = "3"> 맞춤법이나 띄어쓰기가 심각하게 틀렸습니다.<br>
+						<input type = "radio" name = "whyFailed" value = "4"> 문맥이나 늬앙스에 맞지 않는 번역입니다.<br>
+						<input type = "radio" name = "whyFailed" value = "5"> 기타 이 번역에 문제가 있습니다.<br>
+						</div>
+						<input type = "submit" value = "제출하기">
+
+					</td>
+				</tr>
+			</table>
+		</form>
+		</div>
+	</div>
+	
+	
+	<!-- <div id="main"> -->
+	</div> 
+     <!-- 부트스트랩  JS -->
+    <script th:src="@{/assets/js/bootstrap.js}"></script>
+    <script th:src="@{/assets/js/app.js}"></script>
+    
+<!-- Need: Apexcharts -->
+<script th:src="@{/assets/extensions/apexcharts/apexcharts.min.js}"></script>
+<script th:src="@{/assets/js/pages/dashboard.js}"></script>
+</body>
+</html>

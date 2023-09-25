@@ -86,28 +86,27 @@
 	function check() {
 		let id = document.getElementById('memberid').value;
 		let nick = document.getElementById('membernick').value;
+		let point = document.getElementById('point').value;
 		
 		if(nick == '' || nick.length == 0) {
 			alert("변경할 닉네임을 입력하세요");
 			return false;
 		}
 		
+		if (point < 300) {
+			alert("포인트가 부족합니다. 닉네임을 변경할 수 없습니다.");
+			return false;
+		}
 
 		$.ajax({
 				type : 'post',
 				url : 'changeNick',
 				data : {id : id, nick : nick},
-				success : function(s) {
-					if (s == 'success') {
+				success : function() {
 						alert('변경되었습니다.');
 						opener.location.reload();
 						window.close();
-					}
-					else {
-						alert('포인트가 부족합니다. 닉네임을 변경할 수 없습니다.');
-						window.close();
-					}
-				},
+					},
 				error : function() {
 					alert('전송 실패');
 				}
@@ -124,6 +123,7 @@
 
 <form>
 	<input type = "hidden" th:value = "${#authentication.name}" id = "memberid">
+	<input type = "hidden" th:value = "${member.point}" id = "point" name = "point">
 	<table>
 	<tr><td>변경할 닉네임</td> <td><input type = "text" name = "membernick" id = "membernick"></td> <td><input type = "submit" value="변경" class = "button" id = "button"></td></tr>
 	</table>

@@ -40,7 +40,7 @@ public class EvaluationController {
 		
 		m.addAttribute("translated", ts);
 
-		return "evaluationForm/evaluationPageS";
+		return "evaluationForm/evaluatedPageS";
 	}
 	
 	@GetMapping("getEM")
@@ -54,7 +54,7 @@ public class EvaluationController {
 		
 		m.addAttribute("translated", tm);
 		
-		return "evaluationForm/evaluationPageM";
+		return "evaluationForm/evaluatedPageM";
 	}
 	
 	@PostMapping("insertES")
