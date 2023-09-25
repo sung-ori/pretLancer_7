@@ -16,7 +16,7 @@ import com.team.pretLancer_7.domain.Request_M;
 import com.team.pretLancer_7.domain.Request_S;
 import com.team.pretLancer_7.domain.Translated_M;
 import com.team.pretLancer_7.domain.Translated_S;
-
+ 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
