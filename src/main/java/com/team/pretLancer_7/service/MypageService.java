@@ -11,4 +11,8 @@ public interface MypageService {
 
 	public int updateMember(Member m);
 
+	public int changeNick(Member member);
+
+	public int checkPoint(Member member);
+
 }

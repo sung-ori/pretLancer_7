@@ -437,7 +437,7 @@
                         <a href="layout-vertical-1-column.html">프로필 설정</a>
                     </li>
                     <li class="submenu-item ">
-                        <a href="layout-vertical-navbar.html">리워드</a>
+                        <a th:href="@{/reward/main}">리워드</a>
                     </li>
                     <li class="submenu-item ">
                         <a th:href="@{/member/logout}">로그아웃</a>
@@ -451,7 +451,7 @@
             
             <li
                 class="sidebar-item">
-                <a href="#" class='sidebar-link'>
+                <a th:href="@{/qna}" class='sidebar-link'>
                     <i class="bi bi-question-circle"></i>
                     <span>문의</span>
                 </a>

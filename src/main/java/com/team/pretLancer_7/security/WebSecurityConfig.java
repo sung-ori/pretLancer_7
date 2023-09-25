@@ -42,7 +42,8 @@ public class WebSecurityConfig {
         		"/member/joinForm",
         		"/member/idcheck").permitAll()
                 .antMatchers(
-
+                
+                "/Users/sung_ori/pretLancer_7/pretLancer_7/src/main/resources/static/img",
                 "/image/**",
         		"/assets/**",
         		"/image/**").permitAll()
