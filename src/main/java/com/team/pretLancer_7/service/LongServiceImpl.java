@@ -223,6 +223,7 @@ public class LongServiceImpl implements LongService{
         map.put("cash", cash);
         // 낙찰금액 / 낙찰 회원 / 요청 번호 / 옥션 번호
         int a = dao.updateRequestAuction(map);
+        pay(map.get("userid"),cash);
         msg.writeLB(map);
         return a;
     }
@@ -304,6 +305,10 @@ public class LongServiceImpl implements LongService{
 
         map.put("message", "success");
         map.put("requestnum", ""+requestnum_l);
+        Request_L rql = dao.selectOneRequest_L(requestnum_l);
+
+        getmoney(rql.getMemberid2(), rql.getCash());
+
         dao.updateRequestResponse(map);
     }
 
@@ -317,5 +322,23 @@ public class LongServiceImpl implements LongService{
         }
         
         return rst;
+    }
+
+    @Override
+    public void pay(String userid, String cash) {
+        Map<String, String> map = new HashMap();
+        map.put("message","pay");
+        map.put("userid", userid);
+        map.put("cash", cash);
+        dao.updatePay(map);
+    }
+
+    @Override
+    public void getmoney(String userid, String cash) {
+        Map<String, String> map = new HashMap();
+        map.put("message","getmoeny");
+        map.put("userid", userid);
+        map.put("cash", cash);
+        dao.updatePay(map);
     }
 }
