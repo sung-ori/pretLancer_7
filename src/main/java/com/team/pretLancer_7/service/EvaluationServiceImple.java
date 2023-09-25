@@ -115,7 +115,7 @@ public class EvaluationServiceImple implements EvaluationService {
 				    	Adao.EfailedUp(memberid);
 				    }
 				}
-				// evaluationcondition_s를 'Y'로 처리
+				// evaluationcondition_s를 'Y'로 처리함
 				Edao.completeES(ts.getTranslatednum_s());
 				// ability 테이블에서 번역실패 횟수 증가
 				Adao.SfailedUp(ts.getMemberid());
