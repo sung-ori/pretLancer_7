@@ -21,14 +21,6 @@
 	update pret_member set tutorial_num = tutorial_num + 1 where memberid = #{memberid}
 	</update>
 	
-	<update id="psucceedUp" parameterType="string">
-	update pret_ability set psucceed = psucceed + 1 where memberid = #{memberid}
-	</update>
-	
-	<update id="pfailedUp" parameterType="string">
-	update pret_ability set pfailed = pfailed + 1 where memberid = #{memberid}
-	</update>
-	
 	<insert id="insertExamMember" parameterType="Exam">
 	insert into pret_exam (memberid, examnum) values (#{memberid}, #{examnum})
 	</insert>

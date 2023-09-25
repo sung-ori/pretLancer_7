@@ -33,18 +33,28 @@ public class EvaluationController {
 	public String getES(Model m) {
 		// 평가 갯수가 5개 이하인 번역된 내용을 가져옴
 		Translated_S ts = service.getES();
+		
+		if (ts == null) {
+			return "errorForm/NoEvaluation";
+		}
+		
 		m.addAttribute("translated", ts);
 
-		return "evaluationForm/evaluationPageS";
+		return "evaluationForm/evaluatedPageS";
 	}
 	
 	@GetMapping("getEM")
 	public String getEM(Model m) {
 		// 평가 갯수가 5개 이하인 번역된 내용을 가져옴
 		Translated_M tm = service.getEM();
+		
+		if (tm == null) {
+			return "errorForm/NoEvaluation";
+		}
+		
 		m.addAttribute("translated", tm);
 		
-		return "evaluationForm/evaluationPageM";
+		return "evaluationForm/evaluatedPageM";
 	}
 	
 	@PostMapping("insertES")

@@ -57,14 +57,20 @@
 	</select>
 	
 	<select id="getListES" parameterType="int" resultType="Evaluation_S">
-	select * from pret_evaluation_s where translatednum_s = #{translatednum_s}
+	select * from pret_evaluation_s where translatednum_s = #{translatednum_s} and evaluationcondition_s = 'N'
 	</select>
 	
-	<update id="completeS" parameterType="int">
-	update pret_request_s set requestcondition_s = 'Y' where requestnum_s = #{requestnum_s}
+	<update id="completeS" parameterType="Request_S">
+	update pret_request_s set requestcondition_s = 'Y',  translatedcontent_s = #{translatedcontent_s} 
+	where requestnum_s = #{requestnum_s}
 	</update>
 	
-	<update id="failedS" parameterType="int">
+	<update id="completeES" parameterType="int">
+	update pret_evaluation_s set evaluationcondition_s = 'Y' 
+	where translatednum_s = #{translatednum_s} and evaluationcondition_s = 'N'
+	</update>
+	
+	<update id="failedTS" parameterType="int">
 	update pret_request_s set requestcondition_s = 'N', memberid2 = '' where requestnum_s = #{requestnum_s}
 	</update>
 	
@@ -73,14 +79,20 @@
 	</select>
 	
 	<select id="getListEM" parameterType="int" resultType="Evaluation_M">
-	select * from pret_evaluation_m where translatednum_m = #{translatednum_m}
+	select * from pret_evaluation_m where translatednum_m = #{translatednum_m} and evaluationcondition_m = 'N'
 	</select>
 	
-	<update id="completeM" parameterType="int">
-	update pret_request_m set requestcondition_m = 'Y' where requestnum_m = #{requestnum_m}
+	<update id="completeM" parameterType="Request_M">
+	update pret_request_m set requestcondition_m = 'Y', translatedcontent_m = #{translatedcontent_m} 
+	where requestnum_m = #{requestnum_m}
 	</update>
 	
-	<update id="failedM" parameterType="int">
+	<update id="completeEM" parameterType="int">
+	update pret_evaluation_m set evaluationcondition_m = 'Y' 
+	where translatednum_m = #{translatednum_m} and evaluationcondition_m = 'N'
+	</update>
+	
+	<update id="failedTM" parameterType="int">
 	update pret_request_m set requestcondition_m = 'N', memberid2 = '' where requestnum_m = #{requestnum_m}
 	</update>
 	

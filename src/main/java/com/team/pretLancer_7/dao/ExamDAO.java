@@ -26,8 +26,4 @@ public interface ExamDAO {
 
 	public void tutorialClear(String memberid);
 
-	public void psucceedUp(String memberid);
-
-	public void pfailedUp(String memberid);
-
 }

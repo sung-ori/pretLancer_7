@@ -6,7 +6,9 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.team.pretLancer_7.dao.AbilityDAO;
 import com.team.pretLancer_7.dao.ExamDAO;
+import com.team.pretLancer_7.dao.MemberDAO;
 import com.team.pretLancer_7.domain.Exam;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.utill.AnswerUtill;
@@ -19,6 +21,12 @@ public class ExamServiceImple implements ExamService {
 
 	@Autowired
 	ExamDAO dao;
+	
+	@Autowired
+	MemberDAO Mdao;
+	
+	@Autowired
+	AbilityDAO Adao;
 	
 	
 	@Override
@@ -70,12 +78,24 @@ public class ExamServiceImple implements ExamService {
 		int cnt;
         if (similarity > 0.7) {
         	cnt = 1;
-        	dao.psucceedUp(ex.getMemberid());
+        	Adao.PsucceedUp(ex.getMemberid());
         	dao.insertExamMember(ex);
+        	Mdao.getExExam(ex.getMemberid());
+        	// 레벨업 체크 연습문제는 등급 C까지만 오를 수 있다
+        	Member exCheck = Mdao.selectOne(ex.getMemberid());
+        	if (exCheck.getMem_ex() >= 50000) {
+        		switch (exCheck.getMem_level()) {
+        			case "D":
+        			Mdao.levelUpC(ex.getMemberid());
+        		    		break;
+        		    default:
+        		        break;
+        		}
+        	}
         }
         else {
         	cnt = 0;
-        	dao.pfailedUp(ex.getMemberid());
+        	Adao.PfailedUp(ex.getMemberid());
         }
         log.debug("similarity : {}", similarity);
 		return cnt;
