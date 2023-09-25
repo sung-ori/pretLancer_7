@@ -10,58 +10,62 @@
     <link rel="stylesheet" href="assets/css/pages/auth.css">
     <link rel="shortcut icon" href="assets/images/logo/favicon.svg" type="image/x-icon">
     <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/png">
-    
-    <style>
+
+<style>
+body {
+	zoom: 1;
+}
+
 .logo {
 	position: relative;
 	top: 1px;
 	left: 1px;
 }
-	
-	.lb-image {
+
+.lb-image {
 	position: fixed;
-	}
+}
 
 #auth-right::after {
 	content: "";
 	position: absolute;
 	top: 0%;
-	left: 42.3%;
-
+	left: 42.5%;
 	width: 58%;
 	height: 100%;
 	background-color: rgba(0, 0, 24, 0.75);
 	/* 투명 레이어의 배경색과 투명도를 조절할 수 있습니다. */
 	z-index: 1; /* 다른 콘텐츠 위에 레이어를 표시하기 위해 z-index 설정 */
 }
+
 .lb-wrap {
-  width: 50%;
-  margin: 10px auto;
-  border: 1px solid #000000;
-  position: relative;
+	width: 50%;
+	margin: 10px auto;
+	border: 1px solid #000000;
+	position: relative;
 }
+
 .lb-wrap img {
-  width: 100%;
-  vertical-align: middle;
+	width: 100%;
+	vertical-align: middle;
 }
+
 .lb-text {
-
-  padding: 10px 20px;
-  border-radius: 10px;
-  /*background-color: #FFEEBC;*/
-  position: absolute;
-  top: 50%;
-  left: 60%;
-  transform: translate(-50%, -50%);
+	padding: 10px 20px;
+	border-radius: 10px;
+	/*background-color: #FFEEBC;*/
+	position: absolute;
+	top: 50%;
+	left: 60%;
+	transform: translate(-50%, -50%);
 }
-
 </style>
 <script>
 	function gologin() {
-		window.location.href="http://localhost:8888/pretLancer/member/login";
+		window.location.href = "http://localhost:8888/pretLancer/member/login";
 	}
 	function gojoin() {
-		window.location.href="http://localhost:8888/pretLancer/member/join";
+		window.location.href = "http://localhost:8888/pretLancer/member/join";
 	}
 </script>
 </head>
@@ -74,15 +78,11 @@
         <div id="auth-left">
            
                 <a href="index.html"><img th:src="@{/assets/images/logo/pretLancer.svg}" class ="logo" alt="Logo" style="width:160px; height:90px;"></a>
-            
+
             <br><br>
-            
-            
-            <br><br><br><br>
             <h1 class="auth-title">Get started</h1>
             <br>
-            <p><h5>프릿랜서를 통해 번역을 시작해보세요.</h5></p>
-            
+            <p style="font-size:15px; font-weight:bold;">프릿랜서를 통해 번역을 시작해보세요.</p>
             <br>
             <div class="grid gap-x-3 gap-y-2 sm:grid-cols-2 sm:gap-y-0">
             <input type="button" class="btn btn-primary btn-block btn-lg shadow-lg mt-3"  value="Log In"  onclick="javascript:gologin()">
@@ -98,11 +98,11 @@
         <div id="auth-right">
         	<div class="lb=wrap">
 	        	<div class="lb-text" style="z-index:12;">
-	        		<h1 style="font-size: 100px; color: white;">모두가<br>참여하는<br>번역 플랫폼<br>프릿랜서</h1>
+	        		<h1 style="font-size: 80px; color: white;">모두가<br>참여하는<br>번역 플랫폼<br>프릿랜서</h1>
 	        	</div>
         	</div>
         	<div class="lb-image">
-				<img th:src="@{/assets/images/logo/sungORI.jpg}" class ="logo" alt="Logo" style="width:1200px; height:1200px;">
+				<img th:src="@{/assets/images/logo/sungORI.jpg}" class ="logo" alt="Logo" style="width:900px; height:900px;">
         	</div>
         </div>
     </div>

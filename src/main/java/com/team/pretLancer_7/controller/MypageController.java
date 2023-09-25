@@ -19,13 +19,13 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.service.LongService;
+import com.team.pretLancer_7.service.MemberService;
 import com.team.pretLancer_7.service.MypageService;
 import com.team.pretLancer_7.utill.FileService;
 
@@ -41,6 +41,9 @@ public class MypageController {
 
     @Autowired
     MypageService service;
+
+    @Autowired
+    MemberService mservice;
 
 	@Autowired
 	LongService Lservice;
@@ -165,32 +168,27 @@ public class MypageController {
     // ============================
     
     @GetMapping("changeNick")
-    public String changeNick() {
+    public String changeNick(@AuthenticationPrincipal UserDetails user, Model model, Member member) {
+    	member = mservice.getUser(user.getUsername());
+    	model.addAttribute("member", member);
     	return "mypageform/changeNick";
     }
 	
     @PostMapping("changeNick")
-    @ResponseBody
-    public String changeNick(String id, String nick) {
-		String rst = "success";
-
+    public void changeNick(String id, String nick) {
     	Member member = new Member();
 		
     	member.setMemberid(id);
     	member.setMembernick(nick);
     	int point = service.checkPoint(member);
 
-    	if (point < 300) {
-
-    		rst = "failed";
-			return rst;
-		}
+    	if (point < 300)
+    		return;
     	else
     		point = point - 300;
     	
     	member.setPoint(point);
     	service.changeNick(member);
     	
-    	return rst;
     }
 }
