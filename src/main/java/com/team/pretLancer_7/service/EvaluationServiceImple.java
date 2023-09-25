@@ -46,9 +46,23 @@ public class EvaluationServiceImple implements EvaluationService {
 				msg.writeSC(ts);
 			}
 			else {
-				dao.failedTS(es.getRequestnum_s());
-				// 메세지 작성
-				msg.writeSF(ts);
+				// 번역 실패 처리 후, reuqest_s 테이블을 초기화
+				Edao.failedTS(es.getRequestnum_s());
+				// 평가가 'N'인 경우 번역이 성공
+				for (Evaluation_S evaluation : list) {
+				    String memberid = evaluation.getMemberid();
+				    String evaluationsuccess = evaluation.getEvaluationsuccess();
+
+				    if ("N".equals(evaluationsuccess)) {
+				    	Adao.EsucceedUp(memberid);
+				    } else if ("Y".equals(evaluationsuccess)) {
+				    	Adao.EfailedUp(memberid);
+				    }
+				}
+				// evaluationcondition_s를 'Y'로 처리함
+				Edao.completeES(ts.getTranslatednum_s());
+				// ability 테이블에서 번역실패 횟수 증가
+				Adao.SfailedUp(ts.getMemberid());
 			}
 		}
 	}
