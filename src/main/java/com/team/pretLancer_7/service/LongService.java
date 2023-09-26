@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.team.pretLancer_7.domain.AuctionTranslator;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
+import com.team.pretLancer_7.utill.PageNavigator;
 
 public interface LongService {
     public List<MyPage> getTranslatorList(String userId);
@@ -54,4 +55,6 @@ public interface LongService {
     public void pay(String userid ,String cash);
 
     public void getmoney(String userid, String cash);
+
+    public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String type, String userid);
 }

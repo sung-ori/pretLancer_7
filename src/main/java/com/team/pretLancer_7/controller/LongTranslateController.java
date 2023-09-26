@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.service.LongService;
+import com.team.pretLancer_7.utill.PageNavigator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,6 +36,11 @@ public class LongTranslateController {
     @Autowired
     MessagingService msg;
 
+    @Value("${user.TL.page}")
+	int countPerPage;
+	//게시판 목록의 페이지 이동 링크 수
+	@Value("${user.TL.group}")
+	int pagePerGroup;
     
 
     @GetMapping("/main")
@@ -42,10 +49,19 @@ public class LongTranslateController {
     }
 
     @GetMapping("/request")
-    public String requestForm(Model model,@AuthenticationPrincipal UserDetails user) {
-        List<MyPage> translatorList = service.getTranslatorList(user.getUsername());
+    public String requestForm(Model model,@AuthenticationPrincipal UserDetails user,String type, String searchWord,
+    @RequestParam(name="page",defaultValue="1") int page) {
+
+        String userid = user.getUsername();
+
+        PageNavigator navi = service.getPageNavigator(pagePerGroup, countPerPage, page, type, userid);
+
+        List<MyPage> translatorList = service.getTranslatorList(userid);
+
+
         log.error("돌아오나요? {}", translatorList);
         model.addAttribute("translatorList", translatorList);
+        model.addAttribute("navi", navi);
 
         return "translate_long/translatorList";
     }

@@ -53,6 +53,19 @@
             
             </div>
         </div>
+        <div id="pagingNavBar" class=" h4 text-center"  >
+            <a th:href="|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|">◁◁</a>
+            <a th:href="|javascript:pagingFormSubmit(${navi.currentPage - 1})|">◀</a> 
+            <!-- for each로 출력 			타임리프의 객체/ 수열을 만들어냄. -->
+            <span th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}"> 
+                <th:block th:if="${counter == navi.currentPage}"><b></th:block>
+                    <a th:text="${counter}" th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp;
+                <th:block th:if="${counter == navi.currentPage}"></b></th:block>
+            </span>
+            
+            <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + 1})|">▶</a> 
+            <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
+        </div>
     </div>
     
     <!-- main div -->

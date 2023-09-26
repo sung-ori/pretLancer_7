@@ -18,6 +18,7 @@ import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.utill.FileService;
+import com.team.pretLancer_7.utill.PageNavigator;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -341,5 +342,19 @@ public class LongServiceImpl implements LongService{
         map.put("userid", userid);
         map.put("cash", cash);
         dao.updatePay(map);
+    }
+
+    @Override
+    public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String type, String userid) {
+        
+        HashMap<String, String> map = new HashMap<>();
+		map.put("type", type);
+		
+        int total = getTranslatorList(userid).size();
+
+
+		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page,total);
+		
+		return navi;
     }
 }
