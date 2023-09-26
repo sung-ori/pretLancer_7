@@ -60,8 +60,9 @@
         <select id="selectAuctionList" resultType="Request_L" parameterType="Map">
                 select * from pret_request_l
                 where auction = 'Y' and requestcondition_l = 'N'
+        
                 
-                <if test="type == 'all' or type == null">
+                <!-- <if test="type == 'all' or type == null">
                         where requestnum_l in (select requestlnum from pret_auction)
                 </if>
                 <if test="type == 'Y'">
@@ -75,7 +76,7 @@
                 <if test="type == 'N'">
                         where requestnum_l in (select requestlnum from pret_auction)
                         and catetogy = '소설'
-                </if>
+                </if> -->
         </select>
 
         <select id="selectRequestList" parameterType="String" resultType="Request_L">
