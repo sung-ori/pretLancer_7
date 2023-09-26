@@ -35,9 +35,14 @@
     var content = document.getElementById('content').value;
     var result = document.getElementById('result');
     var message = document.getElementById('message');
+    
+ // 공백을 제외한 글자 수 세기
+    var charCount = content.replace(/\s+/g, '').length;
 
-    result.value = content.length;
+//     result.value = content.length;
 
+	result.value = charCount;
+	
     if (result.value < 1000) {
       message.innerHTML = "단문";
     } 
