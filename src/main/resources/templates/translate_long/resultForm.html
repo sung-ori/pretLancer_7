@@ -55,7 +55,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
         
         <div>
             <span>번역된 파일 다운로드 : </span>
-            <a th:href="|@{/translate}/${result.savedtfile}|" class="btn btn-success" th:download="|${result.memberid}_${result.title}|">번역된 파일</a>
+            <a th:href="|@{/translate}/${result.savedtfile}|" class="btn btn-success" th:download="|${result.memberid}_${result.title}|" >번역된 파일</a>
         </div>
         <div>
             <div th:if="${result.requestcondition_l} == 'E'">

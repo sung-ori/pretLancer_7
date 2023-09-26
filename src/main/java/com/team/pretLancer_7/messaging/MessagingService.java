@@ -50,7 +50,7 @@ public class MessagingService {
         str += "님 🎉프릿랜서에 가입하신걸 환영합니다🎉";
         str += " 마이프로필을 작성해주세요!";
         // 아직 수정 경로가 없어서 마이프로필로 접근
-        href += "http://localhost:8888/pretLancer/my_page/MyProfile";
+        href += "http://localhost:8888/pretLancer/my_page/main";
         
         msg.setMessagetype("MP");
         msg.setMemberid(userid);
@@ -72,7 +72,7 @@ public class MessagingService {
         str += "님! 번역 활동을 원하시면";
         str += " 튜토리얼을 완료해주세요!";
         // 튜토리얼 페이지로 이동
-        href += "http://localhost:8888/pretLancer/tlanslated/tumemberidrial";
+        href += "http://localhost:8888/pretLancer/translated/tutorial";
         
         msg.setMessagetype("MT");
         msg.setMemberid(userid);
