@@ -33,7 +33,7 @@
 
 <body>
 	<div id="snBar-placeholder"></div>
-	<br><br><br><br>
+	<br><br>
 
  <div id="main">
             <header class="mb-3">
@@ -124,45 +124,46 @@
     </section>
 </div>
 <!-- 페이지 컨텐트 -->
-
 <form>
-<div class="container">
-<div class="row">
-<div class="col-md-7 col-mg-6">
-	<div class="card w-25 p-3">
-		<ul class="list-group mb-3">
-		    <li th:each="community : ${community}" class="list-group-item d-flex justify-content-between lh-sm">
-		        <div>
-		            <h6 class="my-0" th:text="${community.boardtitle}"></h6>
-		        </div>
-		        <span class="text-body-secondary">15</span>
-		    </li>
-		</ul>
-	</div>
+<div class="page-content">
+	<div class="container">
+		<section class="row">
+			<div class="col-8">
+				<div class="container text-center">
+					<div class="row align-items-start text-center">
+						 <div class="col card">
+				     		 단문번역 대기중 <a th:text="${TcountS}"></a>
+				    	</div>
+				    	<div class="col card">
+				     		장문번역 대기중 <a th:text="${TcountM}"></a>
+				    	</div>
+					</div>
+					<div class="row align-items-start">
+						 <div class="col card">
+				     		 평가 대기중 <a th:text="${Ecount}"></a>
+				    	</div>
+				    	<div class="col card">
+				     		의뢰 된 총 번역 <a th:text="${Rcount}"></a>
+				    	</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-4">
+				<div class="card ">
+					<ul class="list-group mb-4">
+					    <li th:each="community : ${community}" class="list-group-item d-flex justify-content-between lh-sm">
+					        <div>
+					            <h6 class="my-0" th:text="${community.boardtitle}"></h6>
+					        </div>
+					        <span th:text="${community.recommend}" class="text-body-secondary"></span>
+					    </li>	    
+					</ul>
+				</div>
+			</div>
+		</section>
+	</div><!-- container -->
 </div>
-
-<div class="col-md-5 col-lg-6">
-	<div class="container text-center">
-		<div class="row align-items-start">
-			 <div class="col card">
-	     		 단문번역 대기중 <a th:text="${TcountS}"></a>
-	    	</div>
-	    	<div class="col card">
-	     		장문번역 대기중 <a th:text="${TcountM}"></a>
-	    	</div>
-		</div>
-		<div class="row align-items-start">
-			 <div class="col card">
-	     		 평가 대기중 <a th:text="${Ecount}"></a>
-	    	</div>
-	    	<div class="col card">
-	     		의뢰 된 총 번역 <a th:text="${Rcount}"></a>
-	    	</div>
-		</div>
-	</div>
-</div>
-</div><!-- row -->
-</div><!-- container -->
 </form>
 
 <!-- 	<div class="card w-25 p-3"> -->
