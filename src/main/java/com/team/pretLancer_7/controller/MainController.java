@@ -91,9 +91,16 @@ public class MainController {
         m.addAttribute("TcountM", TcountM);
         m.addAttribute("Ecount", Ecount);
         
-        m.addAttribute("ExamAlot", ExamAlot);
+        // 연습 문제 가장 많이 푼 사람 5
+        m.addAttribute("ExamAlot", ExamAlot); 
+        
+        // 단문 번역 제일 많이 한 사람 5
         m.addAttribute("TranslatedAlotS", TranslatedAlotS);
+        
+        // 중문 번역 제일 많이 한 사람 5
         m.addAttribute("TranslatedAlotM", TranslatedAlotM);
+        
+        // 평가 제일 많이 한 사람 5
         m.addAttribute("EvaluationAlot", EvaluationAlot);
          
     	return "main3";
