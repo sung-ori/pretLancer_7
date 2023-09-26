@@ -167,6 +167,35 @@ public class MypageController {
 		
     }
     
+    // 내 단문 의뢰 목록
+    @GetMapping("/myRequestListS")
+    public String myRequestListS() {
+    	
+    	return "/mypageform/myReqeustListS";
+    }
+    
+    // 내 중문 의뢰 목록
+    @GetMapping("/myRequestListM")
+    public String myRequestListM() {
+    	
+    	return "/mypageform/myReqeustListM";
+    }
+    
+    // 내 단문 번역 목록
+    @GetMapping("/myTranslatedS")
+    public String myTranslatedS() {
+    	
+    	return "/mypageform/myTranslatedS";
+    }
+    
+    // 내 중문 번역 목록
+    @GetMapping("/myTranslatedM")
+    public String myTranslatedM() {
+    	
+    	return "/mypageform/myTranslatedM";
+    }
+    
+    
     // ============================
     
     @GetMapping("changeNick")
