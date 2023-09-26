@@ -28,6 +28,7 @@ public class MypageServiceImple implements MypageService {
         Mp.setMem_level(m.getMem_level());
         Mp.setMembernick(m.getMembernick());
         Mp.setMem_ex(m.getMem_ex());
+        Mp.setMemberlang(m.getMemberlang());
         
         return Mp;
     }

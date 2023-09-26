@@ -144,12 +144,10 @@ public class MypageController {
 
 	 @GetMapping("/myRequestList")
     public String myAuctionList(@AuthenticationPrincipal UserDetails user, Model model) {
-        List<Request_L> myAuctionList =  Lservice.myAuctionList(user.getUsername());
+        
         List<Request_L> myRequestList =  Lservice.myRquestList(user.getUsername());
         
         model.addAttribute("myRequestList", myRequestList);
-        model.addAttribute("myAuctionList", myAuctionList);
-        log.debug("컨트롤러에 오는 나의 옥션 리스트 {}", myRequestList);
 
         return "/mypageform/myRequestList";
     }

@@ -143,18 +143,11 @@ public class LongServiceImpl implements LongService{
     //  경매 리스트를 불러온다
     @Override
     public List<Request_L> getAuctionList() {
-        Map<String,String> map = new HashMap();
-        map.put("type", null);
-        List<Request_L> auctionList = dao.selectAuctionList(map);
+        
+        ArrayList<Request_L> auctionList = dao.selectAuctionList();
 
         int idx = 0;
 
-        for(Request_L rql : auctionList) {
-            if(!rql.getRequestcondition_l().equals("N")) {
-                auctionList.remove(idx);
-            }   
-            idx++;
-        }
         return auctionList;
     }
     // 
@@ -199,23 +192,7 @@ public class LongServiceImpl implements LongService{
         return rst;
     }
 
-    @Override
-    public List<Request_L> myAuctionList(String userid) {
-        Map<String,String> map = new HashMap();
-        map.put("type", null);
-        List<Request_L> list = dao.selectAuctionList(map);
-        ArrayList<Request_L> myAuctionList = new ArrayList();;
-
-        int idx = 0;
-        for(Request_L auction :list) {
-            if (auction.getMemberid().equals(userid)) {
-                myAuctionList.add(idx,auction);
-                idx++;
-            }
-        }
-        
-        return myAuctionList;
-    }
+    
 
     public List<Request_L> myRquestList(String userid){
         return dao.selectRequestList(userid);
