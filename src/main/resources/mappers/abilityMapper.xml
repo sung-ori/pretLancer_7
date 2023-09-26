@@ -51,7 +51,7 @@
    		FROM pret_ability
   		ORDER BY psucceed DESC
 		)
-	WHERE ROWNUM &lt;= 5;
+	WHERE ROWNUM &lt;= 5
 	</select>
 	
 	<select id="TranslatedAlotS" resultType="Ability">
@@ -61,7 +61,7 @@
    		FROM pret_ability
   		ORDER BY ssucceed DESC
 		)
-	WHERE ROWNUM &lt;= 5;
+	WHERE ROWNUM &lt;= 5
 	</select>
 	
 	<select id="TranslatedAlotM" resultType="Ability">
@@ -71,7 +71,7 @@
    		FROM pret_ability
   		ORDER BY msucceed DESC
 		)
-	WHERE ROWNUM &lt;= 5;
+	WHERE ROWNUM &lt;= 5
 	</select>
 	
 	<select id="EvaluationAlot" resultType="Ability">
@@ -81,7 +81,7 @@
    		FROM pret_ability
   		ORDER BY esucceed DESC
 		)
-	WHERE ROWNUM &lt;= 5;
+	WHERE ROWNUM &lt;= 5
 	</select>
 	
 </mapper>
