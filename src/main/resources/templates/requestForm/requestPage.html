@@ -35,9 +35,14 @@
     var content = document.getElementById('content').value;
     var result = document.getElementById('result');
     var message = document.getElementById('message');
+    
+ // 공백을 제외한 글자 수 세기
+    var charCount = content.replace(/\s+/g, '').length;
 
-    result.value = content.length;
+//     result.value = content.length;
 
+	result.value = charCount;
+	
     if (result.value < 1000) {
       message.innerHTML = "단문";
     } 
@@ -77,6 +82,17 @@
         /* 다른 스타일 속성도 여기에 추가할 수 있습니다. */
     }
 </style>
+<style>
+.glass{
+	background: rgba( 255, 255, 255, 0.25 );
+	box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+	backdrop-filter: blur( 3px );
+	-webkit-backdrop-filter: blur( 3px );
+	border-radius: 10px;
+	border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+	
+</style>
     
 </head>
 <body>
@@ -95,9 +111,10 @@
 		<h1>의뢰하기</h1>
 	    <h3>단, 중문 의뢰</h3>
 	</div>
+
 <form th:action="@{/request/insertRS}" method="post" id='form'>
 	<div class="row g-5">
-		<div class="card col-md-6 col-lg-5 order-md-last" style="box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2); text-align:left; background-color:#F8F9FA;">
+		<div class="card glass col-md-6 col-lg-5 order-md-last" style="box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2); text-align:left; background-color:#FAF9FF;">
 			<select id="selectbox" name="startlang" onchange="" class="form-select pt-1 mt-4 " style="height: 33px;width:40%; vertical-align: middle;">
 			  <option selected>시작언어 선택</option>
 			  <option value="EN">ENGLISH</option>
@@ -128,9 +145,9 @@
 			
 		</div>
 
-		<div class="cik-md-5 col-lg-6">
+		<div class="col-md-5 col-lg-6">
 			
-				<textarea name="requestcontent_s" id='content' rows="30" cols="60" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
+				<textarea name="requestcontent_s" id='content' rows="29" cols="60" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
 			
 		</div>
 	</div>

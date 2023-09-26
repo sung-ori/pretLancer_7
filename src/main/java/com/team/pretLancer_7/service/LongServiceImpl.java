@@ -138,6 +138,7 @@ public class LongServiceImpl implements LongService{
         return dao.insertAuction(requestnum_l);
 
     }
+    
     //  경매 리스트를 불러온다
     @Override
     public List<Request_L> getAuctionList() {
