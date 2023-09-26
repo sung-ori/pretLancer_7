@@ -59,7 +59,7 @@
         <!-- 경매 리스트 출력 -->
         <select id="selectAuctionList" resultType="Request_L">
                 select * from pret_request_l
-                where requestnum_l in (select requestlnum from pret_auction)
+                where auction = 'Y' and requestcondition_l = 'N'
         </select>
 
         <select id="selectRequestList" parameterType="String" resultType="Request_L">

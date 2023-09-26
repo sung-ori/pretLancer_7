@@ -143,16 +143,10 @@ public class LongServiceImpl implements LongService{
     @Override
     public List<Request_L> getAuctionList() {
         
-        List<Request_L> auctionList = dao.selectAuctionList();
+        ArrayList<Request_L> auctionList = dao.selectAuctionList();
 
         int idx = 0;
 
-        for(Request_L rql : auctionList) {
-            if(!rql.getRequestcondition_l().equals("N")) {
-                auctionList.remove(idx);
-            }   
-            idx++;
-        }
         return auctionList;
     }
     // 
@@ -197,21 +191,7 @@ public class LongServiceImpl implements LongService{
         return rst;
     }
 
-    @Override
-    public List<Request_L> myAuctionList(String userid) {
-        List<Request_L> list = dao.selectAuctionList();
-        ArrayList<Request_L> myAuctionList = new ArrayList();;
-
-        int idx = 0;
-        for(Request_L auction :list) {
-            if (auction.getMemberid().equals(userid)) {
-                myAuctionList.add(idx,auction);
-                idx++;
-            }
-        }
-        
-        return myAuctionList;
-    }
+    
 
     public List<Request_L> myRquestList(String userid){
         return dao.selectRequestList(userid);
