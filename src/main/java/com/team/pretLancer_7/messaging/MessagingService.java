@@ -430,7 +430,7 @@ public class MessagingService {
         str += " 보낸 장문번역📑 요청이 승낙받았습니다!";        
 
         // TODO: 아직 없지만 내 요청 목록 페이지로 가도 좋을 듯
-        href += "http://localhost:8888/pretLancer/my_page/myRequest" ;
+        href += "http://localhost:8888/pretLancer/my_page/myRequestList" ;
         
         msg.setMessagetype("LA");
         msg.setMemberid(userid);
@@ -456,7 +456,7 @@ public class MessagingService {
         str += " 보낸 장문번역📑 요청이 거절되었습니다.";        
 
         // TODO: 아직 없지만 내 요청 목록 페이지로 가도 좋을 듯
-        href += "http://localhost:8888/pretLancer/my_page/myRequest" ;
+        href += "http://localhost:8888/pretLancer/my_page/myRequestList" ;
         
         msg.setMessagetype("LF");
         msg.setMemberid(userid);

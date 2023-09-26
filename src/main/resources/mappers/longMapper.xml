@@ -174,14 +174,15 @@
 
         <update id="updatePay" parameterType="Map">
                 update pret_member
-                <set>
-                    <if test="message == 'pay'">
-                        cash = cash - #{cash},
-                    </if>
-                    <if test="message == 'getmoney'">
-                        cash = cash + #{cash},
-                    </if>
-                </set>
+                set
+                <if test="message == 'pay'">
+                        cash  = cash - #{cash},
+                        
+                </if>
+
+                <if test="message == 'getmoney'">
+                        cash  = cash + #{cash},
+                </if>
                 where memberid = #{userid}
         </update>
 
