@@ -27,7 +27,7 @@ public interface LongDAO {
     public int insertAuction(int requestnum);
     // 요청 중 경매 테이블에 들어있는 것들만 출력
 
-    public List<Request_L> selectAuctionList() ;
+    public List<Request_L> selectAuctionList(Map<String, String> map) ;
 
     public List<Request_L> selectRequestList();
 

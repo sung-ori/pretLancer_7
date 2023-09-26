@@ -56,5 +56,7 @@ public interface LongService {
 
     public void getmoney(String userid, String cash);
 
-    public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String type, String userid);
+    public PageNavigator getPageNavigatorT(int pagePerGroup, int countPerPage, int page, String type, String userid);
+
+    public PageNavigator getPageNavigatorA(int pagePerGroup, int countPerPage, int page, String type, String userid);
 }

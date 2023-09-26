@@ -57,9 +57,24 @@
         </insert>
 
         <!-- 경매 리스트 출력 -->
-        <select id="selectAuctionList" resultType="Request_L">
+        <select id="selectAuctionList" resultType="Request_L" parameterType="Map">
                 select * from pret_request_l
-                where requestnum_l in (select requestlnum from pret_auction)
+                
+                <if test="type == 'all' or type == null">
+                        where requestnum_l in (select requestlnum from pret_auction)
+                </if>
+                <if test="type == 'Y'">
+                        where requestnum_l in (select requestlnum from pret_auction)
+                        and catetogy = '유튜브 자막'
+                </if>
+                <if test="type == 'P'">
+                        where requestnum_l in (select requestlnum from pret_auction)
+                        and catetogy = '논문'
+                </if>
+                <if test="type == 'N'">
+                        where requestnum_l in (select requestlnum from pret_auction)
+                        and catetogy = '소설'
+                </if>
         </select>
 
         <select id="selectRequestList" parameterType="String" resultType="Request_L">

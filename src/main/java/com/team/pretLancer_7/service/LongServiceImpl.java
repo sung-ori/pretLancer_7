@@ -143,8 +143,9 @@ public class LongServiceImpl implements LongService{
     //  경매 리스트를 불러온다
     @Override
     public List<Request_L> getAuctionList() {
-        
-        List<Request_L> auctionList = dao.selectAuctionList();
+        Map<String,String> map = new HashMap();
+        map.put("type", null);
+        List<Request_L> auctionList = dao.selectAuctionList(map);
 
         int idx = 0;
 
@@ -200,7 +201,9 @@ public class LongServiceImpl implements LongService{
 
     @Override
     public List<Request_L> myAuctionList(String userid) {
-        List<Request_L> list = dao.selectAuctionList();
+        Map<String,String> map = new HashMap();
+        map.put("type", null);
+        List<Request_L> list = dao.selectAuctionList(map);
         ArrayList<Request_L> myAuctionList = new ArrayList();;
 
         int idx = 0;
@@ -345,12 +348,26 @@ public class LongServiceImpl implements LongService{
     }
 
     @Override
-    public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String type, String userid) {
+    public PageNavigator getPageNavigatorT(int pagePerGroup, int countPerPage, int page, String type, String userid) {
         
         HashMap<String, String> map = new HashMap<>();
 		map.put("type", type);
 		
         int total = getTranslatorList(userid).size();
+
+
+		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page,total);
+		
+		return navi;
+    }
+
+    @Override
+    public PageNavigator getPageNavigatorA(int pagePerGroup, int countPerPage, int page, String type, String userid) {
+        
+        HashMap<String, String> map = new HashMap<>();
+		map.put("type", type);
+		
+        int total = getAuctionList().size();
 
 
 		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page,total);

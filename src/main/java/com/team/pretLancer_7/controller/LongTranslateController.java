@@ -54,7 +54,7 @@ public class LongTranslateController {
 
         String userid = user.getUsername();
 
-        PageNavigator navi = service.getPageNavigator(pagePerGroup, countPerPage, page, type, userid);
+        PageNavigator navi = service.getPageNavigatorT(pagePerGroup, countPerPage, page, type, userid);
 
         List<MyPage> translatorList = service.getTranslatorList(userid);
 
@@ -122,7 +122,11 @@ public class LongTranslateController {
     }
 
     @GetMapping("auctionList")
-    public String auctionList(Model model,@AuthenticationPrincipal UserDetails user) {
+    public String auctionList(Model model,@AuthenticationPrincipal UserDetails user,@RequestParam(name="page",defaultValue="1") int page,String type) {
+
+        String userid = user.getUsername();
+
+        PageNavigator navi = service.getPageNavigatorA(pagePerGroup, countPerPage, page, type, userid);
         List<Request_L> auctionList =  service.getAuctionList();
 
         model.addAttribute("auctionList", auctionList);
