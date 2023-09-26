@@ -107,22 +107,22 @@
 	</select>
 	
 	<select id="RScount" resultType="int">
-	SELECT COUNT(*) FROM pret_request_s;
+	SELECT COUNT(*) FROM pret_request_s
 	</select>
 	<select id="RMcount" resultType="int">
-	SELECT COUNT(*) FROM pret_request_m;
+	SELECT COUNT(*) FROM pret_request_m
 	</select>
 	<select id="TScount" resultType="int">
-	SELECT COUNT(*) FROM pret_request_s where requestcondition_s = 'T';
+	SELECT COUNT(*) FROM pret_request_s where requestcondition_s = 'N'
 	</select>
 	<select id="TMcount" resultType="int">
-	SELECT COUNT(*) FROM pret_request_m where requestcondition_m = 'T';
+	SELECT COUNT(*) FROM pret_request_m where requestcondition_m = 'N'
 	</select>
 	<select id="EScount" resultType="int">
-	SELECT COUNT(*) FROM pret_request_s where requestcondition_s = 'E';
+	SELECT COUNT(*) FROM pret_request_s where requestcondition_s = 'E'
 	</select>
 	<select id="EMcount" resultType="int">
-	SELECT COUNT(*) FROM pret_request_s where requestcondition_m = 'E';
+	SELECT COUNT(*) FROM pret_request_m where requestcondition_m = 'E'
 	</select>
 	
 </mapper>

@@ -106,9 +106,10 @@
 		<h1>의뢰하기</h1>
 	    <h3>단, 중문 의뢰</h3>
 	</div>
+
 <form th:action="@{/request/insertRS}" method="post" id='form'>
 	<div class="row g-5">
-		<div class="card col-md-6 col-lg-5 order-md-last" style="box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2); text-align:left; background-color:#FAF9FF;">
+		<div class="card glass col-md-6 col-lg-5 order-md-last" style="box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2); text-align:left; background-color:#FAF9FF;">
 			<select id="selectbox" name="startlang" onchange="" class="form-select pt-1 mt-4 " style="height: 33px;width:40%; vertical-align: middle;">
 			  <option selected>시작언어 선택</option>
 			  <option value="EN">ENGLISH</option>
@@ -139,7 +140,7 @@
 			
 		</div>
 
-		<div class="cik-md-5 col-lg-6">
+		<div class="col-md-5 col-lg-6">
 			
 				<textarea name="requestcontent_s" id='content' rows="29" cols="60" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
 			

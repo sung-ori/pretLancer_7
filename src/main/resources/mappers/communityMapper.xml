@@ -165,8 +165,8 @@
 	</update>
 	
 	<select id="todayPopular" resultType="Board">
-	SELECT * FROM Pret_board
-	WHERE inputdate >= SYSDATE - INTERVAL 1 DAY AND recommend >= 10
+	 	SELECT * FROM pret_board
+    	WHERE inputdate &gt;= (SYSDATE - 1) AND recommend &gt;= 10
 	</select>
 	
 </mapper>
