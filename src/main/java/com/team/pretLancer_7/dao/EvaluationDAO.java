@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.team.pretLancer_7.domain.Evaluation_M;
 import com.team.pretLancer_7.domain.Evaluation_S;
+import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.Request_M;
 import com.team.pretLancer_7.domain.Request_S;
 import com.team.pretLancer_7.domain.Translated_M;
@@ -52,6 +53,5 @@ public interface EvaluationDAO {
 	void completeM(Request_M rm);
 
 	void failedTM(int requestnum_m);
-
 
 }

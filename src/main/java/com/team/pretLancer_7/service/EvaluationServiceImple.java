@@ -190,17 +190,17 @@ public class EvaluationServiceImple implements EvaluationService {
                 String memberid = evaluation.getMemberid();
                 String evaluationsuccess = evaluation.getEvaluationsuccess();
 
-                if ("N".equals(evaluationsuccess)) {
-                   Adao.EsucceedUp(memberid);
-                } else if ("Y".equals(evaluationsuccess)) {
-                   Adao.EfailedUp(memberid);
-                }
-            }
-            
-            Edao.completeEM(tm.getTranslatednum_m());
-            Adao.MfailedUp(tm.getMemberid());
-         }
-      }   
-   }
-   
+				    if ("N".equals(evaluationsuccess)) {
+				    	Adao.EsucceedUp(memberid);
+				    } else if ("Y".equals(evaluationsuccess)) {
+				    	Adao.EfailedUp(memberid);
+				    }
+				}
+				
+				Edao.completeEM(tm.getTranslatednum_m());
+				Adao.MfailedUp(tm.getMemberid());
+			}
+		}	
+	}
+
 }
