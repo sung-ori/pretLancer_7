@@ -27,10 +27,10 @@ public class CommunityServiceImpl implements CommunityService {
 	MessagingService msg ;
 
     @Override
-    public List<Board> boardList(PageNavigator navi, String type, String searchWord) {
+    public List<Board> boardList(PageNavigator navi,String searchWord) {
 
 		HashMap<String, String> map = new HashMap<>();
-		map.put("type", type);
+		// map.put("type", type);
 		map.put("searchWord", searchWord);
 		
 		RowBounds rb = new RowBounds(navi.getStartRecord(),navi.getCountPerPage());
@@ -43,10 +43,10 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
 	@Override
-	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String type,
-			String searchWord) {
+	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page,String searchWord) {
+
 		HashMap<String, String> map = new HashMap<>();
-		map.put("type", type);
+		// map.put("type", type);
 		map.put("searchWord", searchWord);
 		
 		int total = dao.countAll(map);

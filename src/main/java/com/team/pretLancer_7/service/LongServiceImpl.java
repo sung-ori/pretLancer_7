@@ -203,9 +203,12 @@ public class LongServiceImpl implements LongService{
 
         String cash = dao.selectAuctionBid(map).getTranslatervalue();
         map.put("cash", cash);
+        
         // 낙찰금액 / 낙찰 회원 / 요청 번호 / 옥션 번호
         int a = dao.updateRequestAuction(map);
-        pay(map.get("userid"),cash);
+
+        pay(map.get("memberid"),cash);
+
         msg.writeLB(map);
         return a;
     }
@@ -318,9 +321,11 @@ public class LongServiceImpl implements LongService{
     @Override
     public void getmoney(String userid, String cash) {
         Map<String, String> map = new HashMap();
-        map.put("message","getmoeny");
+        map.put("message","getmoney");
         map.put("userid", userid);
         map.put("cash", cash);
+        log.info("오냐? {}", map);
+
         dao.updatePay(map);
     }
 

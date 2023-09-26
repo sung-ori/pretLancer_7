@@ -35,7 +35,16 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:src="@{/js/snBarLoader.js}"></script>
 	
-    
+    <script>
+        function pagingFormSubmit(curruntPage) {
+			
+			let form = document.getElementById('pagingForm');
+			let page = document.getElementById('page');
+			page.value = curruntPage;
+			
+			form.submit();
+		}
+    </script>
 </head>
 
 <body>
@@ -86,7 +95,13 @@
         <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + 1})|">▶</a> 
         <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
     </div>
-        
+    <form id="pagingForm" th:action="@{/community/main}" method="get">
+        <input type="hidden" name="page" id="page">
+    </form>
+        <!-- 
+            <input type="text" name="searchWord" style="width: 300px"th:value="${searchWord}">
+			<input type="button" value="검색" onclick="pagingFormSubmit()">
+     -->
         <!-- main div -->
         </div>
         

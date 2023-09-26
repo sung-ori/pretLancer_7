@@ -215,8 +215,16 @@ public class LongTranslateController {
     // 번역가가 현재 변역중인지 확인.
     @GetMapping("/checkTranslateNow")
     @ResponseBody
-    public Request_L checkTranslateNow (String memberid) {
-        return  service.checkTranslateNow(memberid);
+    public String checkTranslateNow (String memberid) {
+        String rst = "false";
+
+        Request_L rql = service.checkTranslateNow(memberid);
+
+        if(rql == null) {
+            rst = "true";
+        }
+
+        return rst;
     }
 
     @GetMapping("/readAccessRequestInfo")

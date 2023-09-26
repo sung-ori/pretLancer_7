@@ -172,15 +172,16 @@
                 where memberid2 = #{userid} and requestcondition_l = 'T'
         </select>
 
-        <update id="updatePay">
+        <update id="updatePay" parameterType="Map">
                 update pret_member
-                set
-                <if test="message == 'pay'">
-                        cash  = cash - #{cash}
-                </if>
-                <if test="message == 'getmoeny'">
-                        cash  = cash + #{cash}
-                </if>
+                <set>
+                    <if test="message == 'pay'">
+                        cash = cash - #{cash},
+                    </if>
+                    <if test="message == 'getmoney'">
+                        cash = cash + #{cash},
+                    </if>
+                </set>
                 where memberid = #{userid}
         </update>
 

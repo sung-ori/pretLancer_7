@@ -1,5 +1,6 @@
 package com.team.pretLancer_7.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,17 +43,19 @@ public class CommunityController {
 	
 	// 커뮤니티 게시판 리스트
     @GetMapping("main")
-    public String commyMain(Model m,String type, String searchWord,
-							@RequestParam(name="page",defaultValue="1") int page) {
+    public String commyMain(Model m,
+							@RequestParam(name="page",defaultValue="1") int page,String searchWord) {
     	// 모든 게시물 목록 가져옴
 		// 복잡한 코드는 서비스에 넘겨서 받는다.
-		PageNavigator navi = service.getPageNavigator(pagePerGroup, countPerPage, page, type, searchWord);
+		PageNavigator navi = service.getPageNavigator(pagePerGroup, countPerPage, page,searchWord);
 		
-		List<Board> list = service.boardList(navi, type, searchWord); 
+		HashMap<String, String> map = new HashMap<>();
+		map.put("searchWord", searchWord);
+
+		List<Board> list = service.boardList(navi,searchWord); 
     	
     	m.addAttribute("list", list);
 		m.addAttribute("navi", navi);
-		m.addAttribute("type", type);
 		m.addAttribute("searchWord", searchWord);
 		return ("/communityForm/mainPage");
     }
