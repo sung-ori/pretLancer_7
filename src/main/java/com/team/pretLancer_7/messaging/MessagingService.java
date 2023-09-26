@@ -180,9 +180,10 @@ public class MessagingService {
         str += " 평가를 통과하지 못했습니다.";
         str += " 사유를 확인해주세요";
         
-        // 해당 게시글로 이동
-        // TODO: 평가 결과 볼 수 있는 페이지 만들고 이동할 수 있는 url 을 만든다. 
-        href += "http://" ;
+        
+        // TODO: 평가 결과 볼 수 있는 페이지 만들고 이동할 수 있는 url 을 만든다.
+
+        href += "http://localhost/pretLancer/" ;
         
         msg.setMessagetype("SFT");
         msg.setMemberid(userid);
@@ -192,10 +193,12 @@ public class MessagingService {
 
         dao.insertMessage(msg);
 //============================================================================
-//      여기부터는 번역 신청한 사람이 받는 메세지
+        // 여기부터는 번역 신청한 사람이 받는 메세지
         str = "";
         userid = Rdao.SRS(ts.getRequestnum_s()).getMemberid();
-        href = "" ;
+
+        // 
+        href = "#" ;
 
         str += userid;
         str += "님이 신청하신";
@@ -229,7 +232,7 @@ public class MessagingService {
         
         
         // TODO: 번역 결과를 볼 수 있는 페이지를 만들고 이동할 수 있는 url 을 만든다. 
-        href += "" ;
+        href += "http://localhost/pretLancer" ;
         
         msg.setMessagetype("SCR");
         msg.setMemberid(userid);
@@ -244,7 +247,7 @@ public class MessagingService {
 
         str = "";
         userid = ts.getMemberid();
-        href = "" ;
+        href = "#" ;
 
         str += userid;
         str += "님이 번역하신";
@@ -277,8 +280,8 @@ public class MessagingService {
         str += " 완료되어";
         str += " 이제 평가중입니다!.";
         
-        // 해당 게시글로 이동
-        href += "" ;
+        
+        href += "#" ;
         
         msg.setMessagetype("ME");
         msg.setMemberid(userid);
@@ -304,7 +307,7 @@ public class MessagingService {
         
         // 해당 게시글로 이동
         // TODO: 평가 결과 볼 수 있는 페이지 만들고 이동할 수 있는 url 을 만든다. 
-        href += "" ;
+        href += "http://localhost/pretLancer/" ;
         
         msg.setMessagetype("MFT");
         msg.setMemberid(userid);
@@ -317,7 +320,7 @@ public class MessagingService {
 //      여기부터는 번역 신청한 사람이 받는 메세지
         str = "";
         userid = Rdao.SRM(tm.getRequestnum_m()).getMemberid();
-        href = "" ;
+        href = "#" ;
 
         str += userid;
         str += "님이 신청하신";
@@ -351,7 +354,7 @@ public class MessagingService {
         
         
         // TODO: 번역 결과를 볼 수 있는 페이지를 만들고 이동할 수 있는 url 을 만든다. 
-        href += "" ;
+        href += "http://localhost/pretLancer/" ;
         
         msg.setMessagetype("MCR");
         msg.setMemberid(userid);
@@ -366,7 +369,7 @@ public class MessagingService {
 
         str = "";
         userid = tm.getMemberid();
-        href = "" ;
+        href = "#" ;
 
         str += userid;
         str += "님이 번역하신";
@@ -401,7 +404,7 @@ public class MessagingService {
         str += " 지금 확인해보세요!";
         
         // 해당 게시글로 이동
-        href += "http://localhost:8888/pretLancer/long/requestToMe" ;
+        href += "http://localhost:8888/pretLancer/my_page/requestToMe";
         
         msg.setMessagetype("LR");
         msg.setMemberid(userid);
@@ -427,7 +430,7 @@ public class MessagingService {
         str += " 보낸 장문번역📑 요청이 승낙받았습니다!";        
 
         // TODO: 아직 없지만 내 요청 목록 페이지로 가도 좋을 듯
-        href += "http://localhost:8888/pretLancer/long/myRequest" ;
+        href += "http://localhost:8888/pretLancer/my_page/myRequest" ;
         
         msg.setMessagetype("LA");
         msg.setMemberid(userid);
@@ -453,7 +456,7 @@ public class MessagingService {
         str += " 보낸 장문번역📑 요청이 거절되었습니다.";        
 
         // TODO: 아직 없지만 내 요청 목록 페이지로 가도 좋을 듯
-        href += "http://localhost:8888/pretLancer/long/myRequest" ;
+        href += "http://localhost:8888/pretLancer/my_page/myRequest" ;
         
         msg.setMessagetype("LF");
         msg.setMemberid(userid);
@@ -481,7 +484,7 @@ public class MessagingService {
 
 
         // TODO: 채팅 없으면 파일 다운로드 받는 페이지가 필요하다. 
-        href += "" ;
+        href += "http://localhost/pertLancer/long/readAccessRequestInfo?requestnum_l="+map.get("requestnum") ;
         
         msg.setMessagetype("LB");
         msg.setMemberid(userid);
@@ -494,10 +497,59 @@ public class MessagingService {
 
 
     // 내가 신청한 요청 / 경매 의뢰가 완료되었다는 알림
-    public void writeLC() {
+    public void writeLC(int requestnum) {
+        String str ="";
+        String userid = Ldao.selectOneRequest_L(requestnum).getMemberid();
+        Message msg = new Message();
+        String href = "";
+
+        str += userid;
+        str += "님! ";
+        str += Ldao.selectOneRequest_L(requestnum).getMemberid2();
+        str += "님이";
+        str += " 장문번역📑을 완료했습니다!";
+        str += " 지금 확인하세요!";
+
+
+        // TODO: 채팅 없으면 파일 다운로드 받는 페이지가 필요하다. 
+        href += "http://localhost/pertLancer/long/readResult?requestnum_l="+requestnum;
+        
+        msg.setMessagetype("LC");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
+        msg.setMessage(str);
+        msg.setHref(href);
+
+        dao.insertMessage(msg);
         // TODO: 채팅이 없으면 파일을 올릴 페이지가 필요하고 버튼을 누르면 처리 . 
     }
 
+    // 내가 한 번역이 성공 당함.
+    public void writeLS(int requestnum) {
+        String str ="";
+        String userid = Ldao.selectOneRequest_L(requestnum).getMemberid2();
+        Message msg = new Message();
+        String href = "";
+
+        str += userid;
+        str += "님! ";
+        str += "완성하신 장문번역📑이";
+        str += " 성공 처리 됐습니다!";
+        str += " 지금 확인하세요!";
+
+
+        // 리워드 출입 확인 페이지가 있으면 좋을 듯.
+        href += "#";
+        
+        msg.setMessagetype("LS");
+        msg.setMemberid(userid);
+        msg.setSender("Admin");
+        msg.setMessage(str);
+        msg.setHref(href);
+
+        dao.insertMessage(msg);
+        // TODO: 채팅이 없으면 파일을 올릴 페이지가 필요하고 버튼을 누르면 처리 . 
+    }
     // 내 메세지를 읽어온다. 
     public List<Message> getMyMessages(String userid) {
 

@@ -173,10 +173,8 @@ public class LongTranslateController {
 		map.put("auctionnum",auctionnum);
 		int rst =  service.successfulBid(map);
 
-        
-		
-
 	}
+
     @GetMapping("/readRequestInfo")
     public String readRequestInfo(Model model, @RequestParam(name = "requestnum_l") int requestnum_l) {
 
@@ -214,6 +212,7 @@ public class LongTranslateController {
     public void uploadTest(@RequestParam("uploadfile") MultipartFile uploadfile,@RequestParam("requestnum_l") int requestnum_l) {
         log.info("알려줘! {},{}", uploadfile.getOriginalFilename(),requestnum_l);
          service.uploadResult(uploadfile,requestnum_l);
+         msg.writeLC(requestnum_l);
     }
 
     @GetMapping("/readResult")
@@ -230,9 +229,8 @@ public class LongTranslateController {
     public void success(@RequestParam("requestnum_l") int requestnum_l) {
         log.debug("되냐? : {}",""+requestnum_l);
          service.success(requestnum_l);
+         msg.writeLS(requestnum_l);
         
-
-
     }
    
 }
