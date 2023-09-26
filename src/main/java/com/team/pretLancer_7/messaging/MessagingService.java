@@ -130,7 +130,7 @@ public class MessagingService {
         
         // 이동은 없지만
         // TODO: 이용약관 페이지로 가버려도 될 듯
-        href += "";
+        href += "#";
         
         msg.setMessagetype("CP");
         msg.setMemberid(userid);
@@ -155,8 +155,8 @@ public class MessagingService {
         str += " 완료되어";
         str += " 이제 평가중입니다!.";
         
-        // 해당 게시글로 이동
-        href += "" ;
+        // 
+        href += "#" ;
         
         msg.setMessagetype("SE");
         msg.setMemberid(userid);
@@ -182,7 +182,7 @@ public class MessagingService {
         
         // 해당 게시글로 이동
         // TODO: 평가 결과 볼 수 있는 페이지 만들고 이동할 수 있는 url 을 만든다. 
-        href += "" ;
+        href += "http://" ;
         
         msg.setMessagetype("SFT");
         msg.setMemberid(userid);
