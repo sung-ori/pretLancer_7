@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.team.pretLancer_7.dao.AbilityDAO;
+import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Board;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.Message;
@@ -19,6 +21,7 @@ import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.service.CommunityService;
 import com.team.pretLancer_7.service.EvaluationService;
+import com.team.pretLancer_7.service.ExamService;
 import com.team.pretLancer_7.service.LongService;
 import com.team.pretLancer_7.service.MemberService;
 import com.team.pretLancer_7.service.RequestService;
@@ -43,11 +46,14 @@ public class MainController {
 	CommunityService Cservice;
 	
     @Autowired
-    MessagingService Mservice;
-	
-    @Autowired
     LongService Lservice;
-
+    
+    @Autowired
+    AbilityDAO Adao;
+    
+    @Autowired
+    MessagingService Mservice;
+    
 	// 로그인 전 메인페이지
     @GetMapping({" ", "/"})
     public String mainForm() {
@@ -75,11 +81,21 @@ public class MainController {
     	int TcountM = Rservice.TranslatedCountM();
     	int Ecount = Rservice.EvaluationCount();
     	
+    	List<Ability> ExamAlot = Adao.ExamAlot();
+    	List<Ability> TranslatedAlotS = Adao.TranslatedAlotS();
+    	List<Ability> TranslatedAlotM = Adao.TranslatedAlotM();
+    	List<Ability> EvaluationAlot = Adao.EvaluationAlot();
+    	
         m.addAttribute("Rcount", Rcount);
         m.addAttribute("TcountS", TcountS);
         m.addAttribute("TcountM", TcountM);
         m.addAttribute("Ecount", Ecount);
         
+        m.addAttribute("ExamAlot", ExamAlot);
+        m.addAttribute("TranslatedAlotS", TranslatedAlotS);
+        m.addAttribute("TranslatedAlotM", TranslatedAlotM);
+        m.addAttribute("EvaluationAlot", EvaluationAlot);
+         
     	return "main3";
     }
  

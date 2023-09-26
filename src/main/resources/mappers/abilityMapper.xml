@@ -44,4 +44,44 @@
 	update pret_ability set efailed = efailed + 1 where memberid = #{memberid}
 	</update>
 	
+	<select id="ExamAlot" resultType="Ability">
+	SELECT *
+	FROM (
+    	SELECT *
+   		FROM pret_ability
+  		ORDER BY psucceed DESC
+		)
+	WHERE ROWNUM &lt;= 5
+	</select>
+	
+	<select id="TranslatedAlotS" resultType="Ability">
+	SELECT *
+	FROM (
+    	SELECT *
+   		FROM pret_ability
+  		ORDER BY ssucceed DESC
+		)
+	WHERE ROWNUM &lt;= 5
+	</select>
+	
+	<select id="TranslatedAlotM" resultType="Ability">
+	SELECT *
+	FROM (
+    	SELECT *
+   		FROM pret_ability
+  		ORDER BY msucceed DESC
+		)
+	WHERE ROWNUM &lt;= 5
+	</select>
+	
+	<select id="EvaluationAlot" resultType="Ability">
+	SELECT *
+	FROM (
+    	SELECT *
+   		FROM pret_ability
+  		ORDER BY esucceed DESC
+		)
+	WHERE ROWNUM &lt;= 5
+	</select>
+	
 </mapper>
