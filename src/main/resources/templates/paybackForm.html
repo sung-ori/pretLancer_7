@@ -56,7 +56,7 @@
         function commission() {
             let cash = $("#cash").val();
             
-            realcash = Math.ceil(cash - cash*0.15);
+            realcash = Math.ceil(cash - cash*0.05);
 
             $("#realcash").val(realcash);
         }
@@ -98,7 +98,7 @@
         <label for="cash">출금 신청 금액</label>
         <input class="form-text text-end" type="text" id="cash" onkeyup="validation()"> <br>
         <div class="text-bg-info">
-            <p>수수료 15%</p>
+            <p>수수료 5%</p>
         </div>
         <label for="realcash">실제 입금 금액</label>
         <input class="form-text text-end" type="text" id="realcash" onkeyup="" readonly>

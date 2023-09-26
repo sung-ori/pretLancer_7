@@ -72,7 +72,7 @@ public class RewardController {
                             @RequestParam(name="cash") int cash){
         String userid = user.getUsername();
         Member userinfo = mdao.selectOne(userid);
-        int realcash = (int)(cash - cash*(0.15));
+        int realcash = (int)(cash - cash*(0.05));
 
         service.payback(userid, cash);
 
