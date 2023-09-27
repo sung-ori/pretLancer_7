@@ -192,14 +192,22 @@
 		        }
 		    });
 		})
-		
+
 		function check() {
-			let val = $("input:radio[name=evaluationSuccess]:checked").val();
+			var checkval = $('input:radio[name=evaluationSuccess]').is(':checked');
+			var evaval = $('input:radio[name=evaluationSuccess]:checked').val();
+			var checkval2 = $('input:radio[name=whyFailed]').is(':checked');
 			
-			if (val == 2 && why == null) {
-				alert('어떤 문제가 있었는지 선택해주세요.')
+			if (!checkval) {
+				alert('평가해주세요.');
 				return false;
 			}
+			
+			if (checkval && evaval == 2 && !checkval2) {
+				alert('문제가 있는 부분을 골라주세요.');
+				return false;
+			}
+			
 			return true;
 		}
 
@@ -254,7 +262,7 @@
 					</td>
 					<td style = "vertical-align : top;">
 						<p><b>왼쪽의 번역은 잘 되었나요?</b></p>
-						<input type = "radio" name = "evaluationSuccess" class = "evaluationSuccess" value = "1" id = "eva_yes" checked> 문제 없이 잘 되었습니다.<br>
+						<input type = "radio" name = "evaluationSuccess" class = "evaluationSuccess" value = "1" id = "eva_yes"> 문제 없이 잘 되었습니다.<br>
 						<input type = "radio" name = "evaluationSuccess" class = "evaluationSuccess" value = "2" id = "eva_no"> 번역에 문제가 있습니다.<br>
 						<br><br>
 						

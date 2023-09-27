@@ -179,19 +179,36 @@
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	<script type="text/javascript">
-		let why = document.getElementsByName('whyFailed').value;
 
 		$(document).ready(function() {
 		    $("input:radio[name=evaluationSuccess]").click(function(){
 		    	 
 		        if($("input:radio[name=evaluationSuccess]:checked").val() == "1"){
 		            $("input:radio[name=whyFailed]").attr("disabled",true);	
-		            why = null;
+		            $("input:radio[name=whyFailed]").prop("checked",false);	
 		        }else if($("input:radio[name=evaluationSuccess]:checked").val() == "2"){
 		            $("input:radio[name=whyFailed]").attr("disabled",false);
 		        }
 		    });
 		})
+		
+		function check() {
+			var checkval = $('input:radio[name=evaluationSuccess]').is(':checked');
+			var evaval = $('input:radio[name=evaluationSuccess]:checked').val();
+			var checkval2 = $('input:radio[name=whyFailed]').is(':checked');
+			
+			if (!checkval) {
+				alert('평가해주세요.');
+				return false;
+			}
+			
+			if (checkval && evaval == 2 && !checkval2) {
+				alert('문제가 있는 부분을 골라주세요.');
+				return false;
+			}
+			
+			return true;
+		}
 
 	</script>
 
