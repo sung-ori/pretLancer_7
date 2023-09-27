@@ -151,7 +151,15 @@
 		
 	</style>
 	<script type="text/javascript">
-	
+		window.onload = function() {
+			let answer_num = '[[${answer_num}]]';
+			
+			if (answer_num >= 20) {
+				alert('오늘의 연습문제를 모두 완료하셨습니다. 확인버튼을 누르시면 메인으로 이동합니다.');
+				location.href = 'http://localhost:8888/pretLancer/main';
+			}
+		}
+		
 		$(document).ready( function() {
 			$('#correct').ready(changeColor);
 			$('#answer_check').ready(answer_check);

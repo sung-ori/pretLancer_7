@@ -113,7 +113,7 @@ public class ExamController {
 			answer_num = (int) session.getAttribute("answer_num");
 
 		m.addAttribute("answer_num", answer_num);
-
+		
 		return "examForm/exam";
 	}
 	
