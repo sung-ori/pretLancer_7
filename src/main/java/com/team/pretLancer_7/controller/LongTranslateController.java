@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.AuctionTranslator;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.service.LongService;
+import com.team.pretLancer_7.service.MypageService;
 import com.team.pretLancer_7.utill.PageNavigator;
 
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +37,8 @@ public class LongTranslateController {
     LongService service;
     @Autowired
     MessagingService msg;
+    @Autowired
+    MypageService mService;
 
     @Value("${user.TL.page}")
 	int countPerPage;
@@ -70,7 +74,9 @@ public class LongTranslateController {
     public String translatorProfile(Model model, @RequestParam(name="memberid") String memberid, @AuthenticationPrincipal UserDetails user ) {
         String loginId = user.getUsername();
         MyPage translatorProfile = service.getOneMyPage(memberid);
+        Ability ab = mService.getAbility(user.getUsername());
 
+        model.addAttribute("ability", ab);
         model.addAttribute("tp", translatorProfile);
         model.addAttribute("loginId", loginId);
 
