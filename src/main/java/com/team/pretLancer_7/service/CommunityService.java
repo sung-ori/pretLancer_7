@@ -8,10 +8,9 @@ import com.team.pretLancer_7.utill.PageNavigator;
 
 public interface CommunityService {
     
-    public List<Board> boardList(PageNavigator navi, String type, String searchWord) ;
+    public List<Board> boardList(PageNavigator navi,String searchWord) ;
 	
-	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page, String type,
-	String searchWord);
+	public PageNavigator getPageNavigator(int pagePerGroup, int countPerPage, int page,String searchword);
 	public Board boardListOne(int boardnum);
 
 	public List<Reply> replyList(int boardnum);

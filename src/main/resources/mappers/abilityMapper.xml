@@ -84,4 +84,52 @@
 	WHERE ROWNUM &lt;= 5
 	</select>
 	
+	<select id="getPper" parameterType="String" resultType="int">
+	SELECT
+		ROUND (
+    	CASE 
+        	WHEN (psucceed + pfailed) = 0 THEN 0 
+        	ELSE (psucceed / (psucceed + pfailed)) * 100
+    	END ) AS success_rate
+	FROM pret_ability
+	WHERE memberid = #{memberid}
+	</select>
+	
+	<select id="getSper" parameterType="String" resultType="int">
+	SELECT
+		ROUND (
+    	CASE 
+        	WHEN (ssucceed + sfailed) = 0 THEN 0 
+        	ELSE (ssucceed / (ssucceed + sfailed)) * 100
+    	END ) AS success_rate
+	FROM pret_ability
+	WHERE memberid = #{memberid}
+	</select>
+	
+	<select id="getMper" parameterType="String" resultType="int">
+	SELECT 
+		ROUND (
+    	CASE 
+        	WHEN (msucceed + mfailed) = 0 THEN 0 
+        	ELSE (msucceed / (msucceed + mfailed)) * 100
+    	END ) AS success_rate
+	FROM pret_ability
+	WHERE memberid = #{memberid}
+	</select>
+	
+	<select id="getEper" parameterType="String" resultType="int">
+	SELECT 
+		ROUND (
+    	CASE 
+        	WHEN (esucceed + efailed) = 0 THEN 0 
+        	ELSE (esucceed / (esucceed + efailed)) * 100
+    	END ) AS success_rate
+	FROM pret_ability
+	WHERE memberid = #{memberid}
+	</select>
+	
+	<select id="getAbility" parameterType="String" resultType="Ability">
+	SELECT * FROM pret_ability where memberid = #{memberid}
+	</select>
+	
 </mapper>

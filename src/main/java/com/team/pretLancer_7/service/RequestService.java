@@ -1,5 +1,7 @@
 package com.team.pretLancer_7.service;
 
+import java.util.List;
+
 import com.team.pretLancer_7.domain.Request_M;
 import com.team.pretLancer_7.domain.Request_S;
 
@@ -28,5 +30,8 @@ public interface RequestService {
 	int TranslatedCountS();
 	int TranslatedCountM();
 	int EvaluationCount();
-	
+
+	List<Request_S> getRequestS(String username);
+	List<Request_M> getRequestM(String username);
+
 }

@@ -140,7 +140,7 @@
 		    <div class="col">
 		    	<p th:if="${#authentication.name} == ${board.memberid}" class="text-right">
 		            <a th:href="@{/community/updateForm(boardnum=${board.boardnum})}" class="btn btn-primary">글 수정</a>
-		            <a th:href="@{/community/delete(boardnum=${board.boardnum})}" class="btn btn-danger">글 지우기</a>
+		            <a th:href="@{/community/delete(boardnum=${board.boardnum})}" class="btn btn-danger" id="delete">글 지우기</a>
 		        </p>
 		    </div>
 		</div>

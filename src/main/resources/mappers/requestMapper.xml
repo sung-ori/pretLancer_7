@@ -125,4 +125,12 @@
 	SELECT COUNT(*) FROM pret_request_m where requestcondition_m = 'E'
 	</select>
 	
+	<select id="rsList" parameterType="String" resultType="Request_S">
+	SELECT pret_request_s where memberid = #{memberid}
+	</select>
+	
+	<select id="rmList" parameterType="String" resultType="Request_M">
+	SELECT pret_request_m where memberid = #{memberid}
+	</select>
+	
 </mapper>

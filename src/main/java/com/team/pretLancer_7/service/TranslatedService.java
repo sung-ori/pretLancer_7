@@ -1,5 +1,7 @@
 package com.team.pretLancer_7.service;
 
+import java.util.List;
+
 import com.team.pretLancer_7.domain.Request_M;
 import com.team.pretLancer_7.domain.Request_S;
 import com.team.pretLancer_7.domain.Translated_M;
@@ -22,5 +24,8 @@ public interface TranslatedService {
 	Translated_S getMyTS(Request_S myorderS);
 
 	Translated_M getMyTM(Request_M myorderM);
-	
+
+	List<Translated_S> getTranslatedS(String username);
+	List<Translated_M> getTranslatedM(String username);
+
 }

@@ -50,7 +50,7 @@ public class MessagingService {
         str += "님 🎉프릿랜서에 가입하신걸 환영합니다🎉";
         str += " 마이프로필을 작성해주세요!";
         // 아직 수정 경로가 없어서 마이프로필로 접근
-        href += "http://localhost:8888/pretLancer/my_page/MyProfile";
+        href += "http://localhost:8888/pretLancer/my_page/main";
         
         msg.setMessagetype("MP");
         msg.setMemberid(userid);
@@ -72,7 +72,7 @@ public class MessagingService {
         str += "님! 번역 활동을 원하시면";
         str += " 튜토리얼을 완료해주세요!";
         // 튜토리얼 페이지로 이동
-        href += "http://localhost:8888/pretLancer/tlanslated/tumemberidrial";
+        href += "http://localhost:8888/pretLancer/translated/tutorial";
         
         msg.setMessagetype("MT");
         msg.setMemberid(userid);
@@ -430,7 +430,7 @@ public class MessagingService {
         str += " 보낸 장문번역📑 요청이 승낙받았습니다!";        
 
         // TODO: 아직 없지만 내 요청 목록 페이지로 가도 좋을 듯
-        href += "http://localhost:8888/pretLancer/my_page/myRequest" ;
+        href += "http://localhost:8888/pretLancer/my_page/myRequestList" ;
         
         msg.setMessagetype("LA");
         msg.setMemberid(userid);
@@ -456,7 +456,7 @@ public class MessagingService {
         str += " 보낸 장문번역📑 요청이 거절되었습니다.";        
 
         // TODO: 아직 없지만 내 요청 목록 페이지로 가도 좋을 듯
-        href += "http://localhost:8888/pretLancer/my_page/myRequest" ;
+        href += "http://localhost:8888/pretLancer/my_page/myRequestList" ;
         
         msg.setMessagetype("LF");
         msg.setMemberid(userid);

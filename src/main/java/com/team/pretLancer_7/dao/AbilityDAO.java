@@ -36,4 +36,11 @@ public interface AbilityDAO {
 	public List<Ability> TranslatedAlotM();
 	public List<Ability> EvaluationAlot();
 	
+	// 번역율 %로 가져옴
+	public int getPper(String username);
+	public int getSper(String username);
+	public int getMper(String username);
+	public int getEper(String username);
+	public Ability getAbility(String username);
+		
 }
