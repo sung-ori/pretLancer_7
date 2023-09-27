@@ -226,7 +226,10 @@
 			<br>
 			<!-- 번역 요청 내용을 가지고 온다 -->
 			<span th:text = "${translated?.requestcontent_s}" class = "input_translated">번역 내용 기본값</span>
-			<br>
+			<br><br>
+			<span>※번역에 대한 요청사항입니다.</span><br>
+			<textarea id = "comment_sr" name = "comment_sr" class = "comment_input" readonly style = "color : #2334DE; width : 900px;" th:value = "${request?.comment_sr}" readonly>코멘트가 없습니다.</textarea>
+
 			<br>
 		</div>
 			
@@ -248,7 +251,6 @@
 						<textarea name = "translatedcontent_s" class = "answer_input" id = "translatedcontent_s" th:value = "${translated?.translatedcontent_s}" readonly></textarea> <br>
 						<span>※비고 및 주석: 번역가가 남긴 원문에 대한 주석, 참고사항입니다.</span><br>
 						<textarea id = "comment_st" name = "comment_st" class = "comment_input" readonly style = "color : #2334DE; width : 500px;" th:value = "${translated?.comment_st}" readonly>코멘트가 없습니다.</textarea>
-						<input type = "button" value = "나가기" class = "exit_button" id = "exit_button">
 					</td>
 					<td style = "vertical-align : top;">
 						<p><b>왼쪽의 번역은 잘 되었나요?</b></p>

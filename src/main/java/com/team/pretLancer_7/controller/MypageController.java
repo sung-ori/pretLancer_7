@@ -220,4 +220,9 @@ public class MypageController {
     	service.changeNick(member);
     	
     }
+    
+    @GetMapping("changePhoto")
+    public String changePhoto() {
+    	return "mypageform/changePhoto";
+    }
 }

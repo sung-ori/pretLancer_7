@@ -65,4 +65,6 @@ public interface RequestDAO {
 	int EScount();
 	int EMcount();
 	
+	//동일한 translatednum을 사용하는 리퀘스트를 가져옴 (리퀘스트에서 코멘트를 가져오기 위함임)
+	
 }

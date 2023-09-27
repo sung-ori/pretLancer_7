@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.team.pretLancer_7.domain.Evaluation_M;
 import com.team.pretLancer_7.domain.Evaluation_S;
+import com.team.pretLancer_7.domain.Request_M;
+import com.team.pretLancer_7.domain.Request_S;
 import com.team.pretLancer_7.domain.Translated_M;
 import com.team.pretLancer_7.domain.Translated_S;
 import com.team.pretLancer_7.service.EvaluationService;
@@ -33,12 +35,15 @@ public class EvaluationController {
 	public String getES(Model m) {
 		// 평가 갯수가 5개 이하인 번역된 내용을 가져옴
 		Translated_S ts = service.getES();
+		int request_num = ts.getRequestnum_s();
+		Request_S rs = service.getRS(request_num);
 		
 		if (ts == null) {
 			return "errorForm/NoEvaluation";
 		}
 		
 		m.addAttribute("translated", ts);
+		m.addAttribute("request", rs);
 
 		return "evaluationForm/evaluatedPageS";
 	}
@@ -47,12 +52,15 @@ public class EvaluationController {
 	public String getEM(Model m) {
 		// 평가 갯수가 5개 이하인 번역된 내용을 가져옴
 		Translated_M tm = service.getEM();
+		int request_num = tm.getRequestnum_m();
+		Request_M rm = service.getRM(request_num);
 		
 		if (tm == null) {
 			return "errorForm/NoEvaluation";
 		}
 		
 		m.addAttribute("translated", tm);
+		m.addAttribute("request", rm);
 		
 		return "evaluationForm/evaluatedPageM";
 	}

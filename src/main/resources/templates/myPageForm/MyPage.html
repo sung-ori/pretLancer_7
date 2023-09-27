@@ -259,13 +259,7 @@
 		
 		<!-- 000 님의 마이페이지가 출력되는 영역 -->
 		<p><img th:if="${mypage.originphoto}" th:src="@{/my_page/getPhoto(memberid=${mypage.memberid})}" style="border-radius : 70% ; width: 100px;"></p>
-		<form th:action="@{/my_page/MpUpdate}" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="memberid" th:value="${mypage.memberid}"/>
-			<input type="file" name="upload"/>
-			<input type="submit" value="사진 변경하기"/>
-		</form>
-		
-		<br>
+		<p><a th:href = "@{/my_page/changePhoto}" style = "font-size : 15px;">프로필 사진 변경</a></p>		
 
 		
 		<!-- 개인정보가 출력되는 영역 -->
