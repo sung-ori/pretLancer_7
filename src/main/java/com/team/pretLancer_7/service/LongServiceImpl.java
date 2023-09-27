@@ -312,21 +312,22 @@ public class LongServiceImpl implements LongService{
     @Override
     public void pay(String userid, String cash) {
         Map<String, String> map = new HashMap();
-        map.put("message","pay");
+        // map.put("message","pay");
         map.put("userid", userid);
         map.put("cash", cash);
-        dao.updatePay(map);
+        log.info("오냐? {}", map);
+        dao.updateCashPay(map);
     }
 
     @Override
     public void getmoney(String userid, String cash) {
         Map<String, String> map = new HashMap();
-        map.put("message","getmoney");
+        // map.put("message","getmoney");
         map.put("userid", userid);
         map.put("cash", cash);
         log.info("오냐? {}", map);
 
-        dao.updatePay(map);
+        dao.updateCashGet(map);
     }
 
     @Override

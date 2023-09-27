@@ -172,20 +172,19 @@
                 where memberid2 = #{userid} and requestcondition_l = 'T'
         </select>
 
-        <update id="updatePay" parameterType="Map">
+        <update id="updateCashPay" parameterType="Map">
                 update pret_member
                 set
-                <if test="message == 'pay'">
-                        cash  = cash - #{cash},
-                        
-                </if>
-
-                <if test="message == 'getmoney'">
-                        cash  = cash + #{cash},
-                </if>
+                cash  = cash - #{cash},
+                where memberid = #{userid}
+        </update>
+        <update id="updateCashGet" parameterType="Map">
+                update pret_member
+                set
+                cash  = cash + #{cash},
                 where memberid = #{userid}
         </update>
 
-
+        
         <!-- 배치 이용해서 12시마다 마감됐는지 확인하고, 그에 맞는 처리를 한다. /DB의 수정, 메세지 전송 등  -->
 </mapper>

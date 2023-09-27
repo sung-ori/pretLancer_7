@@ -54,7 +54,9 @@ public interface LongDAO {
 
     public Request_L selectTranslateNow(String userid);
 
-    public int updatePay(Map<String, String> map);
+    public int updateCashPay(Map<String, Object> map);
+
+    public int updateCashGet(Map<String, String> map);
 
     
 }

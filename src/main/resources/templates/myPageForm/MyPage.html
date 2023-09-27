@@ -205,38 +205,53 @@
  // 바에 게이지 채워줌.  "ability" 로 보내주세용
 	function progress() {
 
-		let ps =  $("#ps").val();
-		let pf =  $("#pf").val();
-		let pper = (ps /(ps+pf)) *100;
+		
 
 		let ss =  $("#ss").val();
 		let sf =  $("#sf").val();
-		let sper = (ss /(ss+sf)) *100;
-
+		let sper = parseInt(((ss /(ss+sf))*1000));
+		if(isNaN(sper)){
+			sper = 0;
+		}
 		let ms =  $("#ms").val();
 		let mf =  $("#mf").val();
-		let mper = (ms /(ms+mf)) *100;
-
+		let mper = parseInt((ms /(ms+mf)) *1000);
+		if(isNaN(mper)){
+			mper = 0;
+		}
+		let ps =  $("#ps").val();
+		let pf =  $("#pf").val();
+		let pper = parseInt((ps /(ps+pf)) *1000);
+		if(isNaN(pper)){
+			pper = 0;
+		}
 		let es =  $("#es").val();
 		let ef =  $("#ef").val();
-		let eper = (es /(es+ef)) *100;
-
-		let memex = $("#memex").val();
-
-		let pst = memex / 50000 * 100 ;
+		let eper = parseInt((es /(es+ef)) *1000);
+		if(isNaN(eper)){
+			eper = 0;
+		}
+		
 
 		$("#persb").attr("style","width :" +sper+"%");
 		$("#pers").attr("aria-valuenow",sper);
+		$("#persb").text(sper + "%");
+		
 		
 		$("#permb").attr("style","width :" +mper+"%");
 		$("#perm").attr("aria-valuenow",mper);
-		
-		$("#pereb").attr("style","width :" +eper+"%");
-		$("#pere").attr("aria-valuenow",eper);
-
+		$("#permb").text(mper + "%");
+			
 		$("#perpb").attr("style","width :" +pper+"%");
 		$("#perp").attr("aria-valuenow",pper);
-
+		$("#perpb").text(pper + "%");
+			
+		$("#pereb").attr("style","width :" +eper+"%");
+		$("#pere").attr("aria-valuenow",eper);
+		$("#pereb").text(eper + "%");
+			
+		
+		
 	}
 
 

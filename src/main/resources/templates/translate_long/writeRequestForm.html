@@ -60,6 +60,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                     },
                     error: function() {}
                 })
+            return true;
         }
         
         function validation() {
@@ -81,7 +82,6 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             let dateString = year + '-' + month  + '-' + day;
 
             
-            alert(formFile);
             
             if(title == "") {
                 alert("제목을 입력해주세요.");
@@ -109,7 +109,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                 return false;
             }
             if(comment_lr == "") {
-                alert(comment_lr);
+            
                 alert("번역 요청 설명란을 작성해주세요");
                 return false;
             }

@@ -10,6 +10,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
     <title>요청 상세정보</title>
     <script>
         $(document).ready(function() {
+            extension();
            $("#success").on("click", function() {
             let rqln = $("#requestnum").val();
             
@@ -31,6 +32,17 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
            })
         });
 
+        function extension() {
+            let file = $("#file").val();
+            
+            let parts = file.split('.');
+
+            let extension = parts.pop();
+
+            $("#download").attr("download",file);
+        
+        }
+
     </script>
 </head>
 <body>
@@ -38,6 +50,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
     <h1>번역 결과 돌려받는다. </h1>
 
     <input type="hidden" id="requestnum" th:value="${result.requestnum_l}">
+    <input type="hidden" id="file" th:value="${result.savedtfile}">
     <div class="container">
         <div>
             <span>요청 제목 : </span>
@@ -55,7 +68,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
         
         <div>
             <span>번역된 파일 다운로드 : </span>
-            <a th:href="|@{/translate}/${result.savedtfile}|" class="btn btn-success" th:download="|${result.memberid}_${result.title}|" >번역된 파일</a>
+            <a id="download" th:href="|@{/donwloadT?fileName=}${result.savedtfile}|" class="btn btn-success" th:download="|${result.memberid}_${result.title}|" >번역된 파일</a>
         </div>
         <div>
             <div th:if="${result.requestcondition_l} == 'E'">
