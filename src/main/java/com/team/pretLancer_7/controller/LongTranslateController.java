@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.service.LongService;
+import com.team.pretLancer_7.utill.PageNavigator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,6 +36,11 @@ public class LongTranslateController {
     @Autowired
     MessagingService msg;
 
+    @Value("${user.TL.page}")
+	int countPerPage;
+	//게시판 목록의 페이지 이동 링크 수
+	@Value("${user.TL.group}")
+	int pagePerGroup;
     
 
     @GetMapping("/main")
@@ -42,10 +49,19 @@ public class LongTranslateController {
     }
 
     @GetMapping("/request")
-    public String requestForm(Model model,@AuthenticationPrincipal UserDetails user) {
-        List<MyPage> translatorList = service.getTranslatorList(user.getUsername());
+    public String requestForm(Model model,@AuthenticationPrincipal UserDetails user,String type, String searchWord,
+    @RequestParam(name="page",defaultValue="1") int page) {
+
+        String userid = user.getUsername();
+
+        PageNavigator navi = service.getPageNavigatorT(pagePerGroup, countPerPage, page, type, userid);
+
+        List<MyPage> translatorList = service.getTranslatorList(userid);
+
+
         log.error("돌아오나요? {}", translatorList);
         model.addAttribute("translatorList", translatorList);
+        model.addAttribute("navi", navi);
 
         return "translate_long/translatorList";
     }
@@ -106,7 +122,11 @@ public class LongTranslateController {
     }
 
     @GetMapping("auctionList")
-    public String auctionList(Model model,@AuthenticationPrincipal UserDetails user) {
+    public String auctionList(Model model,@AuthenticationPrincipal UserDetails user,@RequestParam(name="page",defaultValue="1") int page,String type) {
+
+        String userid = user.getUsername();
+
+        PageNavigator navi = service.getPageNavigatorA(pagePerGroup, countPerPage, page, type, userid);
         List<Request_L> auctionList =  service.getAuctionList();
 
         model.addAttribute("auctionList", auctionList);
@@ -173,10 +193,8 @@ public class LongTranslateController {
 		map.put("auctionnum",auctionnum);
 		int rst =  service.successfulBid(map);
 
-        
-		
-
 	}
+
     @GetMapping("/readRequestInfo")
     public String readRequestInfo(Model model, @RequestParam(name = "requestnum_l") int requestnum_l) {
 
@@ -197,8 +215,16 @@ public class LongTranslateController {
     // 번역가가 현재 변역중인지 확인.
     @GetMapping("/checkTranslateNow")
     @ResponseBody
-    public Request_L checkTranslateNow (String memberid) {
-        return  service.checkTranslateNow(memberid);
+    public String checkTranslateNow (String memberid) {
+        String rst = "false";
+
+        Request_L rql = service.checkTranslateNow(memberid);
+
+        if(rql == null) {
+            rst = "true";
+        }
+
+        return rst;
     }
 
     @GetMapping("/readAccessRequestInfo")
@@ -214,6 +240,7 @@ public class LongTranslateController {
     public void uploadTest(@RequestParam("uploadfile") MultipartFile uploadfile,@RequestParam("requestnum_l") int requestnum_l) {
         log.info("알려줘! {},{}", uploadfile.getOriginalFilename(),requestnum_l);
          service.uploadResult(uploadfile,requestnum_l);
+         msg.writeLC(requestnum_l);
     }
 
     @GetMapping("/readResult")
@@ -230,9 +257,8 @@ public class LongTranslateController {
     public void success(@RequestParam("requestnum_l") int requestnum_l) {
         log.debug("되냐? : {}",""+requestnum_l);
          service.success(requestnum_l);
+         msg.writeLS(requestnum_l);
         
-
-
     }
    
 }

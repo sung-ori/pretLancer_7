@@ -195,10 +195,48 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#changeNick').click(openwin);
+		progress();
 	});
 	
 	function openwin() {
 		window.open('http://localhost:8888/pretLancer/my_page/changeNick','닉네임 수정', 'w, width=500, height=300, top=200, left=600');
+	}
+
+ // 바에 게이지 채워줌.  "ability" 로 보내주세용
+	function progress() {
+
+		let ps =  $("#ps").val();
+		let pf =  $("#pf").val();
+		let pper = (ps /(ps+pf)) *100;
+
+		let ss =  $("#ss").val();
+		let sf =  $("#sf").val();
+		let sper = (ss /(ss+sf)) *100;
+
+		let ms =  $("#ms").val();
+		let mf =  $("#mf").val();
+		let mper = (ms /(ms+mf)) *100;
+
+		let es =  $("#es").val();
+		let ef =  $("#ef").val();
+		let eper = (es /(es+ef)) *100;
+
+		let memex = $("#memex").val();
+
+		let pst = memex / 50000 * 100 ;
+
+		$("#persb").attr("style","width :" +sper+"%");
+		$("#pers").attr("aria-valuenow",sper);
+		
+		$("#permb").attr("style","width :" +mper+"%");
+		$("#perm").attr("aria-valuenow",mper);
+		
+		$("#pereb").attr("style","width :" +eper+"%");
+		$("#pere").attr("aria-valuenow",eper);
+
+		$("#perpb").attr("style","width :" +pper+"%");
+		$("#perp").attr("aria-valuenow",pper);
+
 	}
 
 
@@ -291,6 +329,47 @@
 				</tr>
 			</table>
 		</div>
+		<!-- 게이지바  -->
+
+		<!--
+			
+		<div >
+			<input type="hidden" id="ps" th:value="${ability.psucceed}">
+			<input type="hidden" id="pf" th:value="${ability.pfailed}">
+			<input type="hidden" id="ss" th:value="${ability.ssucceed}">
+			<input type="hidden" id="sf" th:value="${ability.sfailed}">
+			<input type="hidden" id="ms" th:value="${ability.msucceed}">
+			<input type="hidden" id="mf" th:value="${ability.mfailed}">
+			<input type="hidden" id="es" th:value="${ability.esucceed}">
+			<input type="hidden" id="ef" th:value="${ability.efailed}">
+			
+			<div>
+				단문 성공률
+			</div>
+			<div class="progress" role="progressbar" id="pers"  aria-valuemin="0" aria-valuemax="100">
+				<div class="progress-bar bg-success" id="persb" ></div>
+			</div>
+			<div>
+				중문 성공률
+			</div>
+			<div class="progress" role="progressbar" id="perm"  aria-valuemin="0" aria-valuemax="100">
+				<div class="progress-bar bg-success" id="permb" ></div>
+			</div>
+			<div>
+				연습 성공률
+			</div>
+			<div class="progress" role="progressbar" id="perp"  aria-valuemin="0" aria-valuemax="100">
+				<div class="progress-bar bg-success" id="perpb" ></div>
+			</div>
+			<div>
+				평가 성공률
+			</div>
+			<div class="progress" role="progressbar" id="pere"  aria-valuemin="0" aria-valuemax="100">
+				<div class="progress-bar bg-success" id="pereb" ></div>
+			</div>
+		</div>
+
+		-->
 	</div>
 	 <!-- <div id="main"> -->
 	</div>

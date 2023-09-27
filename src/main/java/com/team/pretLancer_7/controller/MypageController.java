@@ -19,22 +19,14 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.team.pretLancer_7.dao.MemberDAO;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
-import com.team.pretLancer_7.domain.Request_M;
-import com.team.pretLancer_7.domain.Request_S;
-import com.team.pretLancer_7.domain.Translated_M;
-import com.team.pretLancer_7.domain.Translated_S;
 import com.team.pretLancer_7.service.LongService;
 import com.team.pretLancer_7.service.MemberService;
 import com.team.pretLancer_7.service.MypageService;
-import com.team.pretLancer_7.service.RequestService;
-import com.team.pretLancer_7.service.TranslatedService;
 import com.team.pretLancer_7.utill.FileService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -52,12 +44,6 @@ public class MypageController {
 
     @Autowired
     MemberService mservice;
-    
-    @Autowired
-    RequestService Rservice;
-    
-    @Autowired
-    TranslatedService Tservice;
 
 	@Autowired
 	LongService Lservice;
@@ -67,17 +53,6 @@ public class MypageController {
         
         MyPage mp =  service.getMyPage(user.getUsername());
         m.addAttribute("mypage", mp);
-        
-        // 내 번역율 (%)
-        int Pper = service.getPper(user.getUsername());
-        int Sper = service.getSper(user.getUsername());
-        int Mper = service.getMper(user.getUsername());
-        int Eper = service.getEper(user.getUsername());
-        
-        m.addAttribute("Pper", Pper);
-        m.addAttribute("Sper", Sper);
-        m.addAttribute("Mper", Mper);
-        m.addAttribute("Eper", Eper);
         
         return "/myPageForm/MyPage";
     }
@@ -169,12 +144,10 @@ public class MypageController {
 
 	 @GetMapping("/myRequestList")
     public String myAuctionList(@AuthenticationPrincipal UserDetails user, Model model) {
-        List<Request_L> myAuctionList =  Lservice.myAuctionList(user.getUsername());
+        
         List<Request_L> myRequestList =  Lservice.myRquestList(user.getUsername());
         
         model.addAttribute("myRequestList", myRequestList);
-        model.addAttribute("myAuctionList", myAuctionList);
-        log.debug("컨트롤러에 오는 나의 옥션 리스트 {}", myRequestList);
 
         return "/mypageform/myRequestList";
     }
@@ -190,38 +163,34 @@ public class MypageController {
 		
     }
     
-    // 내 의뢰 목록 (단문)
+    // 내 단문 의뢰 목록
     @GetMapping("/myRequestListS")
-    public String myRequestListS(@AuthenticationPrincipal UserDetails user, Model model) {
-    	List<Request_S> list = Rservice.getRequestS(user.getUsername());
-    	model.addAttribute("list", list);
+    public String myRequestListS() {
+    	
     	return "/mypageform/myReqeustListS";
     }
     
-    // 내 의뢰 목록 (중문)
+    // 내 중문 의뢰 목록
     @GetMapping("/myRequestListM")
-    public String myRequestListM(@AuthenticationPrincipal UserDetails user, Model model) {
-    	List<Request_M> list = Rservice.getRequestM(user.getUsername());
-    	model.addAttribute("list", list);
-    	return "/mypageform/myReqeustListS";
+    public String myRequestListM() {
+    	
+    	return "/mypageform/myReqeustListM";
     }
     
-    // 내 번역 목록 (단문)
+    // 내 단문 번역 목록
     @GetMapping("/myTranslatedS")
-    public String myTranslatedS(@AuthenticationPrincipal UserDetails user, Model model) {
-    	List<Translated_S> list = Tservice.getTranslatedS(user.getUsername());
-    	model.addAttribute("list", list);
+    public String myTranslatedS() {
+    	
     	return "/mypageform/myTranslatedS";
     }
     
-    // 내 번역 목록 (중문)
+    // 내 중문 번역 목록
     @GetMapping("/myTranslatedM")
-    public String myTranslatedM(@AuthenticationPrincipal UserDetails user, Model model) {
-    	List<Translated_M> list = Tservice.getTranslatedM(user.getUsername());
-    	model.addAttribute("list", list);
+    public String myTranslatedM() {
+    	
     	return "/mypageform/myTranslatedM";
     }
-
+    
     
     // ============================
     
@@ -231,12 +200,11 @@ public class MypageController {
     	model.addAttribute("member", member);
     	return "mypageform/changeNick";
     }
-    
-    
-    @ResponseBody
+	
     @PostMapping("changeNick")
     public void changeNick(String id, String nick) {
     	Member member = new Member();
+		
     	member.setMemberid(id);
     	member.setMembernick(nick);
     	int point = service.checkPoint(member);

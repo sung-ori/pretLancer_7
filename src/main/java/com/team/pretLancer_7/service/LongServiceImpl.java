@@ -18,6 +18,7 @@ import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.utill.FileService;
+import com.team.pretLancer_7.utill.PageNavigator;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -138,20 +139,15 @@ public class LongServiceImpl implements LongService{
         return dao.insertAuction(requestnum_l);
 
     }
+    
     //  경매 리스트를 불러온다
     @Override
     public List<Request_L> getAuctionList() {
         
-        List<Request_L> auctionList = dao.selectAuctionList();
+        ArrayList<Request_L> auctionList = dao.selectAuctionList();
 
         int idx = 0;
 
-        for(Request_L rql : auctionList) {
-            if(!rql.getRequestcondition_l().equals("N")) {
-                auctionList.remove(idx);
-            }   
-            idx++;
-        }
         return auctionList;
     }
     // 
@@ -196,21 +192,7 @@ public class LongServiceImpl implements LongService{
         return rst;
     }
 
-    @Override
-    public List<Request_L> myAuctionList(String userid) {
-        List<Request_L> list = dao.selectAuctionList();
-        ArrayList<Request_L> myAuctionList = new ArrayList();;
-
-        int idx = 0;
-        for(Request_L auction :list) {
-            if (auction.getMemberid().equals(userid)) {
-                myAuctionList.add(idx,auction);
-                idx++;
-            }
-        }
-        
-        return myAuctionList;
-    }
+    
 
     public List<Request_L> myRquestList(String userid){
         return dao.selectRequestList(userid);
@@ -221,9 +203,12 @@ public class LongServiceImpl implements LongService{
 
         String cash = dao.selectAuctionBid(map).getTranslatervalue();
         map.put("cash", cash);
+        
         // 낙찰금액 / 낙찰 회원 / 요청 번호 / 옥션 번호
         int a = dao.updateRequestAuction(map);
-        pay(map.get("userid"),cash);
+
+        pay(map.get("memberid"),cash);
+
         msg.writeLB(map);
         return a;
     }
@@ -336,9 +321,39 @@ public class LongServiceImpl implements LongService{
     @Override
     public void getmoney(String userid, String cash) {
         Map<String, String> map = new HashMap();
-        map.put("message","getmoeny");
+        map.put("message","getmoney");
         map.put("userid", userid);
         map.put("cash", cash);
+        log.info("오냐? {}", map);
+
         dao.updatePay(map);
+    }
+
+    @Override
+    public PageNavigator getPageNavigatorT(int pagePerGroup, int countPerPage, int page, String type, String userid) {
+        
+        HashMap<String, String> map = new HashMap<>();
+		map.put("type", type);
+		
+        int total = getTranslatorList(userid).size();
+
+
+		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page,total);
+		
+		return navi;
+    }
+
+    @Override
+    public PageNavigator getPageNavigatorA(int pagePerGroup, int countPerPage, int page, String type, String userid) {
+        
+        HashMap<String, String> map = new HashMap<>();
+		map.put("type", type);
+		
+        int total = getAuctionList().size();
+
+
+		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page,total);
+		
+		return navi;
     }
 }
