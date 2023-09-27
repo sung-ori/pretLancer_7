@@ -311,8 +311,9 @@ public class LongServiceImpl implements LongService{
 
     @Override
     public void pay(String userid, String cash) {
-        Map<String, String> map = new HashMap();
+        Map<String,String> map = new HashMap();
         // map.put("message","pay");
+        Integer a = Integer.parseInt(cash);
         map.put("userid", userid);
         map.put("cash", cash);
         log.info("오냐? {}", map);

@@ -103,7 +103,7 @@ public class LongTranslateController {
         service.pay(user.getUsername(),request_L.getCash());
 
         msg.writeLR(request_L);
-        return "redirect:/";
+        return "redirect:/main";
     }
 
     @GetMapping("/auction")
@@ -118,7 +118,7 @@ public class LongTranslateController {
 
         service.writeAuction(request_L,uploadFile);
 
-        return "redirect:/";
+        return "redirect:/main";
     }
 
     @GetMapping("auctionList")
@@ -223,7 +223,7 @@ public class LongTranslateController {
         if(rql == null) {
             rst = "true";
         }
-
+        log.info("번역 확인 {}",rst);
         return rst;
     }
 
