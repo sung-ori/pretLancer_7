@@ -35,6 +35,9 @@
     var content = document.getElementById('content').value;
     var result = document.getElementById('result');
     var message = document.getElementById('message');
+    var textarea = document.getElementById('content'); // textarea 요소 참조 추가
+    var button = document.getElementById("submitBtn"); //의뢰하기 버튼
+    var submitBtn = document.getElementById('submitBtn'); // 의뢰하기 버튼 요소 추가
     
  // 공백을 제외한 글자 수 세기
     var charCount = content.replace(/\s+/g, '').length;
@@ -42,20 +45,53 @@
 //     result.value = content.length;
 
 	result.value = charCount;
+	cash.value = charCount*5;
+
 	
-    if (result.value < 1000) {
+    if(result.value === 0){
+	    	submitBtn.disabled = true;
+	    }
+    else if (result.value < 1000) {
       message.innerHTML = "단문";
+      submitBtn.disabled = false; // 버튼 활성화
     } 
     else if(result.value < 3000){
     	message.innerHTML = "중문";
+    	document.getElementById('content').maxLength = 3000;
+//     	textarea.maxLength = 3000; //허용 글자 수 제한
     	$("#content").attr("name","requestcontent_m");
     	$("#comment").attr("name", "comment_mr");
     	$("#form").attr("action","./insertRM");
+    	submitBtn.disabled = false; // 버튼 활성화
     } 
     else {
-      message.innerHTML = "장문";
+    	message.innerHTML = "<span style='color: red;'>장문</span>";
+    	submitBtn.disabled = true; // 버튼 비활성화
+        alert("3000자를 초과했습니다. 더 이상 입력할 수 없습니다. 장문 페이지에서 의뢰하세요!");
+//       result.value = 3000;
+      // 글자 수 제한을 2999로 설정
+      	document.getElementById('content').value = content.slice(0, 2999);
+//         textarea.value = textarea.value.slice(0, 2999);
     }
+    document.getElementById('content').addEventListener('input', calc);
   }
+</script>
+<script>
+    function checkLanguages() {
+        var startlang = document.getElementById('startlang').value;
+        var endlang = document.getElementById('endlang').value;
+        //var submitBtn = document.getElementById('submitBtn');
+
+        if (startlang === endlang) {
+            alert("시작 언어와 도착 언어를 다르게 선택해주세요!");
+            submitBtn.disabled = true;
+        }
+        else if (startlang === "same1" || endlang === "same2"){
+        	alert("언어를 선택해주세요.");
+        	submitBtn.disabled = true; // 폼 제출을 막음
+        }
+        return true; // 폼 제출을 허용
+    }
 </script>
 	<!-- 글자세기 -->
 	<style>
@@ -83,15 +119,36 @@
     }
 </style>
 <style>
-.glass{
-	background: rgba( 255, 255, 255, 0.25 );
-	box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-	backdrop-filter: blur( 3px );
-	-webkit-backdrop-filter: blur( 3px );
-	border-radius: 10px;
-	border: 1px solid rgba( 255, 255, 255, 0.18 );
-}
+	.glass1{
+		background: rgba( 71, 71, 71, 0.55 );
+		box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+		backdrop-filter: blur( 6px );
+		-webkit-backdrop-filter: blur( 6px );
+		border-radius: 10px;
+		border: 1px solid rgba( 255, 255, 255, 0.18 );
+	}
 	
+	.glass2{
+	background: rgba( 255, 255, 255, 0.25 );
+box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+backdrop-filter: blur( 4px );
+-webkit-backdrop-filter: blur( 4px );
+border-radius: 10px;
+border: 1px solid rgba( 255, 255, 255, 0.18 );
+	}
+	.custom-row {
+    margin-right: 15px; /* 왼쪽 여백과 동일한 값으로 설정 */
+    }
+    
+    .card {
+  		margin-left: auto;
+  		margin-right: auto;
+		}
+	.shadow1{
+    	 box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.4)
+    	}
+	
+
 </style>
     
 </head>
@@ -111,47 +168,61 @@
 		<h1>의뢰하기</h1>
 	    <h3>단, 중문 의뢰</h3>
 	</div>
+	
+	<br>
+	<br>
 
 <form th:action="@{/request/insertRS}" method="post" id='form'>
-	<div class="row g-5">
-		<div class="card glass col-md-6 col-lg-5 order-md-last" style="box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2); text-align:left; background-color:#FAF9FF;">
-			<select id="selectbox" name="startlang" onchange="" class="form-select pt-1 mt-4 " style="height: 33px;width:40%; vertical-align: middle;">
-			  <option selected>시작언어 선택</option>
-			  <option value="EN">ENGLISH</option>
-			  <option value="JP">JAPNANESE</option>
-			  <option value="KR">KOREAN</option>
+	<div class="container">
+	<div class="row g-5 glass2 custom-row">
+<!-- 	background-color:#FAF9FF; -->
+		<div class="card shadow1 col-md-6 col-lg-5 order-md-last mx-auto" style="background-color:#88A1E0;">
+			<select id="startlang" name="startlang" onchange="checkLanguages()" class="form-select pt-1 mt-4 " >
+			  <option value="same1">시작언어 선택</option>
+			  <option value="KR">한국어</option>
+			  <option value="JP">일본어</option>
+			  <option value="EN">영어</option>
+
 			</select>
-			<select id="selectbox" name="endlang" onchange="" class="form-select pt-1 mt-4" style="height: 33px;width:40%; vertical-align: middle;">
-			  <option selected>도착언어 선택</option>
-			  <option value="EN">ENGLISH</option>
-			  <option value="JP">JAPNANESE</option>
-			  <option value="KR">KOREAN</option>
+			<select id="endlang" name="endlang" onchange="checkLanguages()" class="form-select pt-1 mt-4" >
+			  <option value="same2">도착언어 선택</option>
+			  <option value="KR">한국어</option>		  
+			  <option value="JP">일본어</option>
+			  <option value="EN">영어</option>
 			</select>
 			<br>
 			<textarea name = "comment_sr" class = "answer_input" id = "comment_sr" placeholder = "문의글"></textarea>
 			<br>
 			<br>
-			<span><input type="number" id="result" value="0" readonly style="border:none;" class="col-sm-3">글자</span>
-			
-			<span id="message" style="color:black;" ></span>
+			<span><input  id="result" type="number"style="border:none;" class="col-sm-3"  value="0" readonly>글자</span>
+			<br>
+			<span id="message" style="color:black; font-weight:bold;"></span>
 			<br><br>
-			<div>
-			<input id="cash" type="number" name="cash" class="col-sm-3">
+			<div >
+				<input id="cash" type="number" name="cash" class="col-sm-3" value="0" readonly> 캐쉬
+			</div>
+			<br><br><br>
+			<div th:action="@{/request/insertRS}" method="post" id='form' onsubmit="return checkLanguages()">
+				<input id="submitBtn" type="submit" class="btn btn-primary" onkeypress="calc()" disabled value="의뢰하기">
 			</div>
 			<br>
-			<div>
-			<input type="submit" class="btn btn-primary" value="의뢰하기">
+			<br>
+
+			<div  style="text-align:center; color:#dc3545; font-weight:bold;"  >
+				<< 한번 요청 하면 취소할 수 없으니, 주의하세요! >>
 			</div>
 			
 		</div>
 
-		<div class="col-md-5 col-lg-6">
-			
-				<textarea name="requestcontent_s" id='content' rows="29" cols="60" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
-			
+		<div class="card col-md-6 col-lg-6 mx-auto">
+		
+				<textarea  class="textarea-fit-card" placeholder= "글자를 입력하세요." name="requestcontent_s" id='content' rows="28" cols="48" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
+		
 		</div>
 	</div>
+	</div>
 </form>
+
 	<!-- <div id="main"> -->
 	</div> 
 	<!-- 부트스트랩  JS -->
