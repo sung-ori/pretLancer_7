@@ -1,5 +1,7 @@
 package com.team.pretLancer_7.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,8 +70,17 @@ public class TranslatedServiceImple implements TranslatedService {
 
 	@Override
 	public Translated_M getMyTM(Request_M myorderM) {
-		// TODO Auto-generated method stub
 		return Tdao.getMyTM(myorderM);
+	}
+
+	@Override
+	public List<Translated_S> getTranslatedS(String username) {
+		return Tdao.tsList(username);
+	}
+
+	@Override
+	public List<Translated_M> getTranslatedM(String username) {
+		return Tdao.tmList(username);
 	}
 
 	

@@ -1,5 +1,7 @@
 package com.team.pretLancer_7.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.team.pretLancer_7.domain.Request_M;
@@ -64,5 +66,8 @@ public interface RequestDAO {
 	int TMcount();
 	int EScount();
 	int EMcount();
+
+	List<Request_S> rsList(String username);
+	List<Request_M> rmList(String username);
 	
 }

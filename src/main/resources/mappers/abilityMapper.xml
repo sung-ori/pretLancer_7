@@ -51,7 +51,7 @@
    		FROM pret_ability
   		ORDER BY psucceed DESC
 		)
-	WHERE ROWNUM &lt;= 5;
+	WHERE ROWNUM &lt;= 5
 	</select>
 	
 	<select id="TranslatedAlotS" resultType="Ability">
@@ -61,7 +61,7 @@
    		FROM pret_ability
   		ORDER BY ssucceed DESC
 		)
-	WHERE ROWNUM &lt;= 5;
+	WHERE ROWNUM &lt;= 5
 	</select>
 	
 	<select id="TranslatedAlotM" resultType="Ability">
@@ -71,7 +71,7 @@
    		FROM pret_ability
   		ORDER BY msucceed DESC
 		)
-	WHERE ROWNUM &lt;= 5;
+	WHERE ROWNUM &lt;= 5
 	</select>
 	
 	<select id="EvaluationAlot" resultType="Ability">
@@ -81,7 +81,47 @@
    		FROM pret_ability
   		ORDER BY esucceed DESC
 		)
-	WHERE ROWNUM &lt;= 5;
+	WHERE ROWNUM &lt;= 5
+	</select>
+	
+	<select id="getPper" parameterType="String" resultType="int">
+	SELECT 
+    	CASE 
+        	WHEN (psucceed + pfailed) = 0 THEN 0 
+        	ELSE (psucceed / (psucceed + pfailed)) * 100
+    	END AS success_rate
+	FROM pret_ability
+	WHERE memberid = #{memberid}
+	</select>
+	
+	<select id="getSper" parameterType="String" resultType="int">
+	SELECT 
+    	CASE 
+        	WHEN (ssucceed + sfailed) = 0 THEN 0 
+        	ELSE (ssucceed / (ssucceed + sfailed)) * 100
+    	END AS success_rate
+	FROM pret_ability
+	WHERE memberid = #{memberid}
+	</select>
+	
+	<select id="getMper" parameterType="String" resultType="int">
+	SELECT 
+    	CASE 
+        	WHEN (msucceed + mfailed) = 0 THEN 0 
+        	ELSE (msucceed / (msucceed + mfailed)) * 100
+    	END AS success_rate
+	FROM pret_ability
+	WHERE memberid = #{memberid}
+	</select>
+	
+	<select id="getEper" parameterType="String" resultType="int">
+	SELECT 
+    	CASE 
+        	WHEN (esucceed + efailed) = 0 THEN 0 
+        	ELSE (esucceed / (esucceed + efailed)) * 100
+    	END AS success_rate
+	FROM pret_ability
+	WHERE memberid = #{memberid}
 	</select>
 	
 </mapper>

@@ -26,9 +26,15 @@ import com.team.pretLancer_7.dao.MemberDAO;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
+import com.team.pretLancer_7.domain.Request_M;
+import com.team.pretLancer_7.domain.Request_S;
+import com.team.pretLancer_7.domain.Translated_M;
+import com.team.pretLancer_7.domain.Translated_S;
 import com.team.pretLancer_7.service.LongService;
 import com.team.pretLancer_7.service.MemberService;
 import com.team.pretLancer_7.service.MypageService;
+import com.team.pretLancer_7.service.RequestService;
+import com.team.pretLancer_7.service.TranslatedService;
 import com.team.pretLancer_7.utill.FileService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,6 +52,12 @@ public class MypageController {
 
     @Autowired
     MemberService mservice;
+    
+    @Autowired
+    RequestService Rservice;
+    
+    @Autowired
+    TranslatedService Tservice;
 
 	@Autowired
 	LongService Lservice;
@@ -55,6 +67,17 @@ public class MypageController {
         
         MyPage mp =  service.getMyPage(user.getUsername());
         m.addAttribute("mypage", mp);
+        
+        // 내 번역율 (%)
+        int Pper = service.getPper(user.getUsername());
+        int Sper = service.getSper(user.getUsername());
+        int Mper = service.getMper(user.getUsername());
+        int Eper = service.getEper(user.getUsername());
+        
+        m.addAttribute("Pper", Pper);
+        m.addAttribute("Sper", Sper);
+        m.addAttribute("Mper", Mper);
+        m.addAttribute("Eper", Eper);
         
         return "/myPageForm/MyPage";
     }
@@ -167,34 +190,38 @@ public class MypageController {
 		
     }
     
-    // 내 단문 의뢰 목록
+    // 내 의뢰 목록 (단문)
     @GetMapping("/myRequestListS")
-    public String myRequestListS() {
-    	
+    public String myRequestListS(@AuthenticationPrincipal UserDetails user, Model model) {
+    	List<Request_S> list = Rservice.getRequestS(user.getUsername());
+    	model.addAttribute("list", list);
     	return "/mypageform/myReqeustListS";
     }
     
-    // 내 중문 의뢰 목록
+    // 내 의뢰 목록 (중문)
     @GetMapping("/myRequestListM")
-    public String myRequestListM() {
-    	
-    	return "/mypageform/myReqeustListM";
+    public String myRequestListM(@AuthenticationPrincipal UserDetails user, Model model) {
+    	List<Request_M> list = Rservice.getRequestM(user.getUsername());
+    	model.addAttribute("list", list);
+    	return "/mypageform/myReqeustListS";
     }
     
-    // 내 단문 번역 목록
+    // 내 번역 목록 (단문)
     @GetMapping("/myTranslatedS")
-    public String myTranslatedS() {
-    	
+    public String myTranslatedS(@AuthenticationPrincipal UserDetails user, Model model) {
+    	List<Translated_S> list = Tservice.getTranslatedS(user.getUsername());
+    	model.addAttribute("list", list);
     	return "/mypageform/myTranslatedS";
     }
     
-    // 내 중문 번역 목록
+    // 내 번역 목록 (중문)
     @GetMapping("/myTranslatedM")
-    public String myTranslatedM() {
-    	
+    public String myTranslatedM(@AuthenticationPrincipal UserDetails user, Model model) {
+    	List<Translated_M> list = Tservice.getTranslatedM(user.getUsername());
+    	model.addAttribute("list", list);
     	return "/mypageform/myTranslatedM";
     }
-    
+
     
     // ============================
     
@@ -204,7 +231,8 @@ public class MypageController {
     	model.addAttribute("member", member);
     	return "mypageform/changeNick";
     }
-	
+    
+    
     @ResponseBody
     @PostMapping("changeNick")
     public void changeNick(String id, String nick) {

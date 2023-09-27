@@ -15,4 +15,9 @@ public interface MypageService {
 
 	public int checkPoint(Member member);
 
+	public int getPper(String username);
+	public int getSper(String username);
+	public int getMper(String username);
+	public int getEper(String username);
+
 }
