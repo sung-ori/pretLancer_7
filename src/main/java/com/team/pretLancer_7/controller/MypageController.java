@@ -54,6 +54,17 @@ public class MypageController {
         MyPage mp =  service.getMyPage(user.getUsername());
         m.addAttribute("mypage", mp);
         
+        // 내 번역율 (%)
+        int Pper = service.getPper(user.getUsername());
+        int Sper = service.getSper(user.getUsername());
+        int Mper = service.getMper(user.getUsername());
+        int Eper = service.getEper(user.getUsername());
+        
+        m.addAttribute("Pper", Pper);
+        m.addAttribute("Sper", Sper);
+        m.addAttribute("Mper", Mper);
+        m.addAttribute("Eper", Eper);
+        
         return "/myPageForm/MyPage";
     }
     
