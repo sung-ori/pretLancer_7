@@ -41,5 +41,6 @@ public interface AbilityDAO {
 	public int getSper(String username);
 	public int getMper(String username);
 	public int getEper(String username);
+	public Ability getAbility(String username);
 		
 }

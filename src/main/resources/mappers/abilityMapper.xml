@@ -124,4 +124,8 @@
 	WHERE memberid = #{memberid}
 	</select>
 	
+	<select id="getAbility" parameterType="String" resultType="Ability">
+	SELECT * FROM pret_ability where memberid = #{memberid}
+	</select>
+	
 </mapper>

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
@@ -59,11 +60,13 @@ public class MypageController {
         int Sper = service.getSper(user.getUsername());
         int Mper = service.getMper(user.getUsername());
         int Eper = service.getEper(user.getUsername());
+        Ability ab = service.getAbility(user.getUsername());
         
         m.addAttribute("Pper", Pper);
         m.addAttribute("Sper", Sper);
         m.addAttribute("Mper", Mper);
         m.addAttribute("Eper", Eper);
+        m.addAttribute("ability", ab);
         
         return "/myPageForm/MyPage";
     }
