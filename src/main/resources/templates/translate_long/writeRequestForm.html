@@ -18,6 +18,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                 if(rst) {
                     if(validation()) {
                         if(cashCheck()) {
+                            alert("요청 완료 되었습니다.")
                             $("#form").submit();
                         }
                         

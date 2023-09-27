@@ -16,6 +16,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                 let rst = confirm("요청을 제출하시겠습니까?");
                 if(rst) {
                      if(validation()) {
+                        alert("경매 신청 완료되었습니다.")
                          $("#form").submit();
                      }
                      else{
