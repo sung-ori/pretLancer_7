@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -16,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.AuctionTranslator;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.service.LongService;
+import com.team.pretLancer_7.service.MypageService;
+import com.team.pretLancer_7.utill.PageNavigator;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,7 +37,14 @@ public class LongTranslateController {
     LongService service;
     @Autowired
     MessagingService msg;
+    @Autowired
+    MypageService mService;
 
+    @Value("${user.TL.page}")
+	int countPerPage;
+	//게시판 목록의 페이지 이동 링크 수
+	@Value("${user.TL.group}")
+	int pagePerGroup;
     
 
     @GetMapping("/main")
@@ -42,10 +53,19 @@ public class LongTranslateController {
     }
 
     @GetMapping("/request")
-    public String requestForm(Model model,@AuthenticationPrincipal UserDetails user) {
-        List<MyPage> translatorList = service.getTranslatorList(user.getUsername());
+    public String requestForm(Model model,@AuthenticationPrincipal UserDetails user,String type, String searchWord,
+    @RequestParam(name="page",defaultValue="1") int page) {
+
+        String userid = user.getUsername();
+
+        PageNavigator navi = service.getPageNavigatorT(pagePerGroup, countPerPage, page, type, userid);
+
+        List<MyPage> translatorList = service.getTranslatorList(userid);
+
+
         log.error("돌아오나요? {}", translatorList);
         model.addAttribute("translatorList", translatorList);
+        model.addAttribute("navi", navi);
 
         return "translate_long/translatorList";
     }
@@ -54,7 +74,9 @@ public class LongTranslateController {
     public String translatorProfile(Model model, @RequestParam(name="memberid") String memberid, @AuthenticationPrincipal UserDetails user ) {
         String loginId = user.getUsername();
         MyPage translatorProfile = service.getOneMyPage(memberid);
+        Ability ab = mService.getAbility(user.getUsername());
 
+        model.addAttribute("ability", ab);
         model.addAttribute("tp", translatorProfile);
         model.addAttribute("loginId", loginId);
 
@@ -87,7 +109,7 @@ public class LongTranslateController {
         service.pay(user.getUsername(),request_L.getCash());
 
         msg.writeLR(request_L);
-        return "redirect:/";
+        return "redirect:/main";
     }
 
     @GetMapping("/auction")
@@ -102,11 +124,15 @@ public class LongTranslateController {
 
         service.writeAuction(request_L,uploadFile);
 
-        return "redirect:/";
+        return "redirect:/main";
     }
 
     @GetMapping("auctionList")
-    public String auctionList(Model model,@AuthenticationPrincipal UserDetails user) {
+    public String auctionList(Model model,@AuthenticationPrincipal UserDetails user,@RequestParam(name="page",defaultValue="1") int page,String type) {
+
+        String userid = user.getUsername();
+
+        PageNavigator navi = service.getPageNavigatorA(pagePerGroup, countPerPage, page, type, userid);
         List<Request_L> auctionList =  service.getAuctionList();
 
         model.addAttribute("auctionList", auctionList);
@@ -195,8 +221,16 @@ public class LongTranslateController {
     // 번역가가 현재 변역중인지 확인.
     @GetMapping("/checkTranslateNow")
     @ResponseBody
-    public Request_L checkTranslateNow (String memberid) {
-        return  service.checkTranslateNow(memberid);
+    public String checkTranslateNow (String memberid) {
+        String rst = "false";
+
+        Request_L rql = service.checkTranslateNow(memberid);
+
+        if(rql == null) {
+            rst = "true";
+        }
+        log.info("번역 확인 {}",rst);
+        return rst;
     }
 
     @GetMapping("/readAccessRequestInfo")

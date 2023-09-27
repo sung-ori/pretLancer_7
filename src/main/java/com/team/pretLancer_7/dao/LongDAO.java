@@ -1,5 +1,6 @@
 package com.team.pretLancer_7.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public interface LongDAO {
     public int insertAuction(int requestnum);
     // 요청 중 경매 테이블에 들어있는 것들만 출력
 
-    public List<Request_L> selectAuctionList() ;
+    public ArrayList<Request_L> selectAuctionList() ;
 
     public List<Request_L> selectRequestList();
 
@@ -53,7 +54,9 @@ public interface LongDAO {
 
     public Request_L selectTranslateNow(String userid);
 
-    public int updatePay(Map<String, String> map);
+    public int updateCashPay(Map<String, String> map);
+
+    public int updateCashGet(Map<String, String> map);
 
     
 }

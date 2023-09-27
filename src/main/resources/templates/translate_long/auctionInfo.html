@@ -122,11 +122,13 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                             type:"GET",
                             url:"checkTranslateNow",
                             data:{"memberid" : biderid},
-                            dataType:"json",
+                            dataType:"text",
                             success: function(data) {
-                                if(data != null) {
+                                alert(JSON.stringify(data));
+
+                                if(data == 'false') {
                                     // 해당 번역가가 이미 번역중일 때
-                                    alert("해당 번역가각 이미 번역 중입니다. 다른 번역가를 선택해주세요");
+                                    alert("해당 번역가가 이미 번역 중입니다. 다른 번역가를 선택해주세요");
                                     return;
                                 }
                                 else {
@@ -147,9 +149,6 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                                         }
                                     });
                                 } // end of else
-                            },
-                            error: function(e) {
-                                alert(JSON.stringify(e));
                             }
                         });
                        
@@ -181,9 +180,9 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                 type:"GET",
                 url:"checkTranslateNow",
                 data:{"memberid" : userid},
-                dataType:"json",
+                dataType:"text",
                 success: function(data) {
-                    if(data != null) {
+                    if(data != 'true') {
                         $("#bidButton").val("한 번에 한 개의 수주만 할 수 있습니다.");
                         $("#bidButton").attr("class","btn btn-danger");
                         $("#bidButton").attr("disabled","true");

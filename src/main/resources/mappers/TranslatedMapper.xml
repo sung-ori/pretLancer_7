@@ -51,5 +51,9 @@
 	<select id="getMyTM" parameterType="Request_m" resultType="Translated_M">
 	select * from pret_translated_m where requestnum_m = #{requestnum_m} and memberid = #{memberid2}
 	</select>
+	
+	<select id="tsList" parameterType="String" resultType="Translated_S">
+	
+	</select>
 
 </mapper>

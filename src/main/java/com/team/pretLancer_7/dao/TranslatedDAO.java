@@ -1,5 +1,7 @@
 package com.team.pretLancer_7.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.team.pretLancer_7.domain.Request_M;
@@ -31,5 +33,8 @@ public interface TranslatedDAO {
 	Translated_S getMyTS(Request_S myorderS);
 
 	Translated_M getMyTM(Request_M myorderM);
+
+	List<Translated_S> tsList(String username);
+	List<Translated_M> tmList(String username);
 	
 }

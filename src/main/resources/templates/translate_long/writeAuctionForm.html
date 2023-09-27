@@ -15,13 +15,105 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                 //  TODO: 안에 들어있는 내용 입력 확인 하는 자바스크립트 코드
                 let rst = confirm("요청을 제출하시겠습니까?");
                 if(rst) {
-                    $("#form").submit();
+                     if(validation()) {
+                        alert("경매 신청 완료되었습니다.")
+                         $("#form").submit();
+                     }
+                     else{
+
+                        return false;
+                     }
                 }
                 else {
                     return false;
                 }
             });
         });
+
+        function validation() {
+            let title = $("#title").val();
+            let category = $("#category").val();
+            let adate = $("#adate").val();
+            let edate = $("#edate").val();
+            let commentpage = $("#commentpage").val();
+            let comment_lr = $("#comment_lr").val();
+            let formFile = $("#formFile").val();
+            let cash = $("#cash").val();
+            let startlang = $("#startlang").val();
+            let endlang = $("#endlang").val();
+
+            let today = new Date();
+            let year = today.getFullYear();
+            let month = ('0' + (today.getMonth() + 1)).slice(-2);
+            let day = ('0' + today.getDate()).slice(-2);
+            let dateString = year + '-' + month  + '-' + day;
+
+            
+            alert(formFile);
+            
+            if(title == "") {
+                alert("제목을 입력해주세요.");
+                return false;
+            }
+            if(category == "카테고리를 선택하세요.") {
+                alert("카테고리를 선택하세요.");
+                return false;
+            }
+            if (adate < dateString) {
+                alert(adate);
+                alert("경매 마감 날짜는 과거일 수 없습니다.");
+                return false;
+            }
+            if (edate < dateString) {
+                alert("번역 마감 날짜는 과거일 수 없습니다.");
+                return false;
+            }
+            if(adate > edate) {
+                alert("경매 마감 날짜는 번역 마감 날짜보다 빨라야합니다.");
+                return false;
+            }
+            if(commentpage == "") {
+                alert("페이지 및 글자수에 대한 정보를 입력해주세요.");
+                return false;
+            }
+            if(comment_lr == "") {
+                alert(comment_lr);
+                alert("번역 요청 설명란을 작성해주세요");
+                return false;
+            }
+            if(formFile == "") {
+                alert("번역 요청 파일을 첨부해주세요.");
+                return false;
+            }
+            if(cash == "") {
+                alert("희망 낙찰가를 입력해주세요.");
+                return false;
+            }
+
+            if(isNaN(cash)) {
+                alert("희망 낙찰가 캐시를 숫자로 입력해주세요.");
+                $("#cash").val("");
+                $("#cash").focus();
+
+                return false;
+            }
+
+            if(startlang == "시작 언어를 선택해주세요.") {
+                alert("시작 언어를 선택해주세요");
+                return false;
+            }
+            if(endlang == "도착 언어를 선택해주세요.") {
+                alert("도착 언어를 선택해주세요");
+                return false;
+            }
+
+            if(startlang == endlang) {
+                alert("시작언어와 도착언어가 같을 수 없습니다.");
+                return false;
+            }
+
+            return true;
+        }
         // TODO: 시작 언어 도착언어 다른지 검증
     </script>
     
@@ -60,17 +152,17 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             </select>
 
             <label for="date" class="form-label">경매 마감일</label>
-            <input id="date" name="enddate" class="form-control form-control-sm" type="date" >
+            <input id="adate" name="enddate" class="form-control form-control-sm" type="date" >
             <!-- TODO: 요청 마김일 보다 경매 마감일이 이르지 않도록 검증 js -->
             <label for="date" class="form-label">요청 마감일</label>
-            <input id="date" name="workdate" class="form-control form-control-sm" type="date" >
+            <input id="edate" name="workdate" class="form-control form-control-sm" type="date" >
             
-            <label for="title" class="form-label">페이지 및 글자 수</label>
+            <label for="commentpage" class="form-label">페이지 및 글자 수</label>
             <input name="commentpage" type="text" id="commentpage" class="form-control " >
 
             <div class="mb-3">
-                <label for="comment" class="form-label">번역 요청 설명</label>
-                <textarea name="comment_lr" class="form-control" id="comment" rows="15" placeholder="페이지 및 글자 수 등 번역 요청물에 대한 자세한 설명을 적어주세요."></textarea>
+                <label for="comment_lr" class="form-label">번역 요청 설명</label>
+                <textarea name="comment_lr" class="form-control" id="comment_lr" rows="15" placeholder="페이지 및 글자 수 등 번역 요청물에 대한 자세한 설명을 적어주세요."></textarea>
             </div>
 
             <div class="mb-3">
@@ -85,8 +177,8 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             
             <h2 class="col-2"> <span class="badge bg-secondary">CASH</span></h2>
             <div>
-                <label for="startLang" class="form-label">시작 언어</label>
-                <select name="startlang" id="startLang" class="form-select "style="width:40%;" aria-label="Default select example">
+                <label for="startlang" class="form-label">시작 언어</label>
+                <select name="startlang" id="startlang" class="form-select "style="width:40%;" aria-label="Default select example">
                     <option selected>시작 언어를 선택해주세요.</option>
                     <option value="KR">한국어</option>
                     <option value="JP">일본어</option>
@@ -95,7 +187,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             </div>
             <div>
                 <label for="endLang" class="form-label">도착 언어</label>
-                <select name="endlang" class="form-select "style="width:40%;" aria-label="Default select example">
+                <select name="endlang" id="endlang" class="form-select "style="width:40%;" aria-label="Default select example">
                     <option selected>도착 언어를 선택해주세요.</option>
                     <option value="KR">한국어</option>
                     <option value="JP">일본어</option>

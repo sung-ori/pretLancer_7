@@ -203,4 +203,16 @@ public class EvaluationServiceImple implements EvaluationService {
 		}	
 	}
 
+	@Override
+	public Request_S getRS(int request_num) {
+		return Rdao.getRequestS(request_num);
+	}
+
+	@Override
+	public Request_M getRM(int request_num) {
+		return Rdao.getRequestM(request_num);
+	}
+   
+   
+
 }

@@ -26,6 +26,7 @@
         // $("#recoBt").click(recoUp);
 
    
+        
         function writeReply() {
 
             let reply = $("#inputReply").val();
@@ -38,7 +39,7 @@
                 data: {"replycontent" : reply ,
                         "boardnum" : bdn },
                 success: function() {
-                    alert("댓글 작성 성공");
+                    
                     $("#inputReply").val("");
                     readReply();
                     if (lId != wId) {
@@ -61,7 +62,7 @@
                 data: {"boardnum" : bdn },
                 dataType: "json",
                 success: function(list) {
-                    alert("댓글 읽어오기 성공!");
+                    
                     let str = `<table class="table-reply">
                                 <tr>
                                 <th></th>
@@ -285,7 +286,7 @@
 
         function readContent() {
             let content = $("#content").val();
-            alert(content);
+            
             $("#contentBox").html(content);
         }
     });// End Of jQuery

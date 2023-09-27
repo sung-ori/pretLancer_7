@@ -173,30 +173,44 @@
 			
 		}
 		
-		#whyfailedform {
-			display : none;
-			opacity : 0;
-		}
 		
 		
 		
 	</style>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	<script type="text/javascript">
-	
-			
+		let why = $("input:radio[name=whyFailed]").val();
+
+		$(document).ready(function() {
+		    $("input:radio[name=evaluationSuccess]").click(function(){
+		    	 
+		        if($("input:radio[name=evaluationSuccess]:checked").val() == "1"){
+		            $("input:radio[name=whyFailed]").attr("disabled",true);	
+		            why = null;
+		        }else if($("input:radio[name=evaluationSuccess]:checked").val() == "2"){
+		            $("input:radio[name=whyFailed]").attr("disabled",false);
+		        }
+		    });
+		})
+
 		function check() {
-			//my_answer : 번역 입력 창에 입력된 값
-			let my_answer = document.getElementById('translatedcontent_s').value;
+			var checkval = $('input:radio[name=evaluationSuccess]').is(':checked');
+			var evaval = $('input:radio[name=evaluationSuccess]:checked').val();
+			var checkval2 = $('input:radio[name=whyFailed]').is(':checked');
 			
-			//my_answer에 값이 입력되지 않은 경우 번역을 입력하라는 알림이 뜨며, 다음 창으로 넘어가지 않는다.
-			if (my_answer == '' || my_answer.length == 0) {
-				alert('번역을 입력하세요.');
+			if (!checkval) {
+				alert('평가해주세요.');
 				return false;
 			}
-	
+			
+			if (checkval && evaval == 2 && !checkval2) {
+				alert('문제가 있는 부분을 골라주세요.');
+				return false;
+			}
+			
 			return true;
 		}
+
 	</script>
 
 </head>
@@ -220,10 +234,11 @@
 			<br>
 			<!-- 번역 요청 내용을 가지고 온다 -->
 			<span th:text = "${translated?.requestcontent_s}" class = "input_translated">번역 내용 기본값</span>
+			<br><br>
+			<span>※번역에 대한 요청사항입니다.</span><br>
+			<textarea id = "comment_sr" name = "comment_sr" class = "comment_input" readonly style = "color : #2334DE; width : 900px;" th:value = "${request?.comment_sr}" readonly>코멘트가 없습니다.</textarea>
+
 			<br>
-			<br>
-			<span>※비고(요청사항): 요청사항에 맞게 번역 부탁드립니다.</span><br>
-			<textarea id = "comment_st" name = "comment_st" class = "comment_input" readonly style = "color : #2334DE;" th:value = "${translated?.comment_st}">요청사항이 없습니다.</textarea>
 		</div>
 			
 		<hr>
@@ -242,22 +257,22 @@
 						<input type = "hidden" name = "requestnum_s"  th:value="${translated?.requestnum_s}">
 						<input type = "hidden" name = "memberid"  th:value="${translated?.memberid}">
 						<textarea name = "translatedcontent_s" class = "answer_input" id = "translatedcontent_s" th:value = "${translated?.translatedcontent_s}" readonly></textarea> <br>
-						<input type = "submit" value = "제출하기" class = "submit_button" id = "submit_button">
-						<input type = "button" value = "나가기" class = "exit_button" id = "exit_button">
+						<span>※비고 및 주석: 번역가가 남긴 원문에 대한 주석, 참고사항입니다.</span><br>
+						<textarea id = "comment_st" name = "comment_st" class = "comment_input" readonly style = "color : #2334DE; width : 500px;" th:value = "${translated?.comment_st}" readonly>코멘트가 없습니다.</textarea>
 					</td>
 					<td style = "vertical-align : top;">
 						<p><b>왼쪽의 번역은 잘 되었나요?</b></p>
-						<input type = "radio" name = "evaluationSuccess" value = "1"> 문제 없이 잘 되었습니다.<br>
-						<input type = "radio" name = "evaluationSuccess" value = "2"> 번역에 문제가 있습니다.<br>
+						<input type = "radio" name = "evaluationSuccess" class = "evaluationSuccess" value = "1" id = "eva_yes"> 문제 없이 잘 되었습니다.<br>
+						<input type = "radio" name = "evaluationSuccess" class = "evaluationSuccess" value = "2" id = "eva_no"> 번역에 문제가 있습니다.<br>
 						<br><br>
 						
 						<div id = "whyfailedform">
 						<p><b>어떤 부분에 문제가 있었나요?</b></p>
-						<input type = "radio" name = "whyFailed" value = "1"> 누락된 문장이 있습니다.<br>
-						<input type = "radio" name = "whyFailed" value = "2"> 비고에 적힌 사항을 따르지 않았습니다.<br>
-						<input type = "radio" name = "whyFailed" value = "3"> 맞춤법이나 띄어쓰기가 심각하게 틀렸습니다.<br>
-						<input type = "radio" name = "whyFailed" value = "4"> 문맥이나 늬앙스에 맞지 않는 번역입니다.<br>
-						<input type = "radio" name = "whyFailed" value = "5"> 기타 이 번역에 문제가 있습니다.<br>
+						<input type = "radio" name = "whyFailed" class = "whyFailed" value = "1" id = "why_one" disabled> 누락된 문장이 있습니다.<br>
+						<input type = "radio" name = "whyFailed" class = "whyFailed" value = "2" id = "why_two" disabled> 비고에 적힌 사항을 따르지 않았습니다.<br>
+						<input type = "radio" name = "whyFailed" class = "whyFailed" value = "3" id = "why_three" disabled> 맞춤법이나 띄어쓰기가 심각하게 틀렸습니다.<br>
+						<input type = "radio" name = "whyFailed" class = "whyFailed" value = "4" id = "why_four" disabled> 문맥이나 늬앙스에 맞지 않는 번역입니다.<br>
+						<input type = "radio" name = "whyFailed" class = "whyFailed" value = "5" id = "why_five" disabled> 기타 이 번역에 문제가 있습니다.<br>
 						</div>
 						<input type = "submit" value = "제출하기">
 

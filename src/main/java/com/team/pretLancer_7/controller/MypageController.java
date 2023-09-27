@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
@@ -53,6 +54,19 @@ public class MypageController {
         
         MyPage mp =  service.getMyPage(user.getUsername());
         m.addAttribute("mypage", mp);
+        
+        // 내 번역율 (%)
+        int Pper = service.getPper(user.getUsername());
+        int Sper = service.getSper(user.getUsername());
+        int Mper = service.getMper(user.getUsername());
+        int Eper = service.getEper(user.getUsername());
+        Ability ab = service.getAbility(user.getUsername());
+        
+        m.addAttribute("Pper", Pper);
+        m.addAttribute("Sper", Sper);
+        m.addAttribute("Mper", Mper);
+        m.addAttribute("Eper", Eper);
+        m.addAttribute("ability", ab);
         
         return "/myPageForm/MyPage";
     }
@@ -144,12 +158,10 @@ public class MypageController {
 
 	 @GetMapping("/myRequestList")
     public String myAuctionList(@AuthenticationPrincipal UserDetails user, Model model) {
-        List<Request_L> myAuctionList =  Lservice.myAuctionList(user.getUsername());
+        
         List<Request_L> myRequestList =  Lservice.myRquestList(user.getUsername());
         
         model.addAttribute("myRequestList", myRequestList);
-        model.addAttribute("myAuctionList", myAuctionList);
-        log.debug("컨트롤러에 오는 나의 옥션 리스트 {}", myRequestList);
 
         return "/mypageform/myRequestList";
     }
@@ -219,5 +231,10 @@ public class MypageController {
     	member.setPoint(point);
     	service.changeNick(member);
     	
+    }
+    
+    @GetMapping("changePhoto")
+    public String changePhoto() {
+    	return "mypageform/changePhoto";
     }
 }

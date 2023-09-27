@@ -82,7 +82,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
         </div>
         <div>
             <span>번역할 파일 다운로드 : </span>
-            <a th:href="|@{/request}/${request.savedrfile}|" class="btn btn-success" th:download="|${request.memberid}_${request.title}|">번역할 파일</a>
+            <a th:href="|@{/donwloadR?fileName=}${request.savedrfile}|" class="btn btn-success" th:download="|${request.memberid}_${request.title}|">번역할 파일</a>
         </div>
         <div>
             <input type="hidden" name="requestnum_l" id="requestnum" th:value="${request.requestnum_l}">
