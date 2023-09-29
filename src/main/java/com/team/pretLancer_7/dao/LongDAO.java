@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 import com.team.pretLancer_7.domain.Auction;
 import com.team.pretLancer_7.domain.AuctionTranslator;
@@ -14,7 +15,7 @@ import com.team.pretLancer_7.domain.Request_L;
 @Mapper
 public interface LongDAO {
     // 광고 붙인 번역가 회원을 불러옴
-    public List<MyPage> selectAdTranslator();
+    public List<MyPage> selectAdTranslator(Map<String,String> map,RowBounds rb);
     // 선택한 번역가의 프로필을 불러옴
     public MyPage selectOneMyPage(String memberid);
     // 하나의 요청을 삽입
@@ -58,5 +59,5 @@ public interface LongDAO {
 
     public int updateCashGet(Map<String, String> map);
 
-    
+    public int countT(Map<String,String> map);
 }

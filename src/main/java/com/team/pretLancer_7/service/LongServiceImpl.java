@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -44,33 +45,35 @@ public class LongServiceImpl implements LongService{
     MessagingService msg;
 
     @Override
-    public List<MyPage> getTranslatorList(String userid) {
+    public List<MyPage> getTranslatorList(PageNavigator navi, Map<String,String> map) {
         
         List<MyPage> translatorList = new ArrayList();
-        translatorList =  dao.selectAdTranslator();
+        RowBounds rb = new RowBounds(navi.getStartRecord(),navi.getCountPerPage());
+
+        translatorList =  dao.selectAdTranslator(map,rb);
         
-        int idx = 0;
-        //  현재 번역 중인지 확인하고 번역 중이면 출력 안해준다.
-        while(true) {
-            int max = translatorList.size();
+        // int idx = 0;
+        // //  현재 번역 중인지 확인하고 번역 중이면 출력 안해준다.
+        // while(true) {
+        //     int max = translatorList.size();
 
-            String a = translatorList.get(idx).getMemberid();
+        //     String a = translatorList.get(idx).getMemberid();
             
-            Request_L rql = dao.selectTranslateNow(a);
+        //     Request_L rql = dao.selectTranslateNow(a);
 
-            if (a.equals(userid) || rql != null) {
-                translatorList.remove(idx);
-                idx = 0;
-                continue;
-            }
-            idx++;
+        //     if (a.equals(userid) || rql != null) {
+        //         translatorList.remove(idx);
+        //         idx = 0;
+        //         continue;
+        //     }
+        //     idx++;
 
-            if(idx == max) {
-                break;
-            }
-        }
+        //     if(idx == max) {
+        //         break;
+        //     }
+        // }
 
-        log.error("서비스는 돌아오나? {}", translatorList);
+        // log.error("서비스는 돌아오나? {}", translatorList);
         return translatorList;
     }
 
@@ -336,9 +339,9 @@ public class LongServiceImpl implements LongService{
         
         HashMap<String, String> map = new HashMap<>();
 		map.put("type", type);
-		
-        int total = getTranslatorList(userid).size();
-
+		map.put("userid", userid);
+        
+        int total = dao.countT(map);
 
 		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page,total);
 		

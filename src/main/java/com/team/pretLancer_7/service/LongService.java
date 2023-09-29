@@ -11,7 +11,7 @@ import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.utill.PageNavigator;
 
 public interface LongService {
-    public List<MyPage> getTranslatorList(String userId);
+    public List<MyPage> getTranslatorList(PageNavigator navi, Map<String,String> map);
 
     public MyPage getOneMyPage(String memberid);
 

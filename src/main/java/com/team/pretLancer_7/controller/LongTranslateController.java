@@ -53,14 +53,17 @@ public class LongTranslateController {
     }
 
     @GetMapping("/request")
-    public String requestForm(Model model,@AuthenticationPrincipal UserDetails user,String type, String searchWord,
+    public String requestForm(Model model,@AuthenticationPrincipal UserDetails user,String type,
     @RequestParam(name="page",defaultValue="1") int page) {
 
         String userid = user.getUsername();
+        Map<String,String> map = new HashMap();
+        map.put("type", type);
+        map.put("userid", userid);
 
         PageNavigator navi = service.getPageNavigatorT(pagePerGroup, countPerPage, page, type, userid);
 
-        List<MyPage> translatorList = service.getTranslatorList(userid);
+        List<MyPage> translatorList = service.getTranslatorList(navi,map);
 
 
         log.error("돌아오나요? {}", translatorList);
