@@ -21,12 +21,11 @@ import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.utill.FileService;
 import com.team.pretLancer_7.utill.PageNavigator;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
+
 public class LongServiceImpl implements LongService{
 
     @Value("/Users/sung_ori/pretLancer_7/pretLancer_7/src/main/resources/static/request")
@@ -145,11 +144,12 @@ public class LongServiceImpl implements LongService{
     
     //  경매 리스트를 불러온다
     @Override
-    public List<Request_L> getAuctionList() {
+    public List<Request_L> getAuctionList(PageNavigator navi, Map<String, String> map) {
         
-        ArrayList<Request_L> auctionList = dao.selectAuctionList();
+        RowBounds rb = new RowBounds(navi.getStartRecord(),navi.getCountPerPage());
+        ArrayList<Request_L> auctionList = dao.selectAuctionList(map,rb);
 
-        int idx = 0;
+        
 
         return auctionList;
     }
@@ -349,16 +349,28 @@ public class LongServiceImpl implements LongService{
     }
 
     @Override
-    public PageNavigator getPageNavigatorA(int pagePerGroup, int countPerPage, int page, String type, String userid) {
+    public PageNavigator getPageNavigatorA(int pagePerGroup, int countPerPage, int page, String type) {
         
-        HashMap<String, String> map = new HashMap<>();
-		map.put("type", type);
-		
-        int total = getAuctionList().size();
+        Map<String, String> map = new HashMap<>();
 
+        map.put("type", type);
+        
+		
+		log.debug("타입 확인좀 해 보자. {}",type);
+        int total = 0;
+        //  이 지점에서 오류 발생.
+        try{
+
+            total = dao.countA(map);
+        }catch(Exception e){
+            
+            log.error("에러 내용 : {} ", e.getStackTrace());
+        
+        }
+        log.debug("갯수는 세는가? {}",total);
 
 		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page,total);
-		
+		log.debug("나비스 {}",map);
 		return navi;
     }
 }

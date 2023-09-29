@@ -19,7 +19,7 @@ public interface LongService {
 
     public int writeAuction(Request_L request_L,MultipartFile uploadFile);
 
-    public List<Request_L>  getAuctionList();
+    public List<Request_L>  getAuctionList(PageNavigator navi,Map<String,String> map);
     
     public Request_L readAuctionInfo(int requestnum_l);
 
@@ -57,5 +57,5 @@ public interface LongService {
 
     public PageNavigator getPageNavigatorT(int pagePerGroup, int countPerPage, int page, String type, String userid);
 
-    public PageNavigator getPageNavigatorA(int pagePerGroup, int countPerPage, int page, String type, String userid);
+    public PageNavigator getPageNavigatorA(int pagePerGroup, int countPerPage, int page, String type);
 }

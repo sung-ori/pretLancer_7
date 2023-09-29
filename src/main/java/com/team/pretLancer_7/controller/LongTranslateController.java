@@ -130,15 +130,19 @@ public class LongTranslateController {
         return "redirect:/main";
     }
 
-    @GetMapping("auctionList")
+    @GetMapping("/auctionList")
     public String auctionList(Model model,@AuthenticationPrincipal UserDetails user,@RequestParam(name="page",defaultValue="1") int page,String type) {
-
+        log.debug("출발은 하는가?");
         String userid = user.getUsername();
-
-        PageNavigator navi = service.getPageNavigatorA(pagePerGroup, countPerPage, page, type, userid);
-        List<Request_L> auctionList =  service.getAuctionList();
-
+        Map<String,String> map = new HashMap();
+        map.put("type",type);
+        log.debug("맵에는 들어가는가?")     ;
+        PageNavigator navi = service.getPageNavigatorA(pagePerGroup, countPerPage, page, type);
+        log.debug("갯수 세고 돌아오는가? {}",navi);
+        List<Request_L> auctionList =  service.getAuctionList(navi,map);
+        log.debug("옥션 갖고 돌아오는가? {}",auctionList); 
         model.addAttribute("auctionList", auctionList);
+        model.addAttribute("navi", navi);
         return "/translate_long/auctionListForm";
     }
     

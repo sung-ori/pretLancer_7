@@ -21,6 +21,13 @@
             }
             
         });
+        $(document).ready(function() {
+            const urlParams = new URL(location.href).searchParams;
+            const type = urlParams.get('type');
+            console.log(name);
+            $("#pagingForm").attr("action","http://localhost:8888/pretLancer/long/request?type="+ type);
+    
+        })
     </script>
     
     <!-- 준규상 코드 -->
@@ -75,6 +82,9 @@
             <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + 1})|">▶</a> 
             <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
         </div>
+        <form id="pagingForm" th:action="@{/long/auctionList}" method="get">
+            <input type="hidden" name="page" id="page">
+        </form>
     </div>
     
     <!-- main div -->

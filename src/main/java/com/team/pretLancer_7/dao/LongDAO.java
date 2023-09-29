@@ -29,7 +29,7 @@ public interface LongDAO {
     public int insertAuction(int requestnum);
     // 요청 중 경매 테이블에 들어있는 것들만 출력
 
-    public ArrayList<Request_L> selectAuctionList() ;
+    public ArrayList<Request_L> selectAuctionList(Map<String,String> map,RowBounds rb ) ;
 
     public List<Request_L> selectRequestList();
 
@@ -60,4 +60,6 @@ public interface LongDAO {
     public int updateCashGet(Map<String, String> map);
 
     public int countT(Map<String,String> map);
+
+    public int countA(Map<String,String> map);
 }
