@@ -89,10 +89,10 @@ public class LongTranslateController {
 
     @GetMapping("/writeRequest")
     public String request(Model model, @RequestParam(name="memberid") String memberid, @AuthenticationPrincipal UserDetails user) {
-        String translatorId = memberid;
+        MyPage translatorProfile = service.getOneMyPage(memberid);
         String loginId = user.getUsername();
         
-        model.addAttribute("translatorId", translatorId);
+        model.addAttribute("translator", translatorProfile);
         model.addAttribute("loginId", loginId);
 
 

@@ -169,8 +169,8 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
     <div class="container col-8">
         <h1>이제 장문 요청 보낸다.</h1>
         <form id="form" th:action="@{/long/writeRequest}" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="memberid2" th:value="${translatorId}">
-            <input class="form-control " type="text" th:value="|${translatorId} 님에게 장문 번역을 요청합니다.|" aria-label="readonly input example" readonly>
+            <input type="hidden" name="memberid2" th:value="${translator.memberid}">
+            <input class="form-control " type="text" th:value="|${translator.memberid} 님에게 장문 번역을 요청합니다.|" aria-label="readonly input example" readonly>
             
             <label for="title" class="form-label">제목</label>
             <input name="title" type="text" id="title" class="form-control" >
@@ -211,8 +211,8 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                 <select name="startlang" id="startlang" class="form-select "style="width:40%;" aria-label="Default select example">
                     <option selected>시작 언어를 선택해주세요.</option>
                     <option value="KR">한국어</option>
-                    <option value="JP">일본어</option>
-                    <option value="EN">영어</option>
+                    <option th:if="${translator.memberlang == 'JP'}" value="JP">일본어</option>
+                    <option th:if="${translator.memberlang == 'EN'}" value="EN">영어</option>
                 </select>
             </div>
             <div>
@@ -220,8 +220,8 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                 <select name="endlang" id="endlang" class="form-select "style="width:40%;" aria-label="Default select example">
                     <option selected>도착 언어를 선택해주세요.</option>
                     <option value="KR">한국어</option>
-                    <option value="JP">일본어</option>
-                    <option value="EN">영어</option>
+                    <option th:if="${translator.memberlang == 'JP'}" value="JP">일본어</option>
+                    <option th:if="${translator.memberlang == 'EN'}" value="EN">영어</option>
                 </select>
             </div>
             <br>
