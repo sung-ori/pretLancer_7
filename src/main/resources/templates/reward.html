@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>포인트 충전 페이지 | 신개념 번역 플랫폼 프릿랜서</title>
+<title>캐시 충전 페이지 | 신개념 번역 플랫폼 프릿랜서</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
@@ -397,11 +397,11 @@ IMP.request_pay(
 	            
 	<div class="page-heading">
 	    <h1 id = "title2">리워드</h1>
-	    <h6 id = "title_">포인트를 충전하거나, 캐시를 출금 신청할 수 있습니다.</h6>
+	    <h6 id = "title_">캐시를 충전하거나, 출금 신청할 수 있습니다.</h6>
 	    <br>
 	    <table class = "content" style = "border-collapse: separate; text-align : center;">
 	    	<tr>
-			    <td><b><a th:href = "@{/reward/main}">포인트 충전하기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></b></td>		
+			    <td><b><a th:href = "@{/reward/main}">캐시 충전하기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></b></td>		
 			    <td><a th:href = "@{/reward/paybackForm}">캐시 출금하기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
 
 	    	</tr>
@@ -426,14 +426,14 @@ IMP.request_pay(
         <!-- <button type="button" class="btn btn-lg btn-block  btn-custom" id="charge_kakao">충 전 하 기</button> -->
  
 		<div>
-        <p class = "title_">포인트가 부족하신가요?<p>
-        <p class = "content_">포인트로는 닉네임 변경, 번역 요청 등을 할 수 있습니다.</br> 카드 혹은 카카오페이를 이용해 원하는 만큼 충전해서 이용하세요!</p>
+        <p class = "title_">캐시가 부족하신가요?<p>
+        <p class = "content_">카드 혹은 카카오페이를 이용해 원하는 만큼 충전해서 이용하세요!</p>
         <p  style="color: #ac2925;">충전 가능한 최소 금액은 5,000원이며, 최대 금액은 50,000원 입니다.</p>
 		</div>
 
 		<div class = "information">
 		<br>
-			<div><span class = "title_">현재 내 포인트 : </span><span th:text = "${member.point}">point default</span> 포인트</div>
+			<div><span class = "title_">현재 내 캐시 : </span><span th:text = "${member.cash}">캐시 default</span></div>
 			<table class = "info_table">
 				<tr style = "border-top : 3px solid #d8d8d8; border-bottom : 1px solid #d8d8d8; margin-top: 0;">
 					<td class = "title_">충전 금액</td>

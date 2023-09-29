@@ -73,6 +73,7 @@ public class TranslatedController {
 		Translated_S ts = TService.insertTS(rs);
 		log.error("Translated 객체 {}",ts);
 		
+		m.addAttribute("request", rs);
 		m.addAttribute("translated", ts);
 
 		return "translatedForm/translatedPageS";
@@ -112,7 +113,8 @@ public class TranslatedController {
 		// 의뢰를 받았을 시 테이블에 정보를 저장하고, 의뢰테이블의 - memberid2 - 값을 변환
 		Translated_M tm = TService.insertTM(rm);
 		log.error("Translated 객체 {}",tm);
-				
+		
+		m.addAttribute("request", rm);
 		m.addAttribute("translated", tm);
 
 		return "translatedForm/translatedPageM";
@@ -127,7 +129,7 @@ public class TranslatedController {
 		TService.submitTS(ts);
 		
 		msg.writeSE(ts);
-		return "redirect:/";
+		return "redirect:/translated/insertTS";
 	}
 		
 	// 중문 번역 제출하기 버튼 눌렀을 시 작동
@@ -138,7 +140,7 @@ public class TranslatedController {
 		log.error("Translated 객체에 들어있는 것 {}", tm);
 		TService.submitTM(tm);
 				
-		return "redirect:/";
+		return "redirect:/translated/insertTM";
 	}
 	
 	// 번역 그만하기 버튼 눌렀을 시 작동 (받은 의뢰를 취소)

@@ -195,7 +195,7 @@
     <style>
        .headerBar {
 /*          background: #0071E3; */
-         background-image: linear-gradient(0deg, #5798FC, #3D72E9);
+/*         background-image: linear-gradient(0deg, #5798FC, #3D72E9); */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -222,7 +222,16 @@
        color:white; 
        font-weight:bold;
        }
-       
+    </style>
+    <style>
+    	.glass{
+			background: rgba( 63, 105, 209, 0.6 );
+			box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+			backdrop-filter: blur( 6px );
+			-webkit-backdrop-filter: blur( 10px );
+			border-radius: 4px;
+			border: 1px solid rgba( 255, 255, 255, 0.18 );
+		}
     </style>
 
 </head>
@@ -232,7 +241,7 @@
    <input type="hidden" id="userid" th:value="${user.memberid}">
    <input type="hidden" id="memex" th:value="${user.mem_ex}">
 <div class="container">
-    <header class="d-flex flex-wrap justify-content-between py-2 fixed-top headerBar" style="z-index: 10; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
+    <header class="glass d-flex flex-wrap justify-content-between py-2 fixed-top headerBar glass" style="z-index: 10; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);">
         <div class="collapse navbar-collapse d-lg-flex" >
             
             <div class="row">
@@ -284,19 +293,10 @@
                         </div>
                     </div>
 
-                
-               
-                </div>
-                
-                
+                </div>   
             </div>
-
-            
-            
-            
         </div>
-    </header>
-    
+    </header>  
 </div>
    
    <!--  <div class="container" style="padding-bottom: 0; margin-bottom: 0;">
