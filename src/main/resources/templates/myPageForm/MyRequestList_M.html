@@ -302,20 +302,20 @@
             
             <th scope="row" th:text="${index.count}"></th>
 
-            <td th:text="${request.requestcontent_m}">의뢰 내용</td>
+            <td th:text="${request.requestcontent_m}" style = "white-space: no-wrap; overflow: hidden; text-overflow: ellipsis;">의뢰 내용</td>
             
             <td th:text="${request.inputdate}">의뢰 날짜</td>
 
             <!-- 버튼 -->
             <td>
-              <a  th:if="${request.requestcondition_m == 'N'}" class="bidBtn btn btn-warning btn-sm" th:id="${request.requestnum_m}" href="#">낙찰하러 가기</a>
-              <a  th:if="${request.requestcondition_m == 'T'}" class="aBtn btn btn-warning btn-sm" th:id="${request.requestnum_m}" href="#">진행중</a>
-              <a  th:if="${request.requestcondition_m == 'E'}" class="resultBtn btn btn-success btn-sm" th:id="${request.requestnum_m}" href="#">결과 받기</a>
-              <a  th:if="${request.requestcondition_m == 'Y'}" class="resultBtn btn btn-success btn-sm" th:id="${request.requestnum_m}" href="#">성공!</a>
-              <a  th:if="${request.requestcondition_m == 'F'}" class="aBtn btn btn-danger btn-sm" th:id="${request.requestnum_m}" href="#">실패</a>
+              <a  th:if="${request.requestcondition_m == 'N'}" class="bidBtn btn btn-warning btn-sm" th:id="${request.requestnum_m}" href="#">번역 대기</a>
+              <a  th:if="${request.requestcondition_m == 'T'}" class="aBtn btn btn-warning btn-sm" th:id="${request.requestnum_m}" href="#">번역 진행중</a>
+              <a  th:if="${request.requestcondition_m == 'E'}" class="resultBtn btn btn-success btn-sm" th:id="${request.requestnum_m}" href="#">평가 대기</a>
+              <a  th:if="${request.requestcondition_m == 'Y'}" class="resultBtn btn btn-success btn-sm" th:id="${request.requestnum_m}" href="#">평가 완료</a>
+              <a  th:if="${request.requestcondition_m == 'F'}" class="aBtn btn btn-danger btn-sm" th:id="${request.requestnum_m}" href="#">평가 실패(대기)</a>
             </td>
             </tr>
-        </tbody>
+       </tbody>
       </table>
     </div>
 

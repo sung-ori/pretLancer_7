@@ -308,11 +308,11 @@
 
             <!-- 버튼 -->
             <td>
-              <a  th:if="${request.requestcondition_s == 'N'}" class="bidBtn btn btn-warning btn-sm" th:id="${request.requestnum_s}" href="#">낙찰하러 가기</a>
-              <a  th:if="${request.requestcondition_s == 'T'}" class="aBtn btn btn-warning btn-sm" th:id="${request.requestnum_s}" href="#">진행중</a>
-              <a  th:if="${request.requestcondition_s == 'E'}" class="resultBtn btn btn-success btn-sm" th:id="${request.requestnum_s}" href="#">결과 받기</a>
-              <a  th:if="${request.requestcondition_s == 'Y'}" class="resultBtn btn btn-success btn-sm" th:id="${request.requestnum_s}" href="#">성공!</a>
-              <a  th:if="${request.requestcondition_s == 'F'}" class="aBtn btn btn-danger btn-sm" th:id="${request.requestnum_s}" href="#">실패</a>
+              <a  th:if="${request.requestcondition_s == 'N'}" class="bidBtn btn btn-warning btn-sm" th:id="${request.requestnum_s}" href="#">번역 대기</a>
+              <a  th:if="${request.requestcondition_s == 'T'}" class="aBtn btn btn-warning btn-sm" th:id="${request.requestnum_s}" href="#">번역 진행중</a>
+              <a  th:if="${request.requestcondition_s == 'E'}" class="resultBtn btn btn-success btn-sm" th:id="${request.requestnum_s}" href="#">평가 대기</a>
+              <a  th:if="${request.requestcondition_s == 'Y'}" class="resultBtn btn btn-success btn-sm" th:id="${request.requestnum_s}" href="#">평가 완료</a>
+              <a  th:if="${request.requestcondition_s == 'F'}" class="aBtn btn btn-danger btn-sm" th:id="${request.requestnum_s}" href="#">평가 실패(대기)</a>
             </td>
             </tr>
         </tbody>
