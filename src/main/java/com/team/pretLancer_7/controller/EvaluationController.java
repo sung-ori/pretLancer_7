@@ -41,9 +41,9 @@ public class EvaluationController {
 		int request_num = ts.getRequestnum_s();
 		Request_S rs = service.getRS(request_num);
 		
-		/*if (ts == null) {
+		if (ts == null) {
 			return "errorForm/NoEvaluation";
-		}*/
+		}
 		
 		m.addAttribute("translated", ts);
 		m.addAttribute("request", rs);
@@ -76,8 +76,8 @@ public class EvaluationController {
 		// 평가 내용을 저장
 		es.setMemberid(user.getUsername());
 		service.insertES(es);
-		
-		return "redirect:/";
+		log.debug("es 객체 : {}", es);
+		return "redirect:/evaluation/getES";
 	}
 	
 	@PostMapping("insertEM")
@@ -86,7 +86,7 @@ public class EvaluationController {
 		em.setMemberid(user.getUsername());
 		service.insertEM(em);
 		
-		return "redirect:/";
+		return "redirect:/evaluation/getEM";
 	}
 	
 }
