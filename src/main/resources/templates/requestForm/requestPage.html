@@ -129,7 +129,7 @@
 	}
 	
 	.glass2{
-	background: rgba( 255, 255, 255, 0.25 );
+	background: rgba( 0, 0, 0, 0.55 );
 box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
 backdrop-filter: blur( 4px );
 -webkit-backdrop-filter: blur( 4px );
@@ -194,30 +194,24 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 			<textarea name = "comment_sr" class = "answer_input" id = "comment_sr" placeholder = "문의글"></textarea>
 			<br>
 			<br>
-			<span><input  id="result" type="number"style="border:none;" class="col-sm-3"  value="0" readonly>글자</span>
-			<br>
+			<span style="color: white; font-weight:bold;"><input  id="result" type="number" style="border:none; text-align:center; font-weight:bold;" class="col-sm-2"  value="0" readonly> 글자</span>
 			<span id="message" style="color:black; font-weight:bold;"></span>
+			<br>
+			<div style="color: white; font-weight:bold;">
+				<input id="cash" type="number" name="cash" style="border:none; text-align:center; font-weight:bold;" class="col-sm-2" value="0" readonly> 캐쉬
+			</div>
 			<br><br>
-			<div >
-				<input id="cash" type="number" name="cash" class="col-sm-3" value="0" readonly> 캐쉬
-			</div>
-			<br><br><br>
-			<div th:action="@{/request/insertRS}" method="post" id='form' onsubmit="return checkLanguages()">
-				<input id="submitBtn" type="submit" class="btn btn-primary" onkeypress="calc()" disabled value="의뢰하기">
+			<br><br>
+			<div th:action="@{/request/insertRS}" method="post" id='form' onsubmit="return checkLanguages()" style="text-align: center;">
+				<input id="submitBtn" type="submit" class="btn btn-primary" onkeypress="calc()" disabled value="의뢰하기" style="width: 150px;">
 			</div>
 			<br>
 			<br>
-
-			<div  style="text-align:center; color:#dc3545; font-weight:bold;"  >
-				<< 한번 요청 하면 취소할 수 없으니, 주의하세요! >>
-			</div>
-			
+			<br>
+			<span class="badge text-bg-danger rounded-pill" style="font-size: 1.2em; padding: 10px 15px;">&lt;&lt; 한번 요청 하면 취소할 수 없으니, 주의하세요! &gt;&gt;</span>
 		</div>
-
 		<div class="card col-md-6 col-lg-6 mx-auto">
-		
-				<textarea  class="textarea-fit-card" placeholder= "글자를 입력하세요." name="requestcontent_s" id='content' rows="28" cols="48" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>
-		
+				<textarea  class="textarea-fit-card" placeholder= "글자를 입력하세요." name="requestcontent_s" id='content' rows="30" cols="45" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>	
 		</div>
 	</div>
 	</div>
