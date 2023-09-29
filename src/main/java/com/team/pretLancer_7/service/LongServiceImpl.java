@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -20,12 +21,11 @@ import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.utill.FileService;
 import com.team.pretLancer_7.utill.PageNavigator;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-@RequiredArgsConstructor
+
 public class LongServiceImpl implements LongService{
 
     @Value("/Users/sung_ori/pretLancer_7/pretLancer_7/src/main/resources/static/request")
@@ -44,33 +44,35 @@ public class LongServiceImpl implements LongService{
     MessagingService msg;
 
     @Override
-    public List<MyPage> getTranslatorList(String userid) {
+    public List<MyPage> getTranslatorList(PageNavigator navi, Map<String,String> map) {
         
         List<MyPage> translatorList = new ArrayList();
-        translatorList =  dao.selectAdTranslator();
+        RowBounds rb = new RowBounds(navi.getStartRecord(),navi.getCountPerPage());
+
+        translatorList =  dao.selectAdTranslator(map,rb);
         
-        int idx = 0;
-        //  현재 번역 중인지 확인하고 번역 중이면 출력 안해준다.
-        while(true) {
-            int max = translatorList.size();
+        // int idx = 0;
+        // //  현재 번역 중인지 확인하고 번역 중이면 출력 안해준다.
+        // while(true) {
+        //     int max = translatorList.size();
 
-            String a = translatorList.get(idx).getMemberid();
+        //     String a = translatorList.get(idx).getMemberid();
             
-            Request_L rql = dao.selectTranslateNow(a);
+        //     Request_L rql = dao.selectTranslateNow(a);
 
-            if (a.equals(userid) || rql != null) {
-                translatorList.remove(idx);
-                idx = 0;
-                continue;
-            }
-            idx++;
+        //     if (a.equals(userid) || rql != null) {
+        //         translatorList.remove(idx);
+        //         idx = 0;
+        //         continue;
+        //     }
+        //     idx++;
 
-            if(idx == max) {
-                break;
-            }
-        }
+        //     if(idx == max) {
+        //         break;
+        //     }
+        // }
 
-        log.error("서비스는 돌아오나? {}", translatorList);
+        // log.error("서비스는 돌아오나? {}", translatorList);
         return translatorList;
     }
 
@@ -142,11 +144,12 @@ public class LongServiceImpl implements LongService{
     
     //  경매 리스트를 불러온다
     @Override
-    public List<Request_L> getAuctionList() {
+    public List<Request_L> getAuctionList(PageNavigator navi, Map<String, String> map) {
         
-        ArrayList<Request_L> auctionList = dao.selectAuctionList();
+        RowBounds rb = new RowBounds(navi.getStartRecord(),navi.getCountPerPage());
+        ArrayList<Request_L> auctionList = dao.selectAuctionList(map,rb);
 
-        int idx = 0;
+        
 
         return auctionList;
     }
@@ -336,9 +339,9 @@ public class LongServiceImpl implements LongService{
         
         HashMap<String, String> map = new HashMap<>();
 		map.put("type", type);
-		
-        int total = getTranslatorList(userid).size();
-
+		map.put("userid", userid);
+        
+        int total = dao.countT(map);
 
 		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page,total);
 		
@@ -346,16 +349,28 @@ public class LongServiceImpl implements LongService{
     }
 
     @Override
-    public PageNavigator getPageNavigatorA(int pagePerGroup, int countPerPage, int page, String type, String userid) {
+    public PageNavigator getPageNavigatorA(int pagePerGroup, int countPerPage, int page, String type) {
         
-        HashMap<String, String> map = new HashMap<>();
-		map.put("type", type);
-		
-        int total = getAuctionList().size();
+        Map<String, String> map = new HashMap<>();
 
+        map.put("type", type);
+        
+		
+		log.debug("타입 확인좀 해 보자. {}",type);
+        int total = 0;
+        //  이 지점에서 오류 발생.
+        try{
+
+            total = dao.countA(map);
+        }catch(Exception e){
+            
+            log.error("에러 내용 : {} ", e.getStackTrace());
+        
+        }
+        log.debug("갯수는 세는가? {}",total);
 
 		PageNavigator navi = new PageNavigator(pagePerGroup, countPerPage, page,total);
-		
+		log.debug("나비스 {}",map);
 		return navi;
     }
 }

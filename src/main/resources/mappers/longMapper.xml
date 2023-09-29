@@ -4,18 +4,58 @@
 
 <mapper namespace="com.team.pretLancer_7.dao.LongDAO">
 
-        <select id="selectAdTranslator" resultType="MyPage">
+        <select id="selectAdTranslator" parameterType="java.util.Map" resultType="MyPage">
                 SELECT m.memberid as memberid, m.membername as membername
-                , m.membernick as membenick, m.mem_ex as mem_ex
-                , m.mem_level as mem_level,m.memberlang as memberlang
-                , p.profilecomment as profilecomment, p.originphoto as originphoto
-                , p.savedphoto as savedphoto
+                      , m.membernick as membenick, m.mem_ex as mem_ex
+                      , m.mem_level as mem_level, m.memberlang as memberlang
+                      , p.profilecomment as profilecomment, p.originphoto as originphoto
+                      , p.savedphoto as savedphoto
                 FROM pret_member m
                 INNER JOIN pret_member_profile p ON m.memberid = p.memberid
-                <!--  TODO: 아직 광고 관련 속성이 없어 그냥 다 올리지만 속성 추가하고 조건도 추가해야함. -->
-                WHERE m.mem_level like 'A' or m.mem_level like 'B'  AND m.ROLE_NAME = 'ROLE_TRANSLATOR'
+                WHERE (m.mem_level LIKE 'A' OR m.mem_level LIKE 'B')
+                      AND m.ROLE_NAME = 'ROLE_TRANSLATOR'
+                      <if test="type == 'JP'">
+                        and (m.memberlang = 'JP')
+                      </if>
+                      <if test="type == 'EN'">
+                        and (m.memberlang = 'EN')
+                      </if>
+                      <if test="type == 'ALL'">
+
+                      </if>
+                      <!-- AND (m.memberlang = #{type} OR #{type} = 'all') -->
+                      AND m.memberid NOT IN (
+                        SELECT DISTINCT memberid2
+                        FROM pret_request_l
+                        WHERE memberid2 = #{userid} AND requestcondition_l = 'T'
+                      )
                 ORDER BY m.mem_level
         </select>
+
+        <select id="countT" parameterType="java.util.Map" resultType="int">
+                SELECT COUNT(*) 
+                FROM pret_member m
+                INNER JOIN pret_member_profile p ON m.memberid = p.memberid
+                WHERE (m.mem_level LIKE 'A' OR m.mem_level LIKE 'B')
+                      AND m.ROLE_NAME = 'ROLE_TRANSLATOR'
+                      <if test="type == 'JP'">
+                        AND m.memberlang = 'JP'
+                      </if>
+                      <if test="type == 'EN'">
+                        AND m.memberlang = 'EN'
+                      </if>
+                      <if test="type == 'ALL'">
+              
+                      </if>
+                      AND m.memberid NOT IN (
+                        SELECT DISTINCT memberid2
+                        FROM pret_request_l
+                        WHERE memberid2 = #{userid} AND requestcondition_l = 'T'
+                      )
+              </select>
+              
+              
+        
         <!-- TODO: 위 아래 if문으로 하나로 합쳐도 될 듯. -->
         <select id="selectOneMyPage" parameterType="String" resultType="MyPage">
                 SELECT m.memberid as memberid, m.membername as membername
@@ -60,25 +100,45 @@
         <select id="selectAuctionList" resultType="Request_L" parameterType="Map">
                 select * from pret_request_l
                 where auction = 'Y' and requestcondition_l = 'N'
-        
-                
-                <!-- <if test="type == 'all' or type == null">
-                        where requestnum_l in (select requestlnum from pret_auction)
+                <if test="type == 'ALL' or type == null">
+
                 </if>
-                <if test="type == 'Y'">
-                        where requestnum_l in (select requestlnum from pret_auction)
-                        and catetogy = '유튜브 자막'
+                <if test="type == 'YS' ">
+                    AND category = '유튜브 자막'
                 </if>
-                <if test="type == 'P'">
-                        where requestnum_l in (select requestlnum from pret_auction)
-                        and catetogy = '논문'
+                <if test="type == 'PP' ">
+                    AND category = '논문'
                 </if>
-                <if test="type == 'N'">
-                        where requestnum_l in (select requestlnum from pret_auction)
-                        and catetogy = '소설'
-                </if> -->
+                <if test="type == 'NV' ">
+                    AND category = '소설'
+                </if>
+                <if test="type == 'OT' ">
+                    AND category = '기타'
+                </if>
         </select>
 
+        <select id="countA" parameterType="java.util.Map" resultType="int">
+                SELECT COUNT(*) 
+                FROM pret_request_l
+                WHERE auction = 'Y' AND requestcondition_l = 'N'
+                <if test="type == 'ALL' or type == null">
+
+                </if>
+                <if test="type == 'YS' ">
+                    AND category = '유튜브 자막'
+                </if>
+                <if test="type == 'PP' ">
+                    AND category = '논문'
+                </if>
+                <if test="type == 'NV' ">
+                    AND category = '소설'
+                </if>
+                <if test="type == 'OT' ">
+                    AND category = '기타'
+                </if>
+        </select>
+            
+        
         <select id="selectRequestList" parameterType="String" resultType="Request_L">
                 select * 
                 from pret_request_l
@@ -199,5 +259,20 @@
                 where memberid = #{userid}
         </update>
         
+     
         <!-- 배치 이용해서 12시마다 마감됐는지 확인하고, 그에 맞는 처리를 한다. /DB의 수정, 메세지 전송 등  -->
+
+        
 </mapper>
+
+        <!-- <select id="selectAdTranslator" resultType="MyPage">
+                SELECT m.memberid as memberid, m.membername as membername
+                , m.membernick as membenick, m.mem_ex as mem_ex
+                , m.mem_level as mem_level,m.memberlang as memberlang
+                , p.profilecomment as profilecomment, p.originphoto as originphoto
+                , p.savedphoto as savedphoto
+                FROM pret_member m
+                INNER JOIN pret_member_profile p ON m.memberid = p.memberid
+                WHERE m.mem_level like 'A' or m.mem_level like 'B'  AND m.ROLE_NAME = 'ROLE_TRANSLATOR'
+                ORDER BY m.mem_level
+        </select> -->

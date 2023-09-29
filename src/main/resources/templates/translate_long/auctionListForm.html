@@ -31,6 +31,24 @@
             }
             
         });
+        function pagingFormSubmit(curruntPage) {
+			
+			let form = document.getElementById('pagingForm');
+			let page = document.getElementById('page');
+			page.value = curruntPage;
+			
+			form.submit();
+		}
+        
+        $(document).ready(function() {
+            const urlParams = new URL(location.href).searchParams;
+            const type = urlParams.get('type');
+            console.log(name);
+            $("#pagingForm").attr("action","http://localhost:8888/pretLancer/long/auctionList?type="+ type);
+    
+        })
+
+
     </script>
     <!-- 상단 바 코드 -->
     
@@ -74,7 +92,13 @@
     <div class="container">
         <h1>번역 경매 리스트</h1>
         <div class=" row container-fluid">
-
+            <div>
+                <a th:href="@{/long/auctionList?type=ALL}">전체</a> /
+                <a th:href="@{/long/auctionList?type=YS}">유튜브 자막</a> /
+                <a th:href="@{/long/auctionList?type=PP}">논문</a> /
+                <a th:href="@{/long/auctionList?type=NV}">소설</a> /
+                <a th:href="@{/long/auctionList?type=OT}">기타</a> /
+            </div>
             <div th:each="auction, index : ${auctionList}" class="col-4 card">
                 <img th:src="@{/img/paper.png}" class="card-img-top" style="height: 50%;" alt="임시 서류 이모티콘">
                 <div class="card-body">
@@ -97,6 +121,23 @@
             
             </div>
         </div>
+        
+        <div id="pagingNavBar" class=" h4 text-center"  >
+            <a th:href="|javascript:pagingFormSubmit(${navi.currentPage - navi.pagePerGroup})|">◁◁</a>
+            <a th:href="|javascript:pagingFormSubmit(${navi.currentPage - 1})|">◀</a> 
+            <!-- for each로 출력 			타임리프의 객체/ 수열을 만들어냄. -->
+            <span th:each="counter : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}"> 
+                <th:block th:if="${counter == navi.currentPage}"><b></th:block>
+                    <a th:text="${counter}" th:href="|javascript:pagingFormSubmit(${counter})|"></a>&nbsp;
+                <th:block th:if="${counter == navi.currentPage}"></b></th:block>
+            </span>
+            
+            <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + 1})|">▶</a> 
+            <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
+        </div>
+        <form id="pagingForm" th:action="@{/long/auctionList}" method="get">
+            <input type="hidden" name="page" id="page">
+        </form>
     </div>
     
     <!-- <div id="main"> -->

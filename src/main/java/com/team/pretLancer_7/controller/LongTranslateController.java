@@ -53,14 +53,17 @@ public class LongTranslateController {
     }
 
     @GetMapping("/request")
-    public String requestForm(Model model,@AuthenticationPrincipal UserDetails user,String type, String searchWord,
+    public String requestForm(Model model,@AuthenticationPrincipal UserDetails user,String type,
     @RequestParam(name="page",defaultValue="1") int page) {
 
         String userid = user.getUsername();
+        Map<String,String> map = new HashMap();
+        map.put("type", type);
+        map.put("userid", userid);
 
         PageNavigator navi = service.getPageNavigatorT(pagePerGroup, countPerPage, page, type, userid);
 
-        List<MyPage> translatorList = service.getTranslatorList(userid);
+        List<MyPage> translatorList = service.getTranslatorList(navi,map);
 
 
         log.error("돌아오나요? {}", translatorList);
@@ -86,10 +89,10 @@ public class LongTranslateController {
 
     @GetMapping("/writeRequest")
     public String request(Model model, @RequestParam(name="memberid") String memberid, @AuthenticationPrincipal UserDetails user) {
-        String translatorId = memberid;
+        MyPage translatorProfile = service.getOneMyPage(memberid);
         String loginId = user.getUsername();
         
-        model.addAttribute("translatorId", translatorId);
+        model.addAttribute("translator", translatorProfile);
         model.addAttribute("loginId", loginId);
 
 
@@ -127,15 +130,19 @@ public class LongTranslateController {
         return "redirect:/main";
     }
 
-    @GetMapping("auctionList")
+    @GetMapping("/auctionList")
     public String auctionList(Model model,@AuthenticationPrincipal UserDetails user,@RequestParam(name="page",defaultValue="1") int page,String type) {
-
+        log.debug("출발은 하는가?");
         String userid = user.getUsername();
-
-        PageNavigator navi = service.getPageNavigatorA(pagePerGroup, countPerPage, page, type, userid);
-        List<Request_L> auctionList =  service.getAuctionList();
-
+        Map<String,String> map = new HashMap();
+        map.put("type",type);
+        log.debug("맵에는 들어가는가?")     ;
+        PageNavigator navi = service.getPageNavigatorA(pagePerGroup, countPerPage, page, type);
+        log.debug("갯수 세고 돌아오는가? {}",navi);
+        List<Request_L> auctionList =  service.getAuctionList(navi,map);
+        log.debug("옥션 갖고 돌아오는가? {}",auctionList); 
         model.addAttribute("auctionList", auctionList);
+        model.addAttribute("navi", navi);
         return "/translate_long/auctionListForm";
     }
     

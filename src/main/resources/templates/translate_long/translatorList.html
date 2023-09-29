@@ -21,6 +21,13 @@
             }
             
         });
+        $(document).ready(function() {
+            const urlParams = new URL(location.href).searchParams;
+            const type = urlParams.get('type');
+            console.log(name);
+            $("#pagingForm").attr("action","http://localhost:8888/pretLancer/long/request?type="+ type);
+    
+        })
     </script>
     
     <!-- 준규상 코드 -->
@@ -41,11 +48,21 @@
     <div class="container">
         <h1>번역가 리스트</h1>
         <div class=" row container-fluid">
-
+            <div>
+                <strong><a th:href="@{/long/request?type=ALL}">   전체   </a></strong>/
+                <strong><a th:href="@{/long/request?type=JP}">   일본어 번역가   </a></strong>/
+                <strong><a th:href="@{/long/request?type=EN}">   영어 번역가   </a></strong>/
+            </div>
             <div th:each="translator, index : ${translatorList}" class="col-4 card">
                 <img th:src="@{|/img/${translator.savedphoto}|}" class="card-img-top" style="height: 50%;;" alt="임시 프로필 사진">
                 <div class="card-body">
-                    <h3 class="card-title"  th:text="${translator.membername}">Card title</h3>
+                    <h3 class="card-subtitle"><span>번역가 이름 :</span><span   th:text="${translator.membername}"></span></h3>
+                    <div th:if="${translator.memberlang == 'JP'}">
+                        <h4 class="card-title" ><span>번역 언어 : 일본어</span></h4>
+                    </div>
+                    <div th:if="${translator.memberlang == 'EN'}">
+                        <h4 class="card-title" ><span>번역 언어 : 영어</span></h4>
+                    </div>
                     <h5 class="card-text"><strong>[[${translator.mem_level}]]</strong>등급</h5>
                     <a th:id="${translator.memberid}" class="btn btn-primary">프로필 자세히 보기</a>
                 </div>
@@ -65,6 +82,9 @@
             <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + 1})|">▶</a> 
             <a th:href="|javascript:pagingFormSubmit(${navi.currentPage + navi.pagePerGroup})|">▷▷</a>
         </div>
+        <form id="pagingForm" th:action="@{/long/auctionList}" method="get">
+            <input type="hidden" name="page" id="page">
+        </form>
     </div>
     
     <!-- main div -->
