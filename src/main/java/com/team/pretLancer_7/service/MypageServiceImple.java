@@ -1,13 +1,18 @@
 package com.team.pretLancer_7.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team.pretLancer_7.dao.AbilityDAO;
 import com.team.pretLancer_7.dao.MemberDAO;
+import com.team.pretLancer_7.dao.RequestDAO;
 import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
+import com.team.pretLancer_7.domain.Request_M;
+import com.team.pretLancer_7.domain.Request_S;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,6 +26,8 @@ public class MypageServiceImple implements MypageService {
     @Autowired
     AbilityDAO aDao;
 
+    @Autowired
+    RequestDAO rDao;
 
     @Override
     public MyPage getMyPage(String userId) {
@@ -85,7 +92,16 @@ public class MypageServiceImple implements MypageService {
 	public Ability getAbility(String username) {
 		return aDao.getAbility(username);
 	}
+
+	@Override
+	public List<Request_S> myRquestList_S(String userid) {
+		return rDao.selectRequestList_S(userid);
+	}
     
+	@Override
+	public List<Request_M> myRquestList_M(String userid) {
+		return rDao.selectRequestList_M(userid);
+	}
     
     
 }

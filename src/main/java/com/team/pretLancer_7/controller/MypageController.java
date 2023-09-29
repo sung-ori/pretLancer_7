@@ -25,6 +25,8 @@ import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
+import com.team.pretLancer_7.domain.Request_M;
+import com.team.pretLancer_7.domain.Request_S;
 import com.team.pretLancer_7.service.LongService;
 import com.team.pretLancer_7.service.MemberService;
 import com.team.pretLancer_7.service.MypageService;
@@ -156,15 +158,35 @@ public class MypageController {
 	// =========================
 
 
-	 @GetMapping("/myRequestList")
-    public String myAuctionList(@AuthenticationPrincipal UserDetails user, Model model) {
+	 @GetMapping("/myRequestList_S")
+    public String myAuctionList_S(@AuthenticationPrincipal UserDetails user, Model model) {
         
-        List<Request_L> myRequestList =  Lservice.myRquestList(user.getUsername());
+        List<Request_S> myRequestList =  service.myRquestList_S(user.getUsername());
         
         model.addAttribute("myRequestList", myRequestList);
 
-        return "/mypageform/myRequestList";
+        return "/mypageform/myRequestList_S";
     }
+
+	 @GetMapping("/myRequestList_M")
+	    public String myAuctionList_M(@AuthenticationPrincipal UserDetails user, Model model) {
+	        
+	        List<Request_M> myRequestList =  service.myRquestList_M(user.getUsername());
+	        
+	        model.addAttribute("myRequestList", myRequestList);
+
+	        return "/mypageform/myRequestList_M";
+	    }
+
+	 @GetMapping("/myRequestList_L")
+	    public String myAuctionList_L(@AuthenticationPrincipal UserDetails user, Model model) {
+	        
+	        List<Request_L> myRequestList =  Lservice.myRquestList(user.getUsername());
+	        
+	        model.addAttribute("myRequestList", myRequestList);
+
+	        return "/mypageform/myRequestList_L";
+	    }
 
 	
     @GetMapping("/requestToMe")

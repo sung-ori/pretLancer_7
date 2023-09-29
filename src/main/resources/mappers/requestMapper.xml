@@ -133,4 +133,20 @@
 	SELECT pret_request_m where memberid = #{memberid}
 	</select>
 	
+	<select id="selectRequestList_S" parameterType="String" resultType="Request_S">
+    select * 
+    from pret_request_s
+    <if test="#{userid} != null">
+        where memberid = #{userid}
+    </if>
+    </select>
+
+	<select id="selectRequestList_M" parameterType="String" resultType="Request_M">
+    select * 
+    from pret_request_m
+    <if test="#{userid} != null">
+        where memberid = #{userid}
+    </if>
+    </select>
+	
 </mapper>
