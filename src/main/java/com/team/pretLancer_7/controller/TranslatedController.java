@@ -76,6 +76,9 @@ public class TranslatedController {
 		m.addAttribute("request", rs);
 		m.addAttribute("translated", ts);
 
+		log.error("번역하기의 ts객체 : {}", ts);
+		log.error("번역하기의 rs객체 : {}", rs);
+
 		return "translatedForm/translatedPageS";
 	}
 	

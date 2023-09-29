@@ -17,6 +17,9 @@ import com.team.pretLancer_7.domain.Translated_M;
 import com.team.pretLancer_7.domain.Translated_S;
 import com.team.pretLancer_7.service.EvaluationService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("evaluation")
 public class EvaluationController {
@@ -38,12 +41,15 @@ public class EvaluationController {
 		int request_num = ts.getRequestnum_s();
 		Request_S rs = service.getRS(request_num);
 		
-		if (ts == null) {
+		/*if (ts == null) {
 			return "errorForm/NoEvaluation";
-		}
+		}*/
 		
 		m.addAttribute("translated", ts);
 		m.addAttribute("request", rs);
+		
+		log.debug("ts 객체 : {}", ts);
+		log.debug("rs 객체 : {}", rs);
 
 		return "evaluationForm/evaluatedPageS";
 	}

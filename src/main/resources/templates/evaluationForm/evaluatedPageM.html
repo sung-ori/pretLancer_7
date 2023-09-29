@@ -251,9 +251,9 @@
 						<input type = "hidden" name = "translatednum_m" th:value = "${translated?.translatednum_m}">
 						<input type = "hidden" name = "requestnum_m"  th:value="${translated?.requestnum_m}">
 						<input type = "hidden" name = "memberid"  th:value="${translated?.memberid}">
-						<textarea name = "translatedcontent_m" class = "answer_input" id = "translatedcontent_m" th:value = "${translated?.translatedcontent_m}" readonly></textarea> <br>
+						<textarea name = "translatedcontent_m" class = "answer_input" id = "translatedcontent_m" th:text = "${translated?.translatedcontent_m}" readonly></textarea> <br>
 						<span>※비고 및 주석: 번역가가 남긴 원문에 대한 주석, 참고사항입니다.</span><br>
-						<textarea id = "comment_mt" name = "comment_mt" class = "comment_input" readonly style = "color : #2334DE; width : 500px;" th:value = "${translated?.comment_mt}" readonly>코멘트가 없습니다.</textarea>
+						<textarea id = "comment_mt" name = "comment_mt" class = "comment_input" readonly style = "color : #2334DE; width : 500px;" th:text = "${translated?.comment_mt}" readonly>코멘트가 없습니다.</textarea>
 						<input type = "button" value = "나가기" class = "exit_button" id = "exit_button">
 					</td>
 					<td style = "vertical-align : top;">

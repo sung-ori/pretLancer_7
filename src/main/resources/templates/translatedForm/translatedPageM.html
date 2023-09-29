@@ -227,7 +227,7 @@
 	<div class = "outer">
 		<div>
 			<span>※번역에 대한 요청사항입니다.</span><br>
-			<textarea id = "comment_mr" name = "comment_mr" class = "comment_input" readonly style = "color : #2334DE;" th:value = "${request.comment_mr}">요청사항이 없습니다.</textarea>
+			<textarea id = "comment_mr" name = "comment_mr" class = "comment_input" readonly style = "color : #2334DE;" th:text = "${request.comment_mr}"></textarea>
 			<br>
 			<br>
 		</div>
@@ -260,7 +260,7 @@
 						<p class = "input_exam">번역을 정확하게 입력해주세요.</p>
 						<textarea name = "translatedcontent_m" class = "answer_input" id = "translatedcontent_m" placeholder = "띄어쓰기와 맞춤법 포함 정확하게 입력해주세요. &#13;&#10;오답률은 신뢰도와 등급에 영향을 줍니다.&#13;&#10;쇼트에서 좋은 평가를 받으면, 리워드를 획득할 수 있으며 &#13;&#10;신뢰도가 올라 더 다양한 길이의 번역에 도전할 수 있습니다."></textarea> <br>
 						<span>※주석 및 참고사항</span><br>
-						<textarea id = "comment_mt" name = "comment_mt" class = "comment_input2" style = "color : #2334DE;" th:value = "${translated.comment_mt}" placeholder = "의뢰자가 참고할 사항을 적어주세요."></textarea>
+						<textarea id = "comment_mt" name = "comment_mt" class = "comment_input2" style = "color : #2334DE;" placeholder = "의뢰자가 참고할 사항을 적어주세요."></textarea>
 						<input type = "submit" value = "제출하기" class = "submit_button" id = "submit_button">
 						<input type = "button" value = "나가기" class = "exit_button" id = "exit_button">
 
