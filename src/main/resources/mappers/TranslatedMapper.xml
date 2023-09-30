@@ -55,5 +55,5 @@
 	<select id="tsList" parameterType="String" resultType="Translated_S">
 	
 	</select>
-
+	
 </mapper>

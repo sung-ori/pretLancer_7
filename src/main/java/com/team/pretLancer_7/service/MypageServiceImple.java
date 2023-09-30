@@ -8,11 +8,14 @@ import org.springframework.stereotype.Service;
 import com.team.pretLancer_7.dao.AbilityDAO;
 import com.team.pretLancer_7.dao.MemberDAO;
 import com.team.pretLancer_7.dao.RequestDAO;
+import com.team.pretLancer_7.dao.TranslatedDAO;
 import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_M;
 import com.team.pretLancer_7.domain.Request_S;
+import com.team.pretLancer_7.domain.Translated_M;
+import com.team.pretLancer_7.domain.Translated_S;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +31,9 @@ public class MypageServiceImple implements MypageService {
 
     @Autowired
     RequestDAO rDao;
+    
+    @Autowired
+    TranslatedDAO tDao;
 
     @Override
     public MyPage getMyPage(String userId) {
@@ -102,6 +108,25 @@ public class MypageServiceImple implements MypageService {
 	public List<Request_M> myRquestList_M(String userid) {
 		return rDao.selectRequestList_M(userid);
 	}
+
+	@Override
+	public Request_S readRequestInfo_S(int requestnum_s) {
+		return rDao.selectOneRequest_S(requestnum_s);
+	}
     
+	@Override
+	public Request_M readRequestInfo_M(int requestnum_m) {
+		return rDao.selectOneRequest_M(requestnum_m);
+	}
     
+	@Override
+	public Translated_S getTS(int requestnum_s) {
+		return tDao.selectTS(requestnum_s);
+	};
+
+	@Override
+	public Translated_M getTM(int requestnum_m) {
+		return tDao.selectTM(requestnum_m);
+	};
+
 }

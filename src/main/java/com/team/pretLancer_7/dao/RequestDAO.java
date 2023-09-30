@@ -72,6 +72,9 @@ public interface RequestDAO {
 
 	List<Request_S> selectRequestList_S(String userid);
 	List<Request_M> selectRequestList_M(String userid);
+
+	Request_S selectOneRequest_S(int requestnum_s);
+	Request_M selectOneRequest_M(int requestnum_m);
 	
 	//동일한 translatednum을 사용하는 리퀘스트를 가져옴 (리퀘스트에서 코멘트를 가져오기 위함임)
 	

@@ -148,5 +148,16 @@
         where memberid = #{userid}
     </if>
     </select>
+    
+  	<select id="selectOneRequest_S" parameterType="int" resultType="Request_S">
+    select * from pret_request_s 
+    where requestnum_s = #{requestnum_s}
+    </select>
+	
+	<select id="selectOneRequest_M" parameterType="int" resultType="Request_M">
+    select * from pret_request_m 
+    where requestnum_m = #{requestnum_m}
+    </select>
+    
 	
 </mapper>

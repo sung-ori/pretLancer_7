@@ -19,6 +19,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team.pretLancer_7.domain.Ability;
@@ -27,6 +28,8 @@ import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.domain.Request_M;
 import com.team.pretLancer_7.domain.Request_S;
+import com.team.pretLancer_7.domain.Translated_M;
+import com.team.pretLancer_7.domain.Translated_S;
 import com.team.pretLancer_7.service.LongService;
 import com.team.pretLancer_7.service.MemberService;
 import com.team.pretLancer_7.service.MypageService;
@@ -259,4 +262,48 @@ public class MypageController {
     public String changePhoto() {
     	return "mypageform/changePhoto";
     }
+
+    @GetMapping("/readResult_S")
+    public String readResult_S(@RequestParam("requestnum_s") int requestnum_s, Model model) {
+
+        Request_S rql =  service.readRequestInfo_S(requestnum_s);
+        Translated_S ts = service.getTS(requestnum_s);
+        
+        model.addAttribute("request", rql);
+        model.addAttribute("translated", ts);
+
+        return "/mypageform/resultForm_S";
+    }
+
+    @GetMapping("/readResult_M")
+    public String readResult(@RequestParam("requestnum_m") int requestnum_m, Model model) {
+
+        Request_M rql =  service.readRequestInfo_M(requestnum_m);
+        Translated_M tm = service.getTM(requestnum_m);
+
+        model.addAttribute("request", rql);
+        model.addAttribute("translated", tm);
+
+        return "/mypageform/resultForm_M";
+    }
+
+    /*
+    @GetMapping("/readRequestInfo_S")
+    public String readRequestInfo_S(Model model, @RequestParam(name = "requestnum_s") int requestnum_s) {
+
+        Request_S request =  service.readRequestInfo_S(requestnum_s);
+        model.addAttribute("request", request);
+        return "/mypageform/requestInfo_S";
+    }
+
+    @GetMapping("/readRequestInfo_M")
+    public String readRequestInfo_M(Model model, @RequestParam(name = "requestnum_m") int requestnum_m) {
+
+        Request_S request =  service.readRequestInfo_S(requestnum_m);
+        model.addAttribute("request", request);
+        return "/mypageform/requestInfo_M";
+    }
+	*/
+    
+    
 }

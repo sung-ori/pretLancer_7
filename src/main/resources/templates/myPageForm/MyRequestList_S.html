@@ -193,27 +193,8 @@
 		}
 </style>
 <script type="text/javascript">
-// requestListForm의 함수와 완전히 같은 함수. js 파일로 옮길 것
 	$(document).ready(function() {
-	      $(".bidBtn").click(openRequestInfo);
-	      // $(".title").click(openRequestInfo);
-	
-	      function openRequestInfo() {
-	          let width = window.screen.width;
-	          let height = window.screen.height;
-	
-	          let openWidth = width/2;
-	          let openHeight = height/2;
-	
-	          let top = height/4;
-	          let left = width/4;
-	
-	          let requestnum =  $(this).attr("id");
-	
-	          window.open("http://localhost:8888/pretLancer/long/readAuctionInfo?requestnum_l="+requestnum ,'경매 입찰 페이지', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
-	      }
-	      $(".resultBtn").click(openResult);
-	      // $(".title").click(openRequestInfo);
+	      $(".title").click(openResult);
 	
 	      function openResult() {
 	          let width = window.screen.width;
@@ -227,7 +208,7 @@
 	
 	          let requestnum =  $(this).attr("id");
 	
-	          window.open("http://localhost:8888/pretLancer/long/readResult?requestnum_l="+requestnum ,'번역 결과 받기', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
+	          window.open("http://localhost:8888/pretLancer/my_page/readResult_S?requestnum_s="+requestnum ,'번역 결과 받기', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
 	      }
 	  });
 </script>
@@ -302,7 +283,7 @@
             
             <th scope="row" th:text="${index.count}"></th>
 
-            <td th:text="${request.requestcontent_s}">의뢰 내용</td>
+            <td class = "title"  th:id="${request.requestnum_s}" th:text="${request.requestcontent_s}">의뢰 내용</td>
             
             <td th:text="${request.inputdate}">의뢰 날짜</td>
 

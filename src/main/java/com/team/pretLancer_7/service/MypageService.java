@@ -2,11 +2,13 @@ package com.team.pretLancer_7.service;
 
 import java.util.List;
 
+import com.team.pretLancer_7.domain.Translated_S;
 import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_M;
 import com.team.pretLancer_7.domain.Request_S;
+import com.team.pretLancer_7.domain.Translated_M;
 
 public interface MypageService {
     
@@ -31,4 +33,10 @@ public interface MypageService {
 
 	public List<Request_M> myRquestList_M(String userid);
 
+	public Request_S readRequestInfo_S(int requestnum_s);
+
+	public Request_M readRequestInfo_M(int requestnum_m);
+
+	public Translated_S getTS(int requestnum_s);
+	public Translated_M getTM(int requestnum_m);
 }
