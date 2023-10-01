@@ -25,7 +25,5 @@ public interface TranslatedService {
 
 	Translated_M getMyTM(Request_M myorderM);
 
-	List<Translated_S> getTranslatedS(String username);
-	List<Translated_M> getTranslatedM(String username);
 
 }

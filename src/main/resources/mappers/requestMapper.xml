@@ -158,6 +158,23 @@
     select * from pret_request_m 
     where requestnum_m = #{requestnum_m}
     </select>
+
+	<select id="rsList2" parameterType="String" resultType="Request_S">
+	select R.requestnum_s, R.requestcontent_s, T.translatedcontent_s, requestcondition_s 
+	from pret_translated_s T 
+	join pret_request_s R
+	on T.requestnum_s = R.requestnum_s 
+	where T.memberid = #{memberid}
+	</select>
+
+	<select id="rmList2" parameterType="String" resultType="Request_M">
+	select R.requestnum_m, R.requestcontent_m, T.translatedcontent_m, requestcondition_m 
+	from pret_translated_m T 
+	join pret_request_m R
+	on T.requestnum_m = R.requestnum_m 
+	where T.memberid = #{memberid}
+	</select>
+	
     
 	
 </mapper>

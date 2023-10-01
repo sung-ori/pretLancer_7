@@ -73,16 +73,6 @@ public class TranslatedServiceImple implements TranslatedService {
 		return Tdao.getMyTM(myorderM);
 	}
 
-	@Override
-	public List<Translated_S> getTranslatedS(String username) {
-		return Tdao.tsList(username);
-	}
-
-	@Override
-	public List<Translated_M> getTranslatedM(String username) {
-		return Tdao.tmList(username);
-	}
-
 	
 	
 	

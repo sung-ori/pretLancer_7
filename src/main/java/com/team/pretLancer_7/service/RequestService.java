@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.team.pretLancer_7.domain.Request_M;
 import com.team.pretLancer_7.domain.Request_S;
+import com.team.pretLancer_7.domain.Translated_M;
+import com.team.pretLancer_7.domain.Translated_S;
 
 public interface RequestService {
 

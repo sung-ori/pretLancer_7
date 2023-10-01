@@ -127,12 +127,13 @@ public class RequestServiceImple implements RequestService {
 
 	@Override
 	public List<Request_S> getRequestS(String username) {		
-		return Rdao.rsList(username);
+		return Rdao.rsList2(username);
 	}
 	
 	@Override
 	public List<Request_M> getRequestM(String username) {
-		return Rdao.rmList(username);
+		return Rdao.rmList2(username);
 	}
 
+	
 }

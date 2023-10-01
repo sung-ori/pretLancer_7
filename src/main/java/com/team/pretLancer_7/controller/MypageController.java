@@ -33,6 +33,8 @@ import com.team.pretLancer_7.domain.Translated_S;
 import com.team.pretLancer_7.service.LongService;
 import com.team.pretLancer_7.service.MemberService;
 import com.team.pretLancer_7.service.MypageService;
+import com.team.pretLancer_7.service.RequestService;
+import com.team.pretLancer_7.service.TranslatedService;
 import com.team.pretLancer_7.utill.FileService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +55,13 @@ public class MypageController {
 
 	@Autowired
 	LongService Lservice;
+	
+	@Autowired
+	RequestService Rservice;
 
+	@Autowired
+	TranslatedService Tservice;
+	
     @GetMapping("main")
     public String myPageForm(Model m, @AuthenticationPrincipal UserDetails user) {
         
@@ -191,14 +199,33 @@ public class MypageController {
 	        return "/mypageform/myRequestList_L";
 	    }
 
+	 @GetMapping("/requestToMe_S")
+	    public String requestToMe_S(Model model, @AuthenticationPrincipal UserDetails user) {
+			List<Request_S> list =  Rservice.getRequestS(user.getUsername());
+			
+	        model.addAttribute("list", list);
+			
+	        return "/mypageform/requestToMe_S";
+			
+	    }
+	 
+	    @GetMapping("/requestToMe_M")
+	    public String requestToMe_M(Model model, @AuthenticationPrincipal UserDetails user) {
+			List<Request_M> list =  Rservice.getRequestM(user.getUsername());
+			
+	        model.addAttribute("list", list);
+			
+	        return "/mypageform/requestToMe_M";
+			
+	    }
 	
-    @GetMapping("/requestToMe")
+    @GetMapping("/requestToMe_L")
     public String requestToMe(Model model, @AuthenticationPrincipal UserDetails user) {
 		List<Request_L> list =  Lservice.getRequestToMe(user.getUsername());
 		
         model.addAttribute("list", list);
 		
-        return "/mypageform/requestToMe";
+        return "/mypageform/requestToMe_L";
 		
     }
     
