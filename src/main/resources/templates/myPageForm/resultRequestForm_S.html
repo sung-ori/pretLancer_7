@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko"  xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <title>번역 상세정보</title>
+    <script>
+        $(document).ready(function() {
+            extension();
+           $("#success").on("click", function() {
+            let rqln = $("#requestnum").val();
+            
+
+            $.ajax({
+                type:"GET",
+                url:"success_S",
+                data:{"requestnum_s" :rqln},
+                success: function() {
+                    alert("성공처리 됐습니다.");
+                    window.opener.location.reload();
+                    window.close();
+                },
+                error: function(e) {
+                    console.log(JSON.stringify(e));
+                }
+            })
+
+           })
+        });
+
+        function extension() {
+            let file = $("#file").val();
+            
+            let parts = file.split('.');
+
+            let extension = parts.pop();
+
+            $("#download").attr("download",file);
+        
+        }
+
+    </script>
+</head>
+<body>
+    
+    <h1>번역 결과 돌려받는다. </h1>
+
+    <input type="hidden" id="requestnum" th:value="${request.requestnum_s}">
+    <input type="hidden" id="memberid" th:value="${request.memberid}">
+
+    <div class="container">
+        <div>
+            <span>의뢰 날짜 : </span>
+            <span th:text="${request.inputdate}">의뢰 날짜</span>
+        </div>
+
+        <div>
+            <span>의뢰 캐시 : </span>
+            <span th:text="${request.cash}">의뢰 캐시</span>
+        </div>
+
+        <div>
+            <span>번역 의뢰 원문 : </span>
+            <span class="h2 text-center" th:text="${request.requestcontent_s}">의뢰 원문</span>
+        </div>
+        
+        <div>
+            <span>의뢰자의 요청사항 : </span>
+            <span th:text="${request.comment_sr}"></span>
+        </div>
+
+		<br>
+		<hr>
+		<br>
+
+		<div>
+            <span>내가 번역한 내용</span>
+            <span th:text="${translated.translatedcontent_s}"></span>
+        </div>
+
+		<div>
+            <span>나의 주석 및 참고사항</span>
+            <span th:text="${translated.comment_st}"></span>
+        </div>
+		        
+    </div>
+    
+</body>
+</html>

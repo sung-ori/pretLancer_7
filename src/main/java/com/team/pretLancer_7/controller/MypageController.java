@@ -323,7 +323,7 @@ public class MypageController {
         model.addAttribute("request", rql);
         model.addAttribute("translated", ts);
 
-        return "/mypageform/resultForm_S";
+        return "/mypageform/resultRequestForm_S";
     }
 
     @GetMapping("/readResultRequest_M")
@@ -335,7 +335,7 @@ public class MypageController {
         model.addAttribute("request", rql);
         model.addAttribute("translated", tm);
 
-        return "/mypageform/resultForm_M";
+        return "/mypageform/resultRequestForm_M";
     }
 
     /*

@@ -211,8 +211,8 @@ $(document).ready(function() {
         let requestnum =  $(this).attr("id");
         let condition = $(this).attr("value");
         
-        //condition == 'Y'로 바꿔놓을 것
-        if (condition == 'Y' || condition == 'E')
+        //condition == 'Y'로 바꿔놓을 것 || condition == 'E'
+        if (condition == 'Y')
 	        window.open("http://localhost:8888/pretLancer/my_page/readResultRequest_S?requestnum_s="+requestnum ,'번역 결과 받기', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
         else
         	alert('평가가 최종적으로 완료되고 결과가 성공일 때에만 결과 확인이 가능합니다.');
