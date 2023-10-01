@@ -193,44 +193,28 @@
 		}
 </style>
 <script type="text/javascript">
-	//   비슷해보이지만 경매 정보 와 다른 코드이다. 
-	$(document).ready(function() {
-	  // nowTranslateValidation();
-	  $(".btn-primary").click(openRequestInfo);
-	  $(".btn-warning").click(openAccessInfo);
-	
-	  function openRequestInfo() {
-	    let width = window.screen.width;
-	    let height = window.screen.height;
-	
-	    let openWidth = width/2;
-	    let openHeight = height/2;
-	
-	    let top = height/4;
-	    let left = width/4;
-	
-	    let requestnum =  $(this).attr("id");
-	
-	    window.open("http://localhost:8888/pretLancer/long/readRequestInfo?requestnum_l="+requestnum ,'요청 상세 페이지', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
-	}
-	   
-	function openAccessInfo() {
-	    let width = window.screen.width;
-	    let height = window.screen.height;
-	
-	    let openWidth = width/2;
-	    let openHeight = height/2;
-	
-	    let top = height/4;
-	    let left = width/4;
-	
-	    let requestnum =  $(this).attr("id");
-	
-	    window.open("http://localhost:8888/pretLancer/long/readAccessRequestInfo?requestnum_l="+requestnum ,'요청 상세 페이지', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
-	}
-	      
-	  });
-	
+$(document).ready(function() {
+    $(".title").click(openResult);
+
+    function openResult() {
+        let width = window.screen.width;
+        let height = window.screen.height;
+
+        let openWidth = width/2;
+        let openHeight = height/2;
+
+        let top = height/4;
+        let left = width/4;
+
+        let requestnum =  $(this).attr("id");
+        let condition = $(this).attr("value");
+        
+        if (condition == 'Y')
+	        window.open("http://localhost:8888/pretLancer/my_page/readResultRequest_M?requestnum_m="+requestnum ,'번역 결과 받기', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
+        else
+        	alert(condition);
+    }
+});	
 	  
 	
 </script>
@@ -275,14 +259,14 @@
 	    	<tr>
 			    <td><a th:href = "@{/my_page/main}">내 정보&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
 			    <td><a th:href = "@{/my_page/myRequestList_S}">내가 요청한 번역 내역&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
-			    <td><b><a th:href = "@{/my_page/requestToMe}">내가 맡은 번역 리스트</a></b></td>
+			    <td><b><a th:href = "@{/my_page/requestToMe_S}">내가 맡은 번역 리스트</a></b></td>
 	    	</tr>
 	    </table>
 	    <hr>
 	    <table class = "content" style = "border-collapse: separate; text-align : center;">
 	    	<tr>
-			    <td><a th:href = "@{/my_page/requestToMe_S}">단문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
-			    <td><b><a th:href = "@{/my_page/requestToMe_M}">중문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></b></td>		
+			    <td><b><a th:href = "@{/my_page/requestToMe_S}">단문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></b></td>		
+			    <td><a th:href = "@{/my_page/requestToMe_M}">중문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
 			    <td><a th:href = "@{/my_page/requestToMe_L}">장문</a></td>
 	    	</tr>
 	    </table>
@@ -296,22 +280,22 @@
             <th scope="col">#</th>
             <th scope="col">의뢰 내용</th>
             <th scope="col">내 번역</th>
-            <th scope="col">버튼</th>
+            <th scope="col">상태</th>
           </tr>
         </thead>
         <tbody>
           <tr th:each="request, index : ${list}">
             <th scope="row" th:text="${index.count}"></th>
 
-            <td th:text="${request.requestcontent_m}">의뢰 내용</td>
+            <td th:text="${request.requestcontent_m}" class = "title" th:id = "${request.requestnum_m}" th:value="${request.requestcondition_m}">의뢰 내용</td>
 
             <td th:text="${request.translatedcontent_m}">내 번역</td>
 
             <!-- 버튼 -->
             <td>
-              <input th:if="${request.requestcondition_m} == 'N' " type="button"  class="btn btn-primary btn-sm" th:id="${request.requestnum_m}"  value="요청 상세보기">
-              <input th:if="${request.requestcondition_m} == 'T' " type="button"  class="btn btn-warning btn-sm" th:id="${request.requestnum_m}"  value="수락 요청 상세보기">
-              <input th:if="${request.requestcondition_m} == 'E' or ${request.requestcondition_m} == 'Y' " type="button"  class="btn btn-success btn-sm" th:id="${request.requestnum_m}" disabled="true" value="번역 완료">
+              <input th:if="${request.requestcondition_m} == 'E'" type="button"  class="btn btn-primary btn-sm" th:id="${request.requestnum_m}" value="평가 중">
+              <input th:if="${request.requestcondition_m} == 'F'" type="button"  class="btn btn-warning btn-sm" th:id="${request.requestnum_m}" value="평가 탈락">
+              <input th:if="${request.requestcondition_m} == 'Y' " type="button"  class="btn btn-success btn-sm" th:id="${request.requestnum_m}" disabled="true" value="번역 완료">
             </td>
 
           </tr>

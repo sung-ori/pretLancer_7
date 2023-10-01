@@ -313,6 +313,30 @@ public class MypageController {
 
         return "/mypageform/resultForm_M";
     }
+    
+    @GetMapping("/readResultRequest_S")
+    public String readResultRequest_S(@RequestParam("requestnum_s") int requestnum_s, Model model) {
+
+        Request_S rql =  service.readRequestInfo_S(requestnum_s);
+        Translated_S ts = service.getTS(requestnum_s);
+        
+        model.addAttribute("request", rql);
+        model.addAttribute("translated", ts);
+
+        return "/mypageform/resultForm_S";
+    }
+
+    @GetMapping("/readResultRequest_M")
+    public String readResultRequest_M(@RequestParam("requestnum_m") int requestnum_m, Model model) {
+
+        Request_M rql =  service.readRequestInfo_M(requestnum_m);
+        Translated_M tm = service.getTM(requestnum_m);
+
+        model.addAttribute("request", rql);
+        model.addAttribute("translated", tm);
+
+        return "/mypageform/resultForm_M";
+    }
 
     /*
     @GetMapping("/readRequestInfo_S")
