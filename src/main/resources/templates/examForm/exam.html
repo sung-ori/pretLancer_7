@@ -211,6 +211,7 @@
 </head>
 <body>
 	<div id="snBar-placeholder"></div>
+	<br><br><br><br>
 	
 	<div id="main">
             <header class="mb-3">
@@ -219,10 +220,15 @@
                 </a>
             </header>
 
-	<h1 id = "title2" >연습문제</h1>
+	<div class="page-heading">
+	    <h1 id = "title2">연습문제</h1>
+	    <h2 id = "title3">오늘의 문제</h2>
+	    <h6 id = "title_">매일매일 바뀌는 오늘의 문제로 경험치도 쌓고, 번역 실력도 점검하세요!</h6>
+	</div>
+
 
 	<div class = "outer">
-		<div class = "input_exam"><div><h2 id = "title3">오늘의 문제</h2></div> <br><div id = "correct"><span id = "answer_check">answer 기본값</span>  맞은 문제 수 : <span th:text ="${answer_num}" id = "answer_num">0</span> / 20</div></div><hr>
+		<div class = "input_exam"><div id = "correct"><span id = "answer_check">answer 기본값</span>  맞은 문제 수 : <span th:text ="${answer_num}" id = "answer_num">0</span> / 20</div></div><hr>
 		<!-- 문제 나오는 부분 -->
 		<div>
 			<!-- 문제 내용 -->
