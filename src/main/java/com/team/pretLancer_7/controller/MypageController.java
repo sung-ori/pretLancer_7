@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team.pretLancer_7.domain.Ability;
@@ -103,7 +104,7 @@ public class MypageController {
     
    
     // 마이프로필 수정
-    @PostMapping("MpUpdate")
+    /*@PostMapping("MpUpdate")
     public String update(@AuthenticationPrincipal UserDetails user, MyPage Mp, MultipartFile upload) {
     	
     	MyPage MyPage = service.getMyPage(user.getUsername());
@@ -131,7 +132,42 @@ public class MypageController {
     	log.error("Mp에 들어가 있는 것 {}", Mp);
     	int cnt = service.updateProfile(Mp);
     	
-    	return "redirect:/my_page/main";
+    	return "redirect:/";
+    }*/
+    
+    @ResponseBody
+    @PostMapping("MpUpdate")
+    public void update(@AuthenticationPrincipal UserDetails user, MyPage Mp, MultipartFile upload) {
+    	
+    	MyPage MyPage = service.getMyPage(user.getUsername());
+    	Mp.setProfilecomment("버그 확인 중");
+    	log.error("MyPage에 들어가 있는 것 {}", MyPage);
+    	log.error("upload에 들어가 있는 것 {}", upload);
+    	
+    	
+    	//업로드된 사진 처리
+    	if(MyPage.getOriginphoto() != null 
+    			&& !MyPage.getOriginphoto().isEmpty()
+    			&& !MyPage.getOriginphoto().equals("basic.jpg")
+    			&& upload != null && !upload.isEmpty()) {
+    	// 삭제 처리
+    	if (!MyPage.getSavedphoto().equals("null.jpg"))
+    		FileService.deleteFile(uploadPath + "/" + MyPage.getSavedphoto());
+    	}
+    	
+    			
+    	// 프로필 사진 저장
+    	if (upload != null && !upload.isEmpty()) {
+    		String savedfile = FileService.saveFile(upload, uploadPath);
+    		Mp.setOriginphoto(upload.getOriginalFilename());
+    		Mp.setSavedphoto(savedfile);
+    	}
+    	
+    	// 수정된 내용 저장
+    	log.error("Mp에 들어가 있는 것 {}", Mp);
+    	int cnt = service.updateProfile(Mp);
+
+
     }
     
     // 프로필 가져오기 + 처음 mapper에 입력할 때 default 값은 basic.jpg로 넣어서 기본 프로필 사진을 가져오게 한다.

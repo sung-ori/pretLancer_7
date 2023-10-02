@@ -65,59 +65,44 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script>
 	
-	/* 사진 변경하기 : ajax 활용
-		1. form에 hidden으로 현재 아이디를 hidden 타입으로 넣고, 변경할 사진을 넣어서 controller에 보내 변경할 계획입니다.
-			(아이디를 히든 타입으로 넣는 이유는 컨트롤러에서 멤버로 받아서 매퍼에서 활용하기 위함입니다.)
-	*/
-	
 	$(document).ready(function() {
-		$('#button').click(check);
+		$('#button').click(sendData);
 	})
 	
-	function check() {
-		let id = document.getElementById('memberid').value;
-		let nick = document.getElementById('membernick').value;
-		let point = document.getElementById('point').value;
-		
-		if(nick == '' || nick.length == 0) {
-			alert("변경할 닉네임을 입력하세요");
-			return false;
-		}
-		
-		if (point < 300) {
-			alert("포인트가 부족합니다. 닉네임을 변경할 수 없습니다.");
-			return false;
-		}
+	function sendData() {
+		const sendingData = new FormData();
+		sendingData.append('memberid', document.getElementById('memberid').value);
+		sendingData.append('upload', $('#upload')[0].files[0]);
 
 		$.ajax({
-				type : 'POST',
-				url : 'changeNick',
-				data : {id : id, nick : nick},
-				success : function() {
-						alert('변경되었습니다.');
-						window.opener.location.reload();
-						window.close();
-					},
-				error : function() {
-					alert('전송 실패');
-				}
-			});
+			url : 'MpUpdate',
+			processData : false,
+			contentType : false,
+			data : sendingData,
+			type : 'POST',
+			success : function() {
+				alert('변경 성공');
+				window.opener.location.reload();
+				window.close();
+			},
+			error : function() {
+				alert('변경 실패');
+			}
+		})
 	}
-
-
+	
 </script>
 </head>
 <body>
 
-<h1> 닉네임 변경 </h1>
-<h5>닉네임 변경 시, 포인트가 300점 차감됩니다.</h5>
+<h1> 프로필 사진 변경 </h1>
+<!-- th:action = "@{/my_page/MpUpdate}" method = "post"   -->
+<form th:action = "@{/my_page/MpUpdate}" method = "post" enctype="multipart/form-data">
+	<p>변경할 사진을 고르세요.</p>
+	<input type = "hidden" name = "memberid" th:value = "${#authentication.name}" id = "memberid">
 
-<form>
-	<input type = "hidden" th:value = "${#authentication.name}" id = "memberid">
-	<input type = "hidden" th:value = "${member.point}" id = "point" name = "point">
-	<table>
-	<tr><td>변경할 닉네임</td> <td><input type = "text" name = "membernick" id = "membernick"></td> <td><input type = "submit" value="변경" class = "button" id = "button"></td></tr>
-	</table>
+	<input type = "file" name = "upload" id = "upload"><br>
+	<input type = "submit" value="변경" class = "button" id = "button">
 </form>
 
 </body>

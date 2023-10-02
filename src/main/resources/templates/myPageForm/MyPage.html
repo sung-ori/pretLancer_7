@@ -195,11 +195,17 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#changeNick').click(openwin);
+		$('.changePhoto').click(openwin2);
+
 		progress();
 	});
 	
 	function openwin() {
 		window.open('http://localhost:8888/pretLancer/my_page/changeNick','닉네임 수정', 'w, width=500, height=300, top=200, left=600');
+	}
+
+	function openwin2() {
+		window.open('http://localhost:8888/pretLancer/my_page/changePhoto','프로필 사진 변경', 'w, width=500, height=300, top=200, left=600');
 	}
 
  // 바에 게이지 채워줌.  "ability" 로 보내주세용
@@ -312,7 +318,7 @@
 		
 		<!-- 000 님의 마이페이지가 출력되는 영역 -->
 		<p><img th:if="${mypage.originphoto}" th:src="@{/my_page/getPhoto(memberid=${mypage.memberid})}" style="border-radius : 70% ; width: 100px;"></p>
-		<p><a th:href = "@{/my_page/changePhoto}" style = "font-size : 15px;">프로필 사진 변경</a></p>		
+		<p style = "font-size : 15px; cursor : pointer; color : #2334DE;" class = "changePhoto">프로필 사진 변경</p>		
 
 		
 		<!-- 개인정보가 출력되는 영역 -->
