@@ -45,4 +45,8 @@ public interface CommunityService {
 
 	public List<Board> todayPopular();
 
+	public void getReplyPoint(String username);
+
+	public void getWritePoint(String username);
+
 }

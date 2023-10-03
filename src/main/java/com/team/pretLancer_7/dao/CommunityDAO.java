@@ -85,4 +85,8 @@ public interface CommunityDAO {
 	public int updateVan(int boardnum);
 
 	public List<Board> todayPopular();
+
+	// 포인트 획득
+	public void ReplyPoint(String username);
+	public void WritePoint(String username);
 }

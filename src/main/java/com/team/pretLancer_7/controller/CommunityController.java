@@ -19,6 +19,7 @@ import com.team.pretLancer_7.domain.Board;
 import com.team.pretLancer_7.domain.Reply;
 import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.service.CommunityService;
+import com.team.pretLancer_7.service.MemberService;
 import com.team.pretLancer_7.utill.PageNavigator;
 
 import lombok.extern.slf4j.Slf4j;
@@ -92,6 +93,9 @@ public class CommunityController {
     	b.setMemberid(user.getUsername());
     	
     	int cnt = service.commyInsert(b);
+    	
+    	service.getWritePoint(user.getUsername());
+    	
     	return ("redirect:/community/main");
     }
     
@@ -129,6 +133,7 @@ public class CommunityController {
 		r.setMemberid(user.getUsername());
 		log.debug("멤버이름 넣고 {}",r);
  		service.writeReply(r);
+ 		service.getReplyPoint(user.getUsername());
 
 		msg.writeCR(r);
 		

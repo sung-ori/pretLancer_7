@@ -59,7 +59,7 @@ public class TranslatedController {
 		}
 		
 		// 의뢰를 받았을 시 의뢰테이블에서 가장 최근의 글을 하나 선택
-		Request_S rs = RService.choiceRS();
+		Request_S rs = RService.choiceRS(user.getUsername());
 		
 		if (rs == null) {
 			// rs가 null이면 값을 찾지 못한 경우로 간주하고 에러 페이지로 리다이렉션
@@ -103,7 +103,7 @@ public class TranslatedController {
 		}
 		
 		// 의뢰를 받았을 시 의뢰테이블에서 가장 최근의 글을 하나 선택
-		Request_M rm = RService.choiceRM();
+		Request_M rm = RService.choiceRM(user.getUsername());
 		
 		if (rm == null) {
 			// rs가 null이면 값을 찾지 못한 경우로 간주하고 에러 페이지로 리다이렉션
@@ -132,7 +132,7 @@ public class TranslatedController {
 		TService.submitTS(ts);
 		
 		msg.writeSE(ts);
-		return "redirect:/translated/insertTS";
+		return "redirect:/main";
 	}
 		
 	// 중문 번역 제출하기 버튼 눌렀을 시 작동
@@ -143,25 +143,33 @@ public class TranslatedController {
 		log.error("Translated 객체에 들어있는 것 {}", tm);
 		TService.submitTM(tm);
 				
-		return "redirect:/translated/insertTM";
+		return "redirect:/main";
 	}
 	
-	// 번역 그만하기 버튼 눌렀을 시 작동 (받은 의뢰를 취소)
+	// 받은 번역 취소하기 버튼 눌렀을 시 작동 (받은 의뢰를 취소)
 	@GetMapping("cancelTS")
-	public String cancelT(@AuthenticationPrincipal UserDetails user, Translated_S ts) {
-		ts.setMemberid(user.getUsername());
-		TService.cancelTS(ts);
+	public String cancelT(@AuthenticationPrincipal UserDetails user) {
+		Request_S myorderS = RService.myorderS(user.getUsername());
+		if (myorderS != null) {
+		Translated_S mytransS = TService.getMyTS(myorderS);
+		TService.cancelTS(mytransS);
+		}
 		
-		return "redirect:/";
+		return "redirect:/main";
 	}
 	
-	// 번역 그만하기 버튼 눌렀을 시 작동 (받은 의뢰를 취소)
+	// 받은 번역 취소하기 버튼 눌렀을 시 작동 (받은 의뢰를 취소)
 	@GetMapping("cancelTM")
-	public String cancelTM(@AuthenticationPrincipal UserDetails user, Translated_M tm) {
-		tm.setMemberid(user.getUsername());
-		TService.cancelTM(tm);
+	public String cancelTM(@AuthenticationPrincipal UserDetails user) {
+		Request_M myorderM = RService.myorderM(user.getUsername());
+		log.error("내가 받은 번역이 있나? {}", myorderM);
+		if (myorderM != null) {
+		Translated_M mytransM = TService.getMyTM(myorderM);
+		log.error("내가 받은 번역의 내용은 무엇인가? {}", mytransM);
+		TService.cancelTM(mytransM);
+		}
 			
-		return "redirect:/";
+		return "redirect:/main";
 	}
 	
 }

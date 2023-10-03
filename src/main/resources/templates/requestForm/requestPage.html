@@ -23,14 +23,108 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:src="@{/js/snBarLoader.js}"></script>
 	
+	<script>
+		$(document).ready(function() {
+			$("#submitBtn").click(valiAndSubmit);
+
+
+		function checkLanguages() {
+			var startlang = document.getElementById('startlang').value;
+			var endlang = document.getElementById('endlang').value;
+			//var submitBtn = document.getElementById('submitBtn');
+
+			if (startlang === endlang) {
+				alert("시작 언어와 도착 언어를 다르게 선택해주세요!");
+				// submitBtn.disabled = true;
+				return false;
+			}
+			else if (startlang === "same1" || endlang === "same2"){
+				alert("언어를 선택해주세요.");
+				// submitBtn.disabled = true; // 폼 제출을 막음
+				return false;
+			}
+			return true; // 폼 제출을 허용
+		}
+
+		function checkComment() {
+			let comment = $("#comment").val();
+			if(comment == "") {
+				alert("요청에 대한 상세 설명을 작성해주세요");
+				return false;
+				
+			}
+			return true;
+		}
+
+		function checkContent() {
+			let content = $("#content").val() ;
+
+			if(content == "") {
+				alert("번역 요청하실 내용을 작성해주세요.");
+				return false;
+			}
+			return true;
+		}
+
+		function valiAndSubmit() {
+			if(checkContent() && checkLanguages() && checkComment() ){
+				
+				if(cashCheck()) {
+					setTimeout(function() {
+						$("#form").submit();
+						}, 3000);
+
+					
+
+				}
+			}
+			;
+		}
+
+		function cashCheck() { 
+            let cash = $("#cash").val();
+            $.ajax({
+                    type:"GET",
+                    url:"../reward/checkCash",
+                    data:{"cash" : cash},
+                    dataType:"text",
+                    success: function(data) {
+                        if(data == "OK") {
+							alert("요청이 완료되었습니다");
+                        return true;
+                        }
+                        else{
+                            let rst = confirm("보유하신 금액이 모자랍니다. 충전 페이지로 이동하시겠습니까?");
+                            if(rst) {
+                                // 페이지이동하는 코드
+                                window.location.href="http://localhost:8888/pretLancer/reward/main";
+                                
+                            }
+                            else {
+                                alert('요청할 수 없습니다. 충전해주세요.');
+                                
+                                return false;
+                            }
+                        }
+                    },
+                    error: function() {
+					}
+                })
+            return true;
+        }
+		}); // 제이쿼리
+
+	
+	</script>
 	<!-- 글자세기 -->
 	<script>
-		function calc(){
-			document.getElementById('result').value = document.getElementById('content').value.length;
-		}
+		// function calc(){
+		// 	document.getElementById('result').value = document.getElementById('content').value.length;
+		// }
 	</script>
 	
 	<script>
+	
   function calc() {
     var content = document.getElementById('content').value;
     var result = document.getElementById('result');
@@ -50,13 +144,15 @@
 	
     if(result.value === 0){
 	    	submitBtn.disabled = true;
+			
 	    }
     else if (result.value < 1000) {
+		
       message.innerHTML = "단문";
 	  	$("#content").attr("name","requestcontent_s");
     	$("#comment").attr("name", "comment_sr");
     	$("#form").attr("action","./insertRS");
-      submitBtn.disabled = false; // 버튼 활성화
+      	// submitBtn.disabled = false; // 버튼 활성화
     } 
     else if(result.value < 3000){
     	message.innerHTML = "중문";
@@ -65,7 +161,7 @@
     	$("#content").attr("name","requestcontent_m");
     	$("#comment").attr("name", "comment_mr");
     	$("#form").attr("action","./insertRM");
-    	submitBtn.disabled = false; // 버튼 활성화
+    	// submitBtn.disabled = false; // 버튼 활성화
     } 
     else {
     	message.innerHTML = "<span style='color: red;'>장문</span>";
@@ -80,21 +176,7 @@
   }
 </script>
 <script>
-    function checkLanguages() {
-        var startlang = document.getElementById('startlang').value;
-        var endlang = document.getElementById('endlang').value;
-        //var submitBtn = document.getElementById('submitBtn');
-
-        if (startlang === endlang) {
-            alert("시작 언어와 도착 언어를 다르게 선택해주세요!");
-            submitBtn.disabled = true;
-        }
-        else if (startlang === "same1" || endlang === "same2"){
-        	alert("언어를 선택해주세요.");
-        	submitBtn.disabled = true; // 폼 제출을 막음
-        }
-        return true; // 폼 제출을 허용
-    }
+    
 </script>
 	<!-- 글자세기 -->
 	<style>
@@ -224,21 +306,21 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 	<div class="row g-5 glass2 custom-row">
 <!-- 	background-color:#FAF9FF; -->
 		<div class="card shadow1 col-md-6 col-lg-5 order-md-last mx-auto" style="background-color:#88A1E0;">
-			<select id="startlang" name="startlang" onchange="checkLanguages()" class="form-select pt-1 mt-4 " >
+			<select id="startlang" name="startlang" class="form-select pt-1 mt-4 " >
 			  <option value="same1">시작언어 선택</option>
 			  <option value="KR">한국어</option>
 			  <option value="JP">일본어</option>
 			  <option value="EN">영어</option>
 
 			</select>
-			<select id="endlang" name="endlang" onchange="checkLanguages()" class="form-select pt-1 mt-4" >
+			<select id="endlang" name="endlang"  class="form-select pt-1 mt-4" >
 			  <option value="same2">도착언어 선택</option>
 			  <option value="KR">한국어</option>		  
 			  <option value="JP">일본어</option>
 			  <option value="EN">영어</option>
 			</select>
 			<br>
-			<textarea name = "comment_sr" class = "answer_input" id = "comment_sr" placeholder = "문의글"></textarea>
+			<textarea name = "comment_sr" class = "answer_input" id ="comment" placeholder = "문의글"></textarea>
 			<br>
 			<br>
 			<span style="color: white; font-weight:bold;"><input  id="result" type="number" style="border:none; text-align:center; font-weight:bold;" class="col-sm-2"  value="0" readonly> 글자</span>
@@ -252,8 +334,8 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 <!-- 			<div th:action="@{/request/insertRS}" method="post" id='form' onsubmit="return checkLanguages()" style="text-align: center;"> -->
 <!-- 				<input id="submitBtn" type="submit" class="btn btn-primary" onkeypress="calc()" disabled value="의뢰하기" style="width: 150px;"> -->
 <!-- 			</div> -->
-			<div th:action="@{/request/insertRS}" method="post" id='form' onsubmit="return checkLanguages()" style="text-align: center;">
-				<a th:href="@{/main}"class="wrap2"><button id="submitBtn" type="submit" class="button2" onkeypress="calc()" disabled value="의뢰하기" style="font-weight:bold;">의뢰하기</button></a>
+			<div style="text-align: center;">
+				<input id="submitBtn" type="button" class="button2" value="의뢰하기" style="font-weight:bold;">
 			</div>
 			<br>
 			<br>

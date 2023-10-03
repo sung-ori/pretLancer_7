@@ -175,4 +175,13 @@
 	ORDER BY RECOMMEND DESC
 	</select>
 	
+	<!-- 포인트 획득 -->
+	<update id="WritePoint" parameterType="String">
+		UPDATE pret_member set point = point + 20 where memberid = #{memberid}
+	</update>
+	
+	<update id="ReplyPoint" parameterType="String">
+		UPDATE pret_member set point = point + 10 where memberid = #{memberid}
+	</update>
+	
 </mapper>

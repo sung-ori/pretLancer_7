@@ -58,4 +58,6 @@ public interface LongService {
     public PageNavigator getPageNavigatorT(int pagePerGroup, int countPerPage, int page, String type, String userid);
 
     public PageNavigator getPageNavigatorA(int pagePerGroup, int countPerPage, int page, String type);
+
+    public String requestCancel(int requestnum_l);
 }

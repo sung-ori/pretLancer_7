@@ -36,13 +36,13 @@ public class EvaluationServiceImple implements EvaluationService {
    AbilityDAO Adao;
    
    @Override
-   public Translated_S getES() {
-      return Edao.getES();
+   public Translated_S getES(String username) {
+      return Edao.getES(username);
    }
 
    @Override
-   public Translated_M getEM() {
-      return Edao.getEM();
+   public Translated_M getEM(String username) {
+      return Edao.getEM(username);
    }
 
    @Override

@@ -259,7 +259,10 @@
                 where memberid = #{userid}
         </update>
         
-     
+        <delete id="deleteRequest" parameterType="int">
+                DELETE FROM pret_request_l
+                WHERE requestnum_l = #{requestnum_l}
+        </delete>
         <!-- 배치 이용해서 12시마다 마감됐는지 확인하고, 그에 맞는 처리를 한다. /DB의 수정, 메세지 전송 등  -->
 
         

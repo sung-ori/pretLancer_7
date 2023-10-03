@@ -1,9 +1,6 @@
 package com.team.pretLancer_7.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,11 +54,12 @@ public class RequestServiceImple implements RequestService {
 		// request_s 테이블에 저장
 		Rdao.insertRM(r);
 		
-		// 사용한 포인트만큼 pret_member에서 차감
+		// 사용한 캐쉬만큼 pret_member에서 차감
 		Member m = new Member();
 		m.setMemberid(r.getMemberid());
+		log.error("{}", m);
 		m.setCash(r.getCash());
-//		Mdao.usePoint(m);
+		Mdao.usePoint(m);
 		
 	}
 
@@ -78,13 +76,13 @@ public class RequestServiceImple implements RequestService {
 	}
 
 	@Override
-	public Request_S choiceRS() {
-		return Rdao.choiceRS();
+	public Request_S choiceRS(String username) {
+		return Rdao.choiceRS(username);
 	}
 
 	@Override
-	public Request_M choiceRM() {
-		return Rdao.choiceRM();
+	public Request_M choiceRM(String username) {
+		return Rdao.choiceRM(username);
 	}
 
 	@Override

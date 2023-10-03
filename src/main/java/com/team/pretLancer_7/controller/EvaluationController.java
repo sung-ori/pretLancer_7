@@ -35,15 +35,18 @@ public class EvaluationController {
 	}
 	
 	@GetMapping("getES")
-	public String getES(Model m) {
+	public String getES(@AuthenticationPrincipal UserDetails user, Model m) {
 		// 평가 갯수가 5개 이하인 번역된 내용을 가져옴
-		Translated_S ts = service.getES();
-		int request_num = ts.getRequestnum_s();
-		Request_S rs = service.getRS(request_num);
+		Translated_S ts = service.getES(user.getUsername());
 		
 		if (ts == null) {
 			return "errorForm/NoEvaluation";
 		}
+		
+		int request_num = ts.getRequestnum_s();
+		Request_S rs = service.getRS(request_num);
+		
+		
 		
 		m.addAttribute("translated", ts);
 		m.addAttribute("request", rs);
@@ -55,15 +58,18 @@ public class EvaluationController {
 	}
 	
 	@GetMapping("getEM")
-	public String getEM(Model m) {
+	public String getEM(@AuthenticationPrincipal UserDetails user, Model m) {
 		// 평가 갯수가 5개 이하인 번역된 내용을 가져옴
-		Translated_M tm = service.getEM();
-		int request_num = tm.getRequestnum_m();
-		Request_M rm = service.getRM(request_num);
+		Translated_M tm = service.getEM(user.getUsername());
 		
 		if (tm == null) {
 			return "errorForm/NoEvaluation";
 		}
+		
+		int request_num = tm.getRequestnum_m();
+		Request_M rm = service.getRM(request_num);
+		
+		
 		
 		m.addAttribute("translated", tm);
 		m.addAttribute("request", rm);
