@@ -60,7 +60,7 @@ public class TranslatedServiceImple implements TranslatedService {
 	@Override
 	public void cancelTM(Translated_M tm) {
 		Rdao.cancelCon_M(tm);
-		Tdao.cancelTS(tm);
+		Tdao.cancelTM(tm);
 	}
 
 	@Override

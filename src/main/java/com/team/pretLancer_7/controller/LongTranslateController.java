@@ -19,10 +19,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.team.pretLancer_7.domain.Ability;
 import com.team.pretLancer_7.domain.AuctionTranslator;
+import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.service.LongService;
+import com.team.pretLancer_7.service.MemberService;
 import com.team.pretLancer_7.service.MypageService;
 import com.team.pretLancer_7.utill.PageNavigator;
 
@@ -39,6 +41,8 @@ public class LongTranslateController {
     MessagingService msg;
     @Autowired
     MypageService mService;
+    @Autowired
+    MemberService Mservice;
 
     @Value("${user.TL.page}")
 	int countPerPage;
@@ -104,7 +108,14 @@ public class LongTranslateController {
         // String originFileName = uploadFile.getOriginalFilename();
         log.debug("장문 요청 컨트롤러 {}",request_L);
         // log.debug("오리진 파일 {}", originFileName);
-
+        
+        // 캐쉬 마이너스 안되게
+        Member member = Mservice.getUser(user.getUsername());
+        long number = Long.parseLong(request_L.getCash());
+		if (member.getCash() < number) {
+			return "errorForm/Nocash";
+		}
+        
         request_L.setMemberid(user.getUsername());
 
         service.writeRequest(request_L,uploadFile);
@@ -122,7 +133,14 @@ public class LongTranslateController {
 
     @PostMapping("/writeAuction")
     public String writeAuction(Request_L request_L, MultipartFile uploadFile, @AuthenticationPrincipal UserDetails user) {
-
+    	
+    	// 캐쉬 마이너스 안되게
+        Member member = Mservice.getUser(user.getUsername());
+        long number = Long.parseLong(request_L.getCash());
+		if (member.getCash() < number) {
+			return "errorForm/Nocash";
+		}
+    	
         request_L.setMemberid(user.getUsername());
 
         service.writeAuction(request_L,uploadFile);

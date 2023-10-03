@@ -12,9 +12,9 @@ import com.team.pretLancer_7.domain.Translated_S;
 
 public interface EvaluationService {
 
-	Translated_S getES();
+	Translated_S getES(String username);
 	
-	Translated_M getEM();
+	Translated_M getEM(String username);
 
 	void insertES(Evaluation_S es);
 

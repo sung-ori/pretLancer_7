@@ -26,9 +26,9 @@ public interface RequestDAO {
 	Request_S selectRM(Request_M r);
 	
 
-	Request_S choiceRS();
+	Request_S choiceRS(String username);
 	
-	Request_M choiceRM();
+	Request_M choiceRM(String username);
 
 	
 	void updateMem2_S(Request_S rs);

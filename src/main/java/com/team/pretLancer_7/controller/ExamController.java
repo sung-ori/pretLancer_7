@@ -100,6 +100,11 @@ public class ExamController {
 		Member member = service.getMemberOne(ex.getMemberid());
 		ex.setLanguage(member.getMemberlang());
 		Exam question = service.getQuestion(ex);
+		
+		if (question == null) {
+			return "errorForm/NoExam";
+		}
+		
 		m.addAttribute("question", question);
 		m.addAttribute("member", member);
 		

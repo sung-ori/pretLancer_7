@@ -36,23 +36,23 @@
 	select * from pret_request_m where requestnum_m = #{requestnum_m} and memberid = #{memberid}
 	</select>
 	
-	<select id="choiceRS" resultType="Request_S">
+	<select id="choiceRS" resultType="Request_S" parameterType="String">
 	SELECT *
     FROM (
         SELECT *
         FROM pret_request_s
-        WHERE requestcondition_s = 'N' AND enddate > sysdate
+        WHERE requestcondition_s = 'N' AND enddate > sysdate AND memberid != #{memberid}
         ORDER BY enddate - sysdate ASC
     )
     WHERE ROWNUM &lt;= 1
 	</select>
 	
-	<select id="choiceRM" resultType="Request_M">
+	<select id="choiceRM" resultType="Request_M" parameterType="String">
 	SELECT *
     FROM (
         SELECT *
         FROM pret_request_m
-        WHERE requestcondition_m = 'N' AND enddate > sysdate
+        WHERE requestcondition_m = 'N' AND enddate > sysdate AND memberid != #{memberid}
         ORDER BY enddate - sysdate ASC
     )
     WHERE ROWNUM &lt;= 1
@@ -91,11 +91,11 @@
 	</update>
 	
 	<select id="myorderS" parameterType="String" resultType="Request_S">
-	select * from pret_request_s where memberid = #{memberid} and requestcondition_s = 'T'
+	select * from pret_request_s where memberid2 = #{memberid} and requestcondition_s = 'T'
 	</select>
 	
 	<select id="myorderM" parameterType="String" resultType="Request_M">
-	select * from pret_request_m where memberid = #{memberid} and requestcondition_m = 'T'
+	select * from pret_request_m where memberid2 = #{memberid} and requestcondition_m = 'T'
 	</select>
 	
 	<select id="getRequestS" parameterType="int">

@@ -4,7 +4,7 @@
 
 <mapper namespace="com.team.pretLancer_7.dao.EvaluationDAO">
 
-	<select id="getES" resultType="Translated_S">
+	<select id="getES" resultType="Translated_S" parameterType="String">
 	SELECT *
 		FROM (
 	    SELECT *
@@ -12,10 +12,10 @@
 	    WHERE evaluationvalue_s &lt; 5
 	    ORDER BY translatednum_s ASC
 		)
-		WHERE ROWNUM = 1
+		WHERE ROWNUM = 1 AND memberid != #{memberid}
 	</select>
 	
-	<select id="getEM" resultType="Translated_M">
+	<select id="getEM" resultType="Translated_M" parameterType="String">
 	SELECT *
 		FROM (
 	    SELECT *
@@ -23,7 +23,7 @@
 	    WHERE evaluationvalue_m &lt; 5
 	    ORDER BY translatednum_m ASC
 		)
-		WHERE ROWNUM = 1
+		WHERE ROWNUM = 1 AND memberid != #{memberid}
 	</select>
 	
 	<insert id="insertES" parameterType="Evaluation_S">

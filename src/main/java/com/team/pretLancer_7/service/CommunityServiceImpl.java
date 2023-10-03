@@ -313,6 +313,16 @@ public class CommunityServiceImpl implements CommunityService {
 	public List<Board> todayPopular() {
 		return dao.todayPopular();
 	}
+
+	@Override
+	public void getReplyPoint(String username) {
+		dao.ReplyPoint(username);
+	}
+
+	@Override
+	public void getWritePoint(String username) {
+		dao.WritePoint(username);
+	}
 	
 	
 	

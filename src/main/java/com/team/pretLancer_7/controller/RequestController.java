@@ -60,7 +60,7 @@ public class RequestController {
 			return "errorForm/Nocash";
 		}
 		service.insertRequest_M(r);
-		return "redirect:/";
+		return "redirect:/main";
 	}
 	
 	@GetMapping("cancelRM")
@@ -71,7 +71,7 @@ public class RequestController {
 			return "errorForm/Nocash";
 		}
 		service.cancelRequest_M(r);
-		return "redirect:/";
+		return "redirect:/main";
 	}
 
 }
