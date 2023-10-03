@@ -382,7 +382,10 @@
                     <span>번역</span>
                 </a>
                 <ul class="submenu ">
-                    <li class="submenu-item ">
+                    <li class="submenu-item " th:if="${user.tutorial == 'N'}">
+                        <a th:href="@{/translated/tutorial}">튜토리얼</a>
+                    </li> 
+                    <li class="submenu-item "th:if="${user.tutorial == 'Y'}">
                         <a th:href="@{/translated/exam}">연습문제</a>
                     </li> 
                     <li class="sidebar-item has-sub">
