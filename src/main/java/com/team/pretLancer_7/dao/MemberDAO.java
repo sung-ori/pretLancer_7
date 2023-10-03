@@ -68,4 +68,7 @@ public interface MemberDAO {
 	// 중문 평가 시 경험치를 받음 (번역의 1/10)
 	public void getExEM(String memberid);
 	
+	// 번역가 프로필 멘트 수정
+	public void changeProfile(MyPage mp);
+	
 }

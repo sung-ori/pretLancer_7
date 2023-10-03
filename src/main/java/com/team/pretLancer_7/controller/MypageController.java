@@ -63,6 +63,9 @@ public class MypageController {
 	@Autowired
 	TranslatedService Tservice;
 	
+	@Autowired
+	MypageService Myservice;
+	
     @GetMapping("main")
     public String myPageForm(Model m, @AuthenticationPrincipal UserDetails user) {
         
@@ -374,6 +377,26 @@ public class MypageController {
 
         return "/mypageform/resultRequestForm_M";
     }
+    
+    
+    @GetMapping("/changeProfile")
+    public String changeProfile(Model model, @RequestParam(name="memberid") String memberid, @AuthenticationPrincipal UserDetails user) {
+    	 String loginId = user.getUsername();
+         MyPage translatorProfile = Lservice.getOneMyPage(memberid);
+         Ability ab = Myservice.getAbility(user.getUsername());
+
+         model.addAttribute("ability", ab);
+         model.addAttribute("tp", translatorProfile);
+         model.addAttribute("loginId", loginId);
+    	return "mypageform/changeProfile";
+    }
+    
+    @PostMapping("/changeProfile")
+    public String changeProfile(@RequestParam(name="memberid") String memberid, @AuthenticationPrincipal UserDetails user, MyPage mp) {
+    	service.changeProfile(mp);
+    	return "redirect:/my_page/changeProfile?memberid=" + user.getUsername();
+    }
+   
 
     /*
     @GetMapping("/readRequestInfo_S")

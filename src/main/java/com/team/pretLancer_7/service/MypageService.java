@@ -40,4 +40,6 @@ public interface MypageService {
 	public Translated_S getTS(int requestnum_s);
 	public Translated_M getTM(int requestnum_m);
 
+	public void changeProfile(MyPage mp);
+
 }
