@@ -53,6 +53,9 @@
 	    }
     else if (result.value < 1000) {
       message.innerHTML = "단문";
+	  	$("#content").attr("name","requestcontent_s");
+    	$("#comment").attr("name", "comment_sr");
+    	$("#form").attr("action","./insertRS");
       submitBtn.disabled = false; // 버튼 활성화
     } 
     else if(result.value < 3000){
