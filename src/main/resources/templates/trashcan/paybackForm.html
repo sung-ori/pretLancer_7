@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <title>PAYBACK</title>
+
+    <script>
+        $(document).ready(function() {
+            $(".btn").click(request);
+        })
+
+        function checkCash() {
+            // TODO: 출금 가능 한 금액인지 확인하는 ajax코드. 
+            let cash = $("#cash").val();
+            
+            $.ajax({
+                type: "GET",
+                url: "checkCash",
+                dataType:"text",
+                success: function(data) {
+                    if(parseInt(data)<cash) {
+                        alert(data +"cash 이상의 금액은" + "출금할 수 없습니다. ");
+                        let newcash = cash.slice(0,cash.length-1);
+                        $("#cash").val("");
+                        // $("#cash").focus();
+                    }
+                    commission();
+                },
+                error: function(e) {
+                    alert(JSON.stringify(e));
+                }
+            });
+        }
+        
+        function validation() {
+            // TODO: 빈 칸에 숫자만 들어가는지 확인.
+
+            let cash = $("#cash").val();
+            
+            if(isNaN(cash)) {
+
+                alert("숫자만 입력하세요.");
+                let newcash = cash.slice(0,cash.length-1);
+                $("#cash").val(newcash);
+                $("#cash").focus();
+            }
+            checkCash();
+            
+        }
+        
+        function commission() {
+            let cash = $("#cash").val();
+            
+            realcash = Math.ceil(cash - cash*0.05);
+
+            $("#realcash").val(realcash);
+        }
+
+        function request() {
+            let cash = $("#cash").val();
+            let rst = confirm(cash +" cash를 출금 신청 하시겠습니까?");
+            
+            if(rst) {
+                $.ajax({
+                type:"GET",
+                url: "requestPayback",
+                data:{"cash" : cash},
+                success: function() {
+
+                    alert("신청 성공 ! 이메일을 확인하세요!");
+                    $("#cash").val("");
+                    $("#realcash").val("");
+                    window.location.reload();
+                },
+                error: function(e) {
+                    alert(JSON.stringify(e));
+                }
+            });
+            }
+            
+        }
+    </script>
+</head>
+<body>
+    <!-- 진짜로 돈을 돌려줄 수는 없고 신청을 하면 신청 분의 10프로 떼고 돌려준다는 메일을 보낼 거다. -->
+    <input type="hidden" id="email" value="${userinfo.email}">
+    <!-- 출금을 신청하면 10% 제하고 입금된다는 설명이 필요함. -->
+    
+    <div class="container">
+        <!-- 출금 가능 금액 -->
+        <h1 th:text="${userinfo.cash}"></h1>
+        <!-- 출금 하고싶은 금액 -->
+        <label for="cash">출금 신청 금액</label>
+        <input class="form-text text-end" type="text" id="cash" onkeyup="validation()"> <br>
+        <div class="text-bg-info">
+            <p>수수료 5%</p>
+        </div>
+        <label for="realcash">실제 입금 금액</label>
+        <input class="form-text text-end" type="text" id="realcash" onkeyup="" readonly>
+
+        <input type="button" value="출금 신청" id="bt" class="btn btn-primary">
+    </div>
+    
+</body>
+</html>
