@@ -127,6 +127,13 @@ public class MypageServiceImple implements MypageService {
 	@Override
 	public Translated_M getTM(int requestnum_m) {
 		return tDao.selectTM(requestnum_m);
+	}
+
+	@Override
+	public void changeProfile(MyPage mp) {
+		mDao.changeProfile(mp);
 	};
 
+	
+	
 }
