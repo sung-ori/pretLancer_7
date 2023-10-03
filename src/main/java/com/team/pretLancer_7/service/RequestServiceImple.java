@@ -1,9 +1,6 @@
 package com.team.pretLancer_7.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,7 +58,7 @@ public class RequestServiceImple implements RequestService {
 		Member m = new Member();
 		m.setMemberid(r.getMemberid());
 		m.setCash(r.getCash());
-//		Mdao.usePoint(m);
+		Mdao.usePoint(m);
 		
 	}
 

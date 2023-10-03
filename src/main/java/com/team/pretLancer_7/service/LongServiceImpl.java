@@ -373,4 +373,16 @@ public class LongServiceImpl implements LongService{
 		log.debug("나비스 {}",map);
 		return navi;
     }
+
+    @Override
+    public String requestCancel(int requestnum_l) {
+        
+        String rst = "NO";
+        int a = dao.deleteRequest(requestnum_l);
+        
+        if (a != 0) {
+            rst = "OK";
+        }
+        return rst;
+    }
 }

@@ -273,5 +273,11 @@ public class LongTranslateController {
          msg.writeLS(requestnum_l);
         
     }
-   
+   @GetMapping("cancel")
+   @ResponseBody
+   public String cancel(@RequestParam("requestnum_l") int requestnum_l) {
+
+    String rst = service.requestCancel(requestnum_l);
+    return rst;
+   }
 }

@@ -130,7 +130,7 @@ public class MessagingService {
         
         // 이동은 없지만
         // TODO: 이용약관 페이지로 가버려도 될 듯
-        href += "#";
+        href += "http://localhost:8888/pretLancer/messageCl";
         
         msg.setMessagetype("CP");
         msg.setMemberid(userid);
@@ -156,7 +156,7 @@ public class MessagingService {
         str += " 이제 평가중입니다!.";
         
         // 
-        href += "#" ;
+        href += "http://localhost:8888/pretLancer/messageCl" ;
         
         msg.setMessagetype("SE");
         msg.setMemberid(userid);
@@ -183,7 +183,7 @@ public class MessagingService {
         
         // TODO: 평가 결과 볼 수 있는 페이지 만들고 이동할 수 있는 url 을 만든다.
 
-        href += "http://localhost/pretLancer/" ;
+        href += "http://localhost:8888/pretLancer/my_page/myTranslatedS" ;
         
         msg.setMessagetype("SFT");
         msg.setMemberid(userid);
@@ -198,7 +198,7 @@ public class MessagingService {
         userid = Rdao.SRS(ts.getRequestnum_s()).getMemberid();
 
         // 
-        href = "#" ;
+        href = "http://localhost:8888/pretLancer/messageCl" ;
 
         str += userid;
         str += "님이 신청하신";
@@ -232,7 +232,7 @@ public class MessagingService {
         
         
         // TODO: 번역 결과를 볼 수 있는 페이지를 만들고 이동할 수 있는 url 을 만든다. 
-        href += "http://localhost/pretLancer" ;
+        href += "http://localhost:8888/pretLancer/my_page/myRequestListS" ;
         
         msg.setMessagetype("SCR");
         msg.setMemberid(userid);
@@ -247,7 +247,7 @@ public class MessagingService {
 
         str = "";
         userid = ts.getMemberid();
-        href = "#" ;
+        href = "http://localhost:8888/pretLancer/messageCl" ;
 
         str += userid;
         str += "님이 번역하신";
@@ -281,7 +281,7 @@ public class MessagingService {
         str += " 이제 평가중입니다!.";
         
         
-        href += "#" ;
+        href += "http://localhost:8888/pretLancer/messageCl" ;
         
         msg.setMessagetype("ME");
         msg.setMemberid(userid);
@@ -307,7 +307,7 @@ public class MessagingService {
         
         // 해당 게시글로 이동
         // TODO: 평가 결과 볼 수 있는 페이지 만들고 이동할 수 있는 url 을 만든다. 
-        href += "http://localhost/pretLancer/" ;
+        href += "http://localhost:8888/pretLancer/my_page/myTranslatedM" ;
         
         msg.setMessagetype("MFT");
         msg.setMemberid(userid);
@@ -320,7 +320,7 @@ public class MessagingService {
 //      여기부터는 번역 신청한 사람이 받는 메세지
         str = "";
         userid = Rdao.SRM(tm.getRequestnum_m()).getMemberid();
-        href = "#" ;
+        href = "http://localhost:8888/pretLancer/messageCl" ;
 
         str += userid;
         str += "님이 신청하신";
@@ -354,7 +354,7 @@ public class MessagingService {
         
         
         // TODO: 번역 결과를 볼 수 있는 페이지를 만들고 이동할 수 있는 url 을 만든다. 
-        href += "http://localhost/pretLancer/" ;
+        href += "http://localhost:8888/pretLancer/my_page//myRequestListM" ;
         
         msg.setMessagetype("MCR");
         msg.setMemberid(userid);
@@ -369,7 +369,7 @@ public class MessagingService {
 
         str = "";
         userid = tm.getMemberid();
-        href = "#" ;
+        href = "http://localhost:8888/pretLancer/messageCl" ;
 
         str += userid;
         str += "님이 번역하신";
@@ -404,7 +404,7 @@ public class MessagingService {
         str += " 지금 확인해보세요!";
         
         // 해당 게시글로 이동
-        href += "http://localhost:8888/pretLancer/my_page/requestToMe_l";
+        href += "http://localhost:8888/pretLancer/my_page/requestToMe_L";
         
         msg.setMessagetype("LR");
         msg.setMemberid(userid);
@@ -539,7 +539,7 @@ public class MessagingService {
 
 
         // 리워드 출입 확인 페이지가 있으면 좋을 듯.
-        href += "#";
+        href += "http://localhost:8888/pretLancer/messageCl";
         
         msg.setMessagetype("LS");
         msg.setMemberid(userid);

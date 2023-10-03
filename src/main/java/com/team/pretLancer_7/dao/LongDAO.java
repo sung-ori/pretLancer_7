@@ -62,4 +62,6 @@ public interface LongDAO {
     public int countT(Map<String,String> map);
 
     public int countA(Map<String,String> map);
+
+    public int deleteRequest(int requestnum_l);
 }
