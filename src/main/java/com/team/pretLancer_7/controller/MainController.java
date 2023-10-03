@@ -111,7 +111,12 @@ public class MainController {
     public String qnaForm() {
     	return "qna";
     }
- 
+
+    @GetMapping("qna2")
+    public String qnaForm2() {
+    	return "qna2";
+    }
+
     //문의 페이지
     @PostMapping("qna")
     public String qnaForm(QnA q) {

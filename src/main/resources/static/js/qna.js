@@ -129,7 +129,7 @@
 	}
 	
 	function changeColor() {
-			$('#question').css("color","#2396DE");
+			$('#question').css("color","#2334DE");
 	}
 
 	function changeColor2() {
@@ -139,7 +139,7 @@
 	function getAnswer() {
 		if ($('#answer').css('opacity') == 0) {
 			$('#question').css("font-weight","bold");
-			$('#question').css("color","#2396DE");
+			$('#question').css("color","#2334DE");
 			$('#answer').css('display', 'block');
 			$('#answer').css('opacity', 1);
 		}else	{
@@ -153,7 +153,7 @@
 
 	
 	function changeColor3() {
-			$('#question1').css("color","#2396DE");
+			$('#question1').css("color","#2334DE");
 	}
 	
 	function changeColor4() {
@@ -163,7 +163,7 @@
 	function getAnswer1() {
 		if ($('#answer1').css('opacity') == 0) {
 			$('#question1').css("font-weight","bold");
-			$('#question1').css("color","#2396DE");
+			$('#question1').css("color","#2334DE");
 			$('#answer1').css('display', 'block');
 			$('#answer1').css('opacity', 1);
 		}else	{
@@ -177,7 +177,7 @@
 
 	
 	function changeColor5() {
-		$('#question2').css("color","#2396DE");
+		$('#question2').css("color","#2334DE");
 	}
 	
 	function changeColor6() {
@@ -187,7 +187,7 @@
 	function getAnswer2() {
 		if ($('#answer2').css('opacity') == 0) {
 			$('#question2').css("font-weight","bold");
-			$('#question2').css("color","#2396DE");
+			$('#question2').css("color","#2334DE");
 			$('#answer2').css('display', 'block');
 			$('#answer2').css('opacity', 1);
 		}else	{
@@ -201,7 +201,7 @@
 
 	
 	function changeColor7() {
-		$('#question3').css("color","#2396DE");
+		$('#question3').css("color","#2334DE");
 	}
 	
 	function changeColor8() {
@@ -211,7 +211,7 @@
 	function getAnswer3() {
 		if ($('#answer3').css('opacity') == 0) {
 			$('#question3').css("font-weight","bold");
-			$('#question3').css("color","#2396DE");
+			$('#question3').css("color","#2334DE");
 			$('#answer3').css('display', 'block');
 			$('#answer3').css('opacity', 1);
 		}else	{
@@ -224,7 +224,7 @@
 	};
 
 	function changeColor9() {
-		$('#question4').css("color","#2396DE");
+		$('#question4').css("color","#2334DE");
 	}
 	
 	function changeColor10() {
@@ -234,7 +234,7 @@
 	function getAnswer4() {
 		if ($('#answer4').css('opacity') == 0) {
 			$('#question4').css("font-weight","bold");
-			$('#question4').css("color","#2396DE");
+			$('#question4').css("color","#2334DE");
 			$('#answer4').css('display', 'block');
 			$('#answer4').css('opacity', 1);
 		}else	{
@@ -248,7 +248,7 @@
 
 	
 	function changeColor11() {
-		$('#question5').css("color","#2396DE");
+		$('#question5').css("color","#2334DE");
 	}
 	
 	function changeColor12() {
@@ -258,7 +258,7 @@
 	function getAnswer5() {
 		if ($('#answer5').css('opacity') == 0) {
 			$('#question5').css("font-weight","bold");
-			$('#question5').css("color","#2396DE");
+			$('#question5').css("color","#2334DE");
 			$('#answer5').css('display', 'block');
 			$('#answer5').css('opacity', 1);
 		}else	{
@@ -272,7 +272,7 @@
 
 	
 	function changeColor13() {
-		$('#question6').css("color","#2396DE");
+		$('#question6').css("color","#2334DE");
 	}
 	
 	function changeColor14() {
@@ -282,7 +282,7 @@
 	function getAnswer6() {
 		if ($('#answer6').css('opacity') == 0) {
 			$('#question6').css("font-weight","bold");
-			$('#question6').css("color","#2396DE");
+			$('#question6').css("color","#2334DE");
 			$('#answer6').css('display', 'block');
 			$('#answer6').css('opacity', 1);
 		}else	{
@@ -296,7 +296,7 @@
 
 	
 	function changeColor15() {
-		$('#question7').css("color","#2396DE");
+		$('#question7').css("color","#2334DE");
 	}
 	
 	function changeColor16() {
@@ -306,7 +306,7 @@
 	function getAnswer7() {
 		if ($('#answer7').css('opacity') == 0) {
 			$('#question7').css("font-weight","bold");
-			$('#question7').css("color","#2396DE");
+			$('#question7').css("color","#2334DE");
 			$('#answer7').css('display', 'block');
 			$('#answer7').css('opacity', 1);
 		}else	{
@@ -319,7 +319,7 @@
 	};
 
 	function changeColor17() {
-		$('#question8').css("color","#2396DE");
+		$('#question8').css("color","#2334DE");
 	}
 	
 	function changeColor18() {
@@ -329,7 +329,7 @@
 	function getAnswer8() {
 		if ($('#answer8').css('opacity') == 0) {
 			$('#question8').css("font-weight","bold");
-			$('#question8').css("color","#2396DE");
+			$('#question8').css("color","#2334DE");
 			$('#answer8').css('display', 'block');
 			$('#answer8').css('opacity', 1);
 		}else	{
@@ -342,7 +342,7 @@
 	};
 
 		function changeColor19() {
-		$('#question9').css("color","#2396DE");
+		$('#question9').css("color","#2334DE");
 	}
 	
 	function changeColor20() {
@@ -352,7 +352,7 @@
 	function getAnswer9() {
 		if ($('#answer9').css('opacity') == 0) {
 			$('#question9').css("font-weight","bold");
-			$('#question9').css("color","#2396DE");
+			$('#question9').css("color","#2334DE");
 			$('#answer9').css('display', 'block');
 			$('#answer9').css('opacity', 1);
 		}else	{
@@ -365,7 +365,7 @@
 	};
 
 	function changeColor21() {
-		$('#question10').css("color","#2396DE");
+		$('#question10').css("color","#2334DE");
 	}
 	
 	function changeColor22() {
@@ -375,7 +375,7 @@
 	function getAnswer10() {
 		if ($('#answer10').css('opacity') == 0) {
 			$('#question10').css("font-weight","bold");
-			$('#question10').css("color","#2396DE");
+			$('#question10').css("color","#2334DE");
 			$('#answer10').css('display', 'block');
 			$('#answer10').css('opacity', 1);
 		}else	{
@@ -388,7 +388,7 @@
 	};
 
 	function changeColor23() {
-		$('#question11').css("color","#2396DE");
+		$('#question11').css("color","#2334DE");
 	}
 	
 	function changeColor24() {
@@ -398,7 +398,7 @@
 	function getAnswer11() {
 		if ($('#answer11').css('opacity') == 0) {
 			$('#question11').css("font-weight","bold");
-			$('#question11').css("color","#2396DE");
+			$('#question11').css("color","#2334DE");
 			$('#answer11').css('display', 'block');
 			$('#answer11').css('opacity', 1);
 		}else	{
@@ -411,7 +411,7 @@
 	};
 
 	function changeColor25() {
-		$('#question12').css("color","#2396DE");
+		$('#question12').css("color","#2334DE");
 	}
 	
 	function changeColor26() {
@@ -421,7 +421,7 @@
 	function getAnswer12() {
 		if ($('#answer12').css('opacity') == 0) {
 			$('#question12').css("font-weight","bold");
-			$('#question12').css("color","#2396DE");
+			$('#question12').css("color","#2334DE");
 			$('#answer12').css('display', 'block');
 			$('#answer12').css('opacity', 1);
 		}else	{
@@ -434,7 +434,7 @@
 	};
 
 	function changeColor27() {
-		$('#question13').css("color","#2396DE");
+		$('#question13').css("color","#2334DE");
 	}
 	
 	function changeColor28() {
@@ -444,7 +444,7 @@
 	function getAnswer13() {
 		if ($('#answer13').css('opacity') == 0) {
 			$('#question13').css("font-weight","bold");
-			$('#question13').css("color","#2396DE");
+			$('#question13').css("color","#2334DE");
 			$('#answer13').css('display', 'block');
 			$('#answer13').css('opacity', 1);
 		}else	{
@@ -457,7 +457,7 @@
 	};
 
 	function changeColor29() {
-		$('#question14').css("color","#2396DE");
+		$('#question14').css("color","#2334DE");
 	}
 	
 	function changeColor30() {
@@ -467,7 +467,7 @@
 	function getAnswer14() {
 		if ($('#answer14').css('opacity') == 0) {
 			$('#question14').css("font-weight","bold");
-			$('#question14').css("color","#2396DE");
+			$('#question14').css("color","#2334DE");
 			$('#answer14').css('display', 'block');
 			$('#answer14').css('opacity', 1);
 		}else	{
@@ -480,7 +480,7 @@
 	};
 
 		function changeColor31() {
-		$('#question15').css("color","#2396DE");
+		$('#question15').css("color","#2334DE");
 	}
 	
 	function changeColor32() {
@@ -490,7 +490,7 @@
 	function getAnswer15() {
 		if ($('#answer15').css('opacity') == 0) {
 			$('#question15').css("font-weight","bold");
-			$('#question15').css("color","#2396DE");
+			$('#question15').css("color","#2334DE");
 			$('#answer15').css('display', 'block');
 			$('#answer15').css('opacity', 1);
 		}else	{
@@ -503,7 +503,7 @@
 	};
 
 	function changeColor33() {
-		$('#question16').css("color","#2396DE");
+		$('#question16').css("color","#2334DE");
 	}
 	
 	function changeColor34() {
@@ -513,7 +513,7 @@
 	function getAnswer16() {
 		if ($('#answer16').css('opacity') == 0) {
 			$('#question16').css("font-weight","bold");
-			$('#question16').css("color","#2396DE");
+			$('#question16').css("color","#2334DE");
 			$('#answer16').css('display', 'block');
 			$('#answer16').css('opacity', 1);
 		}else	{
@@ -526,7 +526,7 @@
 	};
 
 	function changeColor35() {
-		$('#question17').css("color","#2396DE");
+		$('#question17').css("color","#2334DE");
 	}
 	
 	function changeColor36() {
@@ -536,7 +536,7 @@
 	function getAnswer17() {
 		if ($('#answer17').css('opacity') == 0) {
 			$('#question17').css("font-weight","bold");
-			$('#question17').css("color","#2396DE");
+			$('#question17').css("color","#2334DE");
 			$('#answer17').css('display', 'block');
 			$('#answer17').css('opacity', 1);
 		}else	{
@@ -549,7 +549,7 @@
 	};
 
 	function changeColor37() {
-		$('#question18').css("color","#2396DE");
+		$('#question18').css("color","#2334DE");
 	}
 	
 	function changeColor38() {
@@ -559,7 +559,7 @@
 	function getAnswer18() {
 		if ($('#answer18').css('opacity') == 0) {
 			$('#question18').css("font-weight","bold");
-			$('#question18').css("color","#2396DE");
+			$('#question18').css("color","#2334DE");
 			$('#answer18').css('display', 'block');
 			$('#answer18').css('opacity', 1);
 		}else	{
@@ -572,7 +572,7 @@
 	};
 
 	function changeColor39() {
-		$('#question19').css("color","#2396DE");
+		$('#question19').css("color","#2334DE");
 	}
 	
 	function changeColor40() {
@@ -582,7 +582,7 @@
 	function getAnswer19() {
 		if ($('#answer19').css('opacity') == 0) {
 			$('#question19').css("font-weight","bold");
-			$('#question19').css("color","#2396DE");
+			$('#question19').css("color","#2334DE");
 			$('#answer19').css('display', 'block');
 			$('#answer19').css('opacity', 1);
 		}else	{
@@ -595,7 +595,7 @@
 	};
 
 	function changeColor41() {
-		$('#question20').css("color","#2396DE");
+		$('#question20').css("color","#2334DE");
 	}
 	
 	function changeColor42() {
@@ -605,7 +605,7 @@
 	function getAnswer20() {
 		if ($('#answer20').css('opacity') == 0) {
 			$('#question20').css("font-weight","bold");
-			$('#question20').css("color","#2396DE");
+			$('#question20').css("color","#2334DE");
 			$('#answer20').css('display', 'block');
 			$('#answer20').css('opacity', 1);
 		}else	{

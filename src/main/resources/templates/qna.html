@@ -2,7 +2,7 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>자주 묻는 질문 | 신개념 번역 플랫폼 PretLancer</title>
+<title>문의 페이지 | 신개념 번역 플랫폼 PretLancer</title>
 <style>
 
 	@font-face {
@@ -75,11 +75,42 @@
 	} 
 
 
-	#title_{
+	.title_{
     font-family: 'Pretendard-Bold';
 		font-size : 20px;
 		color : #2C2E33;
 	} 
+
+	.title2_{
+	width: max-content;
+	background-color : yellow;
+
+    font-family: 'Pretendard-Bold';
+		font-size : 20px;
+		color : #2334DE;
+	} 
+
+	.title3_{
+		width: max-content;
+	    font-family: 'Pretendard-Bold';
+		font-size : 20px;
+		background-color : #F2F2F2;
+		color : #2334DE;
+	} 
+
+	.content{
+    font-family: 'Pretendard-Regular';
+		font-size : 15px;
+		color : #2C2E33;
+	} 
+
+	.information {
+	vertical-align : middle;
+	background-color : white;
+	border : solid 1px #D8D8D8;
+	border-radius : 5px;
+	width : 800px;
+	}
 	
 	.answer {
     font-family: 'Pretendard-Regular';
@@ -90,24 +121,16 @@
 	}
 	
 	.question {
-	    font-family: 'Pretendard-Bold';
-		font-size : 20px;
+    font-family: 'Pretendard-Bold';
+		font-size : 15px;
+		color : #2C2E33;
 	    
 		cursor : pointer;
 	}
 	
 	
-	div {
-		text-align : center;
-	}
 	
-	table {
-		margin-left : auto;	
-		margin-right : auto;	
-		margin-top : auto;	
-		margin-bottom : auto;	
 
-	}
 	
 	select {
 		width : 200px;
@@ -200,6 +223,12 @@
 		border-radius : 5px;
     	
     }
+
+	.content{
+    font-family: 'Pretendard-Regular';
+		font-size : 15px;
+		color : #D8D8D8;
+	} 
 	
 	
 
@@ -268,40 +297,22 @@
 	                </a>
 	            </header>
 	            
-	
-	<div>
-		<h1 class = "title2">고객센터 </h1>
-		<h6 id = "title_">자주 묻는 질문을 확인하고 문의할 수 있는 공간입니다 :)<br>
-							아래 버튼을 누르시면 1대1 문의가 가능합니다.</h6><br>
-		<input type = "button" value = "1대1 문의하기" class = "question_button" id = "openform">		
-		<br>
-		<!-- 문의 폼 : 평소에는 나타나지 않다가 문의하기 버튼을 누르면 나타난다 -->
-		<!-- 문의 폼의 구성 : 질문 제목, 회신받을 이메일 주소, 카테고리, 내용, 문의하기 버튼 -->
-		<section id = "qnaform">
-		<br>
-			<form th:action = "@{/qna}" method = "post" onsubmit = "return check()">
-				<input type = "hidden" id = "memberid" th:value = "${#authentication.name}">
-				<input type = "text" placeholder = "답변 내용을 회신받으실 이메일을 입력해주세요." class = "form1" id = "qnaemail"><br>
-				<select id = "qnacategory">
-					<option>카테고리를 선택해주세요.</option>
-					<option value = "번역">번역 및 평가</option>
-					<option value = "리워드">리워드</option>
-					<option value = "회원정보">회원정보</option>
-					<option value = "기타">기타</option>
-				</select>
-				<input type = "text" placeholder = "문의 제목을 입력해주세요." class = "form" id = "qnatitle"><br>
-				<textarea placeholder = "문의 내용을 입력해주세요." class = "form2" id = "qnacontent"></textarea><br>
-				<input type = "file" id = "qnafile"><br>
-				<input type = "submit" value = "문의하기" id = "form_button" class = "question_button">
-			</form>
-		</section>
-		<hr>
-
-		<br><br>
+	<div class="page-heading">
+		<h1 class = "title2">문의 페이지 </h1>
+		<h6 class = "title_">자주 묻는 질문을 확인하고 문의할 수 있는 공간입니다 :)<br></h6><br>
+	    <table class = "content" style = "border-collapse: separate; text-align : center;">
+	    	<tr>
+			    <td><b><a th:href = "@{/qna}">자주 묻는 질문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></b></td>		
+			    <td><a th:href = "@{/qna2}">1대1 문의하기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
+	    	</tr>
+	    </table>
+	    <hr>
+	</div>
 		
 		
 		<!-- 질문 리스트 폼 : 자주 묻는 질문이 모여 있음 -->
-			<h1 class = "title2">자주 묻는 질문</h1>
+			<p class = "title_">궁금하신 점이 있으신가요? <br>자주 묻는 질문을 확인해 보세요!</h1>
+	<div class = "information">
 			<!-- 카테고라이즈 : 누르면 부드럽게 스크롤되어 해당 위지로 내려감. 카테고리 : 번역, 리워드, 회원정보, 기타 
 			
 			<input type = "button" value = "번역" class = "category" id = "category1">
@@ -310,191 +321,191 @@
 			<input type = "button" value = "기타"class = "category" id = "category4"> -->
 			
 			<br>
-			
 			<!-- 구조는 제목으로 카테고리명, 그 안에 들어간 질문들 (질문을 누르면 숨겨져 있던 답이 나옴) -->
-			<h1 class = "title3">번역</h1>
-				<h3 class = "title4">번역에 대하여</h3>
+			<h1 class = "title2_">번역</h1>
+			<h3 class = "title3_">번역에 대하여</h3>
 
-				<br>
-				<p class = "question" id = "question">번역 프로젝트에 참여하고 싶은데, 어떻게 참여하면 될까요?</p>
-				<br>
-				<p class = "answer" id = "answer"> 우선 튜토리얼 과정에 통과하신 뒤, 짧은 길이의 번역부터 도전하시면서 레벨과 경험치를 쌓아주세요. <br><br>
-									일정 레벨과 경험치에 도달하면 더 긴 번역에 도전할 수 있게 됩니다. </p>
-				<br>
-				<hr class = "short">
-				
-				<br>
-				<p class = "question" id = "question1">번역하고 싶은데 접근 권한이 없다고 떠요.</p>
-				<br>
-				<p class = "answer" id = "answer1"> 아직 튜토리얼 과정을 통과하지 못하셨다면, 튜토리얼을 완전히 끝내주세요! <br><br>
-									튜토리얼을 통과했는데도 접근 권한이 없으시다면, 위의 '문의하기' 버튼으로 저희에게 메일을 보내 주세요. </p>
-
-				<br>
-				<hr class = "short">
-
-				<br>
-				<p class = "question" id = "question2">튜토리얼에서 번역을 맞게 입력했는데, 틀렸다고 떠요.</p>
-				<br>
-				<p class = "answer" id = "answer2"> 맞춤법 혹은 띄어쓰기는 맞게 입력하셨나요? <br><br>
-									튜토리얼은 정답과의 유사성을 비교하여 판단하기 때문에 맞춤법이나 띄어쓰기도 중요하게 판단됩니다. <br><br>
-									맞춤법에 유의하여 알맞은 답을 입력해주세요!</p>
-
-				<br>
-				<hr class = "short">
-
-				<br>
-				<p class = "question" id = "question3">번역을 의뢰하고 싶은데, 보통 어느 정도 걸리나요?</p>
-				<br>
-				<p class = "answer" id = "answer3"> 의뢰하시는 번역에 따라서 다릅니다. <br><br>
-									길이가 짧은 쇼트, 미디엄의 경우 번역과 평가에 걸리는 길이에 따라서 하루 이내, 길면 이틀 정도이며, <br><br>
-									길이가 길어 따로 의뢰를 문의하시는 경우에는 번역하시는 분과 조율하셔야 합니다.</p>
-				<br>
-				<hr class = "short">
-
-				<br>
-				<p class = "question" id = "question4">번역 거래를 잡았는데 상대가 응답을 하지 않아요.</p>
-				<br>
-				<p class = "answer" id = "answer4"> 일단 기다려보시고, 며칠을 기다리셔도 응답이 없을 경우 위의 '문의하기' 폼으로 저희에게 메일을 주셔요.</p>
-				<br>
-				<hr class = "short">
-
-				<br>
-				<p class = "question" id = "question5">번역을 많이 했는데 등급이나 신뢰도가 잘 오르지 않는 것 같아요.</p>
-				<br>
-				<p class = "answer" id = "answer5"> 번역을 많이 하셔도, 정확하게 하지 않으면 부정적인 평가를 받아 신뢰도가 오르지 않거나 깎일 수 있어요.<br><br>
-									최대한 정확하게 번역을 해 주세요!</p>
-				<br>
-				<hr class = "short">
-
-				<br>
-				<p class = "question" id = "question6">번역에 이상한 내용을 올리는 사람이 있어요.</p>
-				<br>
-				<p class = "answer" id = "answer6"> 해당 부분을 캡쳐하셔서, 위의 '문의하기' 폼에 첨부하여 보내주세요. <br><br>빠른 검토 후 해당 유저를 처리하도록 하겠습니다.</p>
-				<br>
-				<hr class = "short">
-				
-
-				<br>
-				<p class = "title4">평가에 대하여</p>
-				
-				<br>
-				<p class = "question" id = "question7">평가는 어떻게 진행되나요?</p>
-				<br>
-				<p class = "answer" id = "answer7"> 번역 후 제출이 되면, 해당 번역물은 평가 단계로 넘어가 여러 명의 평가를 받게 됩니다. <br><br> 
-													평가 결과에 따라 번역가의 신뢰도에 영향이 가므로, 번역은 신중히 부탁드립니다!</p>
-				<br>
-				<hr class = "short">
-				
+			<table>
 			
-			
-			
+				<tr>
+					<td>
+						<p class = "question" id = "question">번역 프로젝트에 참여하고 싶은데, 어떻게 참여하면 될까요?</p>
+						<p class = "answer" id = "answer"> 우선 튜토리얼 과정에 통과하신 뒤, 짧은 길이의 번역부터 도전하시면서 레벨과 경험치를 쌓아주세요. <br>
+											일정 레벨과 경험치에 도달하면 더 긴 번역에 도전할 수 있게 됩니다. </p>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<p class = "question" id = "question1">번역하고 싶은데 접근 권한이 없다고 떠요.</p>
+						<p class = "answer" id = "answer1"> 아직 튜토리얼 과정을 통과하지 못하셨다면, 튜토리얼을 완전히 끝내주세요! <br>
+											튜토리얼을 통과했는데도 접근 권한이 없으시다면, 위의 '문의하기' 버튼으로 저희에게 메일을 보내 주세요. </p>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<p class = "question" id = "question2">튜토리얼에서 번역을 맞게 입력했는데, 틀렸다고 떠요.</p>
+						<p class = "answer" id = "answer2"> 맞춤법 혹은 띄어쓰기는 맞게 입력하셨나요? <br>
+											튜토리얼은 정답과의 유사성을 비교하여 판단하기 때문에 맞춤법이나 띄어쓰기도 중요하게 판단됩니다. <br>
+											맞춤법에 유의하여 알맞은 답을 입력해주세요!</p>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<p class = "question" id = "question3">번역을 의뢰하고 싶은데, 보통 어느 정도 걸리나요?</p>
+						<p class = "answer" id = "answer3"> 의뢰하시는 번역에 따라서 다릅니다. <br>
+											길이가 짧은 쇼트, 미디엄의 경우 번역과 평가에 걸리는 길이에 따라서 하루 이내, 길면 이틀 정도이며, <br>
+											길이가 길어 따로 의뢰를 문의하시는 경우에는 번역하시는 분과 조율하셔야 합니다.</p>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>
+						<p class = "question" id = "question4">번역 거래를 잡았는데 상대가 응답을 하지 않아요.</p>
+						<p class = "answer" id = "answer4"> 일단 기다려보시고, 며칠을 기다리셔도 응답이 없을 경우 위의 '문의하기' 폼으로 저희에게 메일을 주셔요.</p>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<p class = "question" id = "question5">번역을 많이 했는데 등급이나 신뢰도가 잘 오르지 않는 것 같아요.</p>
+						<p class = "answer" id = "answer5"> 번역을 많이 하셔도, 정확하게 하지 않으면 부정적인 평가를 받아 신뢰도가 오르지 않거나 깎일 수 있어요.<br>
+											최대한 정확하게 번역을 해 주세요!</p>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<p class = "question" id = "question6">번역에 이상한 내용을 올리는 사람이 있어요.</p>
+						<p class = "answer" id = "answer6"> 해당 부분을 캡쳐하셔서, 위의 '문의하기' 폼에 첨부하여 보내주세요. <br>
+						빠른 검토 후 해당 유저를 처리하도록 하겠습니다.</p>
+					</td>
+				</tr>
+
+			</table>
+
+			<h3 class = "title3_">평가에 대하여</h3>
+			<table>	
+				
+				<tr>
+					<td>
+						<p class = "question" id = "question7">평가는 어떻게 진행되나요?</p>
+						<p class = "answer" id = "answer7"> 번역 후 제출이 되면, 해당 번역물은 평가 단계로 넘어가 여러 명의 평가를 받게 됩니다.<br> 
+															평가 결과에 따라 번역가의 신뢰도에 영향이 가므로, 번역은 신중히 부탁드립니다!</p>
+					</td>
+				</tr>
+			</table>	
+
 			<br>
+			<h1 class = "title2_">리워드</h1>
 
-			<h1 class = "title3">리워드</h1><br>
-
-				<br>
+			<table>
+				<tr>
+				<td>
 				<p class = "question" id = "question8">언제 출금되나요?</p>
-				<br>
-				<p class = "answer" id = "answer8">한 주의 월요일부터 일요일 오후 11시 59분까지의 출금 신청 건의 출금은, <br><br> 내부 검토를 거쳐 계좌 오류나 인적사항에 이상이 없을 시 그 다음주 금요일에 지급됩니다.</p>
-				<br>
-				<hr class = "short">
-
-				<br>
+				<p class = "answer" id = "answer8">한 주의 월요일부터 일요일 오후 11시 59분까지의 출금 신청 건의 출금은, <br> 내부 검토를 거쳐 계좌 오류나 인적사항에 이상이 없을 시 그 다음주 금요일에 지급됩니다.</p>
+				</td>
+				</tr>
+				
+				<tr>
+				<td>
 				<p class = "question" id = "question9">얼마부터 출금을 받을 수 있나요?</p>
-				<br>
 				<p class = "answer" id = "answer9">출금은 5,000원부터 가능합니다.</p>
-				<br>
-				<hr class = "short">
+				</td>
+				</tr>
 
-				<br>
+				<tr>
+				<td>
 				<p class = "question" id = "question10">출금 신청을 했는데 계좌에 입금이 안 돼요.</p>
-				<br>
-				<p class = "answer" id = "answer10">저희는 금요일 늦은 오후, 지정하신 계좌에 일괄 송금해드립니다. <br><br>
+				<p class = "answer" id = "answer10">저희는 금요일 늦은 오후, 지정하신 계좌에 일괄 송금해드립니다. <br>
 													만일 금요일이 지난 후에도 입금이 되지 않는다면 위의 '문의하기' 폼에 문의 부탁드립니다.</p>
-				<br>
-				<hr class = "short">
+				</td>
+				</tr>
 
-				<br>
+				<tr>
+				<td>
 				<p class = "question" id = "question11">출금 제한 금액이 있나요?</p>
-				<br>
 				<p class = "answer" id = "answer11">출금 제한 금액은 따로 없습니다.</p>
-				<br>
-				<hr class = "short">
+				</td>
+				</tr>
 
-				<br>
+				<tr>
+				<td>
 				<p class = "question" id = "question12">계좌를 등록하려고 하는데 오류가 나요.</p>
-				<br>
-				<p class = "answer" id = "answer12">계좌번호와 계좌주가 동일하지 않거나, 은행에서 여러 가지 문제로 계좌가 막힌 경우 오류가 발생합니다. <br><br>
+				<p class = "answer" id = "answer12">계좌번호와 계좌주가 동일하지 않거나, 은행에서 여러 가지 문제로 계좌가 막힌 경우 오류가 발생합니다. <br>
 													만일 계좌번호와 계좌주가 일치하는데도 오류가 난다면 위의 문의하기 폼으로 작성 부탁드립니다.</p>
-				<br>
-				<hr class = "short">
+				</td>
+				</tr>
 
-				<br>
+				<tr>
+				<td>
 				<p class = "question" id = "question13">해외에 살고 있는데 출금을 할 수 있나요?</p>
-				<br>
-				<p class = "answer" id = "answer13">저희는 국내에 거주하고 있는 내국인을 대상으로 출금이 가능하지만, <br><br>로밍을 사용하시거나 다른 본인인증 방법이 가능하신 분들은 출금이 가능합니다.</p>
-				<br>
-				<hr class = "short">
+				<p class = "answer" id = "answer13">저희는 국내에 거주하고 있는 내국인을 대상으로 출금이 가능하지만, <br>로밍을 사용하시거나 다른 본인인증 방법이 가능하신 분들은 출금이 가능합니다.</p>
+				</td>
+				</tr>
 
-				<br>
+				<tr>
+				<td>
 				<p class = "question" id = "question14">외국인인데, 리워드를 받을 수 있나요?</p>
-				<br>
 				<p class = "answer" id = "answer14">저희는 아직 외국인에게 리워드를 지급하고 있지는 않습니다. 이용에 참고 부탁드립니다.</p>
-				<br>
-				<hr class = "short">
+				</td>
+				</tr>
 
-				<br>
+				<tr>
+				<td>
 				<p class = "question" id = "question15">미성년자는 참여 불가능한가요?</p>
-				<br>
 				<p class = "answer" id = "answer15">네, 미성년자는 참여 불가능합니다.</p>
-				<br>
-				<hr class = "short">
+				</td>
+				</tr>
 
-			
-			<br>
-
-			<h1 class = "title3">회원정보</h1>
-				<br>
-				<p class = "question" id = "question16">비밀번호 같은 회원정보를 수정하고 싶어요.</p>
-				<br>
-				<p class = "answer" id = "answer16">회원정보 수정은 마이페이지에서 가능합니다.</p>
-				<br>
-				<hr class = "short">
-
-				<br>
-				<p class = "question" id = "question17">개인정보는 언제 파기하나요?</p>
-				<br>
-				<p class = "answer" id = "answer17">회원 탈퇴 후 1년 이내에 파기됩니다.</p>
-				<br>
-				<hr class = "short">
-
-				<br>
-				<p class = "question" id = "question18">프로필 사진을 수정하고 싶어요.</p>
-				<br>
-				<p class = "answer" id = "answer18">프로필 사진도 마이 페이지에서 수정 가능합니다.</p>
-				<br>
-				<hr class = "short">
-
-				<br>
-				<p class = "question" id = "question19">탈퇴하고 싶어요.</p>
-				<br>
-				<p class = "answer" id = "answer19">회원 탈퇴는 마이 페이지에서 가능합니다. <br><br> 탈퇴 후에는 등급과 신뢰도, 리워드 복구가 안 되므로 유의하시기 바랍니다.</p>
-				<br>
-				<hr class = "short">
-
+			</table>
 
 			<br>
+			<h1 class = "title2_">회원정보</h1>
+			<table>
+				<tr>
+				<td>
+					<p class = "question" id = "question16">비밀번호 같은 회원정보를 수정하고 싶어요.</p>
+					<p class = "answer" id = "answer16">회원정보 수정은 마이페이지에서 가능합니다.</p>
+				</td>
+				</tr>
+				
+				<tr>
+				<td>
+					<p class = "question" id = "question17">개인정보는 언제 파기하나요?</p>
+					<p class = "answer" id = "answer17">회원 탈퇴 후 1년 이내에 파기됩니다.</p>
+				</td>
+				</tr>
+	
+				<tr>
+				<td>
+					<p class = "question" id = "question18">프로필 사진을 수정하고 싶어요.</p>
+					<p class = "answer" id = "answer18">프로필 사진도 마이 페이지에서 수정 가능합니다.</p>
+				</td>
+				</tr>
+	
+				<tr>
+				<td>
+					<p class = "question" id = "question19">탈퇴하고 싶어요.</p>
+					<p class = "answer" id = "answer19">회원 탈퇴는 마이 페이지에서 가능합니다. <br> 탈퇴 후에는 등급과 신뢰도, 리워드 복구가 안 되므로 유의하시기 바랍니다.</p>
+				</td>
+				</tr>
+			</table>
 			
-			<h1 class = "title3">기타</h1>
-				<br>
-				<p class = "question" id = "question20">커뮤니티에서 신고하고 싶은 사람이 있어요.</p>
-				<br>
-				<p class = "answer" id = "answer20">신고는 '신고하기' 기능으로 가능합니다.</p>
+			<br>
+			<h1 class = "title2_">기타</h1>
+			<table>
+				<tr>
+				<td>
+					<p class = "question" id = "question20">커뮤니티에서 신고하고 싶은 사람이 있어요.</p>
+					<p class = "answer" id = "answer20">신고는 '신고하기' 기능으로 가능합니다.</p>
+				</td>
+				</tr>
+			</table>
 
-				<br>
-				<hr class = "short">
-
-
+		</div>
 		</div>
 	</div>
      <!-- 부트스트랩  JS -->
