@@ -121,6 +121,17 @@
 	height : 450px;
 	}
 
+	.outer_information {
+	float : left;
+	text-align : center;
+	vertical-align : middle;
+	background-color : white;
+	border : solid 1px #D8D8D8;
+	border-radius : 5px;
+	width : 400px;
+	height : 450px;
+	}
+
 	.information_content{
     font-family: 'Pretendard-Regular';
 		font-size : 15px;
@@ -315,7 +326,8 @@
 	    </table>
 	    <hr>
 	</div>
-			
+
+	<div class = "outer_information">		
 	<div class = "information">
 		
 		<br>
@@ -351,9 +363,10 @@
 				</tr>
 			</table>
 		</div>
+		
 		<!-- 게이지바  -->
 
-		<div >
+		<div class = "information">
 			<input type="hidden" id="ps" th:value="${ability.psucceed}">
 			<input type="hidden" id="pf" th:value="${ability.pfailed}">
 			<input type="hidden" id="ss" th:value="${ability.ssucceed}">
@@ -387,6 +400,8 @@
 			<div class="progress" role="progressbar" id="pere"  aria-valuemin="0" aria-valuemax="100">
 				<div class="progress-bar bg-success" id="pereb" ></div>
 			</div>
+		</div>
+		
 		</div>
 
 	</div>
