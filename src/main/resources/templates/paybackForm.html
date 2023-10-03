@@ -129,7 +129,7 @@
 	border : solid 1px #D8D8D8;
 	border-radius : 5px;
 	width : 400px;
-	height : 450px;
+	height : 200px;
 	}
 
 	.information_content{
@@ -193,8 +193,8 @@
 
 		.button{
 		
-			width : 50px;
-			height : 35px;
+			width : 80px;
+			height : 30px;
 			background-color:#2334DE;
 			color : #FFFFFF;
 			
@@ -239,7 +239,7 @@
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
-    $(".btn").click(request);
+    $(".button").click(request);
 })
 
 function checkCash() {
@@ -352,7 +352,7 @@ function request() {
 	    <br>
 	    <table class = "content" style = "border-collapse: separate; text-align : center;">
 	    	<tr>
-			    <td><a th:href = "@{/reward/main}">포인트 충전하기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
+			    <td><a th:href = "@{/reward/main}">캐시 충전하기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
 			    <td><b><a th:href = "@{/reward/paybackForm}">캐시 출금하기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></b></td>		
 
 	    	</tr>
@@ -377,16 +377,34 @@ function request() {
         <!-- 출금 가능 금액 -->
         <div><span class = "title_">현재 내 캐시 : </span><span class = "cash" th:text = "${userinfo.cash}">캐시 default</span></div>
         
-        <!-- 출금 하고싶은 금액 -->
-        <label for="cash">출금 신청 금액</label>
-        <input class="form-text text-end" type="text" id="cash" onkeyup="validation()"> <br>
-        <div>
-            <p  style="color: #ac2925;">신청 금액에서 수수료 5퍼센트를 제한 나머지가 입금됩니다.</p>
-        </div>
-        <label for="realcash">실제 입금 금액</label>
-        <input class="form-text text-end" type="text" id="realcash" onkeyup="" readonly>
+        <table style = "margin-left : auto; margin-right : auto; text-align : center;">
+        	<tr>
+        		<td>
+      		        <label for="cash">출금 신청 금액</label>
+        		</td>
+        		<td>
+			        <input class="form-text text-end" type="text" id="cash" onkeyup="validation()"> <br>
+        		</td>
+        	</tr>
+        	<tr>
+        		<td colspan = "2">
+		            <p  style="color: #ac2925; vertical-align : middle;">신청 금액에서 수수료 5퍼센트를 제한 나머지가 입금됩니다.</p>
+        		</td>
+        	</tr>
+        	<tr>
+        		<td>
+			        <label for="realcash">실제 입금 금액</label>
+        		</td>
+        		<td>
+			        <input class="form-text text-end" type="text" id="realcash" onkeyup="" readonly>
+        		</td>
+        	</tr>
 
-        <input type="button" value="출금 신청" id="bt" class="btn btn-primary">
+        </table>
+        <br>
+        <input type="button" value="출금 신청" id="bt" class="button">
+        <br>
+
     </div>
      <!-- 부트스트랩  JS -->
     <script th:src="@{/assets/js/bootstrap.js}"></script>
