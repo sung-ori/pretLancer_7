@@ -26,7 +26,10 @@
 	</insert>
 	
 	<update id="tutorialClear" parameterType="string">
-	update pret_member set tutorial= 'Y' where memberid = #{memberid}
+	update pret_member 
+	set 
+	tutorial= 'Y' , ROLE_NAME = 'ROLE_TRANSLATOR'
+	where memberid = #{memberid}
 	</update>
 
 	<!-- ajax -->
