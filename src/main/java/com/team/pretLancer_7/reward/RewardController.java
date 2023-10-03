@@ -61,7 +61,7 @@ public class RewardController {
     public int checkCash(@AuthenticationPrincipal UserDetails user) {
 
         int cash = mdao.selectOne(user.getUsername()).getCash();
-        cash = (int)(cash - cash*(0.15));
+        cash = (int)(cash - cash*(0.05));
 
         return cash;
     }
