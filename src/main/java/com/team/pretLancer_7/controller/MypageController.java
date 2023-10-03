@@ -303,6 +303,7 @@ public class MypageController {
     	return "mypageform/changeNick";
     }
 	
+    @ResponseBody
     @PostMapping("changeNick")
     public void changeNick(String id, String nick) {
     	Member member = new Member();
