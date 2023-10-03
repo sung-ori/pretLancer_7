@@ -229,6 +229,38 @@
 	
 	          window.open("http://localhost:8888/pretLancer/long/readResult?requestnum_l="+requestnum ,'번역 결과 받기', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
 	      }
+
+		//   function reRequest() {
+		// 	let rst = confirm("재요청 하시겠습니까?");
+		// 	if (rst) {
+		// 		window.location.href= "http://localhost:8888/pretLancer/long/request"
+		// 	}
+		// 	let requestnum =  $(this).attr("id");
+		//   }
+
+		  function canRequest() {
+			let rst = confirm("장문 번역 요청이 거절당했습니다. 다시 요청해주세요.");
+			let requestnum =  $(this).attr("id");
+
+			if(rst) {
+				$.ajax({
+					type:"GET",
+					url:"../long/cancel",
+					data:{"requestnum_l" : requestnum},
+					dataType:"text",
+					success: function(data) {
+						if (data == "OK") {
+							alert("요청 취소 완료됐습니다.");
+							window.location.reload();
+						}
+					},
+					error: function(e) {
+						console.log(JSON.stringify(e));
+					}
+				});
+			}
+		  }
+		  $(".caBtn").click(canRequest);
 	  });
 </script>
  <!-- 부트스트랩 5.3.1 -->
@@ -354,7 +386,9 @@
             </td>
             
             <td th:if="${request.auction == 'N'}">
-              <a  th:if="${request.requestcondition_l == 'N'}" class="rBtn btn btn-primary btn-sm" th:id="${request.requestnum_l}" href="#">수락 대기중</a>
+              <a  th:if="${request.requestcondition_l == 'N' and request.memberid2 != null}" class="rBtn btn btn-primary btn-sm" th:id="${request.requestnum_l}" href="#">수락 대기중</a>
+              <!-- <a  th:if="${request.requestcondition_l == 'N' and request.memberid2 == null}" class="reBtn btn btn-danger btn-sm" th:id="${request.requestnum_l}" href="#">거절/재요청</a> -->
+              <a  th:if="${request.requestcondition_l == 'N' and request.memberid2 == null}" class="caBtn btn btn-danger btn-sm" th:id="${request.requestnum_l}" href="#">거절/요청 취소</a>
               <a  th:if="${request.requestcondition_l == 'T'}" class="rBtn btn btn-primary btn-sm" th:id="${request.requestnum_l}" href="#">진행중</a>
               <a  th:if="${request.requestcondition_l == 'E'}" class="resultBtn btn btn-success btn-sm" th:id="${request.requestnum_l}" href="#">결과 받기</a>
               <a  th:if="${request.requestcondition_l == 'Y'}" class="resultBtn btn btn-success btn-sm" th:id="${request.requestnum_l}" href="#">성공!</a>

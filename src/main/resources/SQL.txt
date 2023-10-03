@@ -179,7 +179,7 @@ CREATE TABLE PRET_REQUEST_M (
 	INPUTDATE	            DATE        	DEFAULT SYSDATE,                            -- 번역 요청 날짜
 	ENDDATE 	            DATE	        DEFAULT SYSDATE+3,                          -- 번역 마감 시간 +3일
 	CASH	                NUMBER	        DEFAULT 100,                                -- 의뢰 포인트
-	COMMENT_SR       	    VARCHAR2(250),                                              -- 의뢰자 비고란
+	COMMENT_MR       	    VARCHAR2(250),                                              -- 의뢰자 비고란
 	STARTLANG       	    VARCHAR2(30)	NOT NULL,                                   -- 시작 언어
 	ENDLANG	                VARCHAR2(30)	NOT NULL                                    -- 도착 언어
 );
@@ -225,7 +225,7 @@ CREATE TABLE PRET_TRANSLATED_M (
     MEMBERID                VARCHAR2(20) NOT NULL,          -- 번역자 아이디        FK
     REQUESTCONTENT_M        VARCHAR2 (3000 CHAR),                 -- 번역 요청 내용       FK
     TRANSLATEDCONTENT_M     VARCHAR2 (3000 CHAR),                 -- 번역 결과 내용
-    COMMENT_ST              VARCHAR2(300),                  -- 비고란
+    COMMENT_MT              VARCHAR2(300),                  -- 비고란
     EVALUATIONVALUE_M		NUMBER DEFAULT 0,				-- 평가 횟수 확인
 
     FOREIGN KEY (MEMBERID)            REFERENCES PRET_MEMBER(MEMBERID),

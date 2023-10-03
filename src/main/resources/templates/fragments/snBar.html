@@ -44,7 +44,8 @@
         }); // end
 
         // 알림 하나 지우기
-        $(document).on("click",".delBt", function() {
+        $(document).on("click",".delBt",delbt)
+        function delbt() {
             let msn = $(this).attr("name");
             let url = "http://localhost:8888/pretLancer/messageCl"
         $.ajax({
@@ -60,14 +61,18 @@
             }
         });
 
-        })
-        
+        }
         // 이돌과 동시에 알림 지우기
         $(document).on("click",".url", function() {
 
             let link = $(this).attr("id");
             let msn = $(this).attr("name");
             let url = "http://localhost:8888/pretLancer/messageCl"
+
+            if(link == url) {
+                delbt();
+            }
+            
         $.ajax({
             type:"GET",
             url:url,
@@ -247,12 +252,19 @@
             <div class="row">
                 
                 <div class="row">
-                    <div class="col-md-3 col-sm-3">
+                    <!-- 튜토리얼 통과 한 경우  -->
+                    <div class="col-md-3 col-sm-3" th:if="${user.tutorial == 'Y'}">
                         <div th:if="${rql == null}">
-                            <span class="whiteF">번역좀 해 !</span>
+                            <span class="whiteF">지금 당장</span>
                         </div>
                         <div th:if="${rql != null}">
                             <span class="whiteF">번역 마감 기한</span>
+                        </div>
+                    </div>
+                    <!-- 튜토리얼 통과 못한 경우 -->
+                    <div class="col-md-3 col-sm-3" th:if="${user.tutorial == 'N'}">
+                        <div>
+                            <span class="whiteF">튜토리얼을</span>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-3 " ><span th:text="${user.mem_level}" class="whiteF"></span><span class="whiteF">등급</span></div>
@@ -261,12 +273,19 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-3 col-sm-3 ">
+                    <!-- 튜토리얼 통과 한 경우 -->
+                    <div class="col-md-3 col-sm-3 " th:if="${user.tutorial == 'Y'}">
                         <div th:if="${rql == null}">
-                            <span class="whiteF">게으름뱅이 새끼야!</span>
+                            <span class="whiteF">번역을 해보세요!</span>
                         </div>
                         <div th:if="${rql != null}">
                             <span th:text="${rql.enddate}"></span><span class="whiteF"> 까지</span>
+                        </div>
+                    </div>
+                    <!-- 튜토리얼 통과 못한 경우 -->
+                    <div class="col-md-3 col-sm-3 " th:if="${user.tutorial == 'N'}">
+                        <div>
+                            <span class="whiteF">완료해주세요!</span>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-3 whiteF">내 경험치</div>
@@ -288,7 +307,8 @@
                             <i class="bi bi-bell-fill" style="font-size: 2em;"></i>
                         </button>
                         <!-- <button class="btn btn-primary"><i class="bi bi-chat-fill" style="font-size: 2em;"></i></button> -->
-                        <div class="list-group overflow-auto push" id="push" style="display: none;">
+                        <!-- 여기는 알림 바 -->
+                        <div class="list-group overflow-y-scroll push" id="push" style="  z-index: 0;">
                             
                         </div>
                     </div>
@@ -368,7 +388,10 @@
                     <span>번역</span>
                 </a>
                 <ul class="submenu ">
-                    <li class="submenu-item ">
+                    <li class="submenu-item " th:if="${user.tutorial == 'N'}">
+                        <a th:href="@{/translated/tutorial}">튜토리얼</a>
+                    </li> 
+                    <li class="submenu-item "th:if="${user.tutorial == 'Y'}">
                         <a th:href="@{/translated/exam}">연습문제</a>
                     </li> 
                     <li class="sidebar-item has-sub">
@@ -386,7 +409,7 @@
                        </li>
                    </ul>
                </li>
-               <li class="sidebar-item has-sub">
+               <li class="sidebar-item has-sub" th:if="${user.tutorial == 'Y'}">
                    <a href="index.html" class='sidebar-link'>
                        <i class="bi bi-pencil-square"></i>
                        <span>번역하기</span>
@@ -403,7 +426,7 @@
                           </li>
                       </ul>
                   </li>
-                  <li class="sidebar-item has-sub">
+                  <li class="sidebar-item has-sub" th:if="${user.tutorial == 'Y'}">
                       <a href="index.html" class='sidebar-link'>
                           <i class="bi bi-award-fill"></i>
                           <span>평가하기</span>
@@ -447,9 +470,9 @@
                     <li class="submenu-item ">
                         <a th:href="@{/my_page/main}">마이페이지</a>
                     </li>
-                    <li class="submenu-item ">
+                    <!-- <li class="submenu-item ">
                         <a href="layout-vertical-1-column.html">프로필 설정</a>
-                    </li>
+                    </li> -->
                     <li class="submenu-item ">
                         <a th:href="@{/reward/main}">리워드</a>
                     </li>

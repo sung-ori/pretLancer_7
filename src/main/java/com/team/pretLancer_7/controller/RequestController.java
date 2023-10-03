@@ -42,14 +42,14 @@ public class RequestController {
 		}
 		log.error("Request_s 객체 {}", r);
 		service.insertRequest_S(r);
-		return "main3";
+		return "redirect:/main";
 	}
 	
 	@GetMapping("cancelRS")
 	public String cancelRequest_S(@AuthenticationPrincipal UserDetails user, Request_S r) {
 		r.setMemberid(user.getUsername());
 		service.cancelRequest_S(r);
-		return "redirect:/";
+		return "redirect:/main";
 	}
 	
 	@PostMapping("insertRM")

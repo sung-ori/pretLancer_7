@@ -119,7 +119,10 @@ public class ExamController {
 
 		m.addAttribute("answer_num", answer_num);
 		
-		return "examForm/exam";
+		if (member.getTutorial_num() < 50 && member.getTutorial().equals("N"))
+			return "redirect:/translated/tutorial";
+		else
+			return "examForm/exam";
 	}
 	
 	
