@@ -191,6 +191,24 @@
 			border-radius : 5px;
 			
 		}
+		
+		table {
+		table-layout : fixed;
+		}
+		
+		.title {
+		cursor : pointer;
+		width : 500px;
+		white-space : nowrap;
+		overflow : hidden;
+		text-overflow : ellipsis;
+        background-color: #ffffff;
+        background-color: rgba( 255, 255, 255, 0.5 );
+		text-align : center;
+		text-decoration : underline;	
+				
+		}
+
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -212,7 +230,7 @@ $(document).ready(function() {
         if (condition == 'Y')
 	        window.open("http://localhost:8888/pretLancer/my_page/readResultRequest_M?requestnum_m="+requestnum ,'번역 결과 받기', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
         else
-        	alert(condition);
+        	alert('평가가 최종적으로 완료되고 결과가 성공일 때에만 결과 확인이 가능합니다.');
     }
 });	
 	  
@@ -265,8 +283,8 @@ $(document).ready(function() {
 	    <hr>
 	    <table class = "content" style = "border-collapse: separate; text-align : center;">
 	    	<tr>
-			    <td><b><a th:href = "@{/my_page/requestToMe_S}">단문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></b></td>		
-			    <td><a th:href = "@{/my_page/requestToMe_M}">중문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
+			    <td><a th:href = "@{/my_page/requestToMe_S}">단문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
+			    <td><b><a th:href = "@{/my_page/requestToMe_M}">중문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></b></td>		
 			    <td><a th:href = "@{/my_page/requestToMe_L}">장문</a></td>
 	    	</tr>
 	    </table>

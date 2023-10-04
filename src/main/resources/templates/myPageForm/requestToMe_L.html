@@ -191,6 +191,23 @@
 			border-radius : 5px;
 			
 		}
+		
+		table {
+		table-layout : fixed;
+		}
+		
+		.title {
+		cursor : pointer;
+		width : 500px;
+		white-space : nowrap;
+		overflow : hidden;
+		text-overflow : ellipsis;
+        background-color: #ffffff;
+        background-color: rgba( 255, 255, 255, 0.5 );
+		text-align : center;	
+		text-decoration : underline;	
+		}
+
 </style>
 <script type="text/javascript">
 	//   비슷해보이지만 경매 정보 와 다른 코드이다. 
@@ -198,7 +215,7 @@
 	  // nowTranslateValidation();
 	  $(".btn-primary").click(openRequestInfo);
 	  $(".btn-warning").click(openAccessInfo);
-	
+
 	  function openRequestInfo() {
 	    let width = window.screen.width;
 	    let height = window.screen.height;

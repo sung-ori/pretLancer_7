@@ -170,8 +170,7 @@
 	
 	<select id="todayPopular" resultType="Board">
 	SELECT * FROM Pret_board
-	WHERE recommend >= 10
-	And inputdate >= (sysdate - INTERVAL '2' DAY)
+	WHERE inputdate >= (sysdate - INTERVAL '2' DAY)
 	ORDER BY RECOMMEND DESC
 	</select>
 	

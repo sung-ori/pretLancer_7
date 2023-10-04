@@ -85,11 +85,11 @@
             let cash = $("#cash").val();
             $.ajax({
                     type:"GET",
-                    url:"../reward/checkCash",
+                    url:"../reward/checkCash2",
                     data:{"cash" : cash},
                     dataType:"text",
                     success: function(data) {
-                        if(data == "OK") {
+                        if(Number(data) > cash) {
 							alert("요청이 완료되었습니다");
                         return true;
                         }
@@ -98,6 +98,7 @@
                             if(rst) {
                                 // 페이지이동하는 코드
                                 window.location.href="http://localhost:8888/pretLancer/reward/main";
+								return false;
                                 
                             }
                             else {
@@ -225,10 +226,10 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
     margin-right: 15px; /* 왼쪽 여백과 동일한 값으로 설정 */
     }
     
-    .card {
+    /* .card {
   		margin-left: auto;
   		margin-right: auto;
-		}
+		} */
 	.shadow1{
     	 box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.4)
     	}
@@ -303,7 +304,7 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 
 <form th:action="@{/request/insertRS}" method="post" id='form'>
 	<div class="container">
-	<div class="row g-5 glass2 custom-row">
+	<div class="row g-5  custom-row">
 <!-- 	background-color:#FAF9FF; -->
 		<div class="card shadow1 col-md-6 col-lg-5 order-md-last mx-auto" style="background-color:#88A1E0;">
 			<select id="startlang" name="startlang" class="form-select pt-1 mt-4 " >
@@ -320,7 +321,7 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 			  <option value="EN">영어</option>
 			</select>
 			<br>
-			<textarea name = "comment_sr" class = "answer_input" id ="comment" placeholder = "문의글"></textarea>
+			<textarea name = "comment_sr" class = "answer_input" id ="comment" placeholder = "번역 요청에 대한 설명을 적어주세요."></textarea>
 			<br>
 			<br>
 			<span style="color: white; font-weight:bold;"><input  id="result" type="number" style="border:none; text-align:center; font-weight:bold;" class="col-sm-2"  value="0" readonly> 글자</span>
@@ -344,7 +345,7 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 			<br>
 		</div>
 		<div class="col-md-6 col-lg-6 mx-auto ">
-				<textarea  class="shadow1 textarea-fit-card rounded" placeholder= "글자를 입력하세요." name="requestcontent_s" id='content' rows="27.8" cols="60" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>	
+				<textarea  class="shadow1 textarea-fit-card rounded" placeholder= "번역 요청하실 내용을 입력해주세요." name="requestcontent_s" id='content' rows="27.8" cols="80" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>	
 		</div>
 	</div>
 	</div>
