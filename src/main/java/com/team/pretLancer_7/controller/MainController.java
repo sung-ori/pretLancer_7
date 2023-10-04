@@ -71,7 +71,7 @@ public class MainController {
     	
     	// 홈페이지 보여줄 값
     	List<Board> today = Cservice.todayPopular();
-    	
+    	log.error("커뮤니티 인기글 {}", today);
     	if (today != null) {
     		m.addAttribute("community", today);
     	}
@@ -102,6 +102,7 @@ public class MainController {
         
         // 평가 제일 많이 한 사람 5
         m.addAttribute("EvaluationAlot", EvaluationAlot);
+        
          
     	return "main3";
     }
