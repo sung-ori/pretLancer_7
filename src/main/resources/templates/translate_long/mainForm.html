@@ -12,7 +12,7 @@
         $(document).ready(function() {
         });
     </script>
-    <title>선택의 갈림길</title>
+    <title>장문 요청 페이지 | 신개념 번역 플랫폼 프릿랜서</title>
     
     <!-- 고정바 -->
     <!-- 부트스트랩 5.3.1 -->
@@ -36,6 +36,102 @@
     
     <!-- 버튼 -->
     <style>
+    	@font-face {
+	    font-family: 'LINESeedKR-Bd';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+		
+	@font-face {
+    font-family: 'MBC1961GulimM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/MBC1961GulimM.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	}
+
+	@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+	}
+	
+	@font-face {
+    font-family: 'Pretendard-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+	}
+
+	@font-face {
+    font-family: 'Pretendard-Black';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+	}
+	
+	* {
+    font-family: 'Pretendard-Regular';
+		color : #2C2E33;
+
+	}
+	
+	h2{
+		color : #2C2E33;
+	} 
+	
+	th {
+		font-weight : bold;
+	}
+	
+	.info_table {
+		width : 250px;
+	
+		margin-left:auto; 
+    	margin-right:auto;
+ 
+    	border-collapse: separate;
+    	border-spacing : 20px;
+	}
+	
+	.info_tr {
+		height : 40px;
+		border-bottom : solid 1px #D8D8D8;
+	}
+
+	#title {
+    font-family: 'Pretendard-Black';
+		font-size : 45px;
+		color : #2C2E33;
+	} 
+
+	#title2 {
+    font-family: 'Pretendard-Black';
+		font-size : 40px;
+		color : #2C2E33;
+	} 
+
+	#title3 {
+    font-family: 'Pretendard-Black';
+		font-size : 35px;
+		color : #2C2E33;
+	} 
+
+	#title4 {
+    font-family: 'Pretendard-Black';
+		font-size : 30px;
+		color : #2C2E33;
+	} 
+
+
+	.title_{
+    font-family: 'Pretendard-Bold';
+		font-size : 20px;
+		color : #2C2E33;
+	} 
+
+    
     	.abc {
     	font-weight: bold; 
     	color:black;
@@ -153,7 +249,7 @@
 <body>
 <!-- 경매, 요청 분기 포인트 없어져도 됌. -->
 <div id="snBar-placeholder"></div>
-<br><br><br>
+<br><br><br><br>
 
  <div id="main">
             <header class="mb-3">
@@ -162,10 +258,11 @@
                 </a>
             </header>
             
-<div class="page-heading" style="z-index: 10;">
-    <h2>장문의뢰</h2>
-    <h3>요청, 경매 페이지</h>
-</div>
+	<div class="page-heading">
+	    <h1 id = "title2">장문 의뢰 페이지</h1>
+	    <h6 class = "title_">3000자를 초과한 장문에 대해서 번역 의뢰를 요청할 수 있습니다.</h6>
+	    <br>
+	</div>
 
 <!--  <div class="page-content">
     <section class="row">
@@ -223,7 +320,7 @@
   	<div>
   	<img th:src="@{/img/textbook.svg}"  class="photo" alt="임시 프로필 사진" style="margin-top: -30px; z-index: 0;">
   	</div>
-  	<div class="abc">
+  	<div class="abc" style = "font-size : 20px;">
   	요청 또는 경매를 통해 번역을 계속하세요!
   	</div>
   	
