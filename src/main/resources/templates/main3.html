@@ -35,6 +35,9 @@
     	.shadow1{
     	 box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2)
     	}
+		.title_text{
+			color: orange;
+		}
 
     </style>
     
@@ -71,7 +74,7 @@
 						 <div class="col-6 card shadow1">
 							<div class="card-header">
 								<div class="card-title">
-									<h3>단문 번역 대기</h3>
+									<h3 class="title_text">단문 번역 대기</h3>
 								</div>
 							</div>
 							<div class="card-body">
@@ -84,7 +87,7 @@
 						 <div class="col-6 card shadow1">
 							<div class="card-header">
 								<div class="card-title">
-									<h3>장문 번역 대기</h3>
+									<h3 class="title_text">장문 번역 대기</h3>
 								</div>
 							</div>
 							<div class="card-body">
@@ -100,7 +103,7 @@
 						<div class="col-6 card shadow1">
 							<div class="card-header">
 								<div class="card-title">
-									<h3>평가 대기</h3>
+									<h3 class="title_text">평가 대기</h3>
 								</div>
 							</div>
 							<div class="card-body">
@@ -113,7 +116,7 @@
 						<div class="col-6 card shadow1">
 							<div class="card-header">
 								<div class="card-title">
-									<h3>총 의뢰된 번역</h3>
+									<h3 class="title_text">총 의뢰된 번역</h3>
 								</div>
 							</div>
 							<div class="card-body">
@@ -154,7 +157,7 @@
 								<div class="col-4 card border shadow1">
 									<div class="card-header">
 										<div class="card-title">
-											<h3>👑단문번역 랭킹👑</h3>
+											<h3 class="title_text">👑단문번역 랭킹👑</h3>
 										</div>
 									</div>
 									<div class="card-body">
@@ -175,7 +178,7 @@
 								<div class="col-4 card border shadow1">
 									<div class="card-header">
 										<div class="card-title">
-											<h3>👑중문번역 랭킹👑</h3>
+											<h3 class="title_text">👑중문번역 랭킹👑</h3>
 										</div>
 									</div>
 									<div class="card-body">
@@ -195,7 +198,7 @@
 								<div class="col-4 card border shadow1">
 									<div class="card-header">
 										<div class="card-title">
-											<h3>👑평가 랭킹👑</h3>
+											<h3 class="title_text">👑평가 랭킹👑</h3>
 										</div>
 									</div>
 									<div class="card-body">
@@ -216,19 +219,21 @@
 					</div>
 				</div>
 			</div>
-			
-			<div class="col-3">
-				<div class="card-body shadow1">
-					<table>
-						<tr th:each="community,index : ${community}" class="table-light" >
+			</div>
+
+			<div class="col-4">
+				<div class="h2 text-center">오늘의 커뮤니티 랭킹</div>
+				<div class="shadow">
+					<table class="table table-striped rounded-3">
+						<tr th:each="community,index : ${community}" >
 							<th >
-								<span></span><span th:text="index.count"></span> <span>위</span>
+								<Stong><span th:text="${index.count}"></span> <span>위</span></Stong>
 							</th>
 							<td>
 								<a th:href="@{'community/read?boardnum=' + ${community.boardnum}}" th:text="${community.boardtitle}"></a>
 							</td>
 							<td>
-								<span th:text="${community.recommend}" class="text-body-secondary"></span><span>👍</span>
+								<span>추천 수</span><span th:text="${community.recommend}" class="text-body-secondary"></span><span>👍</span>
 							</td>
 						</tr>
 					</table>
@@ -238,7 +243,7 @@
 
 		</section>
 
-		
+
 	</div><!-- container -->
 </div>
 </form>
