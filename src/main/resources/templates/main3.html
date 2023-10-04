@@ -73,6 +73,7 @@
 					<div class="row align-items-start text-center">
 
 						<div class="col-5 card shadow1 mx-4 my-4 ">
+							<a th:href="@{/translated/insertTS}">
 								<div class="card-header">
 									<div class="card-title">
 										<h3 class="title_text">단문 번역 대기</h3>
@@ -83,10 +84,12 @@
 										<h1><span th:text="${TcountS}"></span><sapn>개</sapn></h1>
 									</div>
 								</div>
+							</a>
 						</div>
 				    
 
 						 <div class="col-5 card shadow1 mx-4 my-4">
+							<a th:href="@{/translated/insertTS}">
 								<div class="card-header">
 									<div class="card-title">
 										<h3 class="title_text">중문 번역 대기</h3>
@@ -97,6 +100,7 @@
 										<h1><span th:text="${TcountM}"></span><sapn>개</sapn></h1>
 									</div>
 								</div>
+							</a>
 				    	</div>
 						
 					</div>
