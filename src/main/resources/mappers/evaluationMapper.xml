@@ -26,7 +26,7 @@
 		    WHERE evaluationvalue_m &lt; 5 AND memberid != #{memberid}
 		    ORDER BY translatednum_m ASC
 		) tm
-		JOIN pret_request_s rm ON tm.requestnum_m = rm.requestnum_m
+		JOIN pret_request_m rm ON tm.requestnum_m = rm.requestnum_m
 		LEFT JOIN pret_evaluation_m em ON tm.translatednum_m = em.translatednum_m AND em.memberid = #{memberid}
 		WHERE rm.memberid &lt;> #{memberid} AND em.translatednum_m IS NULL
 		AND ROWNUM = 1
