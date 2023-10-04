@@ -197,6 +197,16 @@
 
 		}
 	</script>
+	
+	<script>
+		function cancelTranslatedS() {
+	        var confirmation = confirm("정말로 취소하시겠습니까?");
+	        if (confirmation) {
+	            window.location.href = "/pretLancer/translated/cancelTS";
+	        } else {
+	        }
+	    }
+	</script>
 
 </head>
 <body>
@@ -239,7 +249,7 @@
 			<span>※주석 및 기타 참고사항을 적을 수 있습니다.</span><br>
 			<textarea id = "comment_st" name = "comment_st" class = "comment_input" style = "color : #2334DE;" placeholder = "의뢰자가 참고할 사항을 적어주세요."></textarea>
 			<input type = "submit" value = "제출하기" class = "submit_button" id = "submit_button">
-			<input type = "button" value = "나가기" class = "exit_button" id = "exit_button">
+			<input type = "button" value = "받은 번역 취소하기" class = "exit_button" id = "exit_button" onclick="cancelTranslatedS()">
 		</form>
 		</div>
 	</div>
