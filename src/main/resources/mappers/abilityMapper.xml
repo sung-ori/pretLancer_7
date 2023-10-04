@@ -49,9 +49,9 @@
 	FROM (
     	SELECT *
    		FROM pret_ability
-  		ORDER BY psucceed DESC
 		)
 	WHERE ROWNUM &lt;= 5
+	ORDER BY psucceed DESC
 	</select>
 	
 	<select id="TranslatedAlotS" resultType="Ability">
@@ -59,9 +59,9 @@
 	FROM (
     	SELECT *
    		FROM pret_ability
-  		ORDER BY ssucceed DESC
 		)
 	WHERE ROWNUM &lt;= 5
+	ORDER BY ssucceed DESC
 	</select>
 	
 	<select id="TranslatedAlotM" resultType="Ability">
@@ -69,9 +69,9 @@
 	FROM (
     	SELECT *
    		FROM pret_ability
-  		ORDER BY msucceed DESC
 		)
 	WHERE ROWNUM &lt;= 5
+	ORDER BY msucceed DESC
 	</select>
 	
 	<select id="EvaluationAlot" resultType="Ability">
@@ -79,9 +79,9 @@
 	FROM (
     	SELECT *
    		FROM pret_ability
-  		ORDER BY esucceed DESC
 		)
 	WHERE ROWNUM &lt;= 5
+	ORDER BY esucceed DESC
 	</select>
 	
 	<select id="getPper" parameterType="String" resultType="int">
