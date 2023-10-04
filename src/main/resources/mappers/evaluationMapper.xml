@@ -5,25 +5,31 @@
 <mapper namespace="com.team.pretLancer_7.dao.EvaluationDAO">
 
 	<select id="getES" resultType="Translated_S" parameterType="String">
-	SELECT *
+	SELECT ts.*
 		FROM (
-	    SELECT *
-	    FROM pret_translated_s
-	    WHERE evaluationvalue_s &lt; 5
-	    ORDER BY translatednum_s ASC
-		)
-		WHERE ROWNUM = 1 AND memberid != #{memberid}
+		    SELECT *
+		    FROM pret_translated_s
+		    WHERE evaluationvalue_s &lt; 5 AND memberid != #{memberid}
+		    ORDER BY translatednum_s ASC
+		) ts
+		JOIN pret_request_s rs ON ts.requestnum_s = rs.requestnum_s
+		LEFT JOIN pret_evaluation_s es ON ts.translatednum_s = es.translatednum_s AND es.memberid = #{memberid}
+		WHERE rs.memberid &lt;> #{memberid} AND es.translatednum_s IS NULL
+		AND ROWNUM = 1
 	</select>
 	
 	<select id="getEM" resultType="Translated_M" parameterType="String">
-	SELECT *
+	SELECT tm.*
 		FROM (
-	    SELECT *
-	    FROM pret_translated_m
-	    WHERE evaluationvalue_m &lt; 5
-	    ORDER BY translatednum_m ASC
-		)
-		WHERE ROWNUM = 1 AND memberid != #{memberid}
+		    SELECT *
+		    FROM pret_translated_m
+		    WHERE evaluationvalue_m &lt; 5 AND memberid != #{memberid}
+		    ORDER BY translatednum_m ASC
+		) tm
+		JOIN pret_request_m rm ON tm.requestnum_m = rm.requestnum_m
+		LEFT JOIN pret_evaluation_m em ON tm.translatednum_m = em.translatednum_m AND em.memberid = #{memberid}
+		WHERE rm.memberid &lt;> #{memberid} AND em.translatednum_m IS NULL
+		AND ROWNUM = 1
 	</select>
 	
 	<insert id="insertES" parameterType="Evaluation_S">

@@ -38,7 +38,6 @@ public class EvaluationController {
 	public String getES(@AuthenticationPrincipal UserDetails user, Model m) {
 		// 평가 갯수가 5개 이하인 번역된 내용을 가져옴
 		Translated_S ts = service.getES(user.getUsername());
-		
 		if (ts == null) {
 			return "errorForm/NoEvaluation";
 		}
