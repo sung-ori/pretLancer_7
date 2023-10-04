@@ -93,11 +93,11 @@
         <h1>번역 경매 리스트</h1>
         <div class=" row container-fluid">
             <div>
-                <a th:href="@{/long/auctionList?type=ALL}">전체</a> /
-                <a th:href="@{/long/auctionList?type=YS}">유튜브 자막</a> /
-                <a th:href="@{/long/auctionList?type=PP}">논문</a> /
-                <a th:href="@{/long/auctionList?type=NV}">소설</a> /
-                <a th:href="@{/long/auctionList?type=OT}">기타</a> /
+                <a class="lead" th:href="@{/long/auctionList?type=ALL}">전체</a> /
+                <a class="lead" th:href="@{/long/auctionList?type=YS}">유튜브 자막</a> /
+                <a class="lead" th:href="@{/long/auctionList?type=PP}">논문</a> /
+                <a class="lead" th:href="@{/long/auctionList?type=NV}">소설</a> /
+                <a class="lead" th:href="@{/long/auctionList?type=OT}">기타</a> /
             </div>
             <div th:each="auction, index : ${auctionList}" class="col-4 card">
                 <img th:src="@{/img/paper.png}" class="card-img-top" style="height: 50%;" alt="임시 서류 이모티콘">

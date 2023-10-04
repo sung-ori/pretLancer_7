@@ -75,11 +75,11 @@
     
     <form th:action="@{/community/write}" method="post" >
 
-        <input type="text" name="boardtitle" id="boardtitle" placeholder="제목을 입력해주세요">     
+        <input type="text" name="boardtitle" id="boardtitle" placeholder="제목을 입력해주세요" class="form-control">     
           <!-- <textarea name="boardcontent" id="boardcontent" cols="30" rows="10"></textarea><br> -->
         <textarea name="boardcontent" id="summernote" value=""></textarea> 
-        <input type="submit" value="글쓰기">
-        <input type="button" id="cancelBt" value="취소">
+        <input type="submit" class="btn btn-primary btn-sm" value="글쓰기">
+        <input type="button" class="btn btn-danger btn-sm" id="cancelBt" value="취소">
     </form>
     
 
