@@ -421,6 +421,13 @@
 			<div class="progress mx-4" role="progressbar" id="pere"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
 				<div class="progress-bar bg-success" id="pereb" ></div>
 			</div>
+			
+			<div>
+				평가 성공률 (총 <span th:text = "${ability.esucceed} + ${ability.efailed}"></span>건 중 <span th:text = "${ability.esucceed}"></span>건 성공)
+			</div>
+			<div class="progress mx-4" role="progressbar" id="pere"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
+				<div class="progress-bar bg-success" id="pereb" ></div>
+			</div>
 		</div>
 		
 		</div>
