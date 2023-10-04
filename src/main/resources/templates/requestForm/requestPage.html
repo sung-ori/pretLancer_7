@@ -188,8 +188,8 @@
     <style>
     	.answer_input {
 		
-			width : 300px;
-			height : 100px;
+			width : 463px;
+			height : 115px;
 			
 			border : solid 2px #EFF0F0;
 			border-radius : 5px;
@@ -233,7 +233,6 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
     	 box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.4)
     	}
     	
-    	 <style>
     
 		.wrap2 {
 		  height: 100%;
@@ -274,8 +273,185 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 		  color: #fff;
 		  transform: translateY(-7px);
 		}
+
+
+	@font-face {
+	    font-family: 'LINESeedKR-Bd';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
 		
-    </style>
+	@font-face {
+    font-family: 'MBC1961GulimM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/MBC1961GulimM.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	}
+
+	@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+	}
+	
+	@font-face {
+    font-family: 'Pretendard-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+	}
+
+	@font-face {
+    font-family: 'Pretendard-Black';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+	}
+	
+	* {
+    font-family: 'Pretendard-Regular';
+		color : #2C2E33;
+
+	}
+	
+	h2{
+		color : #2C2E33;
+	} 
+	
+	th {
+		font-weight : bold;
+	}
+	
+	.info_table {
+		width : 250px;
+	
+		margin-left:auto; 
+    	margin-right:auto;
+ 
+    	border-collapse: separate;
+    	border-spacing : 20px;
+	}
+	
+	.info_tr {
+		height : 40px;
+		border-bottom : solid 1px #D8D8D8;
+	}
+
+	#title {
+    font-family: 'Pretendard-Black';
+		font-size : 45px;
+		color : #2C2E33;
+	} 
+
+	#title2 {
+    font-family: 'Pretendard-Black';
+		font-size : 40px;
+		color : #2C2E33;
+	} 
+
+	#title3 {
+    font-family: 'Pretendard-Black';
+		font-size : 35px;
+		color : #2C2E33;
+	} 
+
+	#title4 {
+    font-family: 'Pretendard-Black';
+		font-size : 30px;
+		color : #2C2E33;
+	} 
+
+
+	.title_{
+    font-family: 'Pretendard-Bold';
+		font-size : 20px;
+		color : #2C2E33;
+	} 
+
+	.content{
+    font-family: 'Pretendard-Regular';
+		font-size : 15px;
+		color : #D8D8D8;
+	} 
+
+	.content_{
+    font-family: 'Pretendard-Regular';
+		font-size : 15px;
+		color : #2C2E33;
+	} 
+	
+	.information {
+	text-align : center;
+	vertical-align : middle;
+	background-color : white;
+	border : solid 1px #D8D8D8;
+	border-radius : 5px;
+	width : 400px;
+	height : 450px;
+	}
+
+	.information_content{
+    font-family: 'Pretendard-Regular';
+		font-size : 15px;
+		color : #D8D8D8;
+	} 
+	 	
+	.input_translated{
+		font-size : 18px;
+		background-color : #F2F2F2;
+		word-break : break-all;
+		
+	}
+	
+		/*div {
+			background-color: #EFF0F0;
+			border-radius : 5px;
+	
+		}*/
+		
+		.outer {
+			width : 1000px;
+			height : 600px;
+			border-radius : 5px;
+			
+		
+		}
+
+		.comment_input {
+		
+			width : 900px;
+			height : 100px;
+			
+			border : solid 2px #EFF0F0;
+			border-radius : 5px;
+		
+		}
+		
+		.submit_button{
+		
+			width : 100px;
+			height : 35px;
+			background-color:#2334DE;
+			color : #FFFFFF;
+			
+			border : 0px;
+			border-radius : 5px;
+			
+		}
+
+		.button{
+		
+			width : 50px;
+			height : 35px;
+			background-color:#2334DE;
+			color : #FFFFFF;
+			
+			border : 0px;
+			border-radius : 5px;
+			
+		}
 	
 
 </style>
@@ -283,20 +459,22 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 </head>
 <body>
 	<div id="snBar-placeholder"></div>
-	
+	<br><br><br><br>
 	 <div id="main">
 	            <header class="mb-3">
 	                <a href="#" class="burger-btn d-block d-xl-none">
 	                    <i class="bi bi-justify fs-3"></i>
 	                </a>
 	            </header>
-	            
-	
+
+
 	<div class="page-heading">
-		<br><br>
-		<h1>의뢰하기</h1>
-	    <h3>단, 중문 의뢰</h3>
+	    <h1 id = "title2">의뢰 페이지 : 단문 (1000자), 중문 (3000자)</h1>
+	    <h6 class = "title_">길이가 짧은 번역을 의뢰하는 페이지입니다. </h6>
+	    <br>
+	    <hr>
 	</div>
+	            
 	
 	<br>
 	<br>
@@ -305,16 +483,16 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 	<div class="container">
 	<div class="row g-5  custom-row">
 <!-- 	background-color:#FAF9FF; -->
-		<div class="card shadow1 col-md-6 col-lg-5 order-md-last mx-auto" style="background-color:#88A1E0;">
+		<div class="card shadow1 col-md-6 col-lg-5 order-md-last mx-auto" style="background-color:#88A1E0; width : 500px;height : 500px;">
 			<select id="startlang" name="startlang" class="form-select pt-1 mt-4 " >
-			  <option value="same1">시작언어 선택</option>
+			  <option value="same1">시작언어(의뢰하는 원문의 언어) 선택</option>
 			  <option value="KR">한국어</option>
 			  <option value="JP">일본어</option>
 			  <option value="EN">영어</option>
 
 			</select>
 			<select id="endlang" name="endlang"  class="form-select pt-1 mt-4" >
-			  <option value="same2">도착언어 선택</option>
+			  <option value="same2">도착언어(번역되기를 원하는 언어) 선택</option>
 			  <option value="KR">한국어</option>		  
 			  <option value="JP">일본어</option>
 			  <option value="EN">영어</option>
@@ -323,13 +501,10 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 			<textarea name = "comment_sr" class = "answer_input" id ="comment" placeholder = "번역 요청에 대한 설명을 적어주세요."></textarea>
 			<br>
 			<br>
-			<span style="color: white; font-weight:bold;"><input  id="result" type="number" style="border:none; text-align:center; font-weight:bold;" class="col-sm-2"  value="0" readonly> 글자</span>
-			<span id="message" style="color:black; font-weight:bold;"></span>
+			<span style="color: white; font-weight:bold; text-align : center; line-height : 200%; font-size : 18px;">의뢰하시는 본문은  <input  id="result" type="number" style="border:none; border-radius : 5px; text-align:center; font-weight:bold; height : 20px;" class="col-sm-2"  value="0" readonly> 글자로, 
+			<span id="message" style="color:yellow; font-weight:bold;">단문</span>입니다.<br>의뢰하려면 <input id="cash" type="number" name="cash" style="border:none;  border-radius : 5px; text-align:center; font-weight:bold; height : 20px;" class="col-sm-2" value="0" readonly> 캐쉬가 필요합니다.
+			</span>
 			<br>
-			<div style="color: white; font-weight:bold;">
-				<input id="cash" type="number" name="cash" style="border:none; text-align:center; font-weight:bold;" class="col-sm-2" value="0" readonly> 캐쉬
-			</div>
-			<br><br>
 		
 <!-- 			<div th:action="@{/request/insertRS}" method="post" id='form' onsubmit="return checkLanguages()" style="text-align: center;"> -->
 <!-- 				<input id="submitBtn" type="submit" class="btn btn-primary" onkeypress="calc()" disabled value="의뢰하기" style="width: 150px;"> -->
@@ -338,13 +513,12 @@ border: 1px solid rgba( 255, 255, 255, 0.18 );
 				<input id="submitBtn" type="button" class="button2" value="의뢰하기" style="font-weight:bold;">
 			</div>
 			<br>
-			<br>
 
-			<span class="badge text-bg-danger rounded-pill" style="font-size: 1.2em; padding: 10px 15px;">&lt;&lt; 한번 요청 하면 취소할 수 없으니, 주의하세요! &gt;&gt;</span>
+			<span class="badge text-bg-danger rounded-pill" style="font-size: 1.2em; padding: 10px 15px;">&lt;&lt; 한번 요청 하면 취소할 수 없으니 주의하세요. &gt;&gt;<br>캐시가 부족하거나, 글자가 3000자 이상일 경우 의뢰할 수 없습니다.<br>장문은 장문 요청 페이지에서 요청하시기 바랍니다.</span>
 			<br>
 		</div>
 		<div class="col-md-6 col-lg-6 mx-auto ">
-				<textarea  class="shadow1 textarea-fit-card rounded" placeholder= "번역 요청하실 내용을 입력해주세요." name="requestcontent_s" id='content' rows="27.8" cols="80" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()"></textarea>	
+				<textarea  class="shadow1 textarea-fit-card rounded" placeholder= "번역 요청하실 내용을 입력해주세요." name="requestcontent_s" id='content' rows="27.8" cols="80" onkeydown="calc()" onkeyup="calc()" onkeypress="calc()" style = "width : 500px; height : 500px; font-size : 15px;"></textarea>	
 		</div>
 	</div>
 	</div>
