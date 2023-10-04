@@ -65,6 +65,16 @@ public class RewardController {
 
         return cash;
     }
+    
+    @GetMapping("checkCash2")
+    @ResponseBody
+    public int checkCash2(@AuthenticationPrincipal UserDetails user) {
+
+        int cash = mdao.selectOne(user.getUsername()).getCash();
+        
+
+        return cash;
+    }
 
     @GetMapping("requestPayback")
     @ResponseBody

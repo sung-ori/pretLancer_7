@@ -234,7 +234,6 @@
  // 바에 게이지 채워줌.  "ability" 로 보내주세용
 	function progress() {
 
-		
 
 		let ss =  $("#ss").val();
 		let sf =  $("#sf").val();
@@ -371,10 +370,13 @@
 		<div class = "information_content">
 			<input type="hidden" id="ps" th:value="${ability.psucceed}">
 			<input type="hidden" id="pf" th:value="${ability.pfailed}">
+
 			<input type="hidden" id="ss" th:value="${ability.ssucceed}">
 			<input type="hidden" id="sf" th:value="${ability.sfailed}">
+
 			<input type="hidden" id="ms" th:value="${ability.msucceed}">
 			<input type="hidden" id="mf" th:value="${ability.mfailed}">
+
 			<input type="hidden" id="es" th:value="${ability.esucceed}">
 			<input type="hidden" id="ef" th:value="${ability.efailed}">
 			<br>
@@ -392,7 +394,7 @@
 			<div>
 				단문 성공률 (총 <span th:text = "${ability.ssucceed} + ${ability.sfailed}"></span>건 중 <span th:text = "${ability.ssucceed}"></span>건 성공)
 			</div>
-			<div class="progress" role="progressbar" id="pers"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
+			<div class="progress mx-4" role="progressbar" id="pers"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
 				<div class="progress-bar bg-success" id="persb" ></div>
 			</div>
 			<br>
@@ -400,7 +402,7 @@
 			<div>
 				중문 성공률 (총 <span th:text = "${ability.msucceed} + ${ability.mfailed}"></span>건 중 <span th:text = "${ability.msucceed}"></span>건 성공)
 			</div>
-			<div class="progress" role="progressbar" id="perm"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
+			<div class="progress mx-4" role="progressbar" id="perm"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
 				<div class="progress-bar bg-success" id="permb" ></div>
 			</div>
 			<br>
@@ -408,7 +410,7 @@
 			<div>
 				연습 성공률 (총 <span th:text = "${ability.psucceed} + ${ability.pfailed}"></span>건 중 <span th:text = "${ability.psucceed}"></span>건 성공)
 			</div>
-			<div class="progress" role="progressbar" id="perp"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
+			<div class="progress mx-4" role="progressbar" id="perp"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
 				<div class="progress-bar bg-success" id="perpb" ></div>
 			</div>
 			<br>
@@ -416,7 +418,7 @@
 			<div>
 				평가 성공률 (총 <span th:text = "${ability.esucceed} + ${ability.efailed}"></span>건 중 <span th:text = "${ability.esucceed}"></span>건 성공)
 			</div>
-			<div class="progress" role="progressbar" id="pere"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
+			<div class="progress mx-4" role="progressbar" id="pere"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
 				<div class="progress-bar bg-success" id="pereb" ></div>
 			</div>
 		</div>

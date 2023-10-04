@@ -85,11 +85,11 @@
             let cash = $("#cash").val();
             $.ajax({
                     type:"GET",
-                    url:"../reward/checkCash",
+                    url:"../reward/checkCash2",
                     data:{"cash" : cash},
                     dataType:"text",
                     success: function(data) {
-                        if(data == "OK") {
+                        if(Number(data) > cash) {
 							alert("요청이 완료되었습니다");
                         return true;
                         }
@@ -98,6 +98,7 @@
                             if(rst) {
                                 // 페이지이동하는 코드
                                 window.location.href="http://localhost:8888/pretLancer/reward/main";
+								return false;
                                 
                             }
                             else {
