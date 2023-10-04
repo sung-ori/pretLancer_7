@@ -175,44 +175,44 @@
 									</div>
 								</div>
 
-								<div class="col-4 card border shadow1">
-									<div class="card-header">
-										<div class="card-title">
-											<h3 class="title_text">👑중문번역 랭킹👑</h3>
-										</div>
-									</div>
-									<div class="card-body">
-										<div th:each="TranslatedAlotM, index: ${TranslatedAlotM}" class="list-group-item d-flex justify-content-between lh-sm">
-											<div>
-												<h4>
-													<span></span><span th:text="${index.count}"></span><span> 위 : </span>
-													<span th:text="${TranslatedAlotM.memberid}"></span><span>     / </span>
-													<span th:text="${TranslatedAlotM.psucceed}"></span><span>  건</span>
-												</h4>
-												<br>
-											</div>
-										</div>	
+							<div class="col-4 card border shadow1">
+								<div class="card-header">
+									<div class="card-title">
+										<h4 class="title_text">👑중문번역 랭킹👑</h4>
 									</div>
 								</div>
-
-								<div class="col-4 card border shadow1">
-									<div class="card-header">
-										<div class="card-title">
-											<h3 class="title_text">👑평가 랭킹👑</h3>
+								<div class="card-body">
+									<div th:each="TranslatedAlotM, index: ${TranslatedAlotM}" class="list-group-item d-flex justify-content-between lh-sm">
+										<div>
+											<h5>
+												<span></span><span th:text="${index.count}"></span><span> 위 : </span>
+												<span th:text="${TranslatedAlotM.memberid}"></span><span>     / </span>
+												<span th:text="${TranslatedAlotM.psucceed}"></span><span>  건</span>
+											</h5>
+											<br>
 										</div>
+									</div>	
+								</div>
+						    </div>
+
+							<div class="col-4 card border shadow1">
+								<div class="card-header">
+									<div class="card-title">
+										<h4 class="title_text">👑평가 랭킹👑</h4>
 									</div>
-									<div class="card-body">
-										<div th:each="EvaluationAlot, index: ${EvaluationAlot}" class="list-group-item d-flex justify-content-between lh-sm">
-											<div>
-												<h4>
-													<span></span><span th:text="${index.count}"></span><span> 위 : </span>
-													<span th:text="${EvaluationAlot.memberid}"></span><span>     / </span>
-													<span th:text="${EvaluationAlot.psucceed}"></span><span>  건</span>
-												</h4>
-												<br>
-											</div>
-										</div>	
-									</div>
+								</div>
+								<div class="card-body">
+									<div th:each="EvaluationAlot, index: ${EvaluationAlot}" class="list-group-item d-flex justify-content-between lh-sm">
+										<div>
+											<h5>
+												<span></span><span th:text="${index.count}"></span><span> 위 : </span>
+												<span th:text="${EvaluationAlot.memberid}"></span><span>     / </span>
+												<span th:text="${EvaluationAlot.psucceed}"></span><span>  건</span>
+											</h5>
+											<br>
+										</div>
+									</div>	
+								</div>
 						    </div>
 
 					    </div>
@@ -232,7 +232,7 @@
 							<td>
 								<a th:href="@{'community/read?boardnum=' + ${community.boardnum}}" th:text="${community.boardtitle}"></a>
 							</td>
-							<td>
+							<td class="text-end">
 								<span>추천 수</span><span th:text="${community.recommend}" class="text-body-secondary"></span><span>👍</span>
 							</td>
 						</tr>
