@@ -70,7 +70,7 @@
 						 <div class="col card shadow1">
 							<div class="card-header">
 								<div class="card-title">
-									<h2>단문 번역 대기</h2>
+									<h3>단문 번역 대기</h3>
 								</div>
 							</div>
 							<div class="card-body">
@@ -83,7 +83,7 @@
 						 <div class="col card shadow1">
 							<div class="card-header">
 								<div class="card-title">
-									<h2>장문 번역 대기</h2>
+									<h3>장문 번역 대기</h3>
 								</div>
 							</div>
 							<div class="card-body">
@@ -96,7 +96,7 @@
 						<div class="col card shadow1">
 							<div class="card-header">
 								<div class="card-title">
-									<h2>평가 대기</h2>
+									<h3>평가 대기</h3>
 								</div>
 							</div>
 							<div class="card-body">
@@ -109,7 +109,7 @@
 						<div class="col card shadow1">
 							<div class="card-header">
 								<div class="card-title">
-									<h2>총 의뢰된 번역</h2>
+									<h3>총 의뢰된 번역</h3>
 								</div>
 							</div>
 							<div class="card-body">
@@ -127,17 +127,17 @@
 							<div class="col-3 card border shadow1">
 								<div class="card-header">
 									<div class="card-title">
-										<h2>👑연습문제 랭킹👑</h2>
+										<h4>👑연습문제 랭킹👑</h4>
 									</div>
 								</div>
 								<div class="card-body">
 									<div th:each="ExamAlot,index: ${ExamAlot}" class="list-group-item d-flex justify-content-between lh-sm">
 										<div>			        	
-											<h4 class="my-0 " >
-												<span>🌟</span><span th:text="${index.count}"></span><span> 위 : </span>
+											<h5 class="my-0 " >
+												<span></span><span th:text="${index.count}"></span><span> 위 : </span>
 												<span th:text="${ExamAlot.memberid}"></span><span>     / </span>
 												<span th:text="${ExamAlot.psucceed}"></span><span>  개</span>
-											</h4>
+											</h5>
 											<br>
 										</div>
 										
@@ -148,17 +148,17 @@
 							<div class="col-3 card border shadow1">
 								<div class="card-header">
 									<div class="card-title">
-										<h2>👑단문번역 랭킹👑</h2>
+										<h4>👑단문번역 랭킹👑</h4>
 									</div>
 								</div>
 								<div class="card-body">
 									<div th:each="TranslatedAlotS, index: ${TranslatedAlotS}" class="list-group-item d-flex justify-content-between lh-sm">
 										<div>			        	
-											<h4  >
-												<span>🌟</span><span th:text="${index.count}"></span><span> 위 : </span>
+											<h5 >
+												<span></span><span th:text="${index.count}"></span><span> 위 : </span>
 												<span th:text="${TranslatedAlotS.memberid}"></span><span>     / </span>
 												<span th:text="${TranslatedAlotS.psucceed}"></span><span>  건</span>
-											</h4>
+											</h5>
 											<br>
 										</div>
 										
@@ -169,17 +169,17 @@
 							<div class="col-3 card border shadow1">
 								<div class="card-header">
 									<div class="card-title">
-										<h2>👑중문번역 랭킹👑</h2>
+										<h4>👑중문번역 랭킹👑</h4>
 									</div>
 								</div>
 								<div class="card-body">
 									<div th:each="TranslatedAlotM, index: ${TranslatedAlotM}" class="list-group-item d-flex justify-content-between lh-sm">
 										<div>
-											<h4>
-												<span>🌟</span><span th:text="${index.count}"></span><span> 위 : </span>
+											<h5>
+												<span></span><span th:text="${index.count}"></span><span> 위 : </span>
 												<span th:text="${TranslatedAlotM.memberid}"></span><span>     / </span>
 												<span th:text="${TranslatedAlotM.psucceed}"></span><span>  건</span>
-											</h4>
+											</h5>
 											<br>
 										</div>
 									</div>	
@@ -189,17 +189,17 @@
 							<div class="col-3 card border shadow1">
 								<div class="card-header">
 									<div class="card-title">
-										<h2>👑평가 랭킹👑</h2>
+										<h4>👑평가 랭킹👑</h4>
 									</div>
 								</div>
 								<div class="card-body">
 									<div th:each="EvaluationAlot, index: ${EvaluationAlot}" class="list-group-item d-flex justify-content-between lh-sm">
 										<div>
-											<h4>
-												<span>🌟</span><span th:text="${index.count}"></span><span> 위 : </span>
+											<h5>
+												<span></span><span th:text="${index.count}"></span><span> 위 : </span>
 												<span th:text="${EvaluationAlot.memberid}"></span><span>     / </span>
 												<span th:text="${EvaluationAlot.psucceed}"></span><span>  건</span>
-											</h4>
+											</h5>
 											<br>
 										</div>
 									</div>	
