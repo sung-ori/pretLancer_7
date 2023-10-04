@@ -191,6 +191,24 @@
 			border-radius : 5px;
 			
 		}
+		
+		table {
+		table-layout : fixed;
+		}
+		
+		.title {
+		cursor : pointer;
+		width : 500px;
+		white-space : nowrap;
+		overflow : hidden;
+		text-overflow : ellipsis;
+        background-color: #ffffff;
+        background-color: rgba( 255, 255, 255, 0.5 );
+		text-align : center;
+		text-decoration : underline;	
+				
+		}
+
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -265,8 +283,8 @@ $(document).ready(function() {
 	    <hr>
 	    <table class = "content" style = "border-collapse: separate; text-align : center;">
 	    	<tr>
-			    <td><b><a th:href = "@{/my_page/requestToMe_S}">단문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></b></td>		
-			    <td><a th:href = "@{/my_page/requestToMe_M}">중문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
+			    <td><a th:href = "@{/my_page/requestToMe_S}">단문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>		
+			    <td><b><a th:href = "@{/my_page/requestToMe_M}">중문&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></b></td>		
 			    <td><a th:href = "@{/my_page/requestToMe_L}">장문</a></td>
 	    	</tr>
 	    </table>

@@ -99,7 +99,7 @@
 	} 
 
 
-	#title_{
+	.title_{
     font-family: 'Pretendard-Bold';
 		font-size : 20px;
 		color : #2C2E33;
@@ -112,30 +112,36 @@
 	} 
 	
 	.information {
+	overflow : hidden;
 	text-align : center;
 	vertical-align : middle;
-	background-color : white;
-	border : solid 1px #D8D8D8;
-	border-radius : 5px;
-	width : 400px;
-	height : 450px;
+	width : 1000px;
+	height : 500px;
 	}
 
 	.outer_information {
+		overflow : hidden;
+	}
+	
+	.last {
+	clear : both;
+	}
+	
+	.information_content{
 	float : left;
+	width : 400px;
+	height : 450px;
+	margin-left : 50px;
+	margin-rignt : 50px;
 	text-align : center;
 	vertical-align : middle;
+
 	background-color : white;
 	border : solid 1px #D8D8D8;
 	border-radius : 5px;
-	width : 400px;
-	height : 450px;
-	}
-
-	.information_content{
     font-family: 'Pretendard-Regular';
-		font-size : 15px;
-		color : #D8D8D8;
+	font-size : 15px;
+	color : #D8D8D8;
 	} 
 	 	
 	.input_translated{
@@ -309,7 +315,7 @@
 	            
 	<div class="page-heading">
 	    <h1 id = "title2">마이페이지</h1>
-	    <h6 id = "title_">프로필 확인 및 수정, 지금까지의 번역 요청 및 작업 내역을 확인할 수 있습니다.</h6>
+	    <h6 class = "title_">프로필 확인 및 수정, 지금까지의 번역 요청 및 작업 내역을 확인할 수 있습니다.</h6>
 	    <br>
 	    <table class = "content" style = "border-collapse: separate; text-align : center;">
 	    	<tr>
@@ -321,20 +327,21 @@
 	    <hr>
 	</div>
 
-	<div class = "outer_information">		
 	<div class = "information">
 		
 		<br>
 		<!-- 프로필 사진이 들어가는 div 영역 -->
 		<div class = "profile_photo"></div>
 		
-		<!-- 000 님의 마이페이지가 출력되는 영역 -->
-		<p><img th:if="${mypage.originphoto}" th:src="@{/my_page/getPhoto(memberid=${mypage.memberid})}" style="border-radius : 70% ; width: 100px;"></p>
-		<p style = "font-size : 15px; cursor : pointer; color : #2334DE;" class = "changePhoto">프로필 사진 변경</p>		
 
 		
 		<!-- 개인정보가 출력되는 영역 -->
 		<div class = "information_content">
+			<br>
+			<span class = "title_" style = "margin-top : 10px; margin-bottom : 10px">내 정보</span>
+			<!-- 000 님의 마이페이지가 출력되는 영역 -->
+			<p><img th:if="${mypage.originphoto}" th:src="@{/my_page/getPhoto(memberid=${mypage.memberid})}" style="border-radius : 70% ; width: 100px; height : 100px;"></p>
+			<p style = "font-size : 15px; cursor : pointer; color : #2334DE;" class = "changePhoto">프로필 사진 변경</p>		
 			<table class = "info_table">
 				<tr class = "info_tr">
 					<th>아이디</th>		<td><span th:text = "${mypage.memberid}">아이디 default</span></td>
@@ -356,10 +363,9 @@
 				</tr>
 			</table>
 		</div>
-		
 		<!-- 게이지바  -->
 
-		<div class = "information">
+		<div class = "information_content">
 			<input type="hidden" id="ps" th:value="${ability.psucceed}">
 			<input type="hidden" id="pf" th:value="${ability.pfailed}">
 			<input type="hidden" id="ss" th:value="${ability.ssucceed}">
@@ -368,36 +374,52 @@
 			<input type="hidden" id="mf" th:value="${ability.mfailed}">
 			<input type="hidden" id="es" th:value="${ability.esucceed}">
 			<input type="hidden" id="ef" th:value="${ability.efailed}">
-			
+			<br>
 			<div>
-				단문 성공률
+				<span class = "title_">내 번역 성공률</span>
 			</div>
-			<div class="progress" role="progressbar" id="pers"  aria-valuemin="0" aria-valuemax="100">
+			<br>
+			<div>
+				<p>지금까지의 번역, 평가의 성공률을 볼 수 있습니다. <br>
+					더 많이 번역하고, 등급을 올려 더 긴 번역에 도전해보세요. <br>
+					더 많은 경험치와 캐시를 얻을 수 있습니다.
+				</p>
+			</div>
+			<br>
+			<div>
+				단문 성공률 (총 <span th:text = "${ability.ssucceed} + ${ability.sfailed}"></span>건 중 <span th:text = "${ability.ssucceed}"></span>건 성공)
+			</div>
+			<div class="progress" role="progressbar" id="pers"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
 				<div class="progress-bar bg-success" id="persb" ></div>
 			</div>
+			<br>
+			
 			<div>
-				중문 성공률
+				중문 성공률 (총 <span th:text = "${ability.msucceed} + ${ability.mfailed}"></span>건 중 <span th:text = "${ability.msucceed}"></span>건 성공)
 			</div>
-			<div class="progress" role="progressbar" id="perm"  aria-valuemin="0" aria-valuemax="100">
+			<div class="progress" role="progressbar" id="perm"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
 				<div class="progress-bar bg-success" id="permb" ></div>
 			</div>
+			<br>
+			
 			<div>
-				연습 성공률
+				연습 성공률 (총 <span th:text = "${ability.psucceed} + ${ability.pfailed}"></span>건 중 <span th:text = "${ability.psucceed}"></span>건 성공)
 			</div>
-			<div class="progress" role="progressbar" id="perp"  aria-valuemin="0" aria-valuemax="100">
+			<div class="progress" role="progressbar" id="perp"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
 				<div class="progress-bar bg-success" id="perpb" ></div>
 			</div>
+			<br>
+			
 			<div>
-				평가 성공률
+				평가 성공률 (총 <span th:text = "${ability.esucceed} + ${ability.efailed}"></span>건 중 <span th:text = "${ability.esucceed}"></span>건 성공)
 			</div>
-			<div class="progress" role="progressbar" id="pere"  aria-valuemin="0" aria-valuemax="100">
+			<div class="progress" role="progressbar" id="pere"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
 				<div class="progress-bar bg-success" id="pereb" ></div>
 			</div>
 		</div>
 		
 		</div>
 
-	</div>
 	 <!-- <div id="main"> -->
 	</div>
      <!-- 부트스트랩  JS -->
