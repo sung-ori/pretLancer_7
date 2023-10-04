@@ -20,8 +20,6 @@ import com.team.pretLancer_7.domain.QnA;
 import com.team.pretLancer_7.domain.Request_L;
 import com.team.pretLancer_7.messaging.MessagingService;
 import com.team.pretLancer_7.service.CommunityService;
-import com.team.pretLancer_7.service.EvaluationService;
-import com.team.pretLancer_7.service.ExamService;
 import com.team.pretLancer_7.service.LongService;
 import com.team.pretLancer_7.service.MemberService;
 import com.team.pretLancer_7.service.RequestService;
@@ -69,8 +67,9 @@ public class MainController {
     	Member member = service.getUser(user.getUsername());
     	m.addAttribute("member", member);
     	
-    	// 홈페이지 보여줄 값
+    	// 홈페이지 보여줄 값 안나옴 ㅎㅎ
     	List<Board> today = Cservice.todayPopular();
+        log.debug("게시물 {}", today);
     	
     	if (today != null) {
     		m.addAttribute("community", today);

@@ -100,5 +100,9 @@
 	<update id="getExExam" parameterType="String">
 	update pret_member set mem_ex = mem_ex + 25 where memberid = #{memberid}
 	</update>
+	
+	<update id="changeProfile" parameterType="MyPage">
+	update pret_member_profile set profilecomment = #{profilecomment} where memberid = #{memberid}
+	</update>
 
 </mapper>

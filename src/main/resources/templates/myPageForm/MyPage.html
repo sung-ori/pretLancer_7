@@ -213,6 +213,7 @@
 	$(document).ready(function() {
 		$('#changeNick').click(openwin);
 		$('.changePhoto').click(openwin2);
+		$('.changeProfile').click(openwin3);
 
 		progress();
 	});
@@ -223,6 +224,11 @@
 
 	function openwin2() {
 		window.open('http://localhost:8888/pretLancer/my_page/changePhoto','프로필 사진 변경', 'w, width=500, height=300, top=200, left=600');
+	}
+	
+    function openwin3() {
+		let mid =  $(this).attr("id");
+		window.open("http://localhost:8888/pretLancer/my_page/changeProfile?memberid="+mid ,'번역가 상세 프로필', ' width=500, height=800, top=200, left=600');
 	}
 
  // 바에 게이지 채워줌.  "ability" 로 보내주세용
@@ -330,10 +336,6 @@
 	<div class = "information">
 		
 		<br>
-		<!-- 프로필 사진이 들어가는 div 영역 -->
-		<div class = "profile_photo"></div>
-		
-
 		
 		<!-- 개인정보가 출력되는 영역 -->
 		<div class = "information_content">
@@ -342,6 +344,7 @@
 			<!-- 000 님의 마이페이지가 출력되는 영역 -->
 			<p><img th:if="${mypage.originphoto}" th:src="@{/my_page/getPhoto(memberid=${mypage.memberid})}" style="border-radius : 70% ; width: 100px; height : 100px;"></p>
 			<p style = "font-size : 15px; cursor : pointer; color : #2334DE;" class = "changePhoto">프로필 사진 변경</p>		
+			<p style = "font-size : 15px; cursor : pointer; color : #2334DE;" class = "changeProfile" th:id="${mypage.memberid}">내 번역가 프로필 보기</p>
 			<table class = "info_table">
 				<tr class = "info_tr">
 					<th>아이디</th>		<td><span th:text = "${mypage.memberid}">아이디 default</span></td>

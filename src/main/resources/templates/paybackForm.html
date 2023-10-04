@@ -245,24 +245,32 @@ $(document).ready(function() {
 function checkCash() {
     // TODO: 출금 가능 한 금액인지 확인하는 ajax코드. 
     let cash = $("#cash").val();
+    let myCash = $("#myCash").val();
+	if(Number(cash) > Number(myCash)) {
+		alert(myCash +"cash 이상의 금액은" + "출금할 수 없습니다. ");
+		// let newcash = cash.slice(0,cash.length-1);
+		$("#cash").val("");
+		$("#cash").focus();
+	}
+	commission();
     
-    $.ajax({
-        type: "GET",
-        url: "checkCash",
-        dataType:"text",
-        success: function(data) {
-            if(parseInt(data)<cash) {
-                alert(data +"cash 이상의 금액은" + "출금할 수 없습니다. ");
-                let newcash = cash.slice(0,cash.length-1);
-                $("#cash").val("");
-                // $("#cash").focus();
-            }
-            commission();
-        },
-        error: function(e) {
-            alert(JSON.stringify(e));
-        }
-    });
+    // $.ajax({
+    //     type: "GET",
+    //     url: "checkCash",
+    //     dataType:"text",
+    //     success: function(data) {
+    //         if(parseInt(data)<cash) {
+    //             alert(data +"cash 이상의 금액은" + "출금할 수 없습니다. ");
+    //             let newcash = cash.slice(0,cash.length-1);
+    //             $("#cash").val("");
+    //             // $("#cash").focus();
+    //         }
+    //         commission();
+    //     },
+    //     error: function(e) {
+    //         alert(JSON.stringify(e));
+    //     }
+    // });
 }
 
 function validation() {
@@ -361,6 +369,7 @@ function request() {
 	</div>
 			
     <input type="hidden" th:value="${#authentication.name}" id="userId">
+    <input type="hidden" th:value="${userinfo.cash}" id="myCash">
 
 	<div>
         <p class = "title_">현금을 인출하고 싶으신가요?<p>
@@ -375,7 +384,7 @@ function request() {
 	<div class = "information">
 		<br>
         <!-- 출금 가능 금액 -->
-        <div><span class = "title_">현재 내 캐시 : </span><span class = "cash" th:text = "${userinfo.cash}">캐시 default</span></div>
+        <div><span class = "title_">현재 내 캐시 : </span><span class = "cash"  th:text = "${userinfo.cash}">캐시 default</span></div>
         
         <table style = "margin-left : auto; margin-right : auto; text-align : center;">
         	<tr>

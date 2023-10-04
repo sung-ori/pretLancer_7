@@ -61,96 +61,181 @@
 <div class="page-content">
 	<div class="container">
 		<section class="row">
-			<div class="col-8">
+
+			<!-- 번역 개수의 표시 row로 따로 묶을 필요가 있습니다. -->
+			<div class="col-9">
 				<div class="container text-center">
 					<div class="row align-items-start text-center">
+
 						 <div class="col card shadow1">
-				     		 단문번역 대기중 <a th:text="${TcountS}"></a>
+							<div class="card-header">
+								<div class="card-title">
+									<h3>단문 번역 대기</h3>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="card-subtitle">
+									<h1><span th:text="${TcountS}"></span><sapn>개</sapn></h1>
+								</div>
+							</div>
 				    	</div>
-				    	<div class="col card shadow1">
-				     		장문번역 대기중 <a th:text="${TcountM}"></a>
-				    	</div>
-					</div>
-					<div class="row align-items-start">
+
 						 <div class="col card shadow1">
-				     		 평가 대기중 <a th:text="${Ecount}"></a>
+							<div class="card-header">
+								<div class="card-title">
+									<h3>장문 번역 대기</h3>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="card-subtitle">
+									<h1><span th:text="${TcountM}"></span><sapn>개</sapn></h1>
+								</div>
+							</div>
 				    	</div>
-				    	<div class="col card shadow1">
-				     		의뢰 된 총 번역 <a th:text="${Rcount}"></a>
+	
+						<div class="col card shadow1">
+							<div class="card-header">
+								<div class="card-title">
+									<h3>평가 대기</h3>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="card-subtitle">
+									<h1><span th:text="${Ecount}"></span><sapn>개</sapn></h1>
+								</div>
+							</div>
 				    	</div>
-					</div>
+
+						<div class="col card shadow1">
+							<div class="card-header">
+								<div class="card-title">
+									<h3>총 의뢰된 번역</h3>
+								</div>
+							</div>
+							<div class="card-body">
+								<div class="card-subtitle">
+									<h1><span th:text="${Rcount}"></span><sapn>개</sapn></h1>
+								</div>
+							</div>
+				    	</div>
+
+						
+					<!-- 번역 많이한 랭킹구 입니다. -->
 					<div>
 						<div class="row" >
+							<!-- 연습 문제 많이 푼 사라람 -->
 							<div class="col-3 card border shadow1">
-								<li th:each="ExamAlot: ${ExamAlot}" class="list-group-item d-flex justify-content-between lh-sm">
-							        <div>			        	
-										<h6 class="my-0 " th:text="${ExamAlot.memberid}"></h6>
-										<h6 class="my-0" th:text="${ExamAlot.psucceed}"></h6> 
-							        </div>
-							    </li>	
+								<div class="card-header">
+									<div class="card-title">
+										<h4>👑연습문제 랭킹👑</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<div th:each="ExamAlot,index: ${ExamAlot}" class="list-group-item d-flex justify-content-between lh-sm">
+										<div>			        	
+											<h5 class="my-0 " >
+												<span></span><span th:text="${index.count}"></span><span> 위 : </span>
+												<span th:text="${ExamAlot.memberid}"></span><span>     / </span>
+												<span th:text="${ExamAlot.psucceed}"></span><span>  개</span>
+											</h5>
+											<br>
+										</div>
+										
+									</div>	
+								</div>
 						    </div>
-						    <div class="col-3 card border shadow1">
-								<li th:each="TranslatedAlotS: ${TranslatedAlotS}" class="list-group-item d-flex justify-content-between lh-sm">
-							        <div>			        	
-										<h6 class="my-0" th:text="${TranslatedAlotS.memberid}"></h6>
-										<h6 class="my-0" th:text="${TranslatedAlotS.psucceed}"></h6> 
-							        </div>
-							    </li>	
+
+							<div class="col-3 card border shadow1">
+								<div class="card-header">
+									<div class="card-title">
+										<h4>👑단문번역 랭킹👑</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<div th:each="TranslatedAlotS, index: ${TranslatedAlotS}" class="list-group-item d-flex justify-content-between lh-sm">
+										<div>			        	
+											<h5 >
+												<span></span><span th:text="${index.count}"></span><span> 위 : </span>
+												<span th:text="${TranslatedAlotS.memberid}"></span><span>     / </span>
+												<span th:text="${TranslatedAlotS.psucceed}"></span><span>  건</span>
+											</h5>
+											<br>
+										</div>
+										
+									</div>	
+								</div>
 						    </div>
-						    <div class="col-3 card border shadow1">
-								<li th:each="TranslatedAlotM: ${TranslatedAlotM}" class="list-group-item d-flex justify-content-between lh-sm">
-							        <div>			        	
-										<h6 class="my-0" th:text="${TranslatedAlotM.memberid}"></h6>
-										<h6 class="my-0" th:text="${TranslatedAlotM.psucceed}"></h6> 
-							        </div>
-							    </li>	
+
+							<div class="col-3 card border shadow1">
+								<div class="card-header">
+									<div class="card-title">
+										<h4>👑중문번역 랭킹👑</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<div th:each="TranslatedAlotM, index: ${TranslatedAlotM}" class="list-group-item d-flex justify-content-between lh-sm">
+										<div>
+											<h5>
+												<span></span><span th:text="${index.count}"></span><span> 위 : </span>
+												<span th:text="${TranslatedAlotM.memberid}"></span><span>     / </span>
+												<span th:text="${TranslatedAlotM.psucceed}"></span><span>  건</span>
+											</h5>
+											<br>
+										</div>
+									</div>	
+								</div>
 						    </div>
-						    <div class="col-3 card border shadow1">
-								<li th:each="EvaluationAlot: ${EvaluationAlot}" class="list-group-item d-flex justify-content-between lh-sm">
-							        <div>			        	
-										<h6 class="my-0" th:text="${EvaluationAlot.memberid}"></h6>
-										<h6 class="my-0" th:text="${EvaluationAlot.psucceed}"></h6> 
-							        </div>
-							    </li>	
+
+							<div class="col-3 card border shadow1">
+								<div class="card-header">
+									<div class="card-title">
+										<h4>👑평가 랭킹👑</h4>
+									</div>
+								</div>
+								<div class="card-body">
+									<div th:each="EvaluationAlot, index: ${EvaluationAlot}" class="list-group-item d-flex justify-content-between lh-sm">
+										<div>
+											<h5>
+												<span></span><span th:text="${index.count}"></span><span> 위 : </span>
+												<span th:text="${EvaluationAlot.memberid}"></span><span>     / </span>
+												<span th:text="${EvaluationAlot.psucceed}"></span><span>  건</span>
+											</h5>
+											<br>
+										</div>
+									</div>	
+								</div>
 						    </div>
+
 					    </div>
 					</div>
 				</div>
 			</div>
 			
-			<div class="col-4">
+			<div class="col-3">
 				<div class="card-body shadow1">
-					<ul class="list-group mb-4">
-					    <li th:each="community : ${community}" class="list-group-item d-flex justify-content-between lh-sm">
-					        <div>
-					        	<a th:href="@{'community/read?boardnum=' + ${community.boardnum}}" th:text="${community.boardtitle}"></a>
-								<!-- <h6 class="my-0" th:text="${community.boardtitle}"></h6> -->
-					        </div>
-					        <span th:text="${community.recommend}" class="text-body-secondary"></span>
-					    </li>	    
-					</ul>
+					<table>
+						<tr th:each="community,index : ${community}" class="table-light" >
+							<th >
+								<span></span><span th:text="index.count"></span> <span>위</span>
+							</th>
+							<td>
+								<a th:href="@{'community/read?boardnum=' + ${community.boardnum}}" th:text="${community.boardtitle}"></a>
+							</td>
+							<td>
+								<span th:text="${community.recommend}" class="text-body-secondary"></span><span>👍</span>
+							</td>
+						</tr>
+					</table>
+					
 				</div>
 			</div>
+
 		</section>
 	</div><!-- container -->
 </div>
 </form>
 
-<!-- 	<div class="card w-25 p-3"> -->
-<!-- 		단문번역 대기중 <a th:text="${TcountS}"></a> -->
-<!-- 	</div> -->
-	
-<!-- 	<div class="card w-25 p-3"> -->
-<!-- 		장문번역 대기중 <a th:text="${TcountM}"></a> -->
-<!-- 	</div> -->
-	
-<!-- 	<div class="card w-25 p-3"> -->
-<!-- 		평가 대기중 <a th:text="${Ecount}"></a> -->
-<!-- 	</div> -->
-	
-<!-- 	<div class="card w-25 p-3"> -->
-<!-- 		의뢰 된 총 번역 <a th:text="${Rcount}"></a> -->
-<!-- 	</div> -->
+
 	
 	
 	
