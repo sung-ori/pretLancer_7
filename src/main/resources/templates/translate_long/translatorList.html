@@ -54,7 +54,7 @@
                 <strong ><a class="lead" th:href="@{/long/request?type=EN}">   영어 번역가   </a></strong>/
             </div>
             <div th:each="translator, index : ${translatorList}" class="col-4 card">
-                <img th:src="@{|/img/${translator.savedphoto}|}" class="card-img-top" style="height: 50%;;" alt="임시 프로필 사진">
+                <img th:if="${translator.originphoto}" th:src="@{/my_page/getPhoto(memberid=${translator.memberid})}" class="card-img-top" style="height: 50%;">
                 <div class="card-body">
                     <h3 class="card-subtitle"><span>번역가 이름 :</span><span   th:text="${translator.membername}"></span></h3>
                     <div th:if="${translator.memberlang == 'JP'}">
