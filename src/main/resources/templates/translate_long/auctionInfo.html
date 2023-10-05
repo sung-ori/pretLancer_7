@@ -35,7 +35,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                     
                         str += `<div class="col-1"></div>
 
-                        <div class="col-10 card-bodt" style="font-weight:bold; color:white;">
+                        <div class="col-10 card-bodt" style="font-weight:bold; color:white; text-align:center;" >
                         <span>${n.mem_level} 등급</span>
                         <span>${n.memberid}</span>
                         <span>입찰가</span><span id="${n.memberid}">${n.translatervalue}</span>
@@ -271,12 +271,12 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
        
        
        		
-            <div class="col-6" th:if="${info.requestcondition_l == 'N'}" style="text-align:center;">
+            <div class="col-5" th:if="${info.requestcondition_l == 'N'}" style="text-align:center;">
             <div class="card mb-3" style="background-color:#0C0C3F;">
             <hr>
                 <div id="auctionPrice"></div>
     
-                <div th:if="${#authentication.name != info.memberid}" class="col-8" >
+                <div th:if="${#authentication.name != info.memberid}"  class="col-9 d-flex justify-content-center" >
                     <input name="cash" type="number" id="cash" class="form-control text-end " >
                 </div>
 					<br>
