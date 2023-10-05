@@ -74,7 +74,7 @@
         <insert id="insertOneRequst" parameterType="Request_L">
                 insert into pret_request_L 
                 <if test="memberid2 != null">
-                        (requestnum_l, memberid, memberid2,title, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr,commentpage, startlang, endlang)
+                        (requestnum_l, memberid, memberid2, title, category, enddate, workdate, cash, originrfile, savedrfile, comment_lr,commentpage, startlang, endlang)
                         values 
                         (PRET_REQ_L_SEQ.nextval, #{memberid}, #{memberid2}, #{title}, #{category}, #{enddate}, #{enddate}, #{cash}, #{originrfile}, #{savedrfile}, #{comment_lr},#{commentpage}, #{startlang}, #{endlang} )
                 </if>
