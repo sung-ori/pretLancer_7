@@ -8,42 +8,6 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <title>번역 상세정보</title>
-    <script>
-        $(document).ready(function() {
-            extension();
-           $("#success").on("click", function() {
-            let rqln = $("#requestnum").val();
-            
-
-            $.ajax({
-                type:"GET",
-                url:"success_S",
-                data:{"requestnum_s" :rqln},
-                success: function() {
-                    alert("성공처리 됐습니다.");
-                    window.opener.location.reload();
-                    window.close();
-                },
-                error: function(e) {
-                    console.log(JSON.stringify(e));
-                }
-            })
-
-           })
-        });
-
-        function extension() {
-            let file = $("#file").val();
-            
-            let parts = file.split('.');
-
-            let extension = parts.pop();
-
-            $("#download").attr("download",file);
-        
-        }
-
-    </script>
 </head>
 <body>
     
