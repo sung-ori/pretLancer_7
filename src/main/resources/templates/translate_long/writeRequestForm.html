@@ -8,7 +8,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    <title>장문 번역 요청 쓰기</title>
+    <title>장문 번역 요청</title>
 
     <script>
         $(document).ready(function() {
@@ -167,7 +167,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             </header>
     <!-- 장문 요청 작성 폼 -->
     <div class="container col-8">
-        <h1>이제 장문 요청 보낸다.</h1>
+        <h1>장문 번역 요청 작성</h1>
         <form id="form" th:action="@{/long/writeRequest}" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="memberid2" th:value="${translator.memberid}">
             <input class="form-control " type="text" th:value="|${translator.memberid} 님에게 장문 번역을 요청합니다.|" aria-label="readonly input example" readonly>
