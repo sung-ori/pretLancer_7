@@ -72,6 +72,11 @@
 		.custom-width {width: 1100px;}
 		.b {font-weight: bold;}
     </style>
+    <style>
+    	.shadow1{
+    	 box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2)
+    	}
+    </style>
 </head>
 <body>
     <!-- 올라온 경매 리스트 -->
@@ -99,7 +104,7 @@
                 <a class="lead" th:href="@{/long/auctionList?type=NV}">소설</a> /
                 <a class="lead" th:href="@{/long/auctionList?type=OT}">기타</a> /
             </div>
-            <div th:each="auction, index : ${auctionList}" class="col-4 card">
+            <div th:each="auction, index : ${auctionList}" class="col-4 card shadow1">
                 <img th:src="@{/img/paper.png}" class="card-img-top" style="height: 50%;" alt="임시 서류 이모티콘">
                 <div class="card-body">
                     <h3>카테고리</h3>

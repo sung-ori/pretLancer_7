@@ -34,18 +34,21 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                     $.each(data,function(i,n) {
                     
                         str += `<div class="col-1"></div>
-                        <div class="col-10">
+
+                        <div class="col-10 card-bodt" style="font-weight:bold; color:white;">
                         <span>${n.mem_level} 등급</span>
                         <span>${n.memberid}</span>
                         <span>입찰가</span><span id="${n.memberid}">${n.translatervalue}</span>
+                        &nbsp;
                         <span><input type="button" value="낙찰" name="${n.memberid}" class="btn btn-warning rounded-pill" style="display : none"></span>
+                        <hr>
                         </div>
                         <div class="col-1"></div>
                         `;
                     });
                     // 아무도 입찰 안했을 때 메세지
                     if(str == "") {
-                            str += "<h1> 아직 입찰한 번역가가 존재하지 않습니다 </h1>";
+                    	str += '<h1 style="color: navy;">입찰한 번역가가 <br> 아직 존재하지 않습니다</h1>';
                         }
                         $("#auctionPrice").html(str);
                         btnDisplay();
@@ -218,22 +221,24 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:src="@{/js/snBarLoader.js}"></script>
 	<style>
+		.h1 {
+			color: white;	
+		}
     	.move-right-50 {transform: translateX(300px);}
 		.custom-width {width: 1100px;}
 		.b {font-weight: bold;}
+		.shadow1{
+    	 box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.4);
+    	}
     </style>
 </head>
-<body>
+<body style="background-color: #7576E8;">
 
 	<!-- <div id="snBar-placeholder"></div>
 	<br><br><br><br> -->
 
- <div id="main">
-            <header class="mb-3">
-                <a href="#" class="burger-btn d-block d-xl-none">
-                    <i class="bi bi-justify fs-3"></i>
-                </a>
-            </header>
+ <div id="main" >
+            
     <!-- 경매 상세 정보 페이지 -->
     <div class="container">
         <input type="hidden" id="userId" th:value="${#authentication.name}">
@@ -242,13 +247,16 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
         <input type="hidden" id="auctionNum" th:value="${auctionNum}">
         <div class="row">
             <div class=" col-6">
-                <div class="card" >
-                    <img th:src="@{/img/paper.png}" class="card-img-top" style="height: 50%;" alt="임시 프로필 사진">
-                    <div class="card-body">
+                <div class="card shadow1">
+                
+                	
+                    <div class="card-body" style="position: relative;">
+                   
+                    	<img th:src="@{/img/penNote.png}" class="card-img-top" style="height: 80%; width: 80%; position: absolute; top: 116px; left: 120px;" alt="임시 프로필 사진">
                         <h3>카테고리</h3>
                         <h5 class="card-title"  th:text="${info.category}"></h5>
                         <h3>페이지 수</h3>
-                        <h5 class="card-text"  th:text="${info.commentpage}"></h5>
+                        <h5 class="card-text"  th:text="${info.commentpage}"></h5>         
                         <h3>요청 정보</h3>
                         <h5 class="card-text"  th:text="${info.comment_lr}"></h5>
                         <h3>낙찰 마감 기한</h3>
@@ -260,18 +268,21 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                     </div>
                 </div>
             </div>
-            
-            <div class="col-6" th:if="${info.requestcondition_l == 'N'}">
-                <div id="auctionPrice">
-                    
-                </div>
-            
-                <div th:if="${#authentication.name != info.memberid}" class="col-8">
+       
+       
+       		
+            <div class="col-6" th:if="${info.requestcondition_l == 'N'}" style="text-align:center;">
+            <div class="card mb-3" style="background-color:#0C0C3F;">
+            <hr>
+                <div id="auctionPrice"></div>
+    
+                <div th:if="${#authentication.name != info.memberid}" class="col-8" >
                     <input name="cash" type="number" id="cash" class="form-control text-end " >
                 </div>
-
+					<br>
                 <div th:if="${#authentication.name != info.memberid}" class="col-2">
                     <input type="button" id="bidButton" class="btn btn-primary  " value="입찰">
+                </div>
                 </div>
             </div>
 
