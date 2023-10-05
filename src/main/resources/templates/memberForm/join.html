@@ -329,7 +329,7 @@
 	}
 	
 	function goback() {
-		History.back();
+		history.back();
 	}
 	
 </script>
@@ -363,7 +363,7 @@
 	</table>
 	<br>
 	<div class = "button">
-	<input type = "button" value = "뒤로" class = "join_button" href = "javascript : goback()">
+	<input type = "button" value = "뒤로" class = "join_button" onclick="goback()">
 	<input type = "submit" value = "회원가입" class = "join_button" id ="submitBt" disabled="disabled">
 	</div>
 	</form>
