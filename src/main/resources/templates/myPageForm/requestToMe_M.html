@@ -209,6 +209,16 @@
 				
 		}
 
+		.my_translate {
+		width : 500px;
+		white-space : nowrap;
+		overflow : hidden;
+		text-overflow : ellipsis;
+        background-color: #ffffff;
+        background-color: rgba( 255, 255, 255, 0.5 );
+		text-align : center;		
+		}
+
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -309,7 +319,7 @@ $(document).ready(function() {
 
             <td th:text="${request.requestcontent_m}" class = "title" th:id = "${request.requestnum_m}" th:value="${request.requestcondition_m}">의뢰 내용</td>
 
-            <td th:text="${request.translatedcontent_m}">내 번역</td>
+            <td th:text="${request.translatedcontent_m}" class = "my_translate">내 번역</td>
 
             <!-- 버튼 -->
             <td>

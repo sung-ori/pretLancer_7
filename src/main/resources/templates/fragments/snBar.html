@@ -426,7 +426,7 @@
                           <li class="submenu-item ">
                                 <a th:href="@{/translated/insertTM}">중문</a>
                           </li>
-                          <li class="submenu-item ">
+                          <li class="submenu-item" th:if="${user.tutorial == 'Y' && user.mem_level != 'D'}">
                                 <a th:href="@{/long/auctionList}">장문 경매 리스트</a>
                           </li>
                       </ul>

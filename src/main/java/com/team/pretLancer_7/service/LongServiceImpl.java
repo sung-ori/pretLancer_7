@@ -28,10 +28,10 @@ import lombok.extern.slf4j.Slf4j;
 
 public class LongServiceImpl implements LongService{
 
-    @Value("/Users/sung_ori/pretLancer_7/pretLancer_7/src/main/resources/static/request")
+    @Value("C:/requestFile")
 	String uploadPathR;
 
-    @Value("/Users/sung_ori/pretLancer_7/pretLancer_7/src/main/resources/static/translate")
+    @Value("C:/transFile")
 	String uploadPathT;
 
     @Autowired

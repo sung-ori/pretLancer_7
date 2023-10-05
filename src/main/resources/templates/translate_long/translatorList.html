@@ -11,7 +11,7 @@
     <title>PretLancer_</title>
     <script>
         $(document).ready(function() {
-            $(".btn").click(openProfile);
+            $(".profile").click(openProfile);
 
             function openProfile() {
                 
@@ -74,7 +74,7 @@
                         <h4 class="card-title" ><span>번역 언어 : 영어</span></h4>
                     </div>
                     <h5 class="card-text"><strong>[[${translator.mem_level}]]</strong>등급</h5>
-                    <a th:id="${translator.memberid}" class="btn btn-primary">프로필 자세히 보기</a>
+                    <a th:id="${translator.memberid}" class="btn btn-primary profile">프로필 자세히 보기</a>
                 </div>
             
             </div>
