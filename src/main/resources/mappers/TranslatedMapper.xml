@@ -15,11 +15,17 @@
 	</insert>
 	
 	<select id="selectTS" parameterType="int" resultType="Translated_S">
-	select * from pret_translated_s where requestnum_s = #{requestnum_s}
+	SELECT ts.*
+	FROM pret_translated_s ts
+	INNER JOIN pret_request_s rs ON ts.requestnum_s = rs.requestnum_s
+	WHERE rs.requestcondition_s = 'T' AND ts.evaluationvalue_s = 0 AND ts.requestnum_s = #{requestnum_s}
 	</select>
 	
 	<select id="selectTM" parameterType="int" resultType="Translated_M">
-	select * from pret_translated_m where requestnum_m = #{requestnum_m}
+	SELECT tm.*
+	FROM pret_translated_m tm
+	INNER JOIN pret_request_m rm ON tm.requestnum_m = rm.requestnum_m
+	WHERE rm.requestcondition_m = 'T' AND tm.evaluationvalue_m = 0 AND tm.requestnum_m = #{requestnum_m}
 	</select>
 	
 	<update id="submitTS" parameterType="Translated_S">
@@ -51,5 +57,26 @@
 	<select id="getMyTM" parameterType="Request_m" resultType="Translated_M">
 	select * from pret_translated_m where requestnum_m = #{requestnum_m} and memberid = #{memberid2}
 	</select>
-	 
+	
+	
+	<select id="selectMyPageTS" parameterType="Translated_S" resultType="Translated_S">
+	SELECT * FROM pret_translated_s ts
+	INNER JOIN pret_request_s rs ON ts.requestnum_s = rs.requestnum_s
+	WHERE rs.requestnum_s = #{requestnum_s} AND rs.requestcondition_s = 'Y' AND ts.memberid = rs.memberid2
+	</select>
+	
+	<select id="selectMyPageTM" parameterType="Translated_M" resultType="Translated_M">
+	SELECT * FROM pret_translated_m tm
+	INNER JOIN pret_request_m rm ON tm.requestnum_m = rm.requestnum_m
+	WHERE rm.requestnum_m = #{requestnum_m} AND rm.requestcondition_m = 'Y' AND tm.memberid = rm.memberid2
+	</select>
+	
+	<select id="getMyTransTS" parameterType="Translated_S" resultType="Translated_S">
+	SELECT * FROM pret_translated_s where requestnum_s = #{requestnum_s} and memberid = #{memberid}
+	</select>
+	
+	<select id="getMyTransTM" parameterType="Translated_M" resultType="Translated_M">
+	SELECT * FROM pret_translated_m where requestnum_m = #{requestnum_m} and memberid = #{memberid}
+	</select>
+	
 </mapper>
