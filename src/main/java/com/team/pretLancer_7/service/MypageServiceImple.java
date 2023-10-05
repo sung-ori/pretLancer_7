@@ -6,10 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team.pretLancer_7.dao.AbilityDAO;
+import com.team.pretLancer_7.dao.EvaluationDAO;
 import com.team.pretLancer_7.dao.MemberDAO;
 import com.team.pretLancer_7.dao.RequestDAO;
 import com.team.pretLancer_7.dao.TranslatedDAO;
 import com.team.pretLancer_7.domain.Ability;
+import com.team.pretLancer_7.domain.Evaluation_M;
+import com.team.pretLancer_7.domain.Evaluation_S;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_M;
@@ -34,6 +37,9 @@ public class MypageServiceImple implements MypageService {
     
     @Autowired
     TranslatedDAO tDao;
+    
+    @Autowired
+    EvaluationDAO eDao;
 
     @Override
     public MyPage getMyPage(String userId) {
@@ -132,6 +138,36 @@ public class MypageServiceImple implements MypageService {
 	@Override
 	public void changeProfile(MyPage mp) {
 		mDao.changeProfile(mp);
+	}
+
+	@Override
+	public Translated_S getMyPageTS(Translated_S ts) {
+		return tDao.selectMyPageTS(ts);
+	}
+
+	@Override
+	public Translated_M getMyPageTM(Translated_M tm) {
+		return tDao.selectMyPageTM(tm);
+	}
+
+	@Override
+	public List<Evaluation_S> getWhyRS(int translatednum_s) {
+		return eDao.getWhyRS(translatednum_s);
+	}
+
+	@Override
+	public List<Evaluation_M> getWhyRM(int translatednum_m) {
+		return eDao.getWhyRM(translatednum_m);
+	}
+
+	@Override
+	public Translated_S getMyTransTS(Translated_S ts) {
+		return tDao.getMyTransTS(ts);
+	}
+
+	@Override
+	public Translated_M getMyTransTM(Translated_M tm) {
+		return tDao.getMyTransTM(tm);
 	};
 
 	

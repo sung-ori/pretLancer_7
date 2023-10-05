@@ -56,25 +56,23 @@
 		
 
 
-$("#persb").attr("style","width :" +sper+"%");
-$("#pers").attr("aria-valuenow",sper);
-$("#persb").text(sper + "%");
-
-
-$("#permb").attr("style","width :" +mper+"%");
-$("#perm").attr("aria-valuenow",mper);
-$("#permb").text(mper + "%");
+		$("#persb").attr("style","width :" +sper+"%");
+		$("#pers").attr("aria-valuenow",sper);
+		$("#persb").text(sper + "%");
+		
+		
+		$("#permb").attr("style","width :" +mper+"%");
+		$("#perm").attr("aria-valuenow",mper);
+		$("#permb").text(mper + "%");
+		    
+		$("#perpb").attr("style","width :" +pper+"%");
+		$("#perp").attr("aria-valuenow",pper);
+		$("#perpb").text(pper + "%");
+		    
+		$("#pereb").attr("style","width :" +eper+"%");
+		$("#pere").attr("aria-valuenow",eper);
+		$("#pereb").text(eper + "%");
     
-$("#perpb").attr("style","width :" +pper+"%");
-$("#perp").attr("aria-valuenow",pper);
-$("#perpb").text(pper + "%");
-    
-$("#pereb").attr("style","width :" +eper+"%");
-$("#pere").attr("aria-valuenow",eper);
-$("#pereb").text(eper + "%");
-    
-
-
 }
     </script>
     
@@ -97,22 +95,73 @@ $("#pereb").text(eper + "%");
 		.custom-width {width: 1100px;}
 		.b {font-weight: bold;}
     </style>
+    <style>
+    /* 프로필 카드 스타일 */
+.card.col-9{
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    margin-top: 20px;
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+}
+
+.btn-danger {
+    margin-top: 20px;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+/* 게이지바 스타일 */
+.progress {
+    margin-top: 20px;
+}
+
+.progress-bar {
+    border-radius: 10px;
+}
+
+/* 성공률바 스타일 */
+.progress-bar.bg-success {
+    background-color: #28a745;
+}
+
+.shadow1{
+    	 box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.7)
+    	}
+.bold {
+		font-weight: bold;
+	}
+    </style>
 </head>
-<body>
-	<div id="snBar-placeholder"></div>
- <div id="main">
-            <header class="mb-3">
-                <a href="#" class="burger-btn d-block d-xl-none">
-                    <i class="bi bi-justify fs-3"></i>
-                </a>
-            </header>
+<body style="background-color: #333;">
+
 
     <!-- 번역가의 상세 프로필 -->
+    <br><br>
     <div class="container">
         <input type="hidden" id="loginId" th:value="${loginId}">
         <input type="hidden" id="translatorId" th:value="${tp.memberid}">
-        <div class="card col-12" >
-            <img th:src="@{|/img/${tp.savedphoto}|}" class="card-img-top" style="height: 50%;;" alt="임시 프로필 사진">
+        <div class="card col-9" >
+            <p><img th:if="${tp.originphoto}" th:src="@{/my_page/getPhoto(memberid=${tp.memberid})}" style="width: 70%; height: 0%;"></p>
             <div class="card-body">
                 <h5 class="card-title" th:text="${tp.membername}">Card title</h5>
                 <p class="card-text" th:text="${tp.profilecomment}">프로필 멘트</p>
@@ -122,50 +171,57 @@ $("#pereb").text(eper + "%");
         </div>
     </div>
     
+    <br>
     	<!-- 게이지바  -->
-
-		
-			
-		<div >
-			<input type="hidden" id="ps" th:value="${ability.psucceed}">
-			<input type="hidden" id="pf" th:value="${ability.pfailed}">
-			<input type="hidden" id="ss" th:value="${ability.ssucceed}">
-			<input type="hidden" id="sf" th:value="${ability.sfailed}">
-			<input type="hidden" id="ms" th:value="${ability.msucceed}">
-			<input type="hidden" id="mf" th:value="${ability.mfailed}">
-			<input type="hidden" id="es" th:value="${ability.esucceed}">
-			<input type="hidden" id="ef" th:value="${ability.efailed}">
-			
-			<div>
-				단문 성공률
-			</div>
-			<div class="progress mx-4" role="progressbar" id="pers"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
-				<div class="progress-bar bg-success" id="persb" ></div>
-			</div>
-			<div>
-				중문 성공률
-			</div>
-			<div class="progress mx-4" role="progressbar" id="perm"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
-				<div class="progress-bar bg-success" id="permb" ></div>
-			</div>
-			<div>
-				연습 성공률
-			</div>
-			<div class="progress mx-4" role="progressbar" id="perp"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
-				<div class="progress-bar bg-success" id="perpb" ></div>
-			</div>
-			<div>
-				평가 성공률
-			</div>
-			<div class="progress mx-4" role="progressbar" id="pere"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;"> 
-				<div class="progress-bar bg-success" id="pereb" ></div>
+		<div class="container">
+			<div class="card col-9 col-md-8 mx-auto shadow1">
+				<div class="card-body bold">
+					<input type="hidden" id="ps" th:value="${ability.psucceed}">
+					<input type="hidden" id="pf" th:value="${ability.pfailed}">
+					<input type="hidden" id="ss" th:value="${ability.ssucceed}">
+					<input type="hidden" id="sf" th:value="${ability.sfailed}">
+					<input type="hidden" id="ms" th:value="${ability.msucceed}">
+					<input type="hidden" id="mf" th:value="${ability.mfailed}">
+					<input type="hidden" id="es" th:value="${ability.esucceed}">
+					<input type="hidden" id="ef" th:value="${ability.efailed}">
+					
+					<div>
+						단문 성공률
+					</div>
+					<div class="progress mx-4" role="progressbar" id="pers"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
+						<div class="progress-bar bg-success" id="persb" ></div>
+					</div>
+					<hr>
+					
+					<div>
+						중문 성공률
+					</div>
+					<div class="progress mx-4" role="progressbar" id="perm"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
+						<div class="progress-bar bg-success" id="permb" ></div>
+					</div>
+					<hr>
+					
+					<div>
+						연습 성공률
+					</div>
+					<div class="progress mx-4" role="progressbar" id="perp"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;">
+						<div class="progress-bar bg-success" id="perpb" ></div>
+					</div>
+					<hr>
+					
+					<div>
+						평가 성공률
+					</div>
+					<div class="progress mx-4" role="progressbar" id="pere"  aria-valuemin="0" aria-valuemax="100" style = "height : 20px;"> 
+						<div class="progress-bar bg-success" id="pereb" ></div>
+					</div>
+					<hr>
+				</div>
 			</div>
 		</div>
-
 		
 
-    <!-- <div id="main"> -->
-	</div> 
+ 
      <!-- 부트스트랩  JS -->
     <script th:src="@{/assets/js/bootstrap.js}"></script>
     <script th:src="@{/assets/js/app.js}"></script>

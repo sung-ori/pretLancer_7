@@ -103,7 +103,14 @@
 	</update>
 	
 	<select id="EvaluationAlot" resultType="Member">
+	</select>
 	
+	<select id="getWhyRS" parameterType="int" resultType="Evaluation_S">
+	select (whyfailed) from pret_evaluation_s where translatednum_s = #{translatednum_s}
+	</select>
+	
+	<select id="getWhyRM" parameterType="int" resultType="Evaluation_M">
+	select (whyfailed) from pret_evaluation_m where translatednum_m = #{translatednum_m}
 	</select>
 	
 </mapper>

@@ -8,69 +8,62 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <title>요청 상세정보</title>
-    <script>
-        $(document).ready(function() {
-            extension();
-           $("#success").on("click", function() {
-            let rqln = $("#requestnum").val();
-            
-
-            $.ajax({
-                type:"GET",
-                url:"success_S",
-                data:{"requestnum_s" :rqln},
-                success: function() {
-                    alert("성공처리 됐습니다.");
-                    window.opener.location.reload();
-                    window.close();
-                },
-                error: function(e) {
-                    console.log(JSON.stringify(e));
-                }
-            })
-
-           })
-        });
-
-        function extension() {
-            let file = $("#file").val();
-            
-            let parts = file.split('.');
-
-            let extension = parts.pop();
-
-            $("#download").attr("download",file);
-        
+    <style>
+        /* 추가적인 스타일링을 여기에 적용할 수 있습니다. */
+        .container {
+            margin-top: 20px;
         }
 
+        .details {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .details h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .details span {
+            font-size: 18px;
+        }
+
+        .details hr {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script>
     </script>
 </head>
-<body>
-    
-    <h1>번역 결과 돌려받는다. </h1>
+<body style="background-color:#070E56;">
+    <br>
+    <h1 style="color:#fff;  text-align:center">번역 결과</h1>
 
-    <input type="hidden" id="requestnum" th:value="${request.requestnum_m}">
-    <input type="hidden" id="memberid" th:value="${request.memberid}">
+    <input type="hidden" id="requestnum" th:value="${request?.requestnum_m}">
+    <input type="hidden" id="memberid" th:value="${request?.memberid}">
 
     <div class="container">
+    	<div class="details">
         <div>
             <span>의뢰 날짜 : </span>
-            <span th:text="${request.inputdate}">의뢰 날짜</span>
+            <span th:text="${request?.inputdate}">의뢰 날짜</span>
         </div>
 
         <div>
             <span>의뢰 캐시 : </span>
-            <span th:text="${request.cash}">의뢰 날짜</span>
+            <span th:text="${request?.cash}">의뢰 날짜</span>
         </div>
 
         <div>
             <span>번역 의뢰 원문 : </span>
-            <span class="h2 text-center" th:text="${request.requestcontent_m}">의뢰 원문</span>
+            <span class="h2 text-center" th:text="${request?.requestcontent_m}">의뢰 원문</span>
         </div>
         
         <div>
             <span>나의 요청사항 : </span>
-            <span th:text="${request.comment_mr}"></span>
+            <span th:text="${request?.comment_mr}"></span>
         </div>
 
 		<br>
@@ -86,7 +79,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             <span>번역가로부터의 주석, 참고사항</span>
             <span th:text="${translated?.comment_mt}"></span>
         </div>
-		        
+		</div>
     </div>
     
 </body>

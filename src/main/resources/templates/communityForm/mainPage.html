@@ -25,6 +25,115 @@
     	.move-right-50 {transform: translateX(300px);}
 		.custom-width {width: 1100px;}
 		.b {font-weight: bold;}
+		
+		
+	@font-face {
+	    font-family: 'LINESeedKR-Bd';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+	    font-weight: 700;
+	    font-style: normal;
+	}
+		
+	@font-face {
+    font-family: 'MBC1961GulimM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/MBC1961GulimM.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	}
+
+	@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+	}
+	
+	@font-face {
+    font-family: 'Pretendard-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+	}
+
+	@font-face {
+    font-family: 'Pretendard-Black';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+	}
+	
+	* {
+    font-family: 'Pretendard-Regular';
+		color : #2C2E33;
+
+	}
+	
+	h2{
+		color : #2C2E33;
+	} 
+	
+	th {
+		font-weight : bold;
+	}
+	
+	.info_table {
+		width : 250px;
+	
+		margin-left:auto; 
+    	margin-right:auto;
+ 
+    	border-collapse: separate;
+    	border-spacing : 20px;
+	}
+	
+	.info_tr {
+		height : 40px;
+		border-bottom : solid 1px #D8D8D8;
+	}
+
+	#title {
+    font-family: 'Pretendard-Black';
+		font-size : 45px;
+		color : #2C2E33;
+	} 
+
+	#title2 {
+    font-family: 'Pretendard-Black';
+		font-size : 40px;
+		color : #2C2E33;
+	} 
+
+	#title3 {
+    font-family: 'Pretendard-Black';
+		font-size : 35px;
+		color : #2C2E33;
+	} 
+
+	#title4 {
+    font-family: 'Pretendard-Black';
+		font-size : 30px;
+		color : #2C2E33;
+	} 
+
+
+	.title_{
+    font-family: 'Pretendard-Bold';
+		font-size : 20px;
+		color : #2C2E33;
+	} 
+
+	.content{
+    font-family: 'Pretendard-Regular';
+		font-size : 15px;
+		color : #D8D8D8;
+	} 
+
+	.content_{
+    font-family: 'Pretendard-Regular';
+		font-size : 15px;
+		color : #2C2E33;
+	} 
+		
     </style>
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -56,13 +165,18 @@
                     <i class="bi bi-justify fs-3"></i>
                 </a>
             </header>
-<br>
-<br>
-<br>
-<div class="page-heading pricing-header p-3 pb-md-4 mx-auto text-center" style="margin-top: 0px;">
+		<br>
+		<br>
+		<br>
+
+
+<div class="page-heading pricing-header p-3 pb-md-4 mx-auto " style="margin-top: 0px;">
 	
-    <h1 class="display-4 fw-normal ">커뮤니티</h1> <!-- text-body-emphasis -->
-    <p class="fs-5 text-body-secondary">커뮤니티는 공공장소입니다. 깨끗하게 사용하세요.</p>
+    <h1 id = "title2" class="display-4 fw-normal ">커뮤니티</h1> <!-- text-body-emphasis -->
+    <h6 class = "title_">자유롭게 글을 남겨주세요.</h6><br>
+    <hr>
+    <br>
+    <p class="fs-5 text-body-secondary text-center" style = "font-size : 20px;">커뮤니티는 공공장소입니다. <br>타인에게 불쾌감을 주거나 법에 어긋난 행위를 할 경우 제재가 가해질 수 있습니다.</p>
 </div>
 
 

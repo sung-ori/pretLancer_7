@@ -37,48 +37,118 @@
 	    font-weight: 700;
 	    font-style: normal;
 	}
+		
+	@font-face {
+    font-family: 'MBC1961GulimM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/MBC1961GulimM.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+	}
+
+	@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+	}
+	
+	@font-face {
+    font-family: 'Pretendard-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+	}
+
+	@font-face {
+    font-family: 'Pretendard-Black';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+	}
 	
 	* {
-	    font-family: 'LINESeedKR-Bd';	
-	}
+    font-family: 'Pretendard-Regular';
+		color : #2C2E33;
 
-	/*div {
-		background-color: #EFF0F0;
-		border-radius : 5px;
+	}
+	
+	h2{
+		color : #2C2E33;
+	} 
 
-	}*/
-	
-	.outer {
-		width : 1000px;
-		height : 600px;
-		border-radius : 5px;
-		
-	
+	#title {
+    font-family: 'Pretendard-Black';
+		font-size : 45px;
+		color : #2C2E33;
+	} 
+
+	#title2 {
+    font-family: 'Pretendard-Black';
+		font-size : 40px;
+		color : #2C2E33;
+	} 
+
+	#title3 {
+    font-family: 'Pretendard-Black';
+		font-size : 35px;
+		color : #2C2E33;
+	} 
+
+	#title4 {
+    font-family: 'Pretendard-Black';
+		font-size : 30px;
+		color : #2C2E33;
+	} 
+
+
+	#title_{
+    font-family: 'Pretendard-Bold';
+		font-size : 20px;
+		color : #2C2E33;
+	} 
+	 	
+	.input_exam{
+		font-size : 18px;
 	}
 	
-	.answer_input {
+		/*div {
+			background-color: #EFF0F0;
+			border-radius : 5px;
 	
-		width : 900px;
-		height : 300px;
+		}*/
 		
-		border : solid 2px #EFF0F0;
-		border-radius : 5px;
-	
-	}
-	
-	.answer_button{
-	
-		width : 100px;
-		height : 35px;
-		background-color:#2334DE;
-		color : #FFFFFF;
+		.outer {
+			width : 1000px;
+			height : 600px;
+			border-radius : 5px;
+			font-size : 18px;
+			
 		
-		border : 0px;
-		border-radius : 5px;
+		}
 		
-	}
-	
-	
+		.answer_input {
+		
+			width : 900px;
+			height : 300px;
+			
+			border : solid 2px #EFF0F0;
+			border-radius : 5px;
+		
+		}
+		
+		.answer_button{
+		
+			width : 100px;
+			height : 35px;
+			background-color:#2334DE;
+			color : #FFFFFF;
+			
+			border : 0px;
+			border-radius : 5px;
+			
+		}
+		
+		
 </style>
 <script type="text/javascript">
 
@@ -151,6 +221,7 @@
 </head>
 <body>
 	<div id="snBar-placeholder"></div>
+	<br><br><br><br>
 	
 	 <div id="main">
 	            <header class="mb-3">
@@ -160,10 +231,10 @@
 	            </header>
 	            
 	<div class="page-heading">
-	    <h3>홈페이지</h3>
+	    <h1 id = "title2">튜토리얼</h1>
+	    <h6 id = "title_">튜토리얼 통과 후, 마음껏 번역하세요.</h6>
 	</div>
 
-	<h1>튜토리얼</h1>
 	<div class = "outer">
 		<div> <!-- <div><h2>오늘의 문제</h2></div>--> <br><div id = "correct"><span id = "answer_check">answer 기본값</span>  맞은 문제 수 : <span th:text ="${member.tutorial_num}">0</span> / 50</div></div><hr>
 		<!-- 문제 나오는 부분 -->
@@ -183,7 +254,7 @@
 			<p>번역을 정확하게 입력해주세요.</p>
 			<input type = "hidden" name = "memberid"  th:value="${#authentication.name}">
 			<input type = "hidden" name = "examnum" th:value = "${question?.examnum}">
-			<input type = "text" name = "my_answer" class = "answer_input" id = "my_answer"> <br>
+			<textarea name = "my_answer" class = "answer_input" id = "my_answer" placeholder = "띄어쓰기와 맞춤법 포함 정확하게 입력해주세요. 오답률은 신뢰도와 등급에 영향을 줍니다."></textarea> <br>
 			<input type = "submit" value = "제출" class = "answer_button" id = "answer_button">
 		</form>
 		</div>
