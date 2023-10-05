@@ -85,17 +85,18 @@
 </script>
 </head>
 <body>
-	<div>
+	<div style = "margin : 0 auto;">
 	<h2>번역하고, 용돈벌고! <br>
 	신개념 번역 플랫폼 PretLancer</h2>
 	<p>처음이신가요? <a th:href = "@{/member/join}">회원가입</a></p>
 	<form th:action = "@{/member/login}" method = "post" onsubmit = "return check()">
 	<input type = "text" placeholder="아이디를 입력해주세요" name = "memberid" id = "id" class = "login"><br>
-	<input type = "password" placeholder="비밀번호를 입력해주세요" name = "memberpw" id = "pw" class = "login"><br>
+	<input type = "password" placeholder="비밀번호를 입력해주세요" name = "memberpw" id = "pw" class = "login"><br><br>
 	<input type = "submit" value = "로그인" class = "login_button">
 	</form>
-
-	<div th:if="${param.error}" style="color:coral;text-align: center;">
+	</div>
+	
+	<div th:if="${param.error}" style="color:red;text-align: center;">
 		<p>ID 또는 비밀번호가 틀렸습니다.</p>		
 	</div>
 	
@@ -103,14 +104,6 @@
 		<script>
 			alert('아이디 또는 비밀번호를 확인해주세요');
 		</script>
-	</div>
-
-	<!-- 부가기능 (시간 여유가 있을 때 보충할 것) -->
-	
-	<p><a href = "">아이디 혹은 비밀번호를 잊으셨나요?</a></p>
-	
-	<p><input type = "button" value = "구글 아이디로 로그인" class = "additional_login"></p>
-	<p><input type = "button" value = "네이버 아이디로 로그인" class = "additional_login"></p>
 	</div>
 
 </body>
