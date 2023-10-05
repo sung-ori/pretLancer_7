@@ -38,24 +38,40 @@
 	
 	<select id="choiceRS" resultType="Request_S" parameterType="String">
 	SELECT *
-    FROM (
-        SELECT *
-        FROM pret_request_s
-        WHERE requestcondition_s = 'N' AND enddate > sysdate AND memberid != #{memberid}
-        ORDER BY enddate - sysdate ASC
-    )
-    WHERE ROWNUM &lt;= 1
+		FROM (
+		    SELECT r.*
+		    FROM pret_request_s r
+		    WHERE r.requestcondition_s = 'N' 
+		    AND r.enddate > sysdate 
+		    AND r.memberid != #{memberid}
+		    AND NOT EXISTS (
+		        SELECT 1
+		        FROM pret_translated_s t
+		        WHERE t.requestnum_s = r.requestnum_s
+		        AND t.memberid = #{memberid}
+		    )
+		    ORDER BY r.enddate - sysdate ASC
+		)
+		WHERE ROWNUM &lt;= 1
 	</select>
 	
 	<select id="choiceRM" resultType="Request_M" parameterType="String">
 	SELECT *
-    FROM (
-        SELECT *
-        FROM pret_request_m
-        WHERE requestcondition_m = 'N' AND enddate > sysdate AND memberid != #{memberid}
-        ORDER BY enddate - sysdate ASC
-    )
-    WHERE ROWNUM &lt;= 1
+		FROM (
+		    SELECT r.*
+		    FROM pret_request_m r
+		    WHERE r.requestcondition_m = 'N' 
+		    AND r.enddate > sysdate 
+		    AND r.memberid != #{memberid}
+		    AND NOT EXISTS (
+		        SELECT 1
+		        FROM pret_translated_m t
+		        WHERE t.requestnum_m = r.requestnum_m
+		        AND t.memberid = #{memberid}
+		    )
+		    ORDER BY r.enddate - sysdate ASC
+		)
+		WHERE ROWNUM &lt;= 1
 	</select>
 	
 	<update id="updateMem2_S" parameterType="Translated_S">

@@ -54,4 +54,8 @@ public interface EvaluationDAO {
 
 	void failedTM(int requestnum_m);
 
+	// 마이페이지 내가 맡은 번역 리스트 평가 탈락 이유 가져오기
+	List<Evaluation_S> getWhyRS(int translatednum_s);
+	List<Evaluation_M> getWhyRM(int translatednum_m);
+
 }

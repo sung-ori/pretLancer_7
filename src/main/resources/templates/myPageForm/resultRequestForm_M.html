@@ -66,7 +66,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
         <div>
             <span>번역 의뢰 원문 : </span>
             <span class="h2 text-center" th:text="${request.requestcontent_m}">의뢰 원문</span>
-        </div>
+        </div><br>
         
         <div>
             <span>의뢰자의 요청사항 : </span>
@@ -78,14 +78,30 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 		<br>
 
 		<div>
-            <span>내가 번역한 내용</span>
+            <span>내가 번역한 내용</span><br>
             <span th:text="${translated.translatedcontent_m}"></span>
-        </div>
-
+        </div><br><br>
+		
 		<div>
-            <span>나의 주석 및 참고사항</span>
+            <span>나의 주석 및 참고사항</span><br>
             <span th:text="${translated.comment_mt}"></span>
         </div>
+       
+        <br><br>
+        <div th:if="${why != null}">
+		    <span>아래는 번역이 틀렸다고 답한 유저들의 이유입니다.</span>
+		    <ul th:each="whyItem : ${why}">
+		        <li th:if="${whyItem != null}">
+		            <span th:switch="${whyItem.whyfailed}">
+		                <span th:case="1">누락된 문장이 있습니다.</span>
+		                <span th:case="2">비고에 적힌 사항을 따르지 않았습니다.</span>
+		                <span th:case="3">맞춤법이나 띄어쓰기가 심각하게 틀렸습니다.</span>
+		                <span th:case="4">문맥이나 늬앙스에 맞지 않는 번역입니다.</span>
+		                <span th:case="5">기타 이 번역에 문제가 있습니다.</span>
+		            </span>
+		        </li>
+		    </ul>
+		</div>
 		        
     </div>
     
