@@ -62,7 +62,7 @@ public class MemberController {
 		msg.writeMP(m.getMemberid());
 		msg.writeMT(m.getMemberid());
 
-		return "redirect:/";
+		return "redirect:/main";
 	}
 	
 	// 로그인 폼으로 이동

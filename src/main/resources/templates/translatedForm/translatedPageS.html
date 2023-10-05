@@ -126,7 +126,7 @@
 			height : 600px;
 			border-radius : 5px;
 			
-		
+			font-size : 15px;
 		}
 
 		.comment_input {
@@ -163,9 +163,9 @@
 
 		.exit_button{
 		
-			width : 100px;
+			width : 150px;
 			height : 35px;
-			background-color:#F2F2F2;
+			background-color:#D8D8D8;
 			color : #2C2E33;
 			
 			border : 0px;
@@ -176,8 +176,6 @@
 		
 	</style>
 	<script type="text/javascript">
-	
-			
 		function check() {
 			//my_answer : 번역 입력 창에 입력된 값
 			let my_answer = document.getElementById('translatedcontent_s').value;
@@ -220,16 +218,20 @@
             </header>
 		
 	<h1 id = "title2">번역 게시판</h1>
-	<div id = "title3">쇼트</div>
+	<div id = "title3">쇼트(단문)</div>
+	<div id = "title_" style = "line-height : 120%;">1000자 이하의 단문을 번역할 수 있는 단문 번역 게시판입니다. <br> <span style = "color : red; font-size : 15px; font-family: 'Pretendard-Bold';">진행중인 번역이 있을 경우, 해당 번역부터 마쳐야 새 번역을 받을 수 있습니다.</span></div>
+	<br>
+	<hr>
+	<br>
 	<!-- 체크해야 할 부분 : 1. 번역해야 하는 내용이 requestcontent_s이고 내가 입력하는 부분이 translatedcontent_s가 맞는지 -->
 	<div class = "outer">
 		<div>
-			<span>다음은 의뢰된 번역입니다.</span>
+			<span style = "font-size : 18px"><b>다음은 의뢰된 번역 원문입니다.</b></span>
 			<br>
 			<br>
 			<!-- 번역 요청 내용을 가지고 온다 -->
 			<span th:text = "${translated?.requestcontent_s}" class = "input_translated">번역 내용 기본값</span><br><br>
-			<span>※번역에 대한 요청사항입니다.</span><br>
+			<span style = "font-size : 18px"><b>※번역에 대한 요청사항입니다.</b></span><br>
 			<textarea id = "comment_sr" name = "comment_sr" class = "comment_input" readonly style = "color : #2334DE;" th:text = "${request?.comment_sr}"></textarea>
 			<br>
 			<br>
@@ -239,14 +241,14 @@
 		<!-- 답 입력하는 부분 -->
 		<div>
 		<form th:action = "@{/translated/submitTS}" method = "post" onsubmit = "return check()" id = "form"> 
-			<p class = "input_exam">번역을 정확하게 입력해주세요.</p>
+			<p class = "input_exam" style = "font-size : 18px"><b>번역을 정확하게 입력해주세요.</b></p>
 			<input type = "hidden" name = "requestnum_s"  th:value="${translated?.requestnum_s}">
 			<input type = "hidden" name = "translatednum_s"  th:value="${translated?.translatednum_s}">
 			<input type = "hidden" name = "requestcontent_s"  th:value="${translated?.requestcontent_s}">
 			<input type = "hidden" name = "memberid"  th:value="${#authentication.name}">
 
 			<textarea name = "translatedcontent_s" class = "answer_input" id = "translatedcontent_s" placeholder = "띄어쓰기와 맞춤법 포함 정확하게 입력해주세요. 오답률은 신뢰도와 등급에 영향을 줍니다.&#13;&#10;쇼트에서 좋은 평가를 받으면, 리워드를 획득할 수 있으며 신뢰도가 올라 더 다양한 길이의 번역에 도전할 수 있습니다."></textarea> <br>
-			<span>※주석 및 기타 참고사항을 적을 수 있습니다.</span><br>
+			<span style = "font-size : 18px"><b>※주석 및 기타 참고사항을 적을 수 있습니다.</b></span><br>
 			<textarea id = "comment_st" name = "comment_st" class = "comment_input" style = "color : #2334DE;" placeholder = "의뢰자가 참고할 사항을 적어주세요."></textarea>
 			<input type = "submit" value = "제출하기" class = "submit_button" id = "submit_button">
 			<input type = "button" value = "받은 번역 취소하기" class = "exit_button" id = "exit_button" onclick="cancelTranslatedS()">

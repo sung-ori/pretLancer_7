@@ -26,31 +26,34 @@
 
         function progress() {
 
-        	let ss =  parseInt($("#ss").val());
-    		let sf =  parseInt($("#sf").val());
-    		let sper = parseInt(((ss /(ss+sf))*100));
-    		if(isNaN(sper)){
-    			sper = 0;
-    		}
+		
 
-    		let ms =  parseInt($("#ms").val()) ;
-    		let mf =  parseInt($("#mf").val());
-    		let mper = parseInt((ms /(ms+mf)) *100);
-    		if(isNaN(mper)){
-    			mper = 0;
-    		}
-    		let ps =  parseInt( $("#ps").val());
-    		let pf =  parseInt( $("#pf").val());
-    		let pper = parseInt((ps /(ps+pf)) *100);
-    		if(isNaN(pper)){
-    			pper = 0;
-    		}
-    		let es =  parseInt( $("#es").val());
-    		let ef =  parseInt( $("#ef").val());
-    		let eper = parseInt((es /(es+ef)) *100);
-    		if(isNaN(eper)){
-    			eper = 0;
-    		}
+            let ss =  parseInt($("#ss").val());
+		let sf =  parseInt($("#sf").val());
+		let sper = parseInt(((ss /(ss+sf))*100));
+		if(isNaN(sper)){
+			sper = 0;
+		}
+
+		let ms =  parseInt($("#ms").val()) ;
+		let mf =  parseInt($("#mf").val());
+		let mper = parseInt((ms /(ms+mf)) *100);
+		if(isNaN(mper)){
+			mper = 0;
+		}
+		let ps =  parseInt( $("#ps").val());
+		let pf =  parseInt( $("#pf").val());
+		let pper = parseInt((ps /(ps+pf)) *100);
+		if(isNaN(pper)){
+			pper = 0;
+		}
+		let es =  parseInt( $("#es").val());
+		let ef =  parseInt( $("#ef").val());
+		let eper = parseInt((es /(es+ef)) *100);
+		if(isNaN(eper)){
+			eper = 0;
+		}
+		
 
 
 		$("#persb").attr("style","width :" +sper+"%");

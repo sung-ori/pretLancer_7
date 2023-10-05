@@ -169,9 +169,11 @@
 	</update>
 	
 	<select id="todayPopular" resultType="Board">
+	SELECT * FROM (
 	SELECT * FROM Pret_board
 	WHERE inputdate >= (sysdate - INTERVAL '2' DAY)
-	ORDER BY RECOMMEND DESC
+	ORDER BY RECOMMEND DESC )
+	WHERE ROWNUM &lt;= 10
 	</select>
 	
 	<!-- 포인트 획득 -->
