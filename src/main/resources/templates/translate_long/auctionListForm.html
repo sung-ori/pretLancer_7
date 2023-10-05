@@ -105,7 +105,7 @@
                 <a class="lead" th:href="@{/long/auctionList?type=OT}">기타</a> /
             </div>
             <div th:each="auction, index : ${auctionList}" class="col-4 card shadow1">
-                <img th:src="@{/img/paper.png}" class="card-img-top" style="height: 50%;" alt="임시 서류 이모티콘">
+                <img th:src="@{/img/penNote.png}" class="card-img-top" style="height: 80%; width: 80%; position: absolute; top: -30px; left: 120px;" alt="임시 서류 이모티콘">
                 <div class="card-body">
                     <h3>카테고리</h3>
                     <h5 class="card-title"  th:text="${auction.category}"></h5>
