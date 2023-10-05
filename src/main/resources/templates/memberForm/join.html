@@ -95,18 +95,18 @@
 				dataType: 'json',
 				success: function(password) {
 					code = password;
-					alert("전송 성공!");
-					alert(password);
+					alert("이메일 전송 성공! 이메일을 확인해주세요.");
+					// alert(password);
 					$("#confirmBox").attr("style","display: ;");
 
 
 					
 				},
 				error: function(e,request, status, error) {
-					alert("전송 실패");
-					alert(JSON.stringify(e));
+					alert("이메일 전송 실패");
+					
 					console.log(JSON.stringify(e))
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					// alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				}
 			});
 		}; // End Of sendMail

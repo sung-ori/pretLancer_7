@@ -17,7 +17,6 @@ public interface TranslatedDAO {
 	void insertTM(Request_M rm);
 
 	Translated_S selectTS(int requestnum_s);
-
 	Translated_M selectTM(int requestnum_m);
 	
 	void submitTS(Translated_S ts);
@@ -31,10 +30,16 @@ public interface TranslatedDAO {
 	void cancelTM(Translated_M tm);
 
 	Translated_S getMyTS(Request_S myorderS);
-
 	Translated_M getMyTM(Request_M myorderM);
 
 	List<Translated_S> tsList(String username);
 	List<Translated_M> tmList(String username);
+	
+	// 마이페이지 - 내가 요청한 번역보기 페이지
+	Translated_S selectMyPageTS(Translated_S ts);
+	Translated_M selectMyPageTM(Translated_M tm);
+	// 마이페이지 - 내가 번역한 번역보기 페이지
+	Translated_S getMyTransTS(Translated_S ts);
+	Translated_M getMyTransTM(Translated_M tm);
 	
 }

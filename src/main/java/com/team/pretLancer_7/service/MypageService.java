@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.team.pretLancer_7.domain.Translated_S;
 import com.team.pretLancer_7.domain.Ability;
+import com.team.pretLancer_7.domain.Evaluation_M;
+import com.team.pretLancer_7.domain.Evaluation_S;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_M;
@@ -42,4 +44,13 @@ public interface MypageService {
 
 	public void changeProfile(MyPage mp);
 
+	public Translated_S getMyPageTS(Translated_S ts);
+	public Translated_M getMyPageTM(Translated_M tm);
+
+	public List<Evaluation_S> getWhyRS(int translatednum_s);
+	public List<Evaluation_M> getWhyRM(int translatednum_m);
+
+	public Translated_S getMyTransTS(Translated_S ts);
+	public Translated_M getMyTransTM(Translated_M tm);
+	
 }

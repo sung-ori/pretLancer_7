@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team.pretLancer_7.domain.Ability;
+import com.team.pretLancer_7.domain.Evaluation_M;
+import com.team.pretLancer_7.domain.Evaluation_S;
 import com.team.pretLancer_7.domain.Member;
 import com.team.pretLancer_7.domain.MyPage;
 import com.team.pretLancer_7.domain.Request_L;
@@ -331,10 +333,14 @@ public class MypageController {
     }
 
     @GetMapping("/readResult_S")
-    public String readResult_S(@RequestParam("requestnum_s") int requestnum_s, Model model) {
+    public String readResult_S(@AuthenticationPrincipal UserDetails user,
+    		@RequestParam("requestnum_s") int requestnum_s, Model model) {
 
         Request_S rql =  service.readRequestInfo_S(requestnum_s);
-        Translated_S ts = service.getTS(requestnum_s);
+        Translated_S sendTS = new Translated_S();
+        sendTS.setMemberid(user.getUsername());
+        sendTS.setRequestnum_s(requestnum_s);
+        Translated_S ts = service.getMyPageTS(sendTS);
         
         model.addAttribute("request", rql);
         model.addAttribute("translated", ts);
@@ -343,10 +349,14 @@ public class MypageController {
     }
 
     @GetMapping("/readResult_M")
-    public String readResult(@RequestParam("requestnum_m") int requestnum_m, Model model) {
+    public String readResult(@AuthenticationPrincipal UserDetails user,
+    		@RequestParam("requestnum_m") int requestnum_m, Model model) {
 
         Request_M rql =  service.readRequestInfo_M(requestnum_m);
-        Translated_M tm = service.getTM(requestnum_m);
+        Translated_M sendTM = new Translated_M();
+        sendTM.setMemberid(user.getUsername());
+        sendTM.setRequestnum_m(requestnum_m);
+        Translated_M tm = service.getMyPageTM(sendTM);
 
         model.addAttribute("request", rql);
         model.addAttribute("translated", tm);
@@ -355,26 +365,43 @@ public class MypageController {
     }
     
     @GetMapping("/readResultRequest_S")
-    public String readResultRequest_S(@RequestParam("requestnum_s") int requestnum_s, Model model) {
+    public String readResultRequest_S(@AuthenticationPrincipal UserDetails user,
+    		@RequestParam("requestnum_s") int requestnum_s, Model model) {
 
         Request_S rql =  service.readRequestInfo_S(requestnum_s);
-        Translated_S ts = service.getTS(requestnum_s);
+        Translated_S send = new Translated_S();
+        send.setRequestnum_s(requestnum_s);
+        send.setMemberid(user.getUsername());
+        Translated_S ts = service.getMyTransTS(send);
+        List<Evaluation_S> rs = service.getWhyRS(ts.getTranslatednum_s());
+        if (rs != null) {
+        	model.addAttribute("why", rs);
+        }
         
         model.addAttribute("request", rql);
         model.addAttribute("translated", ts);
-
+        
         return "/mypageform/resultRequestForm_S";
     }
 
     @GetMapping("/readResultRequest_M")
-    public String readResultRequest_M(@RequestParam("requestnum_m") int requestnum_m, Model model) {
+    public String readResultRequest_M(@AuthenticationPrincipal UserDetails user,
+    		@RequestParam("requestnum_m") int requestnum_m, Model model) {
 
         Request_M rql =  service.readRequestInfo_M(requestnum_m);
-        Translated_M tm = service.getTM(requestnum_m);
-
+        Translated_M send = new Translated_M();
+        send.setRequestnum_m(requestnum_m);
+        send.setMemberid(user.getUsername());
+        Translated_M tm = service.getMyTransTM(send);
+        log.error("Translated 가져왔나? {}", tm);
+        List<Evaluation_M> rm = service.getWhyRM(tm.getTranslatednum_m());
+        log.error("Evaluation whyFaild 가져왔나? {}", rm);
+	        if (rm != null) {
+	        	model.addAttribute("why", rm);
+	        }
         model.addAttribute("request", rql);
         model.addAttribute("translated", tm);
-
+        
         return "/mypageform/resultRequestForm_M";
     }
     

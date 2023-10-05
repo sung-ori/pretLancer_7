@@ -227,11 +227,14 @@ $(document).ready(function() {
         let requestnum =  $(this).attr("id");
         let condition = $(this).attr("value");
         
+        
         //condition == 'Y'로 바꿔놓을 것 || condition == 'E'
         if (condition == 'Y')
 	        window.open("http://localhost:8888/pretLancer/my_page/readResultRequest_S?requestnum_s="+requestnum ,'번역 결과 받기', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
-        else
-        	alert('평가가 최종적으로 완료되고 결과가 성공일 때에만 결과 확인이 가능합니다.');
+        else if (condition == 'E')
+        	alert('평가가 최종적으로 완료되야 결과 확인이 가능합니다.');
+        else 
+        	window.open("http://localhost:8888/pretLancer/my_page/readResultRequest_S?requestnum_s="+requestnum ,'번역 결과 받기', ' width='+openWidth+',height='+openHeight+', top='+top+', left='+left);
     }
 });	
 	  
@@ -313,8 +316,8 @@ $(document).ready(function() {
             <!-- 버튼 -->
             <td>
               <input th:if="${request.requestcondition_s} == 'E'" type="button"  class="btn btn-primary btn-sm" th:id="${request.requestnum_s}" value="평가 중">
-              <input th:if="${request.requestcondition_s} == 'F'" type="button"  class="btn btn-warning btn-sm" th:id="${request.requestnum_s}" value="평가 탈락">
               <input th:if="${request.requestcondition_s} == 'Y' " type="button"  class="btn btn-success btn-sm" th:id="${request.requestnum_s}" disabled="true" value="번역 완료">
+              <input th:unless="${request.requestcondition_s == 'E' or request.requestcondition_s == 'Y'}" type="button"  class="btn btn-warning btn-sm" th:id="${request.requestnum_s}" value="평가 탈락">
             </td>
 
           </tr>

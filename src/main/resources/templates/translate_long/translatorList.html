@@ -11,7 +11,7 @@
     <title>PretLancer_</title>
     <script>
         $(document).ready(function() {
-            $(".btn").click(openProfile);
+            $(".profile").click(openProfile);
 
             function openProfile() {
                 
@@ -34,6 +34,14 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:src="@{/js/snBarLoader.js}"></script>
     <!-- 고정바 -->
+    <style>
+    	.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}
+    </style>
 </head>
 <body>
 <div id="snBar-placeholder"></div>
@@ -47,12 +55,14 @@
             </header>
     <div class="container">
         <h1>번역가 리스트</h1>
+        <br>
+        <div class="btn-group" role="group">
+			    <a class="btn btn-primary " th:href="@{/long/request?type=ALL}">전체</a>
+			    <a class="btn btn-danger " th:href="@{/long/request?type=JP}">일본어 번역가</a>
+			    <a class="btn btn-success" th:href="@{/long/request?type=EN}">영어 번역가</a>
+			</div>
+		<br><br>
         <div class=" row container-fluid">
-            <div>
-                <strong ><a class="lead" th:href="@{/long/request?type=ALL}">   전체   </a></strong>/
-                <strong ><a class="lead" th:href="@{/long/request?type=JP}">   일본어 번역가   </a></strong>/
-                <strong ><a class="lead" th:href="@{/long/request?type=EN}">   영어 번역가   </a></strong>/
-            </div>
             <div th:each="translator, index : ${translatorList}" class="col-4 card">
                 <img th:if="${translator.originphoto}" th:src="@{/my_page/getPhoto(memberid=${translator.memberid})}" class="card-img-top" style="height: 50%;">
                 <div class="card-body">
@@ -64,7 +74,7 @@
                         <h4 class="card-title" ><span>번역 언어 : 영어</span></h4>
                     </div>
                     <h5 class="card-text"><strong>[[${translator.mem_level}]]</strong>등급</h5>
-                    <a th:id="${translator.memberid}" class="btn btn-primary">프로필 자세히 보기</a>
+                    <a th:id="${translator.memberid}" class="btn btn-primary profile">프로필 자세히 보기</a>
                 </div>
             
             </div>
