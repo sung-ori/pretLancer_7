@@ -231,11 +231,11 @@
 			</div> <!--컨테이너-->
 			</div> <!--col-8-->
 
-			<div class="col-4">
+			<div class="col-4" >
 				<div class="h2 text-center">오늘의 커뮤니티 랭킹</div>
 				<div class="shadow">
 					<table class="table table-striped rounded-3">
-						<tr th:each="community,index : ${community}" >
+						<tr th:each="community,index : ${community}"  >
 							<th >
 								<Stong><span th:text="${index.count}"></span> <span>위</span></Stong>
 							</th>
