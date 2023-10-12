@@ -9,14 +9,49 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <title>번역 상세정보</title>
 </head>
-<body>
+<style>
+    	.shadow1{
+    	 box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.7);
+    	}
+        .card {
+            margin-top: 50px;
+            padding: 20px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .detail-item {
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            width: 100px;
+            margin-right: 10px;
+        }
+        
+        .card {
+				    width: 400px; /* 원하는 폭으로 설정 */
+				    /* height: 400px;  카드의 높이를 설정하려면 이 줄의 주석을 해제하십시오. 하지만 일반적으로 내용의 높이에 따라 자동으로 조절하는 것이 좋습니다. */
+				    margin: 50px auto; /* 화면 중앙에 카드가 위치하도록 변경 */
+				    padding: 20px;
+				    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+				}
+    </style>
+<body style="background-color:#7576E8;">
     
-    <h1>번역 결과 돌려받는다. </h1>
+    <div class="container">
+	    <div class="card ">
+    	<h1 style="text-align:center; font-weight:bold;">돌아온 번역 결과</h1>
+    	<hr>
 
     <input type="hidden" id="requestnum" th:value="${request.requestnum_m}">
     <input type="hidden" id="memberid" th:value="${request.memberid}">
 
-    <div class="container">
         <div>
             <span>의뢰 날짜 : </span>
             <span th:text="${request.inputdate}">의뢰 날짜</span>
@@ -29,7 +64,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 
         <div>
             <span>번역 의뢰 원문 : </span>
-            <span class="h2 text-center" th:text="${request.requestcontent_m}">의뢰 원문</span>
+            <span class="h2 text-center" th:text="${request.requestcontent_m}" style="font-weight:bold;">의뢰 원문</span>
         </div><br>
         
         <div>
@@ -37,22 +72,21 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             <span th:text="${request.comment_mr}"></span>
         </div>
 
-		<br>
 		<hr>
-		<br>
+
 
 		<div>
             <span>내가 번역한 내용</span><br>
             <span th:text="${translated.translatedcontent_m}"></span>
-        </div><br><br>
-		
+        </div><br>
+        
 		<div>
             <span>나의 주석 및 참고사항</span><br>
             <span th:text="${translated.comment_mt}"></span>
         </div>
-       
-        <br><br>
-        <div th:if="${why != null}">
+		<hr>
+		
+        <div th:if="${why != null}" style="text-align:center;">
 		    <span>아래는 번역이 틀렸다고 답한 유저들의 이유입니다.</span>
 		    <ul th:each="whyItem : ${why}">
 		        <li th:if="${whyItem != null}">
@@ -66,8 +100,8 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 		        </li>
 		    </ul>
 		</div>
-		        
-    </div>
+		</div>    
+    	</div>
     
 </body>
 </html>

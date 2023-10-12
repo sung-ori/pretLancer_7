@@ -36,9 +36,59 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
         });
 
     </script>
+    <style>
+		.h1 {
+			color: white;	
+		}
+    	.move-right-50 {transform: translateX(300px);}
+		.custom-width {width: 1100px;}
+		.b {font-weight: bold;}
+		.shadow1{
+    	 box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.4);
+    	}
+    	
+    	.shadow1{
+    	 box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.7);
+    	}
+        .card {
+            margin-top: 50px;
+            padding: 20px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .detail-item {
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            width: 120px;
+            margin-right: 10px;
+        }
+        
+        .bt2 {
+            width: 170px;
+            margin-right: 10px;
+        }
+        
+        .card {
+				    width: 400px; /* 원하는 폭으로 설정 */
+				    /* height: 400px;  카드의 높이를 설정하려면 이 줄의 주석을 해제하십시오. 하지만 일반적으로 내용의 높이에 따라 자동으로 조절하는 것이 좋습니다. */
+				    margin: 50px auto; /* 화면 중앙에 카드가 위치하도록 변경 */
+				    padding: 20px;
+				    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+				}
+    </style>
 </head>
-<body>
+<body style="background-color: #7576E8;">
     <!-- 번역가가  번역할 건에 대한 상세정보 -->
+    <div class="container">
+    	<div class="card ">
     <h1>요청 상세 정보 (수락한 요청)</h1>
 
     <input type="hidden" id="requestnum" th:value="${request.requestnum_l}">
@@ -90,9 +140,11 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                 <label for="formFile" class="form-label">번역 완료 파일 업로드</label>
                 <input name="uploadfile" class="form-control" type="file" id="formFile">
             </form>
-            <input id="uploadBtn" type="button" class="btn btn-warning" value="번역 완료본 제출">
+            <input id="uploadBtn" type="button" class="btn btn-warning bt2" value="번역 완료본 제출">
         </div>
         
+    </div>
+    </div>
     </div>
     
 </body>

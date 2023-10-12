@@ -81,7 +81,7 @@ public class LongTranslateController {
     public String translatorProfile(Model model, @RequestParam(name="memberid") String memberid, @AuthenticationPrincipal UserDetails user ) {
         String loginId = user.getUsername();
         MyPage translatorProfile = service.getOneMyPage(memberid);
-        Ability ab = mService.getAbility(user.getUsername());
+        Ability ab = mService.getAbility(memberid);
 
         model.addAttribute("ability", ab);
         model.addAttribute("tp", translatorProfile);

@@ -79,6 +79,17 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:src="@{/js/snBarLoader.js}"></script>
 	<style>
+	
+	
+		.card.col-12{
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+		
     	.move-right-50 {transform: translateX(300px);}
 		.custom-width {width: 1100px;}
 		.b {font-weight: bold;}
@@ -89,11 +100,35 @@
 			border : solid 2px #EFF0F0;
 			border-radius : 5px;
 		}
+		
+		 .container {
+            margin-top: 20px;
+        }
+
+        .details {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .details h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .details span {
+            font-size: 18px;
+        }
+
+        .details hr {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
-<body>
+<body style="background-color:#7576E8;">
 
- <div id="main">
+ <div id="main" >
 
 
     <!-- 번역가의 상세 프로필 -->
@@ -117,8 +152,9 @@
     	<!-- 게이지바  -->
 
 		
-			
-		<div >
+		<div class="container">
+		<div class="card col-12 col-md-8 mx-auto shadow1">
+		<div>
 			<input type="hidden" id="ps" th:value="${ability.psucceed}">
 			<input type="hidden" id="pf" th:value="${ability.pfailed}">
 			<input type="hidden" id="ss" th:value="${ability.ssucceed}">
@@ -153,7 +189,8 @@
 				<div class="progress-bar bg-success" id="pereb" ></div>
 			</div>
 		</div>
-
+	</div>
+	</div>
 		
 
     <!-- <div id="main"> -->

@@ -306,7 +306,8 @@ IMP.request_pay({
                 "payment_method" : "kakaopay"
             },
             success: function(data) {
-                alert(data);
+				alert("충전이 완료 됐습니다.");
+                window.location.reload();
             },
             error: function(e) {
                 alert(JSON.stringify(e));
@@ -356,7 +357,8 @@ IMP.request_pay(
                     "payment_method" : "KG"
                 },
                 success: function(data) {
-                    alert(data);
+                    alert("충전이 완료 됐습니다.");
+				window.location.reload();
                 },
                 error: function(e) {
                     alert(JSON.stringify(e));

@@ -30,7 +30,7 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
                     return;
                 }
             }
-            alert("true");
+         
 
             $.ajax({
                 type:"GET",
@@ -79,14 +79,50 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
 
         }
     </script>
+    <style>
+    	.shadow1{
+    	 box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.7);
+    	}
+        .card {
+            margin-top: 50px;
+            padding: 20px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .detail-item {
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            width: 100px;
+            margin-right: 10px;
+        }
+        
+        .card {
+				    width: 400px; /* 원하는 폭으로 설정 */
+				    /* height: 400px;  카드의 높이를 설정하려면 이 줄의 주석을 해제하십시오. 하지만 일반적으로 내용의 높이에 따라 자동으로 조절하는 것이 좋습니다. */
+				    margin: 50px auto; /* 화면 중앙에 카드가 위치하도록 변경 */
+				    padding: 20px;
+				    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+				}
+    </style>
+
 </head>
-<body>
+<body style="background-color:#7576E8;">
     <!-- 번역가가 받은 요청의 상세정보 -->
-    <h1>요청 상세 정보</h1>
+    <div class="container">
+    	<div class="card ">
+    		<h1 style="text-align:center;">요청 상세 정보</h1>
+    		<hr>
 
     <input type="hidden" id="requestnum" th:value="${request.requestnum_l}">
-    <div class="container">
-        <div>
+        <div class="detail-item">
             <span>요청 제목 : </span>
             <span class="h2 text-center" th:text="${request.title}">요청 제목</span>
         </div>
@@ -123,10 +159,16 @@ xmlns:sec="http://www.thymleaf.org/extras/spring-security">
             <span th:if="${request.endlang == 'JP'}">일본어</span> 
             <span th:if="${request.endlang == 'EN'}">영어</span> 
         </div>
+        <hr>
+             <div class="d-flex justify-content-center">
+			    <div class="d-flex justify-content-end mt-3">
+			        <button type="button" id="accept" class="btn btn-primary">수락</button>
+			        <button type="button" id="refuse" class="btn btn-danger">거절</button>
+			    </div>
+			</div>
 
-            <button type="button" id="accept" class="btn btn-primary">수락</button>
-            <button type="button" id="refuse" class="btn btn-danger">거절</button>
+        </div>
     </div>
-    
+    <br><br>
 </body>
 </html>
